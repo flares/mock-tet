@@ -1,0 +1,815 @@
+{
+  "id": "paper2-mini-telugu-02",
+  "title": "Telugu Mini-Test - Chandassu - Test 1",
+  "type": "Mini-Test",
+  "conductingBody": "Central Board of Secondary Education",
+  "duration": 30,
+  "totalMarks": 30,
+  "totalQuestions": 30,
+  "negativeMarking": false,
+  "marksPerQuestion": 1,
+  "instructions": [
+    "This test comprises 30 questions, each carrying 1 mark.",
+    "All questions are compulsory. There is no negative marking for wrong answers.",
+    "The exam duration is 30 minutes.",
+    "The timer will start as soon as you click 'Start Test'. The test will auto-submit when the timer reaches 00:00:00.",
+    "Use the question palette on the right to navigate directly to any question.",
+    "Click 'Save & Next' to save your answer and move to the next question. Answers are NOT saved automatically.",
+    "Use 'Mark for Review & Next' to flag a question for later review. If you have answered it, the answer will still be counted.",
+    "Use 'Clear Response' to deselect your chosen option for the current question.",
+    "You can switch between sections at any time using the section tabs in the header.",
+    "Do not refresh or close the browser window during the exam — your progress is saved but it is not recommended.",
+    "Click 'Submit' to end the exam before the timer expires. A confirmation screen will appear."
+  ],
+  "sections": [
+    {
+      "id": "telugu",
+      "name": "Telugu",
+      "shortName": "Telugu",
+      "questionCount": 30,
+      "startIndex": 0
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "sectionId": "telugu",
+      "globalIndex": 0,
+      "text": "ఛందస్సు ప్రధానంగా ఏ అంశాన్ని అధ్యయనం చేస్తుంది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "పదాల వ్యుత్పత్తి మాత్రమే"
+        },
+        {
+          "key": "B",
+          "text": "పద్యంలోని అక్షర, మాత్ర, గతి నియమాలు"
+        },
+        {
+          "key": "C",
+          "text": "వాక్య విభక్తులు మాత్రమే"
+        },
+        {
+          "key": "D",
+          "text": "కథా పాత్రల లక్షణాలు"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "ఛందస్సు పద్యంలో అక్షరాలు, మాత్రలు, గణాలు, యతి, ప్రాస వంటి లయ నియమాలను పరిశీలిస్తుంది."
+    },
+    {
+      "id": "q2",
+      "sectionId": "telugu",
+      "globalIndex": 1,
+      "text": "పద్యంలో \"లఘువు\" సాధారణంగా ఎంత మాత్ర విలువ కలిగి ఉంటుంది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "ఒక మాత్ర"
+        },
+        {
+          "key": "B",
+          "text": "రెండు మాత్రలు"
+        },
+        {
+          "key": "C",
+          "text": "మూడు మాత్రలు"
+        },
+        {
+          "key": "D",
+          "text": "నాలుగు మాత్రలు"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "హ్రస్వ స్వరంతో ముగిసే సరళ అక్షరం సాధారణంగా ఒక మాత్ర విలువ గల లఘువుగా పరిగణించబడుతుంది."
+    },
+    {
+      "id": "q3",
+      "sectionId": "telugu",
+      "globalIndex": 2,
+      "text": "పద్యంలో \"గురువు\" సాధారణంగా ఎంత మాత్ర విలువ కలిగి ఉంటుంది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "అర మాత్ర"
+        },
+        {
+          "key": "B",
+          "text": "ఒక మాత్ర"
+        },
+        {
+          "key": "C",
+          "text": "రెండు మాత్రలు"
+        },
+        {
+          "key": "D",
+          "text": "ఐదు మాత్రలు"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "దీర్ఘ స్వరం లేదా సంయుక్తాక్షర ప్రభావం ఉన్న అక్షరం సాధారణంగా రెండు మాత్రల గురువుగా పరిగణించబడుతుంది."
+    },
+    {
+      "id": "q4",
+      "sectionId": "telugu",
+      "globalIndex": 3,
+      "text": "\"గణం\" అంటే ఏమిటి?",
+      "options": [
+        {
+          "key": "A",
+          "text": "పద్యంలోని మూడు అక్షరాల సమూహం"
+        },
+        {
+          "key": "B",
+          "text": "పద్యంలో చివరి పదం మాత్రమే"
+        },
+        {
+          "key": "C",
+          "text": "కవిపేరు మాత్రమే"
+        },
+        {
+          "key": "D",
+          "text": "విరామ చిహ్నం"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "వృత్త ఛందస్సులో లఘు-గురు క్రమం ఆధారంగా మూడు అక్షరాల సమూహాన్ని గణం అంటారు."
+    },
+    {
+      "id": "q5",
+      "sectionId": "telugu",
+      "globalIndex": 4,
+      "text": "\"యమాతారాజభానసలగం\" అనే సూత్రం ఎందుకు ఉపయోగిస్తారు?",
+      "options": [
+        {
+          "key": "A",
+          "text": "గణాలను గుర్తుంచుకోవడానికి"
+        },
+        {
+          "key": "B",
+          "text": "విభక్తులను రాయడానికి"
+        },
+        {
+          "key": "C",
+          "text": "సమాసాలను విడదీయడానికి"
+        },
+        {
+          "key": "D",
+          "text": "కథారచనకు శీర్షిక పెట్టడానికి"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "ఈ సూత్రం ఎనిమిది గణాల పేర్లు మరియు లఘు-గురు క్రమాలను గుర్తుంచుకోవడానికి సహాయపడుతుంది."
+    },
+    {
+      "id": "q6",
+      "sectionId": "telugu",
+      "globalIndex": 5,
+      "text": "మగణం యొక్క లఘు-గురు క్రమం ఏది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "లఘు లఘు లఘు"
+        },
+        {
+          "key": "B",
+          "text": "గురు గురు గురు"
+        },
+        {
+          "key": "C",
+          "text": "గురు లఘు లఘు"
+        },
+        {
+          "key": "D",
+          "text": "లఘు గురు లఘు"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "మగణం మూడు గురువులతో ఏర్పడే గణం."
+    },
+    {
+      "id": "q7",
+      "sectionId": "telugu",
+      "globalIndex": 6,
+      "text": "యగణం యొక్క సాధారణ క్రమం ఏది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "లఘు గురు గురు"
+        },
+        {
+          "key": "B",
+          "text": "గురు గురు గురు"
+        },
+        {
+          "key": "C",
+          "text": "గురు లఘు గురు"
+        },
+        {
+          "key": "D",
+          "text": "లఘు లఘు లఘు"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "యగణం లఘు తరువాత రెండు గురువులు వచ్చే క్రమంగా గుర్తించబడుతుంది."
+    },
+    {
+      "id": "q8",
+      "sectionId": "telugu",
+      "globalIndex": 7,
+      "text": "రగణం యొక్క సాధారణ క్రమం ఏది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "గురు లఘు గురు"
+        },
+        {
+          "key": "B",
+          "text": "లఘు లఘు గురు"
+        },
+        {
+          "key": "C",
+          "text": "గురు గురు గురు"
+        },
+        {
+          "key": "D",
+          "text": "లఘు గురు లఘు"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "రగణం గురు-లఘు-గురు క్రమాన్ని సూచిస్తుంది."
+    },
+    {
+      "id": "q9",
+      "sectionId": "telugu",
+      "globalIndex": 8,
+      "text": "తగణం యొక్క సాధారణ క్రమం ఏది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "గురు గురు లఘు"
+        },
+        {
+          "key": "B",
+          "text": "లఘు గురు గురు"
+        },
+        {
+          "key": "C",
+          "text": "లఘు లఘు గురు"
+        },
+        {
+          "key": "D",
+          "text": "గురు లఘు గురు"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "తగణం రెండు గురువులు తరువాత ఒక లఘువు వచ్చే క్రమం."
+    },
+    {
+      "id": "q10",
+      "sectionId": "telugu",
+      "globalIndex": 9,
+      "text": "భగణం యొక్క సాధారణ క్రమం ఏది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "గురు లఘు లఘు"
+        },
+        {
+          "key": "B",
+          "text": "లఘు గురు లఘు"
+        },
+        {
+          "key": "C",
+          "text": "లఘు లఘు గురు"
+        },
+        {
+          "key": "D",
+          "text": "గురు గురు గురు"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "భగణం గురు తరువాత రెండు లఘువులు వచ్చే క్రమం."
+    },
+    {
+      "id": "q11",
+      "sectionId": "telugu",
+      "globalIndex": 10,
+      "text": "జగణం యొక్క సాధారణ క్రమం ఏది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "లఘు గురు లఘు"
+        },
+        {
+          "key": "B",
+          "text": "గురు లఘు లఘు"
+        },
+        {
+          "key": "C",
+          "text": "లఘు లఘు లఘు"
+        },
+        {
+          "key": "D",
+          "text": "గురు గురు లఘు"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "జగణం లఘు-గురు-లఘు క్రమంతో ఏర్పడుతుంది."
+    },
+    {
+      "id": "q12",
+      "sectionId": "telugu",
+      "globalIndex": 11,
+      "text": "సగణం యొక్క సాధారణ క్రమం ఏది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "లఘు లఘు గురు"
+        },
+        {
+          "key": "B",
+          "text": "గురు లఘు గురు"
+        },
+        {
+          "key": "C",
+          "text": "గురు గురు లఘు"
+        },
+        {
+          "key": "D",
+          "text": "లఘు గురు గురు"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "సగణం రెండు లఘువులు తరువాత ఒక గురువు వచ్చే క్రమం."
+    },
+    {
+      "id": "q13",
+      "sectionId": "telugu",
+      "globalIndex": 12,
+      "text": "నగణం యొక్క సాధారణ క్రమం ఏది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "లఘు లఘు లఘు"
+        },
+        {
+          "key": "B",
+          "text": "గురు గురు గురు"
+        },
+        {
+          "key": "C",
+          "text": "లఘు గురు గురు"
+        },
+        {
+          "key": "D",
+          "text": "గురు లఘు లఘు"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "నగణం మూడు లఘువులతో ఏర్పడే గణం."
+    },
+    {
+      "id": "q14",
+      "sectionId": "telugu",
+      "globalIndex": 13,
+      "text": "పద్యంలో \"యతి\" అంటే ఏమిటి?",
+      "options": [
+        {
+          "key": "A",
+          "text": "నిర్ణీత స్థానంలో వచ్చే విరామం"
+        },
+        {
+          "key": "B",
+          "text": "చివరి అక్షర సాదృశ్యం మాత్రమే"
+        },
+        {
+          "key": "C",
+          "text": "పద్య రచయిత పేరు"
+        },
+        {
+          "key": "D",
+          "text": "పద్యంలో మొదటి అక్షరం"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "పద్యపాదంలో లయను నిలబెట్టే విధంగా నిర్ణీత స్థానంలో వచ్చే విరామాన్ని యతి అంటారు."
+    },
+    {
+      "id": "q15",
+      "sectionId": "telugu",
+      "globalIndex": 14,
+      "text": "పద్యంలో \"ప్రాస\" అంటే ఏమిటి?",
+      "options": [
+        {
+          "key": "A",
+          "text": "పాదాలలో నిర్ణీత అక్షర సాదృశ్యం"
+        },
+        {
+          "key": "B",
+          "text": "అక్షరాల సంఖ్య మాత్రమే"
+        },
+        {
+          "key": "C",
+          "text": "పద్యానికి అర్థం లేకపోవడం"
+        },
+        {
+          "key": "D",
+          "text": "వాక్యంలో క్రియ లేకపోవడం"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "పాదాల మధ్య ఒకే స్థానంలో ఒకే ధ్వని లేదా అక్షర సాదృశ్యం రావడం ప్రాస."
+    },
+    {
+      "id": "q16",
+      "sectionId": "telugu",
+      "globalIndex": 15,
+      "text": "తెలుగు పద్యంలో రెండవ అక్షరంలో సాధారణంగా పాటించే ప్రాసను ఏమంటారు?",
+      "options": [
+        {
+          "key": "A",
+          "text": "ద్వితీయాక్షర ప్రాస"
+        },
+        {
+          "key": "B",
+          "text": "అంత్యప్రాస"
+        },
+        {
+          "key": "C",
+          "text": "యతి"
+        },
+        {
+          "key": "D",
+          "text": "లఘువు"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "తెలుగు సంప్రదాయ పద్యంలో పాదాల రెండవ అక్షరంలో సాదృశ్యం ఉండే ద్వితీయాక్షర ప్రాస ముఖ్యమైనది."
+    },
+    {
+      "id": "q17",
+      "sectionId": "telugu",
+      "globalIndex": 16,
+      "text": "\"అంత్యప్రాస\" అంటే ఏమిటి?",
+      "options": [
+        {
+          "key": "A",
+          "text": "పాదాంతాల్లో ధ్వని సాదృశ్యం"
+        },
+        {
+          "key": "B",
+          "text": "పాదారంభంలో మాత్రమే విరామం"
+        },
+        {
+          "key": "C",
+          "text": "మధ్యలో అర్థ విరామం"
+        },
+        {
+          "key": "D",
+          "text": "గణాల లెక్కింపు"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "పాదాల చివరలో ఒకే ధ్వని లేదా సమాన ధ్వని రావడాన్ని అంత్యప్రాస అంటారు."
+    },
+    {
+      "id": "q18",
+      "sectionId": "telugu",
+      "globalIndex": 17,
+      "text": "అక్షరాల సంఖ్య ఆధారంగా నడిచే ఛందస్సును సాధారణంగా ఏమంటారు?",
+      "options": [
+        {
+          "key": "A",
+          "text": "అక్షర ఛందస్సు"
+        },
+        {
+          "key": "B",
+          "text": "మాత్రా ఛందస్సు"
+        },
+        {
+          "key": "C",
+          "text": "గద్యరచన"
+        },
+        {
+          "key": "D",
+          "text": "సంధి"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "ప్రతి పాదంలో అక్షరాల సంఖ్య ప్రధానంగా నిర్ణయించే ఛందస్సు అక్షర ఛందస్సు."
+    },
+    {
+      "id": "q19",
+      "sectionId": "telugu",
+      "globalIndex": 18,
+      "text": "మాత్రల సంఖ్య ఆధారంగా నడిచే ఛందస్సును ఏమంటారు?",
+      "options": [
+        {
+          "key": "A",
+          "text": "మాత్రా ఛందస్సు"
+        },
+        {
+          "key": "B",
+          "text": "అక్షర ఛందస్సు"
+        },
+        {
+          "key": "C",
+          "text": "సమాసం"
+        },
+        {
+          "key": "D",
+          "text": "విభక్తి"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "ప్రతి పాదంలో మాత్రల సంఖ్య ప్రధానంగా ఉండే ఛందస్సు మాత్రా ఛందస్సు."
+    },
+    {
+      "id": "q20",
+      "sectionId": "telugu",
+      "globalIndex": 19,
+      "text": "వృత్తంలో సాధారణంగా ఏది స్థిరంగా ఉంటుంది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "ప్రతి పాదంలోని గణాల క్రమం"
+        },
+        {
+          "key": "B",
+          "text": "కథలోని పాత్రలు"
+        },
+        {
+          "key": "C",
+          "text": "కవి వయస్సు"
+        },
+        {
+          "key": "D",
+          "text": "వాక్యాల సంఖ్య"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "వృత్త పద్యంలో పాదాల గణ క్రమం, లఘు-గురు క్రమం నిర్ణీతంగా ఉంటుంది."
+    },
+    {
+      "id": "q21",
+      "sectionId": "telugu",
+      "globalIndex": 20,
+      "text": "\"ఉత్పలమాల\" ఏ వర్గానికి దగ్గరగా పరిగణించబడుతుంది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "వృత్తం"
+        },
+        {
+          "key": "B",
+          "text": "గద్యరూపం"
+        },
+        {
+          "key": "C",
+          "text": "సమాసం"
+        },
+        {
+          "key": "D",
+          "text": "విభక్తి"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "ఉత్పలమాల ఒక ప్రసిద్ధ వృత్త ఛందస్సు."
+    },
+    {
+      "id": "q22",
+      "sectionId": "telugu",
+      "globalIndex": 21,
+      "text": "\"చంపకమాల\" ఏదికి ఉదాహరణ?",
+      "options": [
+        {
+          "key": "A",
+          "text": "వృత్త ఛందస్సు"
+        },
+        {
+          "key": "B",
+          "text": "సంధి రూపం"
+        },
+        {
+          "key": "C",
+          "text": "నాటక సంభాషణ"
+        },
+        {
+          "key": "D",
+          "text": "వ్యాకరణ ప్రత్యయం"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "చంపకమాల తెలుగు పద్యాల్లో కనిపించే వృత్త ఛందస్సులలో ఒకటి."
+    },
+    {
+      "id": "q23",
+      "sectionId": "telugu",
+      "globalIndex": 22,
+      "text": "\"తేటగీతి\" సాధారణంగా ఏ రకపు తెలుగు పద్యానికి ఉదాహరణ?",
+      "options": [
+        {
+          "key": "A",
+          "text": "జాతి పద్యం"
+        },
+        {
+          "key": "B",
+          "text": "శ్లోకం మాత్రమే"
+        },
+        {
+          "key": "C",
+          "text": "సమాస పదం"
+        },
+        {
+          "key": "D",
+          "text": "గద్య వాక్యం"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "తేటగీతి తెలుగు దేశీ ఛందస్సుల్లో ప్రసిద్ధమైన జాతి పద్యంగా పరిగణించబడుతుంది."
+    },
+    {
+      "id": "q24",
+      "sectionId": "telugu",
+      "globalIndex": 23,
+      "text": "\"ఆటవెలది\" గురించి సరైన వాక్యం ఏది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "ఇది తెలుగు దేశీ ఛందస్సులో కనిపించే పద్యరూపం"
+        },
+        {
+          "key": "B",
+          "text": "ఇది కేవలం సంధి నియమం"
+        },
+        {
+          "key": "C",
+          "text": "ఇది విభక్తి పేరు"
+        },
+        {
+          "key": "D",
+          "text": "ఇది కేవలం గద్యరూపం"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "ఆటవెలది తెలుగు పద్య సంప్రదాయంలో కనిపించే దేశీ ఛందస్సు రూపం."
+    },
+    {
+      "id": "q25",
+      "sectionId": "telugu",
+      "globalIndex": 24,
+      "text": "పద్యాన్ని ఛందస్సు ప్రకారం పరిశీలించేటప్పుడు మొదట చేయవలసిన పని ఏమిటి?",
+      "options": [
+        {
+          "key": "A",
+          "text": "అక్షరాలను విడదీసి లఘు-గురు గుర్తించడం"
+        },
+        {
+          "key": "B",
+          "text": "కవి చిత్రాన్ని గీయడం"
+        },
+        {
+          "key": "C",
+          "text": "కథను మార్చడం"
+        },
+        {
+          "key": "D",
+          "text": "అన్ని పదాలను తొలగించడం"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "ఛందస్సు నిర్ణయానికి అక్షర విభజన మరియు లఘు-గురు గుర్తింపు పునాది."
+    },
+    {
+      "id": "q26",
+      "sectionId": "telugu",
+      "globalIndex": 25,
+      "text": "దీర్ఘ స్వరంతో ఉన్న అక్షరం సాధారణంగా ఎలా పరిగణించబడుతుంది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "గురువు"
+        },
+        {
+          "key": "B",
+          "text": "లఘువు"
+        },
+        {
+          "key": "C",
+          "text": "ప్రాస"
+        },
+        {
+          "key": "D",
+          "text": "యతి"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "దీర్ఘ స్వరం ఎక్కువ కాలం పలకబడుతుంది కాబట్టి సాధారణంగా గురువుగా లెక్కిస్తారు."
+    },
+    {
+      "id": "q27",
+      "sectionId": "telugu",
+      "globalIndex": 26,
+      "text": "హ్రస్వ స్వరంతో ముగిసే సరళ అక్షరం సాధారణంగా ఎలా పరిగణించబడుతుంది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "లఘువు"
+        },
+        {
+          "key": "B",
+          "text": "గురువు"
+        },
+        {
+          "key": "C",
+          "text": "యతి"
+        },
+        {
+          "key": "D",
+          "text": "గణం"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "హ్రస్వ స్వరం తక్కువ కాలం పలకబడుతుంది కాబట్టి సరళ సందర్భంలో లఘువుగా పరిగణిస్తారు."
+    },
+    {
+      "id": "q28",
+      "sectionId": "telugu",
+      "globalIndex": 27,
+      "text": "సంయుక్తాక్షరానికి ముందు వచ్చే హ్రస్వ స్వరం పద్యంలో సాధారణంగా ఎలా మారుతుంది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "గురువుగా పరిగణించబడుతుంది"
+        },
+        {
+          "key": "B",
+          "text": "ఎప్పుడూ లఘువుగానే ఉంటుంది"
+        },
+        {
+          "key": "C",
+          "text": "ప్రాసగా మారుతుంది"
+        },
+        {
+          "key": "D",
+          "text": "యతిగా మారుతుంది"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "సంయుక్తాక్షర ప్రభావం వల్ల హ్రస్వ స్వరం కూడా గురు మాత్ర విలువ పొందుతుంది."
+    },
+    {
+      "id": "q29",
+      "sectionId": "telugu",
+      "globalIndex": 28,
+      "text": "ఛందస్సు బోధనలో విద్యార్థులకు గణాలు అర్థం కావడానికి ఉత్తమ పద్ధతి ఏది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "లఘు-గురు చిహ్నాలతో పద్యపాదాలను విడగొట్టి సాధన చేయించడం"
+        },
+        {
+          "key": "B",
+          "text": "నిర్వచనం మాత్రమే కంఠస్థం చేయించడం"
+        },
+        {
+          "key": "C",
+          "text": "పద్యాలను చదవకుండా ఉంచడం"
+        },
+        {
+          "key": "D",
+          "text": "అన్ని ప్రశ్నలకు ఒకే జవాబు చెప్పడం"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "గణాలు అనుభవాత్మకంగా అర్థం కావాలంటే పద్యపాదాలను గుర్తులు పెట్టి విశ్లేషించే సాధన అవసరం."
+    },
+    {
+      "id": "q30",
+      "sectionId": "telugu",
+      "globalIndex": 29,
+      "text": "ఛందస్సులో యతి, ప్రాస పాటించడం వల్ల పద్యానికి ప్రధానంగా ఏమి లభిస్తుంది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "లయ, మాధుర్యం, శ్రావ్యత"
+        },
+        {
+          "key": "B",
+          "text": "గద్యరూపం మాత్రమే"
+        },
+        {
+          "key": "C",
+          "text": "అర్థరహిత పదాలు"
+        },
+        {
+          "key": "D",
+          "text": "విభక్తుల లేమి"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "యతి, ప్రాస పద్యంలో శబ్ద సౌందర్యం, లయ, వినసొంపును పెంచుతాయి."
+    }
+  ]
+}
