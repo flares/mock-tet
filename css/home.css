@@ -118,46 +118,45 @@
   font-size: 13px;
 }
 
-/* ── Toolbar + tabs ── */
-.home-toolbar {
+/* ── Header nav (Exam Papers | Syllabus) ── */
+.site-header__nav {
+  margin-left: auto;
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
 }
 
-.home-tabs {
-  display: flex;
-  border-bottom: 2px solid var(--color-panel-border);
-  gap: 0;
-}
-
-.home-tab-btn {
-  padding: 8px 22px;
+.header-nav-btn {
+  padding: 6px 16px;
   border: none;
-  background: none;
+  background: rgba(255,255,255,0.08);
+  color: #c8ddf0;
   font-size: 13px;
   font-weight: 600;
-  color: #666;
+  border-radius: var(--border-radius-sm);
   cursor: pointer;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -2px;
-  transition: color var(--transition-fast), border-color var(--transition-fast);
+  transition: background var(--transition-fast), color var(--transition-fast);
 }
 
-.home-tab-btn.active {
-  color: #1a3a5c;
-  border-bottom-color: var(--color-tab-active-bg);
+.header-nav-btn:hover {
+  background: rgba(255,255,255,0.16);
+  color: #fff;
 }
 
-.home-tab-btn:not(.active):hover {
-  color: #1a3a5c;
+.header-nav-btn.active {
+  background: var(--color-tab-active-bg);
+  color: #1a1a1a;
 }
 
 .home-tab-pane { display: none; }
 .home-tab-pane.active { display: block; }
+
+/* ── Toolbar (clear-all only) ── */
+.home-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
 
 /* ── Extra button sizes ── */
 .btn--sm  { padding: 6px 14px; font-size: 12px; }

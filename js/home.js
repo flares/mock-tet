@@ -4,10 +4,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   const RESULT_KEY   = 'tet_result_';
 
   // ── Tab switching ──────────────────────────────────────────────────────────
-  document.querySelectorAll('.home-tab-btn').forEach(btn => {
+  document.querySelectorAll('.header-nav-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const target = btn.dataset.tab;
-      document.querySelectorAll('.home-tab-btn').forEach(b =>
+      document.querySelectorAll('.header-nav-btn').forEach(b =>
         b.classList.toggle('active', b.dataset.tab === target));
       document.querySelectorAll('.home-tab-pane').forEach(p =>
         p.classList.toggle('active', p.id === `tab-${target}`));
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const cls = a.pct >= 60 ? 'att--good' : a.pct >= 40 ? 'att--avg' : 'att--low';
       const date = new Date(a.ts).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
       const num  = attempts.length - i;
-      return `<span class="${cls}" title="Attempt ${num} · ${date} · ${a.correct}✓ ${a.incorrect}✗ ${a.unattempted}—">${a.pct.toFixed(0)}%</span>`;
+      return `<span class="${cls}" title="Attempt ${num} · ${date} · ${a.pct.toFixed(0)}%">${a.correct}&#10003; ${a.incorrect}&#10007;</span>`;
     }).join('');
 
     let trend = '';
