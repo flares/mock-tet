@@ -11,6 +11,18 @@
       "totalMarks": 150,
       "negativeMarking": false,
       "file": "exams/paper2-full-01.json"
+    },
+    {
+      "id": "paper2-full-02",
+      "title": "CTET Paper 2 - Telugu Medium - Test 2",
+      "subtitle": "Child Development & Pedagogy, English, Telugu, Mathematics, Science",
+      "type": "Paper 2",
+      "targetClasses": "Classes VI-VIII (+ IX-X extension)",
+      "duration": 150,
+      "totalQuestions": 150,
+      "totalMarks": 150,
+      "negativeMarking": false,
+      "file": "exams/paper2-full-02.json"
     }
   ]
 }
