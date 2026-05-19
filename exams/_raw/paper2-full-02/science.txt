@@ -1,0 +1,209 @@
+Q1 Which nutrient is mainly needed for body-building and repair?
+A) Carbohydrate
+B) Protein *
+C) Water
+D) Roughage
+E Proteins support growth and repair of body tissues.
+
+Q2 Deficiency of vitamin C causes:
+A) rickets
+B) scurvy *
+C) night blindness
+D) goitre
+E Scurvy is caused by vitamin C deficiency and may lead to bleeding gums and weakness.
+
+Q3 The process used to separate grain from chaff by wind is:
+A) filtration
+B) winnowing *
+C) distillation
+D) chromatography
+E Winnowing separates heavier grains from lighter chaff using moving air.
+
+Q4 Which fibre is synthetic?
+A) Cotton
+B) Wool
+C) Jute
+D) Nylon *
+E Nylon is a man-made synthetic fibre, unlike cotton, wool, and jute.
+
+Q5 Litmus turns red in:
+A) acidic solution *
+B) basic solution
+C) neutral salt only
+D) pure oil
+E Blue litmus turns red in acidic solutions.
+
+Q6 A thermosetting plastic is:
+A) polythene
+B) PVC
+C) bakelite *
+D) nylon thread
+E Bakelite hardens permanently on heating and cannot be remoulded.
+
+Q7 The atomic number of an element equals the number of:
+A) neutrons
+B) protons *
+C) molecules
+D) shells only
+E Atomic number is defined by the number of protons in the nucleus.
+
+Q8 Isotopes of an element have:
+A) same atomic number but different mass number *
+B) different atomic number but same mass number
+C) no protons
+D) identical neutron number always
+E Isotopes have the same protons but different neutrons, so their mass numbers differ.
+
+Q9 The functional group in ethanol is:
+A) -COOH
+B) -OH *
+C) -CHO
+D) -CO-
+E Ethanol is an alcohol and contains the hydroxyl group, -OH.
+
+Q10 The basic structural and functional unit of life is:
+A) tissue
+B) cell *
+C) organ
+D) organ system
+E Cells are the smallest living units capable of carrying out life processes.
+
+Q11 Mitochondria are known as the powerhouse of the cell because they:
+A) store hereditary material
+B) release energy through respiration *
+C) make proteins only
+D) give green colour
+E Mitochondria produce ATP during cellular respiration.
+
+Q12 Xylem mainly transports:
+A) prepared food
+B) water and minerals *
+C) hormones only
+D) carbon dioxide
+E Xylem carries water and dissolved minerals from roots to other parts of the plant.
+
+Q13 Binary fission is a form of:
+A) asexual reproduction *
+B) sexual reproduction
+C) pollination
+D) seed dispersal
+E In binary fission one parent cell divides into two daughter cells without gametes.
+
+Q14 In a food chain, producers are usually:
+A) green plants *
+B) carnivores
+C) decomposers only
+D) parasites only
+E Green plants produce food by photosynthesis and form the first trophic level.
+
+Q15 A reflex arc includes:
+A) receptor, sensory neuron, spinal cord, motor neuron, effector *
+B) only heart and lungs
+C) only endocrine glands
+D) only bones
+E A reflex arc is the neural pathway for a quick automatic response.
+
+Q16 The SI unit of force is:
+A) joule
+B) watt
+C) newton *
+D) pascal-hour
+E Force is measured in newtons in the SI system.
+
+Q17 Newton's first law is also called the law of:
+A) inertia *
+B) gravitation
+C) reflection
+D) conservation of charge
+E The first law states that a body resists change in its state of motion, which is inertia.
+
+Q18 Ohm's law states:
+A) V = IR *
+B) P = VI only
+C) F = ma
+D) E = mc2
+E Ohm's law relates potential difference, current, and resistance as V=IR.
+
+Q19 A convex lens is used to correct:
+A) myopia with diverging lens
+B) hypermetropia *
+C) colour blindness
+D) night blindness
+E Hypermetropia is corrected using a converging, or convex, lens.
+
+Q20 The gas mainly responsible for ozone layer depletion is:
+A) oxygen
+B) nitrogen
+C) chlorofluorocarbon *
+D) helium
+E CFCs release chlorine radicals that destroy ozone molecules in the stratosphere.
+
+Q21 Inquiry-based science teaching begins with:
+A) a question or problem to investigate *
+B) copying definitions only
+C) banning observation
+D) final marks first
+E Inquiry learning starts from curiosity, questions, observation, evidence, and explanation.
+
+Q22 A good science experiment should have:
+A) uncontrolled variables only
+B) a fair test with controlled variables *
+C) no observation
+D) no record of data
+E Controlling variables helps test the effect of one factor reliably.
+
+Q23 Concept cartoons are useful because they:
+A) expose misconceptions for discussion *
+B) replace all experiments
+C) prevent questioning
+D) give only final answers
+E Concept cartoons present alternative ideas and help students debate evidence and misconceptions.
+
+Q24 A common misconception about plants is that they:
+A) respire only at night *
+B) need water
+C) contain cells
+D) grow from seeds
+E Plants respire all the time, though photosynthesis occurs only in light.
+
+Q25 Laboratory work should be assessed by:
+A) only final written marks
+B) observation of skills, safety, records, and reasoning *
+C) neat uniform only
+D) speed alone
+E Practical assessment includes process skills, safe handling, data recording, and interpretation.
+
+Q26 A model of the human heart is useful because it:
+A) makes an invisible internal structure easier to visualise *
+B) proves all details perfectly
+C) removes the need for explanation
+D) prevents questions
+E Models help students visualise structures and relationships, though their limits should be discussed.
+
+Q27 Environmental education in science should promote:
+A) awareness, responsibility, and sustainable action *
+B) memorisation without action
+C) ignoring local problems
+D) wasting resources
+E Science education connects environmental concepts with responsible decisions and sustainable practices.
+
+Q28 An exit ticket is an example of:
+A) formative assessment *
+B) annual certification only
+C) punishment
+D) laboratory equipment
+E Exit tickets quickly reveal what students understood at the end of a lesson.
+
+Q29 Teaching weight and mass should clarify that:
+A) mass and weight are identical everywhere
+B) mass is amount of matter, weight is gravitational force *
+C) weight has no unit
+D) mass changes with location like weight
+E Mass measures matter, while weight depends on gravitational force acting on that mass.
+
+Q30 STEM integration encourages students to:
+A) connect science, technology, engineering, and mathematics in problem solving *
+B) study each idea without application
+C) avoid design tasks
+D) memorise only definitions
+E STEM tasks integrate concepts and practices across disciplines to solve real problems.

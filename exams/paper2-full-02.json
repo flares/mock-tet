@@ -1,0 +1,3963 @@
+{
+  "id": "paper2-full-02",
+  "title": "CTET Paper 2 - Telugu Medium - Test 2",
+  "type": "Paper 2",
+  "conductingBody": "Central Board of Secondary Education",
+  "duration": 150,
+  "totalMarks": 150,
+  "totalQuestions": 150,
+  "negativeMarking": false,
+  "marksPerQuestion": 1,
+  "instructions": [
+    "This test comprises 150 questions, each carrying 1 mark.",
+    "All questions are compulsory. There is no negative marking for wrong answers.",
+    "The exam duration is 2 hours and 30 minutes (150 minutes).",
+    "The timer will start as soon as you click 'Start Test'. The test will auto-submit when the timer reaches 00:00:00.",
+    "Use the question palette on the right to navigate directly to any question.",
+    "Click 'Save & Next' to save your answer and move to the next question. Answers are NOT saved automatically.",
+    "Use 'Mark for Review & Next' to flag a question for later review. If you have answered it, the answer will still be counted.",
+    "Use 'Clear Response' to deselect your chosen option for the current question.",
+    "You can switch between sections at any time using the section tabs in the header.",
+    "Do not refresh or close the browser window during the exam — your progress is saved but it is not recommended.",
+    "Click 'Submit' to end the exam before the timer expires. A confirmation screen will appear."
+  ],
+  "sections": [
+    {
+      "id": "cdp",
+      "name": "Child Development & Pedagogy",
+      "shortName": "CDP",
+      "questionCount": 30,
+      "startIndex": 0
+    },
+    {
+      "id": "english",
+      "name": "English",
+      "shortName": "English",
+      "questionCount": 30,
+      "startIndex": 30
+    },
+    {
+      "id": "telugu",
+      "name": "Telugu",
+      "shortName": "Telugu",
+      "questionCount": 30,
+      "startIndex": 60
+    },
+    {
+      "id": "math",
+      "name": "Mathematics",
+      "shortName": "Math",
+      "questionCount": 30,
+      "startIndex": 90
+    },
+    {
+      "id": "science",
+      "name": "Science",
+      "shortName": "Science",
+      "questionCount": 30,
+      "startIndex": 120
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "sectionId": "cdp",
+      "globalIndex": 0,
+      "text": "Which principle of development states that children gain control of the head before the legs?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Proximodistal principle"
+        },
+        {
+          "key": "B",
+          "text": "Cephalocaudal principle"
+        },
+        {
+          "key": "C",
+          "text": "Principle of uniformity"
+        },
+        {
+          "key": "D",
+          "text": "Principle of discontinuity"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Cephalocaudal development proceeds from head to toe, so head and neck control appear before leg control."
+    },
+    {
+      "id": "q2",
+      "sectionId": "cdp",
+      "globalIndex": 1,
+      "text": "In Piaget's theory, conservation of number generally develops during which stage?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Sensorimotor"
+        },
+        {
+          "key": "B",
+          "text": "Pre-operational"
+        },
+        {
+          "key": "C",
+          "text": "Concrete operational"
+        },
+        {
+          "key": "D",
+          "text": "Formal operational"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Concrete operational children can conserve number, mass, and volume when they can reason about concrete transformations."
+    },
+    {
+      "id": "q3",
+      "sectionId": "cdp",
+      "globalIndex": 2,
+      "text": "Vygotsky's Zone of Proximal Development refers to the gap between:",
+      "options": [
+        {
+          "key": "A",
+          "text": "inherited ability and classroom marks"
+        },
+        {
+          "key": "B",
+          "text": "what a learner can do alone and with guidance"
+        },
+        {
+          "key": "C",
+          "text": "school curriculum and home language"
+        },
+        {
+          "key": "D",
+          "text": "physical age and mental age"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "ZPD describes tasks a learner cannot yet do independently but can complete with support from a more knowledgeable person."
+    },
+    {
+      "id": "q4",
+      "sectionId": "cdp",
+      "globalIndex": 3,
+      "text": "A teacher giving hints and gradually withdrawing help is using:",
+      "options": [
+        {
+          "key": "A",
+          "text": "reinforcement"
+        },
+        {
+          "key": "B",
+          "text": "scaffolding"
+        },
+        {
+          "key": "C",
+          "text": "punishment"
+        },
+        {
+          "key": "D",
+          "text": "maturation"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Scaffolding is temporary support that is reduced as the learner becomes more competent."
+    },
+    {
+      "id": "q5",
+      "sectionId": "cdp",
+      "globalIndex": 4,
+      "text": "Kohlberg's conventional level of moral development is mainly guided by:",
+      "options": [
+        {
+          "key": "A",
+          "text": "obedience to avoid punishment only"
+        },
+        {
+          "key": "B",
+          "text": "social approval and law-and-order thinking"
+        },
+        {
+          "key": "C",
+          "text": "universal ethical principles"
+        },
+        {
+          "key": "D",
+          "text": "reflexive biological needs"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "At the conventional level, children judge actions by social expectations, approval, rules, and authority."
+    },
+    {
+      "id": "q6",
+      "sectionId": "cdp",
+      "globalIndex": 5,
+      "text": "Gardner's theory helps teachers understand that intelligence is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "a single fixed IQ score"
+        },
+        {
+          "key": "B",
+          "text": "limited to linguistic ability"
+        },
+        {
+          "key": "C",
+          "text": "expressed in multiple forms"
+        },
+        {
+          "key": "D",
+          "text": "unrelated to learning"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Multiple intelligences include linguistic, logical, spatial, bodily, musical, interpersonal, intrapersonal, and naturalistic abilities."
+    },
+    {
+      "id": "q7",
+      "sectionId": "cdp",
+      "globalIndex": 6,
+      "text": "Erikson's stage most associated with adolescence is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "trust versus mistrust"
+        },
+        {
+          "key": "B",
+          "text": "initiative versus guilt"
+        },
+        {
+          "key": "C",
+          "text": "identity versus role confusion"
+        },
+        {
+          "key": "D",
+          "text": "integrity versus despair"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Adolescents explore values, roles, and self-concept, making identity formation the key psychosocial task."
+    },
+    {
+      "id": "q8",
+      "sectionId": "cdp",
+      "globalIndex": 7,
+      "text": "The strongest example of gender stereotyping in a classroom is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "asking all students to clean their desks"
+        },
+        {
+          "key": "B",
+          "text": "assigning leadership roles only to boys"
+        },
+        {
+          "key": "C",
+          "text": "forming mixed-ability groups"
+        },
+        {
+          "key": "D",
+          "text": "using examples from daily life"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Giving leadership only to boys reinforces a social belief that leadership is male, which is a gender stereotype."
+    },
+    {
+      "id": "q9",
+      "sectionId": "cdp",
+      "globalIndex": 8,
+      "text": "A learner with dyscalculia is most likely to need support in:",
+      "options": [
+        {
+          "key": "A",
+          "text": "reading musical notation"
+        },
+        {
+          "key": "B",
+          "text": "understanding numbers and arithmetic"
+        },
+        {
+          "key": "C",
+          "text": "hearing classroom instructions"
+        },
+        {
+          "key": "D",
+          "text": "controlling eye movement"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Dyscalculia is a specific learning difficulty that affects number sense, calculation, and mathematical reasoning."
+    },
+    {
+      "id": "q10",
+      "sectionId": "cdp",
+      "globalIndex": 9,
+      "text": "Universal Design for Learning mainly asks teachers to provide:",
+      "options": [
+        {
+          "key": "A",
+          "text": "identical worksheets for all learners"
+        },
+        {
+          "key": "B",
+          "text": "multiple means of engagement, representation, and expression"
+        },
+        {
+          "key": "C",
+          "text": "only oral tests"
+        },
+        {
+          "key": "D",
+          "text": "separate classrooms for children with disabilities"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "UDL reduces barriers by offering varied ways to access content, stay engaged, and show learning."
+    },
+    {
+      "id": "q11",
+      "sectionId": "cdp",
+      "globalIndex": 10,
+      "text": "In an inclusive classroom, the teacher should first:",
+      "options": [
+        {
+          "key": "A",
+          "text": "lower expectations for children with disabilities"
+        },
+        {
+          "key": "B",
+          "text": "identify barriers and adapt teaching strategies"
+        },
+        {
+          "key": "C",
+          "text": "exclude difficult topics"
+        },
+        {
+          "key": "D",
+          "text": "ask parents to teach the child at home"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Inclusion keeps high expectations while changing supports, materials, and assessment methods to remove barriers."
+    },
+    {
+      "id": "q12",
+      "sectionId": "cdp",
+      "globalIndex": 11,
+      "text": "A child who learns by observing a peer solve a problem illustrates:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Bandura's social learning theory"
+        },
+        {
+          "key": "B",
+          "text": "Pavlov's classical conditioning"
+        },
+        {
+          "key": "C",
+          "text": "Spearman's g factor"
+        },
+        {
+          "key": "D",
+          "text": "Kohlberg's moral dilemma"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Bandura emphasized observational learning, modelling, imitation, and vicarious reinforcement."
+    },
+    {
+      "id": "q13",
+      "sectionId": "cdp",
+      "globalIndex": 12,
+      "text": "In Skinner's operant conditioning, a reward given after a desired response is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "negative punishment"
+        },
+        {
+          "key": "B",
+          "text": "positive reinforcement"
+        },
+        {
+          "key": "C",
+          "text": "extinction"
+        },
+        {
+          "key": "D",
+          "text": "spontaneous recovery"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Positive reinforcement adds a pleasant consequence to increase the likelihood of the behavior."
+    },
+    {
+      "id": "q14",
+      "sectionId": "cdp",
+      "globalIndex": 13,
+      "text": "Intrinsic motivation is best shown when a student studies because:",
+      "options": [
+        {
+          "key": "A",
+          "text": "the teacher promises a prize"
+        },
+        {
+          "key": "B",
+          "text": "parents demand high marks"
+        },
+        {
+          "key": "C",
+          "text": "the topic is personally interesting"
+        },
+        {
+          "key": "D",
+          "text": "a punishment is expected"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Intrinsic motivation comes from curiosity, interest, satisfaction, or a sense of competence."
+    },
+    {
+      "id": "q15",
+      "sectionId": "cdp",
+      "globalIndex": 14,
+      "text": "Formative assessment is primarily used to:",
+      "options": [
+        {
+          "key": "A",
+          "text": "rank students at the end of the year"
+        },
+        {
+          "key": "B",
+          "text": "support learning during instruction"
+        },
+        {
+          "key": "C",
+          "text": "replace teaching"
+        },
+        {
+          "key": "D",
+          "text": "certify school completion"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Formative assessment provides feedback during learning so teaching and learning strategies can be adjusted."
+    },
+    {
+      "id": "q16",
+      "sectionId": "cdp",
+      "globalIndex": 15,
+      "text": "A child-centered classroom is characterized by:",
+      "options": [
+        {
+          "key": "A",
+          "text": "strict lecturing for the whole period"
+        },
+        {
+          "key": "B",
+          "text": "active participation and learner choice"
+        },
+        {
+          "key": "C",
+          "text": "memorisation without discussion"
+        },
+        {
+          "key": "D",
+          "text": "punishment for wrong answers"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Child-centered teaching values active exploration, participation, and learning experiences connected to the learner."
+    },
+    {
+      "id": "q17",
+      "sectionId": "cdp",
+      "globalIndex": 16,
+      "text": "Assimilation in Piaget's theory means:",
+      "options": [
+        {
+          "key": "A",
+          "text": "changing an existing schema to fit new information"
+        },
+        {
+          "key": "B",
+          "text": "fitting new information into an existing schema"
+        },
+        {
+          "key": "C",
+          "text": "copying adult behavior"
+        },
+        {
+          "key": "D",
+          "text": "forgetting unused knowledge"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Assimilation occurs when a child interprets a new experience using an existing mental structure."
+    },
+    {
+      "id": "q18",
+      "sectionId": "cdp",
+      "globalIndex": 17,
+      "text": "Accommodation occurs when a learner:",
+      "options": [
+        {
+          "key": "A",
+          "text": "changes a schema after new evidence"
+        },
+        {
+          "key": "B",
+          "text": "repeats a memorised answer"
+        },
+        {
+          "key": "C",
+          "text": "receives a reward"
+        },
+        {
+          "key": "D",
+          "text": "avoids a task"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Accommodation modifies existing mental structures when current schemas do not explain new experiences."
+    },
+    {
+      "id": "q19",
+      "sectionId": "cdp",
+      "globalIndex": 18,
+      "text": "The Right to Education Act 2009 emphasizes education for children aged:",
+      "options": [
+        {
+          "key": "A",
+          "text": "3 to 6 years"
+        },
+        {
+          "key": "B",
+          "text": "6 to 14 years"
+        },
+        {
+          "key": "C",
+          "text": "14 to 18 years"
+        },
+        {
+          "key": "D",
+          "text": "18 to 21 years"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "The RTE Act makes free and compulsory education a right for children from 6 to 14 years of age."
+    },
+    {
+      "id": "q20",
+      "sectionId": "cdp",
+      "globalIndex": 19,
+      "text": "A diagnostic test in learning is mainly used to:",
+      "options": [
+        {
+          "key": "A",
+          "text": "award certificates"
+        },
+        {
+          "key": "B",
+          "text": "locate specific learning difficulties"
+        },
+        {
+          "key": "C",
+          "text": "compare schools"
+        },
+        {
+          "key": "D",
+          "text": "select only gifted learners"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Diagnostic assessment identifies the nature and causes of learning problems so remediation can be planned."
+    },
+    {
+      "id": "q21",
+      "sectionId": "cdp",
+      "globalIndex": 20,
+      "text": "A teacher encourages students to give more than one solution to a problem. This promotes:",
+      "options": [
+        {
+          "key": "A",
+          "text": "rote learning"
+        },
+        {
+          "key": "B",
+          "text": "divergent thinking"
+        },
+        {
+          "key": "C",
+          "text": "fixed response training"
+        },
+        {
+          "key": "D",
+          "text": "mechanical repetition"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Divergent thinking involves generating multiple possible solutions or ideas."
+    },
+    {
+      "id": "q22",
+      "sectionId": "cdp",
+      "globalIndex": 21,
+      "text": "In Maslow's hierarchy, which need must be addressed before a hungry child can focus well on learning?",
+      "options": [
+        {
+          "key": "A",
+          "text": "self-actualisation"
+        },
+        {
+          "key": "B",
+          "text": "aesthetic need"
+        },
+        {
+          "key": "C",
+          "text": "physiological need"
+        },
+        {
+          "key": "D",
+          "text": "prestige need"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Physiological needs such as food, water, and rest are basic needs that strongly affect attention and learning."
+    },
+    {
+      "id": "q23",
+      "sectionId": "cdp",
+      "globalIndex": 22,
+      "text": "Which is a constructivist teaching practice?",
+      "options": [
+        {
+          "key": "A",
+          "text": "giving definitions for copying only"
+        },
+        {
+          "key": "B",
+          "text": "letting students build concepts through activities"
+        },
+        {
+          "key": "C",
+          "text": "punishing every incorrect answer"
+        },
+        {
+          "key": "D",
+          "text": "asking only recall questions"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Constructivism views learners as active makers of meaning through experience, discussion, and reflection."
+    },
+    {
+      "id": "q24",
+      "sectionId": "cdp",
+      "globalIndex": 23,
+      "text": "A portfolio is useful because it:",
+      "options": [
+        {
+          "key": "A",
+          "text": "records only the final exam score"
+        },
+        {
+          "key": "B",
+          "text": "shows growth through collected work over time"
+        },
+        {
+          "key": "C",
+          "text": "eliminates teacher feedback"
+        },
+        {
+          "key": "D",
+          "text": "compares one child with the whole class"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Portfolios document progress, effort, feedback, and reflection across a period of learning."
+    },
+    {
+      "id": "q25",
+      "sectionId": "cdp",
+      "globalIndex": 24,
+      "text": "A child with ADHD may especially require:",
+      "options": [
+        {
+          "key": "A",
+          "text": "long silent copying tasks only"
+        },
+        {
+          "key": "B",
+          "text": "clear routines, short tasks, and movement breaks"
+        },
+        {
+          "key": "C",
+          "text": "exclusion from group work"
+        },
+        {
+          "key": "D",
+          "text": "removal from all academic tasks"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "ADHD support often includes structured routines, brief instructions, active tasks, and positive reinforcement."
+    },
+    {
+      "id": "q26",
+      "sectionId": "cdp",
+      "globalIndex": 25,
+      "text": "NCF 2005 strongly recommends:",
+      "options": [
+        {
+          "key": "A",
+          "text": "learning without understanding"
+        },
+        {
+          "key": "B",
+          "text": "connecting knowledge to life outside school"
+        },
+        {
+          "key": "C",
+          "text": "banning local examples"
+        },
+        {
+          "key": "D",
+          "text": "replacing assessment with punishment"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "NCF 2005 emphasizes constructivist learning, reducing rote load, and linking school knowledge with life."
+    },
+    {
+      "id": "q27",
+      "sectionId": "cdp",
+      "globalIndex": 26,
+      "text": "NEP 2020 highlights which approach for foundational and school learning?",
+      "options": [
+        {
+          "key": "A",
+          "text": "rigid separation of subjects"
+        },
+        {
+          "key": "B",
+          "text": "multilingualism and experiential learning"
+        },
+        {
+          "key": "C",
+          "text": "only annual board exams"
+        },
+        {
+          "key": "D",
+          "text": "no vocational exposure"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "NEP 2020 values mother tongue, experiential learning, flexibility, skills, and competency-based education."
+    },
+    {
+      "id": "q28",
+      "sectionId": "cdp",
+      "globalIndex": 27,
+      "text": "Emotional intelligence includes the ability to:",
+      "options": [
+        {
+          "key": "A",
+          "text": "solve only algebraic problems"
+        },
+        {
+          "key": "B",
+          "text": "recognize and manage emotions"
+        },
+        {
+          "key": "C",
+          "text": "memorise historical dates"
+        },
+        {
+          "key": "D",
+          "text": "ignore social relationships"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Emotional intelligence involves awareness, regulation, empathy, motivation, and social skills."
+    },
+    {
+      "id": "q29",
+      "sectionId": "cdp",
+      "globalIndex": 28,
+      "text": "Individual differences mean that teachers should:",
+      "options": [
+        {
+          "key": "A",
+          "text": "teach every child in exactly one way"
+        },
+        {
+          "key": "B",
+          "text": "use varied strategies and flexible assessment"
+        },
+        {
+          "key": "C",
+          "text": "ignore learners who are slow"
+        },
+        {
+          "key": "D",
+          "text": "give only competitive tasks"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Learners differ in readiness, interests, pace, background, and learning preferences, so teaching must be flexible."
+    },
+    {
+      "id": "q30",
+      "sectionId": "cdp",
+      "globalIndex": 29,
+      "text": "Peer influence during adolescence is important because adolescents:",
+      "options": [
+        {
+          "key": "A",
+          "text": "stop needing social approval"
+        },
+        {
+          "key": "B",
+          "text": "seek identity and belonging"
+        },
+        {
+          "key": "C",
+          "text": "cannot think abstractly at all"
+        },
+        {
+          "key": "D",
+          "text": "have no emotional changes"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Adolescents often explore identity and social belonging through peer relationships."
+    },
+    {
+      "id": "q31",
+      "sectionId": "english",
+      "globalIndex": 30,
+      "text": "Read: \"The village library opened its doors before sunrise, and children arrived carrying notebooks.\" What does this suggest?",
+      "options": [
+        {
+          "key": "A",
+          "text": "The library was unpopular"
+        },
+        {
+          "key": "B",
+          "text": "The children were eager to learn"
+        },
+        {
+          "key": "C",
+          "text": "The library opened only at night"
+        },
+        {
+          "key": "D",
+          "text": "The notebooks were being sold"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Early arrival with notebooks suggests enthusiasm and readiness for learning."
+    },
+    {
+      "id": "q32",
+      "sectionId": "english",
+      "globalIndex": 31,
+      "text": "In the phrase \"a fragile promise\", the word fragile means:",
+      "options": [
+        {
+          "key": "A",
+          "text": "strong"
+        },
+        {
+          "key": "B",
+          "text": "easily broken"
+        },
+        {
+          "key": "C",
+          "text": "expensive"
+        },
+        {
+          "key": "D",
+          "text": "hidden"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Fragile means delicate or easily damaged, so a fragile promise may not be reliable."
+    },
+    {
+      "id": "q33",
+      "sectionId": "english",
+      "globalIndex": 32,
+      "text": "The tone of a passage that praises community effort is most likely:",
+      "options": [
+        {
+          "key": "A",
+          "text": "appreciative"
+        },
+        {
+          "key": "B",
+          "text": "sarcastic"
+        },
+        {
+          "key": "C",
+          "text": "fearful"
+        },
+        {
+          "key": "D",
+          "text": "indifferent"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Praise for shared effort usually creates an appreciative tone."
+    },
+    {
+      "id": "q34",
+      "sectionId": "english",
+      "globalIndex": 33,
+      "text": "An inference question asks the learner to:",
+      "options": [
+        {
+          "key": "A",
+          "text": "copy a sentence exactly"
+        },
+        {
+          "key": "B",
+          "text": "read between the lines"
+        },
+        {
+          "key": "C",
+          "text": "count punctuation marks"
+        },
+        {
+          "key": "D",
+          "text": "identify only the title"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Inference requires using textual clues and prior knowledge to understand implied meaning."
+    },
+    {
+      "id": "q35",
+      "sectionId": "english",
+      "globalIndex": 34,
+      "text": "The main idea of a paragraph is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "the least important detail"
+        },
+        {
+          "key": "B",
+          "text": "the central point"
+        },
+        {
+          "key": "C",
+          "text": "the longest word"
+        },
+        {
+          "key": "D",
+          "text": "the first punctuation mark"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "The main idea is the central message that supporting details develop."
+    },
+    {
+      "id": "q36",
+      "sectionId": "english",
+      "globalIndex": 35,
+      "text": "A synonym for \"reluctant\" is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "unwilling"
+        },
+        {
+          "key": "B",
+          "text": "joyful"
+        },
+        {
+          "key": "C",
+          "text": "rapid"
+        },
+        {
+          "key": "D",
+          "text": "silent"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Reluctant means unwilling or hesitant to do something."
+    },
+    {
+      "id": "q37",
+      "sectionId": "english",
+      "globalIndex": 36,
+      "text": "Which sentence uses the past perfect correctly?",
+      "options": [
+        {
+          "key": "A",
+          "text": "She has finished before he arrived."
+        },
+        {
+          "key": "B",
+          "text": "She had finished before he arrived."
+        },
+        {
+          "key": "C",
+          "text": "She finishes before he arrived."
+        },
+        {
+          "key": "D",
+          "text": "She finishing before he arrived."
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Past perfect describes an action completed before another past action."
+    },
+    {
+      "id": "q38",
+      "sectionId": "english",
+      "globalIndex": 37,
+      "text": "\"The wind whispered through the trees\" is an example of:",
+      "options": [
+        {
+          "key": "A",
+          "text": "simile"
+        },
+        {
+          "key": "B",
+          "text": "personification"
+        },
+        {
+          "key": "C",
+          "text": "hyperbole"
+        },
+        {
+          "key": "D",
+          "text": "alliteration only"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Personification gives a human action, whispering, to the wind."
+    },
+    {
+      "id": "q39",
+      "sectionId": "english",
+      "globalIndex": 38,
+      "text": "A context clue is useful because it helps learners:",
+      "options": [
+        {
+          "key": "A",
+          "text": "ignore unknown words"
+        },
+        {
+          "key": "B",
+          "text": "guess meaning from surrounding text"
+        },
+        {
+          "key": "C",
+          "text": "skip comprehension"
+        },
+        {
+          "key": "D",
+          "text": "avoid reading"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Nearby words and sentences often provide clues to the meaning of an unfamiliar word."
+    },
+    {
+      "id": "q40",
+      "sectionId": "english",
+      "globalIndex": 39,
+      "text": "A cohesive paragraph should have:",
+      "options": [
+        {
+          "key": "A",
+          "text": "unrelated sentences"
+        },
+        {
+          "key": "B",
+          "text": "logical links between sentences"
+        },
+        {
+          "key": "C",
+          "text": "only complex words"
+        },
+        {
+          "key": "D",
+          "text": "no topic sentence"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Cohesion comes from sequence, reference words, connectors, and a clear focus."
+    },
+    {
+      "id": "q41",
+      "sectionId": "english",
+      "globalIndex": 40,
+      "text": "The communicative approach to language teaching emphasizes:",
+      "options": [
+        {
+          "key": "A",
+          "text": "memorising grammar rules only"
+        },
+        {
+          "key": "B",
+          "text": "meaningful use of language in context"
+        },
+        {
+          "key": "C",
+          "text": "translating every sentence"
+        },
+        {
+          "key": "D",
+          "text": "silent copying"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Communicative Language Teaching focuses on using language for real communication."
+    },
+    {
+      "id": "q42",
+      "sectionId": "english",
+      "globalIndex": 41,
+      "text": "Krashen's Input Hypothesis suggests that learners benefit from input that is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "far below their level"
+        },
+        {
+          "key": "B",
+          "text": "slightly above their current level"
+        },
+        {
+          "key": "C",
+          "text": "only in grammar tables"
+        },
+        {
+          "key": "D",
+          "text": "never meaningful"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Comprehensible input at i+1 is just beyond the learner's present competence."
+    },
+    {
+      "id": "q43",
+      "sectionId": "english",
+      "globalIndex": 42,
+      "text": "Language acquisition differs from language learning because acquisition is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "natural and subconscious"
+        },
+        {
+          "key": "B",
+          "text": "always written"
+        },
+        {
+          "key": "C",
+          "text": "based only on tests"
+        },
+        {
+          "key": "D",
+          "text": "unrelated to exposure"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Acquisition is a natural, meaningful, often subconscious process similar to first-language development."
+    },
+    {
+      "id": "q44",
+      "sectionId": "english",
+      "globalIndex": 43,
+      "text": "LSRW stands for:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Listening, Speaking, Reading, Writing"
+        },
+        {
+          "key": "B",
+          "text": "Learning, Scoring, Revising, Working"
+        },
+        {
+          "key": "C",
+          "text": "Looking, Saying, Repeating, Waiting"
+        },
+        {
+          "key": "D",
+          "text": "Language, Science, Reading, Words"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "LSRW represents the four major language skills."
+    },
+    {
+      "id": "q45",
+      "sectionId": "english",
+      "globalIndex": 44,
+      "text": "A pre-reading activity should mainly:",
+      "options": [
+        {
+          "key": "A",
+          "text": "activate prior knowledge"
+        },
+        {
+          "key": "B",
+          "text": "give final marks"
+        },
+        {
+          "key": "C",
+          "text": "correct every spelling error"
+        },
+        {
+          "key": "D",
+          "text": "stop discussion"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Pre-reading tasks prepare learners by connecting topic, vocabulary, and background knowledge."
+    },
+    {
+      "id": "q46",
+      "sectionId": "english",
+      "globalIndex": 45,
+      "text": "Process writing includes:",
+      "options": [
+        {
+          "key": "A",
+          "text": "only final copying"
+        },
+        {
+          "key": "B",
+          "text": "planning, drafting, revising, and editing"
+        },
+        {
+          "key": "C",
+          "text": "punishment for errors"
+        },
+        {
+          "key": "D",
+          "text": "reading without writing"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Process writing treats writing as stages of improvement, not only a final product."
+    },
+    {
+      "id": "q47",
+      "sectionId": "english",
+      "globalIndex": 46,
+      "text": "Functional grammar is best taught by:",
+      "options": [
+        {
+          "key": "A",
+          "text": "isolating rules from all context"
+        },
+        {
+          "key": "B",
+          "text": "showing how grammar creates meaning in real texts"
+        },
+        {
+          "key": "C",
+          "text": "banning examples"
+        },
+        {
+          "key": "D",
+          "text": "using only definitions"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Functional grammar connects language forms to purpose and meaning in context."
+    },
+    {
+      "id": "q48",
+      "sectionId": "english",
+      "globalIndex": 47,
+      "text": "In a Telugu-medium classroom, using Telugu strategically while teaching English can:",
+      "options": [
+        {
+          "key": "A",
+          "text": "support comprehension and confidence"
+        },
+        {
+          "key": "B",
+          "text": "prevent all English learning"
+        },
+        {
+          "key": "C",
+          "text": "remove the need for practice"
+        },
+        {
+          "key": "D",
+          "text": "make assessment impossible"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Learners' first language can scaffold understanding and reduce anxiety while English exposure grows."
+    },
+    {
+      "id": "q49",
+      "sectionId": "english",
+      "globalIndex": 48,
+      "text": "A portfolio in English assessment may include:",
+      "options": [
+        {
+          "key": "A",
+          "text": "only attendance"
+        },
+        {
+          "key": "B",
+          "text": "drafts, reading logs, and reflections"
+        },
+        {
+          "key": "C",
+          "text": "only final exam marks"
+        },
+        {
+          "key": "D",
+          "text": "unrelated drawings only"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Portfolios collect evidence of language growth across tasks and time."
+    },
+    {
+      "id": "q50",
+      "sectionId": "english",
+      "globalIndex": 49,
+      "text": "Remedial teaching begins with:",
+      "options": [
+        {
+          "key": "A",
+          "text": "diagnosing the learner's specific difficulty"
+        },
+        {
+          "key": "B",
+          "text": "giving the same test again"
+        },
+        {
+          "key": "C",
+          "text": "ignoring errors"
+        },
+        {
+          "key": "D",
+          "text": "increasing homework blindly"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Remediation should address identified gaps such as decoding, vocabulary, fluency, or grammar use."
+    },
+    {
+      "id": "q51",
+      "sectionId": "english",
+      "globalIndex": 50,
+      "text": "A learner who reads accurately but too slowly needs support in:",
+      "options": [
+        {
+          "key": "A",
+          "text": "handwriting only"
+        },
+        {
+          "key": "B",
+          "text": "reading fluency"
+        },
+        {
+          "key": "C",
+          "text": "punctuation naming"
+        },
+        {
+          "key": "D",
+          "text": "translation only"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Fluency involves accuracy, speed, expression, and smooth meaning-making."
+    },
+    {
+      "id": "q52",
+      "sectionId": "english",
+      "globalIndex": 51,
+      "text": "The Direct Method discourages:",
+      "options": [
+        {
+          "key": "A",
+          "text": "oral interaction"
+        },
+        {
+          "key": "B",
+          "text": "use of the mother tongue for translation"
+        },
+        {
+          "key": "C",
+          "text": "listening practice"
+        },
+        {
+          "key": "D",
+          "text": "vocabulary in context"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "The Direct Method emphasizes target-language use and avoids translation."
+    },
+    {
+      "id": "q53",
+      "sectionId": "english",
+      "globalIndex": 52,
+      "text": "Grammar-Translation Method mainly focuses on:",
+      "options": [
+        {
+          "key": "A",
+          "text": "interaction in real situations"
+        },
+        {
+          "key": "B",
+          "text": "translation and explicit grammar rules"
+        },
+        {
+          "key": "C",
+          "text": "pronunciation through songs"
+        },
+        {
+          "key": "D",
+          "text": "free conversation only"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Grammar-Translation teaches rules and vocabulary through translation and written exercises."
+    },
+    {
+      "id": "q54",
+      "sectionId": "english",
+      "globalIndex": 53,
+      "text": "A good speaking activity for language development is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "silent copying"
+        },
+        {
+          "key": "B",
+          "text": "role play based on a real situation"
+        },
+        {
+          "key": "C",
+          "text": "marking attendance"
+        },
+        {
+          "key": "D",
+          "text": "memorising word lists only"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Role play gives learners meaningful oral practice with purpose and audience."
+    },
+    {
+      "id": "q55",
+      "sectionId": "english",
+      "globalIndex": 54,
+      "text": "Intensive reading involves:",
+      "options": [
+        {
+          "key": "A",
+          "text": "close reading of a short text for detail"
+        },
+        {
+          "key": "B",
+          "text": "reading many books quickly"
+        },
+        {
+          "key": "C",
+          "text": "avoiding vocabulary"
+        },
+        {
+          "key": "D",
+          "text": "listening only"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Intensive reading focuses on detailed comprehension, language features, and careful analysis."
+    },
+    {
+      "id": "q56",
+      "sectionId": "english",
+      "globalIndex": 55,
+      "text": "Extensive reading helps learners by:",
+      "options": [
+        {
+          "key": "A",
+          "text": "increasing pleasure reading and vocabulary exposure"
+        },
+        {
+          "key": "B",
+          "text": "replacing all instruction"
+        },
+        {
+          "key": "C",
+          "text": "preventing independent reading"
+        },
+        {
+          "key": "D",
+          "text": "focusing only on spelling tests"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Extensive reading builds fluency, confidence, vocabulary, and reading habit through larger amounts of text."
+    },
+    {
+      "id": "q57",
+      "sectionId": "english",
+      "globalIndex": 56,
+      "text": "Peer assessment in writing is useful when:",
+      "options": [
+        {
+          "key": "A",
+          "text": "criteria are clear and respectful feedback is taught"
+        },
+        {
+          "key": "B",
+          "text": "students insult each other"
+        },
+        {
+          "key": "C",
+          "text": "no rubric is provided"
+        },
+        {
+          "key": "D",
+          "text": "marks are random"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Peer assessment works when learners use criteria to give constructive feedback."
+    },
+    {
+      "id": "q58",
+      "sectionId": "english",
+      "globalIndex": 57,
+      "text": "A multilingual classroom should be viewed as:",
+      "options": [
+        {
+          "key": "A",
+          "text": "a problem to be punished"
+        },
+        {
+          "key": "B",
+          "text": "a resource for learning"
+        },
+        {
+          "key": "C",
+          "text": "a reason to stop reading"
+        },
+        {
+          "key": "D",
+          "text": "evidence of low intelligence"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Multiple languages can support comparison, meaning-making, identity, and participation."
+    },
+    {
+      "id": "q59",
+      "sectionId": "english",
+      "globalIndex": 58,
+      "text": "Decoding in reading means:",
+      "options": [
+        {
+          "key": "A",
+          "text": "understanding body language"
+        },
+        {
+          "key": "B",
+          "text": "connecting letters and sounds to read words"
+        },
+        {
+          "key": "C",
+          "text": "writing long essays"
+        },
+        {
+          "key": "D",
+          "text": "translating every sentence"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Decoding is the process of using letter-sound knowledge to recognize written words."
+    },
+    {
+      "id": "q60",
+      "sectionId": "english",
+      "globalIndex": 59,
+      "text": "The best correction strategy for a speaking activity is to:",
+      "options": [
+        {
+          "key": "A",
+          "text": "interrupt every error immediately"
+        },
+        {
+          "key": "B",
+          "text": "note key errors and give feedback after communication"
+        },
+        {
+          "key": "C",
+          "text": "avoid all feedback"
+        },
+        {
+          "key": "D",
+          "text": "punish pronunciation mistakes"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "During fluency work, delayed feedback protects communication while still supporting improvement."
+    },
+    {
+      "id": "q61",
+      "sectionId": "telugu",
+      "globalIndex": 60,
+      "text": "\"పాఠశాల తోటలో పిల్లలు మొక్కలు నాటారు. ప్రతి రోజు నీరు పోసి వాటి పెరుగుదలను గమనించారు.\" ఈ వాక్యాలలో పిల్లల ముఖ్యమైన చర్య ఏమిటి?",
+      "options": [
+        {
+          "key": "A",
+          "text": "పుస్తకాలు అమ్మడం"
+        },
+        {
+          "key": "B",
+          "text": "మొక్కలు నాటి సంరక్షించడం"
+        },
+        {
+          "key": "C",
+          "text": "ఆటలు ఆడకపోవడం"
+        },
+        {
+          "key": "D",
+          "text": "పాఠశాల మూసివేయడం"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "పిల్లలు మొక్కలు నాటడం, నీరు పోయడం, పెరుగుదలను గమనించడం ద్వారా సంరక్షణ చేశారు."
+    },
+    {
+      "id": "q62",
+      "sectionId": "telugu",
+      "globalIndex": 61,
+      "text": "\"అభివృద్ధి\" అనే పదానికి దగ్గర అర్థం ఏది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "వెనుకడుగు"
+        },
+        {
+          "key": "B",
+          "text": "పురోగతి"
+        },
+        {
+          "key": "C",
+          "text": "అలసట"
+        },
+        {
+          "key": "D",
+          "text": "నిశ్శబ్దం"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "అభివృద్ధి అంటే మెరుగుదల లేదా పురోగతి."
+    },
+    {
+      "id": "q63",
+      "sectionId": "telugu",
+      "globalIndex": 62,
+      "text": "ఒక కథలో పాత్ర చేసిన పనుల ఆధారంగా తెలియని భావాన్ని గ్రహించడం ఏ నైపుణ్యం?",
+      "options": [
+        {
+          "key": "A",
+          "text": "ఊహాన్వయం"
+        },
+        {
+          "key": "B",
+          "text": "అక్షరలేఖనం"
+        },
+        {
+          "key": "C",
+          "text": "శబ్ద గణన"
+        },
+        {
+          "key": "D",
+          "text": "విరామ చిహ్నం గుర్తింపు"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "వాక్యాల్లో నేరుగా చెప్పని భావాన్ని ఆధారాలతో గ్రహించడం ఊహాన్వయం."
+    },
+    {
+      "id": "q64",
+      "sectionId": "telugu",
+      "globalIndex": 63,
+      "text": "\"చెట్టు నీడలో ప్రయాణికుడు విశ్రాంతి తీసుకున్నాడు.\" ఇందులో చెట్టు పాత్ర ఏమిటి?",
+      "options": [
+        {
+          "key": "A",
+          "text": "ప్రయాణికుడికి నీడనివ్వడం"
+        },
+        {
+          "key": "B",
+          "text": "పుస్తకం చదవడం"
+        },
+        {
+          "key": "C",
+          "text": "పాట పాడడం"
+        },
+        {
+          "key": "D",
+          "text": "మార్కులు ఇవ్వడం"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "వాక్యంలో చెట్టు నీడ ద్వారా ప్రయాణికుడికి ఉపశమనం కలిగింది."
+    },
+    {
+      "id": "q65",
+      "sectionId": "telugu",
+      "globalIndex": 64,
+      "text": "పాఠ్యంలోని ప్రధాన భావం అంటే:",
+      "options": [
+        {
+          "key": "A",
+          "text": "చిన్న తప్పు"
+        },
+        {
+          "key": "B",
+          "text": "కేంద్ర ఆలోచన"
+        },
+        {
+          "key": "C",
+          "text": "చివరి అక్షరం"
+        },
+        {
+          "key": "D",
+          "text": "కేవలం శీర్షిక"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "ప్రధాన భావం పాఠ్యమంతా చెప్పే ముఖ్య ఆలోచన."
+    },
+    {
+      "id": "q66",
+      "sectionId": "telugu",
+      "globalIndex": 65,
+      "text": "\"ధైర్యంగా\" అనే పదానికి వ్యతిరేక పదం ఏది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "భయంగా"
+        },
+        {
+          "key": "B",
+          "text": "స్పష్టంగా"
+        },
+        {
+          "key": "C",
+          "text": "వేగంగా"
+        },
+        {
+          "key": "D",
+          "text": "ఆనందంగా"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "ధైర్యానికి విరుద్ధ భావం భయం."
+    },
+    {
+      "id": "q67",
+      "sectionId": "telugu",
+      "globalIndex": 66,
+      "text": "\"వాన కురిసింది కాబట్టి నేల తడిసింది.\" ఈ వాక్యంలో కారణం ఏది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "నేల తడిసింది"
+        },
+        {
+          "key": "B",
+          "text": "వాన కురిసింది"
+        },
+        {
+          "key": "C",
+          "text": "పిల్లలు నవ్వారు"
+        },
+        {
+          "key": "D",
+          "text": "గాలి ఆగింది"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "వాన కురవడం కారణం; నేల తడవడం ఫలితం."
+    },
+    {
+      "id": "q68",
+      "sectionId": "telugu",
+      "globalIndex": 67,
+      "text": "మాతృభాషలో ప్రారంభ విద్య పిల్లలకు ఎందుకు సహాయపడుతుంది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "భావాలను సులభంగా అర్థం చేసుకోవడానికి"
+        },
+        {
+          "key": "B",
+          "text": "పాఠశాలకు రాకుండా ఉండడానికి"
+        },
+        {
+          "key": "C",
+          "text": "అన్ని భాషలు మర్చిపోవడానికి"
+        },
+        {
+          "key": "D",
+          "text": "చదవడం ఆపడానికి"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "మాతృభాష పిల్లల అనుభవాలకు దగ్గరగా ఉండి భావన నిర్మాణాన్ని సులభం చేస్తుంది."
+    },
+    {
+      "id": "q69",
+      "sectionId": "telugu",
+      "globalIndex": 68,
+      "text": "తెలుగు బోధనలో LSRW అంటే:",
+      "options": [
+        {
+          "key": "A",
+          "text": "వినడం, మాట్లాడడం, చదవడం, రాయడం"
+        },
+        {
+          "key": "B",
+          "text": "లెక్కించడం, సేకరించడం, రాయడం, వేచిచూడడం"
+        },
+        {
+          "key": "C",
+          "text": "లేఖ, శబ్దం, రంగు, పని"
+        },
+        {
+          "key": "D",
+          "text": "లక్ష్యం, సాధన, రచన, పరీక్ష"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "భాషా అభివృద్ధిలో వినడం, మాట్లాడడం, చదవడం, రాయడం ప్రధాన నైపుణ్యాలు."
+    },
+    {
+      "id": "q70",
+      "sectionId": "telugu",
+      "globalIndex": 69,
+      "text": "తెలుగు లిపి నేర్పేటప్పుడు మొదట బలపరచవలసినది:",
+      "options": [
+        {
+          "key": "A",
+          "text": "అచ్చులు, హల్లుల గుర్తింపు"
+        },
+        {
+          "key": "B",
+          "text": "కేవలం దీర్ఘ వ్యాసం"
+        },
+        {
+          "key": "C",
+          "text": "శిక్ష విధానం"
+        },
+        {
+          "key": "D",
+          "text": "మూగ పఠనం మాత్రమే"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "అక్షరజ్ఞానం కోసం అచ్చులు, హల్లులు, వాటి ధ్వనులపై పునాది అవసరం."
+    },
+    {
+      "id": "q71",
+      "sectionId": "telugu",
+      "globalIndex": 70,
+      "text": "జానపద కథలను తరగతిలో వినియోగించడం వల్ల:",
+      "options": [
+        {
+          "key": "A",
+          "text": "భాషా ఆసక్తి, సంస్కృతి అనుసంధానం పెరుగుతుంది"
+        },
+        {
+          "key": "B",
+          "text": "పిల్లలు మాట్లాడలేరు"
+        },
+        {
+          "key": "C",
+          "text": "పఠనం పూర్తిగా ఆగుతుంది"
+        },
+        {
+          "key": "D",
+          "text": "అర్థం చేసుకోవడం అసాధ్యం"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "జానపదం పిల్లల అనుభవాలు, సంస్కృతి, పదసంపదతో భాషను అనుసంధానిస్తుంది."
+    },
+    {
+      "id": "q72",
+      "sectionId": "telugu",
+      "globalIndex": 71,
+      "text": "పఠన బోధనలో ముందస్తు చర్చ ఉపయోగం:",
+      "options": [
+        {
+          "key": "A",
+          "text": "పూర్వజ్ఞానాన్ని చైతన్యపరచడం"
+        },
+        {
+          "key": "B",
+          "text": "పాఠాన్ని దాచివేయడం"
+        },
+        {
+          "key": "C",
+          "text": "ప్రశ్నలు నిషేధించడం"
+        },
+        {
+          "key": "D",
+          "text": "చదవకుండా ముగించడం"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "ముందస్తు చర్చ విషయం, పదాలు, అనుభవాలను పాఠంతో కలుపుతుంది."
+    },
+    {
+      "id": "q73",
+      "sectionId": "telugu",
+      "globalIndex": 72,
+      "text": "చదవడంలో పదాలను సరిగా పలకలేని పిల్లల కోసం ఉపయుక్తమైన చర్య:",
+      "options": [
+        {
+          "key": "A",
+          "text": "ధ్వని-అక్షర సంబంధ సాధన"
+        },
+        {
+          "key": "B",
+          "text": "మరింత శిక్ష"
+        },
+        {
+          "key": "C",
+          "text": "ప్రశ్నలు లేకుండా మౌనం"
+        },
+        {
+          "key": "D",
+          "text": "పుస్తకాలు దూరం పెట్టడం"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "ధ్వని-అక్షర సంబంధం బలపడితే పద గుర్తింపు మెరుగుపడుతుంది."
+    },
+    {
+      "id": "q74",
+      "sectionId": "telugu",
+      "globalIndex": 73,
+      "text": "వ్యాకరణాన్ని సందర్భంలో బోధించడం అంటే:",
+      "options": [
+        {
+          "key": "A",
+          "text": "నియమాన్ని వాక్య ప్రయోగంతో కలిపి చూపడం"
+        },
+        {
+          "key": "B",
+          "text": "కేవలం నిర్వచనం కంఠస్థం చేయించడం"
+        },
+        {
+          "key": "C",
+          "text": "ఉదాహరణలు నిషేధించడం"
+        },
+        {
+          "key": "D",
+          "text": "పాఠ్యాన్ని చదవకపోవడం"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "సందర్భంలో వ్యాకరణం నేర్పితే రూపం, అర్థం, ఉపయోగం సంబంధం తెలుస్తుంది."
+    },
+    {
+      "id": "q75",
+      "sectionId": "telugu",
+      "globalIndex": 74,
+      "text": "పోర్ట్‌ఫోలియో మూల్యాంకనంలో ఉండవచ్చు:",
+      "options": [
+        {
+          "key": "A",
+          "text": "విద్యార్థి రచనలు, సవరణలు, ప్రతిబింబాలు"
+        },
+        {
+          "key": "B",
+          "text": "కేవలం హాజరు పట్టిక"
+        },
+        {
+          "key": "C",
+          "text": "చివరి మార్కు మాత్రమే"
+        },
+        {
+          "key": "D",
+          "text": "సంబంధం లేని వస్తువులు"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "పోర్ట్‌ఫోలియో కాలక్రమంలో భాషా పురోగతిని చూపుతుంది."
+    },
+    {
+      "id": "q76",
+      "sectionId": "telugu",
+      "globalIndex": 75,
+      "text": "సమాసం అంటే:",
+      "options": [
+        {
+          "key": "A",
+          "text": "రెండు లేదా అంతకంటే ఎక్కువ పదాలు కలసి కొత్త పదం కావడం"
+        },
+        {
+          "key": "B",
+          "text": "అక్షరాలను విడదీయడం"
+        },
+        {
+          "key": "C",
+          "text": "వాక్యం ముగించడం"
+        },
+        {
+          "key": "D",
+          "text": "సంఖ్యలు గుణించడం"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "సమాసంలో పదాలు కలసి సంక్షిప్తమైన కొత్త పదరూపం ఏర్పడుతుంది."
+    },
+    {
+      "id": "q77",
+      "sectionId": "telugu",
+      "globalIndex": 76,
+      "text": "విభక్తులు ప్రధానంగా సూచించేది:",
+      "options": [
+        {
+          "key": "A",
+          "text": "పదాల మధ్య సంబంధం"
+        },
+        {
+          "key": "B",
+          "text": "కేవలం రంగులు"
+        },
+        {
+          "key": "C",
+          "text": "పేజీ సంఖ్య"
+        },
+        {
+          "key": "D",
+          "text": "సంగీత స్వరం"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "విభక్తులు నామవాచకానికి వాక్యంలోని ఇతర పదాలతో ఉన్న సంబంధాన్ని తెలుపుతాయి."
+    },
+    {
+      "id": "q78",
+      "sectionId": "telugu",
+      "globalIndex": 77,
+      "text": "మౌఖిక భాషా ప్రవాహం పెంచే చర్య:",
+      "options": [
+        {
+          "key": "A",
+          "text": "పాత్రధారణ"
+        },
+        {
+          "key": "B",
+          "text": "నిశ్శబ్ద నకలు"
+        },
+        {
+          "key": "C",
+          "text": "తప్పులకు ఎగతాళి"
+        },
+        {
+          "key": "D",
+          "text": "ప్రశ్నలు లేకపోవడం"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "పాత్రధారణ నిజ జీవిత సందర్భంలో మాట్లాడే అవకాశాన్ని ఇస్తుంది."
+    },
+    {
+      "id": "q79",
+      "sectionId": "telugu",
+      "globalIndex": 78,
+      "text": "బహుభాషా తరగతిలో ఉపాధ్యాయుని సరైన దృక్పథం:",
+      "options": [
+        {
+          "key": "A",
+          "text": "పిల్లల భాషలను వనరులుగా చూడడం"
+        },
+        {
+          "key": "B",
+          "text": "మాతృభాషను శిక్షించడం"
+        },
+        {
+          "key": "C",
+          "text": "ఒకే భాష మాట్లాడిన వారినే ఆమోదించడం"
+        },
+        {
+          "key": "D",
+          "text": "అనువాదం ఎప్పుడూ నిషేధించడం"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "పిల్లల భాషలు అర్థనిర్మాణం, భాగస్వామ్యం, కొత్త భాషల నేర్చుకోవడంలో వనరులు."
+    },
+    {
+      "id": "q80",
+      "sectionId": "telugu",
+      "globalIndex": 79,
+      "text": "పఠన గ్రహణాన్ని మెరుగుపరచడానికి మంచి వ్యూహం:",
+      "options": [
+        {
+          "key": "A",
+          "text": "ముందుగా ఊహించడం, ప్రశ్నించడం, సారాంశం చెప్పడం"
+        },
+        {
+          "key": "B",
+          "text": "అక్షరాలు చూడకపోవడం"
+        },
+        {
+          "key": "C",
+          "text": "అర్థం అడగకపోవడం"
+        },
+        {
+          "key": "D",
+          "text": "కేవలం మార్కులు ప్రకటించడం"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "గ్రహణ వ్యూహాలు పాఠ్యంతో చురుకైన సంబంధాన్ని పెంచుతాయి."
+    },
+    {
+      "id": "q81",
+      "sectionId": "telugu",
+      "globalIndex": 80,
+      "text": "\"సీత పుస్తకం చదివి సారాంశం రాసింది.\" ఇందులో ముందుగా జరిగిన పని:",
+      "options": [
+        {
+          "key": "A",
+          "text": "సారాంశం రాయడం"
+        },
+        {
+          "key": "B",
+          "text": "పుస్తకం చదవడం"
+        },
+        {
+          "key": "C",
+          "text": "పుస్తకం కొనడం"
+        },
+        {
+          "key": "D",
+          "text": "మార్కు వేయడం"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "సారాంశం రాయడానికి ముందు పుస్తకం చదవాలి."
+    },
+    {
+      "id": "q82",
+      "sectionId": "telugu",
+      "globalIndex": 81,
+      "text": "భాషా అభ్యాసంలో తప్పులను చూడవలసిన విధానం:",
+      "options": [
+        {
+          "key": "A",
+          "text": "నేర్చుకునే ప్రక్రియలో భాగంగా"
+        },
+        {
+          "key": "B",
+          "text": "శాశ్వత వైఫల్యంగా"
+        },
+        {
+          "key": "C",
+          "text": "శిక్షకు మాత్రమే కారణంగా"
+        },
+        {
+          "key": "D",
+          "text": "మాట్లాడకుండా చేసే సాధనంగా"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "తప్పులు విద్యార్థి ఆలోచనను తెలియజేసి సరైన ప్రతిస్పందనకు దారి చూపుతాయి."
+    },
+    {
+      "id": "q83",
+      "sectionId": "telugu",
+      "globalIndex": 82,
+      "text": "తెలుగు పదసంపద పెంచడానికి సహజమైన మార్గం:",
+      "options": [
+        {
+          "key": "A",
+          "text": "విస్తృత పఠనం"
+        },
+        {
+          "key": "B",
+          "text": "పుస్తకాలు దాచడం"
+        },
+        {
+          "key": "C",
+          "text": "పాఠాన్ని నిషేధించడం"
+        },
+        {
+          "key": "D",
+          "text": "కేవలం మార్కుల పట్టిక"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "విస్తృత పఠనం కొత్త పదాలను సహజ సందర్భంలో పరిచయం చేస్తుంది."
+    },
+    {
+      "id": "q84",
+      "sectionId": "telugu",
+      "globalIndex": 83,
+      "text": "సృజనాత్మక రచనలో ఉపాధ్యాయుడు ప్రోత్సహించవలసినది:",
+      "options": [
+        {
+          "key": "A",
+          "text": "స్వంత ఆలోచనల వ్యక్తీకరణ"
+        },
+        {
+          "key": "B",
+          "text": "ఒకే వాక్యం కాపీ చేయడం"
+        },
+        {
+          "key": "C",
+          "text": "ప్రశ్నలు అడగకపోవడం"
+        },
+        {
+          "key": "D",
+          "text": "ఊహను ఆపడం"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "సృజనాత్మక రచనలో ఊహ, భావవ్యక్తీకరణ, స్వరాన్ని ప్రోత్సహించాలి."
+    },
+    {
+      "id": "q85",
+      "sectionId": "telugu",
+      "globalIndex": 84,
+      "text": "చదవడంలో వేగం ఉన్నా అర్థం తక్కువగా ఉంటే దృష్టి పెట్టవలసినది:",
+      "options": [
+        {
+          "key": "A",
+          "text": "గ్రహణ వ్యూహాలు"
+        },
+        {
+          "key": "B",
+          "text": "కేవలం అందమైన అక్షరాలు"
+        },
+        {
+          "key": "C",
+          "text": "కాగితం రంగు"
+        },
+        {
+          "key": "D",
+          "text": "పుస్తకం బరువు"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "పఠన లక్ష్యం అర్థనిర్మాణం కాబట్టి ప్రశ్నించడం, సారాంశం వంటి వ్యూహాలు అవసరం."
+    },
+    {
+      "id": "q86",
+      "sectionId": "telugu",
+      "globalIndex": 85,
+      "text": "ఫార్మేటివ్ మూల్యాంకనం లక్ష్యం:",
+      "options": [
+        {
+          "key": "A",
+          "text": "నేర్చుకునే సమయంలో అభిప్రాయం ఇవ్వడం"
+        },
+        {
+          "key": "B",
+          "text": "సంవత్సరం చివర ర్యాంక్ మాత్రమే"
+        },
+        {
+          "key": "C",
+          "text": "విద్యార్థిని భయపెట్టడం"
+        },
+        {
+          "key": "D",
+          "text": "పాఠం నిలిపివేయడం"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "ఫార్మేటివ్ మూల్యాంకనం బోధన, అభ్యాసాన్ని సరిచేసేందుకు మధ్యంతర సమాచారం ఇస్తుంది."
+    },
+    {
+      "id": "q87",
+      "sectionId": "telugu",
+      "globalIndex": 86,
+      "text": "తెలుగు బోధనలో సమతుల్య పద్ధతి అంటే:",
+      "options": [
+        {
+          "key": "A",
+          "text": "ధ్వని సాధనతో పాటు సంపూర్ణ పాఠ్య అనుభవం"
+        },
+        {
+          "key": "B",
+          "text": "కేవలం కంఠస్థం"
+        },
+        {
+          "key": "C",
+          "text": "కేవలం పరీక్ష"
+        },
+        {
+          "key": "D",
+          "text": "చదవడం లేకుండా రాయడం"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "సమతుల్య పద్ధతి అక్షర-ధ్వని నైపుణ్యాలు మరియు అర్థవంతమైన పఠనాన్ని కలుపుతుంది."
+    },
+    {
+      "id": "q88",
+      "sectionId": "telugu",
+      "globalIndex": 87,
+      "text": "పిల్లల మౌఖిక సంప్రదాయాన్ని ఉపయోగించడం వల్ల:",
+      "options": [
+        {
+          "key": "A",
+          "text": "మాట్లాడే భాష నుంచి లిఖిత భాషకు వంతెన ఏర్పడుతుంది"
+        },
+        {
+          "key": "B",
+          "text": "భాషా అభివృద్ధి ఆగుతుంది"
+        },
+        {
+          "key": "C",
+          "text": "పాఠ్యపుస్తకం అవసరం ఉండదు"
+        },
+        {
+          "key": "D",
+          "text": "వినికిడి తగ్గుతుంది"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "పాటలు, సామెతలు, కథలు మౌఖిక అనుభవాన్ని పఠనం-రచనతో కలుపుతాయి."
+    },
+    {
+      "id": "q89",
+      "sectionId": "telugu",
+      "globalIndex": 88,
+      "text": "సరైన ప్రతిస్పందన ఇవ్వడంలో ఉపాధ్యాయుడు:",
+      "options": [
+        {
+          "key": "A",
+          "text": "నిర్దిష్టంగా, నిర్మాణాత్మకంగా సూచనలు ఇవ్వాలి"
+        },
+        {
+          "key": "B",
+          "text": "కేవలం తప్పు అని చెప్పాలి"
+        },
+        {
+          "key": "C",
+          "text": "విద్యార్థిని అవమానించాలి"
+        },
+        {
+          "key": "D",
+          "text": "ఏమీ చెప్పకూడదు"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "నిర్మాణాత్మక ప్రతిస్పందన విద్యార్థికి మెరుగుపడే మార్గాన్ని చూపుతుంది."
+    },
+    {
+      "id": "q90",
+      "sectionId": "telugu",
+      "globalIndex": 89,
+      "text": "పాఠ్యంలోని శీర్షిక ఉపయోగం:",
+      "options": [
+        {
+          "key": "A",
+          "text": "పాఠ్య విషయంపై ముందస్తు సూచన ఇవ్వడం"
+        },
+        {
+          "key": "B",
+          "text": "పాఠ్యాన్ని తొలగించడం"
+        },
+        {
+          "key": "C",
+          "text": "అక్షరాల సంఖ్య మాత్రమే చెప్పడం"
+        },
+        {
+          "key": "D",
+          "text": "మార్కులు దాచడం"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "శీర్షిక పాఠ్యంలోని విషయం లేదా కేంద్ర భావంపై పాఠకుడికి సంకేతం ఇస్తుంది."
+    },
+    {
+      "id": "q91",
+      "sectionId": "math",
+      "globalIndex": 90,
+      "text": "The HCF of 48 and 72 is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "12"
+        },
+        {
+          "key": "B",
+          "text": "24"
+        },
+        {
+          "key": "C",
+          "text": "36"
+        },
+        {
+          "key": "D",
+          "text": "48"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "The common factors include 1, 2, 3, 4, 6, 8, 12, and 24; the greatest is 24."
+    },
+    {
+      "id": "q92",
+      "sectionId": "math",
+      "globalIndex": 91,
+      "text": "Which number is divisible by 9?",
+      "options": [
+        {
+          "key": "A",
+          "text": "2345"
+        },
+        {
+          "key": "B",
+          "text": "4212"
+        },
+        {
+          "key": "C",
+          "text": "5003"
+        },
+        {
+          "key": "D",
+          "text": "7012"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "A number is divisible by 9 if the sum of its digits is divisible by 9; 4+2+1+2=9."
+    },
+    {
+      "id": "q93",
+      "sectionId": "math",
+      "globalIndex": 92,
+      "text": "The value of (-7) + 12 is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "-19"
+        },
+        {
+          "key": "B",
+          "text": "-5"
+        },
+        {
+          "key": "C",
+          "text": "5"
+        },
+        {
+          "key": "D",
+          "text": "19"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Moving 12 units right from -7 on the number line gives 5."
+    },
+    {
+      "id": "q94",
+      "sectionId": "math",
+      "globalIndex": 93,
+      "text": "The decimal form of 3/8 is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "0.125"
+        },
+        {
+          "key": "B",
+          "text": "0.375"
+        },
+        {
+          "key": "C",
+          "text": "0.625"
+        },
+        {
+          "key": "D",
+          "text": "0.875"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Dividing 3 by 8 gives 0.375."
+    },
+    {
+      "id": "q95",
+      "sectionId": "math",
+      "globalIndex": 94,
+      "text": "Which is an irrational number?",
+      "options": [
+        {
+          "key": "A",
+          "text": "0.75"
+        },
+        {
+          "key": "B",
+          "text": "22/7"
+        },
+        {
+          "key": "C",
+          "text": "sqrt(2)"
+        },
+        {
+          "key": "D",
+          "text": "-5"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "sqrt(2) cannot be expressed as p/q for integers p and q with q not zero."
+    },
+    {
+      "id": "q96",
+      "sectionId": "math",
+      "globalIndex": 95,
+      "text": "Using exponent laws, 2^3 x 2^4 equals:",
+      "options": [
+        {
+          "key": "A",
+          "text": "2^7"
+        },
+        {
+          "key": "B",
+          "text": "2^12"
+        },
+        {
+          "key": "C",
+          "text": "4^7"
+        },
+        {
+          "key": "D",
+          "text": "8^4"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "When bases are the same, exponents are added: 2^(3+4)=2^7."
+    },
+    {
+      "id": "q97",
+      "sectionId": "math",
+      "globalIndex": 96,
+      "text": "If 5x - 3 = 17, then x equals:",
+      "options": [
+        {
+          "key": "A",
+          "text": "2"
+        },
+        {
+          "key": "B",
+          "text": "3"
+        },
+        {
+          "key": "C",
+          "text": "4"
+        },
+        {
+          "key": "D",
+          "text": "5"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Add 3 to get 5x=20, then divide by 5 to get x=4."
+    },
+    {
+      "id": "q98",
+      "sectionId": "math",
+      "globalIndex": 97,
+      "text": "The expansion of (a + b)^2 is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "a^2 + b^2"
+        },
+        {
+          "key": "B",
+          "text": "a^2 + 2ab + b^2"
+        },
+        {
+          "key": "C",
+          "text": "a^2 - 2ab + b^2"
+        },
+        {
+          "key": "D",
+          "text": "a^2 - b^2"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Squaring a binomial gives first square, twice the product, and second square."
+    },
+    {
+      "id": "q99",
+      "sectionId": "math",
+      "globalIndex": 98,
+      "text": "A polynomial of degree 2 is called:",
+      "options": [
+        {
+          "key": "A",
+          "text": "linear"
+        },
+        {
+          "key": "B",
+          "text": "quadratic"
+        },
+        {
+          "key": "C",
+          "text": "cubic"
+        },
+        {
+          "key": "D",
+          "text": "constant"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "A polynomial with highest power 2 is a quadratic polynomial."
+    },
+    {
+      "id": "q100",
+      "sectionId": "math",
+      "globalIndex": 99,
+      "text": "If the discriminant of a quadratic equation is zero, its roots are:",
+      "options": [
+        {
+          "key": "A",
+          "text": "real and equal"
+        },
+        {
+          "key": "B",
+          "text": "real and unequal"
+        },
+        {
+          "key": "C",
+          "text": "non-real"
+        },
+        {
+          "key": "D",
+          "text": "always negative"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "For ax^2+bx+c=0, D=0 means the two roots coincide."
+    },
+    {
+      "id": "q101",
+      "sectionId": "math",
+      "globalIndex": 100,
+      "text": "The sum of angles in a triangle is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "90 degrees"
+        },
+        {
+          "key": "B",
+          "text": "180 degrees"
+        },
+        {
+          "key": "C",
+          "text": "270 degrees"
+        },
+        {
+          "key": "D",
+          "text": "360 degrees"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "The interior angles of every Euclidean triangle add up to 180 degrees."
+    },
+    {
+      "id": "q102",
+      "sectionId": "math",
+      "globalIndex": 101,
+      "text": "Which congruence rule uses two sides and the included angle?",
+      "options": [
+        {
+          "key": "A",
+          "text": "SSS"
+        },
+        {
+          "key": "B",
+          "text": "SAS"
+        },
+        {
+          "key": "C",
+          "text": "ASA"
+        },
+        {
+          "key": "D",
+          "text": "RHS"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "SAS requires two corresponding sides and the included angle to be equal."
+    },
+    {
+      "id": "q103",
+      "sectionId": "math",
+      "globalIndex": 102,
+      "text": "The distance between (0,0) and (3,4) is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "3"
+        },
+        {
+          "key": "B",
+          "text": "4"
+        },
+        {
+          "key": "C",
+          "text": "5"
+        },
+        {
+          "key": "D",
+          "text": "7"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "By the distance formula, sqrt(3^2+4^2)=5."
+    },
+    {
+      "id": "q104",
+      "sectionId": "math",
+      "globalIndex": 103,
+      "text": "In a circle, a tangent at any point is perpendicular to the:",
+      "options": [
+        {
+          "key": "A",
+          "text": "chord through the point"
+        },
+        {
+          "key": "B",
+          "text": "radius through the point"
+        },
+        {
+          "key": "C",
+          "text": "diameter not passing through the point"
+        },
+        {
+          "key": "D",
+          "text": "arc"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "The tangent to a circle is perpendicular to the radius at the point of contact."
+    },
+    {
+      "id": "q105",
+      "sectionId": "math",
+      "globalIndex": 104,
+      "text": "sin 30 degrees equals:",
+      "options": [
+        {
+          "key": "A",
+          "text": "0"
+        },
+        {
+          "key": "B",
+          "text": "1/2"
+        },
+        {
+          "key": "C",
+          "text": "sqrt(3)/2"
+        },
+        {
+          "key": "D",
+          "text": "1"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "The standard trigonometric value of sin 30 degrees is 1/2."
+    },
+    {
+      "id": "q106",
+      "sectionId": "math",
+      "globalIndex": 105,
+      "text": "The area of a triangle with base 10 cm and height 6 cm is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "16 cm2"
+        },
+        {
+          "key": "B",
+          "text": "30 cm2"
+        },
+        {
+          "key": "C",
+          "text": "60 cm2"
+        },
+        {
+          "key": "D",
+          "text": "120 cm2"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Area of a triangle is 1/2 x base x height = 1/2 x 10 x 6 = 30 cm2."
+    },
+    {
+      "id": "q107",
+      "sectionId": "math",
+      "globalIndex": 106,
+      "text": "The volume of a cuboid of length 5 cm, breadth 4 cm, and height 3 cm is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "12 cm3"
+        },
+        {
+          "key": "B",
+          "text": "20 cm3"
+        },
+        {
+          "key": "C",
+          "text": "60 cm3"
+        },
+        {
+          "key": "D",
+          "text": "80 cm3"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Volume of a cuboid is l x b x h = 5 x 4 x 3 = 60 cm3."
+    },
+    {
+      "id": "q108",
+      "sectionId": "math",
+      "globalIndex": 107,
+      "text": "Heron's formula finds the area of a triangle when we know:",
+      "options": [
+        {
+          "key": "A",
+          "text": "all three sides"
+        },
+        {
+          "key": "B",
+          "text": "only one angle"
+        },
+        {
+          "key": "C",
+          "text": "only the perimeter of a circle"
+        },
+        {
+          "key": "D",
+          "text": "only the median"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Heron's formula uses the semiperimeter and the three side lengths."
+    },
+    {
+      "id": "q109",
+      "sectionId": "math",
+      "globalIndex": 108,
+      "text": "The mean of 4, 6, 8, and 10 is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "6"
+        },
+        {
+          "key": "B",
+          "text": "7"
+        },
+        {
+          "key": "C",
+          "text": "8"
+        },
+        {
+          "key": "D",
+          "text": "9"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "The sum is 28 and there are 4 values, so mean = 28/4 = 7."
+    },
+    {
+      "id": "q110",
+      "sectionId": "math",
+      "globalIndex": 109,
+      "text": "The probability of getting a head when a fair coin is tossed once is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "0"
+        },
+        {
+          "key": "B",
+          "text": "1/4"
+        },
+        {
+          "key": "C",
+          "text": "1/2"
+        },
+        {
+          "key": "D",
+          "text": "1"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "A fair coin has two equally likely outcomes, so P(head)=1/2."
+    },
+    {
+      "id": "q111",
+      "sectionId": "math",
+      "globalIndex": 110,
+      "text": "A good mathematics classroom should treat errors as:",
+      "options": [
+        {
+          "key": "A",
+          "text": "evidence for punishment"
+        },
+        {
+          "key": "B",
+          "text": "opportunities to understand thinking"
+        },
+        {
+          "key": "C",
+          "text": "reasons to stop teaching"
+        },
+        {
+          "key": "D",
+          "text": "proof that the child cannot learn"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Errors reveal misconceptions and help the teacher plan diagnostic and remedial support."
+    },
+    {
+      "id": "q112",
+      "sectionId": "math",
+      "globalIndex": 111,
+      "text": "The use of fraction strips mainly supports:",
+      "options": [
+        {
+          "key": "A",
+          "text": "abstract memorisation only"
+        },
+        {
+          "key": "B",
+          "text": "concrete understanding of equivalent fractions"
+        },
+        {
+          "key": "C",
+          "text": "speed copying"
+        },
+        {
+          "key": "D",
+          "text": "unrelated drawing"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Manipulatives like fraction strips make part-whole relationships visible."
+    },
+    {
+      "id": "q113",
+      "sectionId": "math",
+      "globalIndex": 112,
+      "text": "The inductive method in mathematics moves from:",
+      "options": [
+        {
+          "key": "A",
+          "text": "general rule to examples"
+        },
+        {
+          "key": "B",
+          "text": "examples to generalisation"
+        },
+        {
+          "key": "C",
+          "text": "punishment to silence"
+        },
+        {
+          "key": "D",
+          "text": "symbols to no meaning"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Inductive teaching helps learners observe patterns and form rules from examples."
+    },
+    {
+      "id": "q114",
+      "sectionId": "math",
+      "globalIndex": 113,
+      "text": "Diagnostic testing in mathematics helps identify:",
+      "options": [
+        {
+          "key": "A",
+          "text": "the exact misconception behind errors"
+        },
+        {
+          "key": "B",
+          "text": "only attendance"
+        },
+        {
+          "key": "C",
+          "text": "classroom decoration"
+        },
+        {
+          "key": "D",
+          "text": "sports ability"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Diagnostic tests locate specific conceptual gaps such as place value, operations, or algebraic reasoning."
+    },
+    {
+      "id": "q115",
+      "sectionId": "math",
+      "globalIndex": 114,
+      "text": "Ethnomathematics means:",
+      "options": [
+        {
+          "key": "A",
+          "text": "mathematics in cultural and community practices"
+        },
+        {
+          "key": "B",
+          "text": "mathematics without numbers"
+        },
+        {
+          "key": "C",
+          "text": "only foreign mathematics"
+        },
+        {
+          "key": "D",
+          "text": "avoiding local examples"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Ethnomathematics connects mathematical ideas to practices in local culture, work, craft, and daily life."
+    },
+    {
+      "id": "q116",
+      "sectionId": "math",
+      "globalIndex": 115,
+      "text": "A child who writes 1/3 > 1/2 may be overgeneralising:",
+      "options": [
+        {
+          "key": "A",
+          "text": "larger denominator means larger fraction"
+        },
+        {
+          "key": "B",
+          "text": "numerator has no role"
+        },
+        {
+          "key": "C",
+          "text": "fractions cannot be compared"
+        },
+        {
+          "key": "D",
+          "text": "both fractions are equal"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "This common misconception treats denominators like whole numbers instead of considering part size."
+    },
+    {
+      "id": "q117",
+      "sectionId": "math",
+      "globalIndex": 116,
+      "text": "Open-ended problems are useful because they:",
+      "options": [
+        {
+          "key": "A",
+          "text": "allow multiple strategies and reasoning"
+        },
+        {
+          "key": "B",
+          "text": "have no learning value"
+        },
+        {
+          "key": "C",
+          "text": "prevent discussion"
+        },
+        {
+          "key": "D",
+          "text": "require only one memorised line"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Open-ended tasks promote reasoning, communication, creativity, and comparison of methods."
+    },
+    {
+      "id": "q118",
+      "sectionId": "math",
+      "globalIndex": 117,
+      "text": "In teaching geometry, dynamic software such as GeoGebra helps learners:",
+      "options": [
+        {
+          "key": "A",
+          "text": "manipulate figures and observe invariants"
+        },
+        {
+          "key": "B",
+          "text": "avoid all reasoning"
+        },
+        {
+          "key": "C",
+          "text": "memorise definitions only"
+        },
+        {
+          "key": "D",
+          "text": "replace the teacher completely"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Dynamic geometry tools allow exploration of properties that remain unchanged under movement."
+    },
+    {
+      "id": "q119",
+      "sectionId": "math",
+      "globalIndex": 118,
+      "text": "Performance-based assessment in mathematics may include:",
+      "options": [
+        {
+          "key": "A",
+          "text": "explaining a solution with a model"
+        },
+        {
+          "key": "B",
+          "text": "only copying a formula list"
+        },
+        {
+          "key": "C",
+          "text": "marking uniform colour"
+        },
+        {
+          "key": "D",
+          "text": "memorising roll numbers"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Performance tasks assess application, reasoning, representation, and communication."
+    },
+    {
+      "id": "q120",
+      "sectionId": "math",
+      "globalIndex": 119,
+      "text": "Differentiated instruction in mathematics means:",
+      "options": [
+        {
+          "key": "A",
+          "text": "changing support based on learners' needs"
+        },
+        {
+          "key": "B",
+          "text": "giving no tasks to slow learners"
+        },
+        {
+          "key": "C",
+          "text": "teaching only the fastest group"
+        },
+        {
+          "key": "D",
+          "text": "using one worksheet forever"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Differentiation adjusts content, process, product, or support while keeping meaningful learning goals."
+    },
+    {
+      "id": "q121",
+      "sectionId": "science",
+      "globalIndex": 120,
+      "text": "Which nutrient is mainly needed for body-building and repair?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Carbohydrate"
+        },
+        {
+          "key": "B",
+          "text": "Protein"
+        },
+        {
+          "key": "C",
+          "text": "Water"
+        },
+        {
+          "key": "D",
+          "text": "Roughage"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Proteins support growth and repair of body tissues."
+    },
+    {
+      "id": "q122",
+      "sectionId": "science",
+      "globalIndex": 121,
+      "text": "Deficiency of vitamin C causes:",
+      "options": [
+        {
+          "key": "A",
+          "text": "rickets"
+        },
+        {
+          "key": "B",
+          "text": "scurvy"
+        },
+        {
+          "key": "C",
+          "text": "night blindness"
+        },
+        {
+          "key": "D",
+          "text": "goitre"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Scurvy is caused by vitamin C deficiency and may lead to bleeding gums and weakness."
+    },
+    {
+      "id": "q123",
+      "sectionId": "science",
+      "globalIndex": 122,
+      "text": "The process used to separate grain from chaff by wind is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "filtration"
+        },
+        {
+          "key": "B",
+          "text": "winnowing"
+        },
+        {
+          "key": "C",
+          "text": "distillation"
+        },
+        {
+          "key": "D",
+          "text": "chromatography"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Winnowing separates heavier grains from lighter chaff using moving air."
+    },
+    {
+      "id": "q124",
+      "sectionId": "science",
+      "globalIndex": 123,
+      "text": "Which fibre is synthetic?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Cotton"
+        },
+        {
+          "key": "B",
+          "text": "Wool"
+        },
+        {
+          "key": "C",
+          "text": "Jute"
+        },
+        {
+          "key": "D",
+          "text": "Nylon"
+        }
+      ],
+      "correctAnswer": "D",
+      "explanation": "Nylon is a man-made synthetic fibre, unlike cotton, wool, and jute."
+    },
+    {
+      "id": "q125",
+      "sectionId": "science",
+      "globalIndex": 124,
+      "text": "Litmus turns red in:",
+      "options": [
+        {
+          "key": "A",
+          "text": "acidic solution"
+        },
+        {
+          "key": "B",
+          "text": "basic solution"
+        },
+        {
+          "key": "C",
+          "text": "neutral salt only"
+        },
+        {
+          "key": "D",
+          "text": "pure oil"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Blue litmus turns red in acidic solutions."
+    },
+    {
+      "id": "q126",
+      "sectionId": "science",
+      "globalIndex": 125,
+      "text": "A thermosetting plastic is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "polythene"
+        },
+        {
+          "key": "B",
+          "text": "PVC"
+        },
+        {
+          "key": "C",
+          "text": "bakelite"
+        },
+        {
+          "key": "D",
+          "text": "nylon thread"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Bakelite hardens permanently on heating and cannot be remoulded."
+    },
+    {
+      "id": "q127",
+      "sectionId": "science",
+      "globalIndex": 126,
+      "text": "The atomic number of an element equals the number of:",
+      "options": [
+        {
+          "key": "A",
+          "text": "neutrons"
+        },
+        {
+          "key": "B",
+          "text": "protons"
+        },
+        {
+          "key": "C",
+          "text": "molecules"
+        },
+        {
+          "key": "D",
+          "text": "shells only"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Atomic number is defined by the number of protons in the nucleus."
+    },
+    {
+      "id": "q128",
+      "sectionId": "science",
+      "globalIndex": 127,
+      "text": "Isotopes of an element have:",
+      "options": [
+        {
+          "key": "A",
+          "text": "same atomic number but different mass number"
+        },
+        {
+          "key": "B",
+          "text": "different atomic number but same mass number"
+        },
+        {
+          "key": "C",
+          "text": "no protons"
+        },
+        {
+          "key": "D",
+          "text": "identical neutron number always"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Isotopes have the same protons but different neutrons, so their mass numbers differ."
+    },
+    {
+      "id": "q129",
+      "sectionId": "science",
+      "globalIndex": 128,
+      "text": "The functional group in ethanol is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "-COOH"
+        },
+        {
+          "key": "B",
+          "text": "-OH"
+        },
+        {
+          "key": "C",
+          "text": "-CHO"
+        },
+        {
+          "key": "D",
+          "text": "-CO-"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Ethanol is an alcohol and contains the hydroxyl group, -OH."
+    },
+    {
+      "id": "q130",
+      "sectionId": "science",
+      "globalIndex": 129,
+      "text": "The basic structural and functional unit of life is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "tissue"
+        },
+        {
+          "key": "B",
+          "text": "cell"
+        },
+        {
+          "key": "C",
+          "text": "organ"
+        },
+        {
+          "key": "D",
+          "text": "organ system"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Cells are the smallest living units capable of carrying out life processes."
+    },
+    {
+      "id": "q131",
+      "sectionId": "science",
+      "globalIndex": 130,
+      "text": "Mitochondria are known as the powerhouse of the cell because they:",
+      "options": [
+        {
+          "key": "A",
+          "text": "store hereditary material"
+        },
+        {
+          "key": "B",
+          "text": "release energy through respiration"
+        },
+        {
+          "key": "C",
+          "text": "make proteins only"
+        },
+        {
+          "key": "D",
+          "text": "give green colour"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Mitochondria produce ATP during cellular respiration."
+    },
+    {
+      "id": "q132",
+      "sectionId": "science",
+      "globalIndex": 131,
+      "text": "Xylem mainly transports:",
+      "options": [
+        {
+          "key": "A",
+          "text": "prepared food"
+        },
+        {
+          "key": "B",
+          "text": "water and minerals"
+        },
+        {
+          "key": "C",
+          "text": "hormones only"
+        },
+        {
+          "key": "D",
+          "text": "carbon dioxide"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Xylem carries water and dissolved minerals from roots to other parts of the plant."
+    },
+    {
+      "id": "q133",
+      "sectionId": "science",
+      "globalIndex": 132,
+      "text": "Binary fission is a form of:",
+      "options": [
+        {
+          "key": "A",
+          "text": "asexual reproduction"
+        },
+        {
+          "key": "B",
+          "text": "sexual reproduction"
+        },
+        {
+          "key": "C",
+          "text": "pollination"
+        },
+        {
+          "key": "D",
+          "text": "seed dispersal"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "In binary fission one parent cell divides into two daughter cells without gametes."
+    },
+    {
+      "id": "q134",
+      "sectionId": "science",
+      "globalIndex": 133,
+      "text": "In a food chain, producers are usually:",
+      "options": [
+        {
+          "key": "A",
+          "text": "green plants"
+        },
+        {
+          "key": "B",
+          "text": "carnivores"
+        },
+        {
+          "key": "C",
+          "text": "decomposers only"
+        },
+        {
+          "key": "D",
+          "text": "parasites only"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Green plants produce food by photosynthesis and form the first trophic level."
+    },
+    {
+      "id": "q135",
+      "sectionId": "science",
+      "globalIndex": 134,
+      "text": "A reflex arc includes:",
+      "options": [
+        {
+          "key": "A",
+          "text": "receptor, sensory neuron, spinal cord, motor neuron, effector"
+        },
+        {
+          "key": "B",
+          "text": "only heart and lungs"
+        },
+        {
+          "key": "C",
+          "text": "only endocrine glands"
+        },
+        {
+          "key": "D",
+          "text": "only bones"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "A reflex arc is the neural pathway for a quick automatic response."
+    },
+    {
+      "id": "q136",
+      "sectionId": "science",
+      "globalIndex": 135,
+      "text": "The SI unit of force is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "joule"
+        },
+        {
+          "key": "B",
+          "text": "watt"
+        },
+        {
+          "key": "C",
+          "text": "newton"
+        },
+        {
+          "key": "D",
+          "text": "pascal-hour"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Force is measured in newtons in the SI system."
+    },
+    {
+      "id": "q137",
+      "sectionId": "science",
+      "globalIndex": 136,
+      "text": "Newton's first law is also called the law of:",
+      "options": [
+        {
+          "key": "A",
+          "text": "inertia"
+        },
+        {
+          "key": "B",
+          "text": "gravitation"
+        },
+        {
+          "key": "C",
+          "text": "reflection"
+        },
+        {
+          "key": "D",
+          "text": "conservation of charge"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "The first law states that a body resists change in its state of motion, which is inertia."
+    },
+    {
+      "id": "q138",
+      "sectionId": "science",
+      "globalIndex": 137,
+      "text": "Ohm's law states:",
+      "options": [
+        {
+          "key": "A",
+          "text": "V = IR"
+        },
+        {
+          "key": "B",
+          "text": "P = VI only"
+        },
+        {
+          "key": "C",
+          "text": "F = ma"
+        },
+        {
+          "key": "D",
+          "text": "E = mc2"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Ohm's law relates potential difference, current, and resistance as V=IR."
+    },
+    {
+      "id": "q139",
+      "sectionId": "science",
+      "globalIndex": 138,
+      "text": "A convex lens is used to correct:",
+      "options": [
+        {
+          "key": "A",
+          "text": "myopia with diverging lens"
+        },
+        {
+          "key": "B",
+          "text": "hypermetropia"
+        },
+        {
+          "key": "C",
+          "text": "colour blindness"
+        },
+        {
+          "key": "D",
+          "text": "night blindness"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Hypermetropia is corrected using a converging, or convex, lens."
+    },
+    {
+      "id": "q140",
+      "sectionId": "science",
+      "globalIndex": 139,
+      "text": "The gas mainly responsible for ozone layer depletion is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "oxygen"
+        },
+        {
+          "key": "B",
+          "text": "nitrogen"
+        },
+        {
+          "key": "C",
+          "text": "chlorofluorocarbon"
+        },
+        {
+          "key": "D",
+          "text": "helium"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "CFCs release chlorine radicals that destroy ozone molecules in the stratosphere."
+    },
+    {
+      "id": "q141",
+      "sectionId": "science",
+      "globalIndex": 140,
+      "text": "Inquiry-based science teaching begins with:",
+      "options": [
+        {
+          "key": "A",
+          "text": "a question or problem to investigate"
+        },
+        {
+          "key": "B",
+          "text": "copying definitions only"
+        },
+        {
+          "key": "C",
+          "text": "banning observation"
+        },
+        {
+          "key": "D",
+          "text": "final marks first"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Inquiry learning starts from curiosity, questions, observation, evidence, and explanation."
+    },
+    {
+      "id": "q142",
+      "sectionId": "science",
+      "globalIndex": 141,
+      "text": "A good science experiment should have:",
+      "options": [
+        {
+          "key": "A",
+          "text": "uncontrolled variables only"
+        },
+        {
+          "key": "B",
+          "text": "a fair test with controlled variables"
+        },
+        {
+          "key": "C",
+          "text": "no observation"
+        },
+        {
+          "key": "D",
+          "text": "no record of data"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Controlling variables helps test the effect of one factor reliably."
+    },
+    {
+      "id": "q143",
+      "sectionId": "science",
+      "globalIndex": 142,
+      "text": "Concept cartoons are useful because they:",
+      "options": [
+        {
+          "key": "A",
+          "text": "expose misconceptions for discussion"
+        },
+        {
+          "key": "B",
+          "text": "replace all experiments"
+        },
+        {
+          "key": "C",
+          "text": "prevent questioning"
+        },
+        {
+          "key": "D",
+          "text": "give only final answers"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Concept cartoons present alternative ideas and help students debate evidence and misconceptions."
+    },
+    {
+      "id": "q144",
+      "sectionId": "science",
+      "globalIndex": 143,
+      "text": "A common misconception about plants is that they:",
+      "options": [
+        {
+          "key": "A",
+          "text": "respire only at night"
+        },
+        {
+          "key": "B",
+          "text": "need water"
+        },
+        {
+          "key": "C",
+          "text": "contain cells"
+        },
+        {
+          "key": "D",
+          "text": "grow from seeds"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Plants respire all the time, though photosynthesis occurs only in light."
+    },
+    {
+      "id": "q145",
+      "sectionId": "science",
+      "globalIndex": 144,
+      "text": "Laboratory work should be assessed by:",
+      "options": [
+        {
+          "key": "A",
+          "text": "only final written marks"
+        },
+        {
+          "key": "B",
+          "text": "observation of skills, safety, records, and reasoning"
+        },
+        {
+          "key": "C",
+          "text": "neat uniform only"
+        },
+        {
+          "key": "D",
+          "text": "speed alone"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Practical assessment includes process skills, safe handling, data recording, and interpretation."
+    },
+    {
+      "id": "q146",
+      "sectionId": "science",
+      "globalIndex": 145,
+      "text": "A model of the human heart is useful because it:",
+      "options": [
+        {
+          "key": "A",
+          "text": "makes an invisible internal structure easier to visualise"
+        },
+        {
+          "key": "B",
+          "text": "proves all details perfectly"
+        },
+        {
+          "key": "C",
+          "text": "removes the need for explanation"
+        },
+        {
+          "key": "D",
+          "text": "prevents questions"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Models help students visualise structures and relationships, though their limits should be discussed."
+    },
+    {
+      "id": "q147",
+      "sectionId": "science",
+      "globalIndex": 146,
+      "text": "Environmental education in science should promote:",
+      "options": [
+        {
+          "key": "A",
+          "text": "awareness, responsibility, and sustainable action"
+        },
+        {
+          "key": "B",
+          "text": "memorisation without action"
+        },
+        {
+          "key": "C",
+          "text": "ignoring local problems"
+        },
+        {
+          "key": "D",
+          "text": "wasting resources"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Science education connects environmental concepts with responsible decisions and sustainable practices."
+    },
+    {
+      "id": "q148",
+      "sectionId": "science",
+      "globalIndex": 147,
+      "text": "An exit ticket is an example of:",
+      "options": [
+        {
+          "key": "A",
+          "text": "formative assessment"
+        },
+        {
+          "key": "B",
+          "text": "annual certification only"
+        },
+        {
+          "key": "C",
+          "text": "punishment"
+        },
+        {
+          "key": "D",
+          "text": "laboratory equipment"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Exit tickets quickly reveal what students understood at the end of a lesson."
+    },
+    {
+      "id": "q149",
+      "sectionId": "science",
+      "globalIndex": 148,
+      "text": "Teaching weight and mass should clarify that:",
+      "options": [
+        {
+          "key": "A",
+          "text": "mass and weight are identical everywhere"
+        },
+        {
+          "key": "B",
+          "text": "mass is amount of matter, weight is gravitational force"
+        },
+        {
+          "key": "C",
+          "text": "weight has no unit"
+        },
+        {
+          "key": "D",
+          "text": "mass changes with location like weight"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Mass measures matter, while weight depends on gravitational force acting on that mass."
+    },
+    {
+      "id": "q150",
+      "sectionId": "science",
+      "globalIndex": 149,
+      "text": "STEM integration encourages students to:",
+      "options": [
+        {
+          "key": "A",
+          "text": "connect science, technology, engineering, and mathematics in problem solving"
+        },
+        {
+          "key": "B",
+          "text": "study each idea without application"
+        },
+        {
+          "key": "C",
+          "text": "avoid design tasks"
+        },
+        {
+          "key": "D",
+          "text": "memorise only definitions"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "STEM tasks integrate concepts and practices across disciplines to solve real problems."
+    }
+  ]
+}

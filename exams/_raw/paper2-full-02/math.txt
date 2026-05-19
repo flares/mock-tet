@@ -1,0 +1,209 @@
+Q1 The HCF of 48 and 72 is:
+A) 12
+B) 24 *
+C) 36
+D) 48
+E The common factors include 1, 2, 3, 4, 6, 8, 12, and 24; the greatest is 24.
+
+Q2 Which number is divisible by 9?
+A) 2345
+B) 4212 *
+C) 5003
+D) 7012
+E A number is divisible by 9 if the sum of its digits is divisible by 9; 4+2+1+2=9.
+
+Q3 The value of (-7) + 12 is:
+A) -19
+B) -5
+C) 5 *
+D) 19
+E Moving 12 units right from -7 on the number line gives 5.
+
+Q4 The decimal form of 3/8 is:
+A) 0.125
+B) 0.375 *
+C) 0.625
+D) 0.875
+E Dividing 3 by 8 gives 0.375.
+
+Q5 Which is an irrational number?
+A) 0.75
+B) 22/7
+C) sqrt(2) *
+D) -5
+E sqrt(2) cannot be expressed as p/q for integers p and q with q not zero.
+
+Q6 Using exponent laws, 2^3 x 2^4 equals:
+A) 2^7 *
+B) 2^12
+C) 4^7
+D) 8^4
+E When bases are the same, exponents are added: 2^(3+4)=2^7.
+
+Q7 If 5x - 3 = 17, then x equals:
+A) 2
+B) 3
+C) 4 *
+D) 5
+E Add 3 to get 5x=20, then divide by 5 to get x=4.
+
+Q8 The expansion of (a + b)^2 is:
+A) a^2 + b^2
+B) a^2 + 2ab + b^2 *
+C) a^2 - 2ab + b^2
+D) a^2 - b^2
+E Squaring a binomial gives first square, twice the product, and second square.
+
+Q9 A polynomial of degree 2 is called:
+A) linear
+B) quadratic *
+C) cubic
+D) constant
+E A polynomial with highest power 2 is a quadratic polynomial.
+
+Q10 If the discriminant of a quadratic equation is zero, its roots are:
+A) real and equal *
+B) real and unequal
+C) non-real
+D) always negative
+E For ax^2+bx+c=0, D=0 means the two roots coincide.
+
+Q11 The sum of angles in a triangle is:
+A) 90 degrees
+B) 180 degrees *
+C) 270 degrees
+D) 360 degrees
+E The interior angles of every Euclidean triangle add up to 180 degrees.
+
+Q12 Which congruence rule uses two sides and the included angle?
+A) SSS
+B) SAS *
+C) ASA
+D) RHS
+E SAS requires two corresponding sides and the included angle to be equal.
+
+Q13 The distance between (0,0) and (3,4) is:
+A) 3
+B) 4
+C) 5 *
+D) 7
+E By the distance formula, sqrt(3^2+4^2)=5.
+
+Q14 In a circle, a tangent at any point is perpendicular to the:
+A) chord through the point
+B) radius through the point *
+C) diameter not passing through the point
+D) arc
+E The tangent to a circle is perpendicular to the radius at the point of contact.
+
+Q15 sin 30 degrees equals:
+A) 0
+B) 1/2 *
+C) sqrt(3)/2
+D) 1
+E The standard trigonometric value of sin 30 degrees is 1/2.
+
+Q16 The area of a triangle with base 10 cm and height 6 cm is:
+A) 16 cm2
+B) 30 cm2 *
+C) 60 cm2
+D) 120 cm2
+E Area of a triangle is 1/2 x base x height = 1/2 x 10 x 6 = 30 cm2.
+
+Q17 The volume of a cuboid of length 5 cm, breadth 4 cm, and height 3 cm is:
+A) 12 cm3
+B) 20 cm3
+C) 60 cm3 *
+D) 80 cm3
+E Volume of a cuboid is l x b x h = 5 x 4 x 3 = 60 cm3.
+
+Q18 Heron's formula finds the area of a triangle when we know:
+A) all three sides *
+B) only one angle
+C) only the perimeter of a circle
+D) only the median
+E Heron's formula uses the semiperimeter and the three side lengths.
+
+Q19 The mean of 4, 6, 8, and 10 is:
+A) 6
+B) 7 *
+C) 8
+D) 9
+E The sum is 28 and there are 4 values, so mean = 28/4 = 7.
+
+Q20 The probability of getting a head when a fair coin is tossed once is:
+A) 0
+B) 1/4
+C) 1/2 *
+D) 1
+E A fair coin has two equally likely outcomes, so P(head)=1/2.
+
+Q21 A good mathematics classroom should treat errors as:
+A) evidence for punishment
+B) opportunities to understand thinking *
+C) reasons to stop teaching
+D) proof that the child cannot learn
+E Errors reveal misconceptions and help the teacher plan diagnostic and remedial support.
+
+Q22 The use of fraction strips mainly supports:
+A) abstract memorisation only
+B) concrete understanding of equivalent fractions *
+C) speed copying
+D) unrelated drawing
+E Manipulatives like fraction strips make part-whole relationships visible.
+
+Q23 The inductive method in mathematics moves from:
+A) general rule to examples
+B) examples to generalisation *
+C) punishment to silence
+D) symbols to no meaning
+E Inductive teaching helps learners observe patterns and form rules from examples.
+
+Q24 Diagnostic testing in mathematics helps identify:
+A) the exact misconception behind errors *
+B) only attendance
+C) classroom decoration
+D) sports ability
+E Diagnostic tests locate specific conceptual gaps such as place value, operations, or algebraic reasoning.
+
+Q25 Ethnomathematics means:
+A) mathematics in cultural and community practices *
+B) mathematics without numbers
+C) only foreign mathematics
+D) avoiding local examples
+E Ethnomathematics connects mathematical ideas to practices in local culture, work, craft, and daily life.
+
+Q26 A child who writes 1/3 > 1/2 may be overgeneralising:
+A) larger denominator means larger fraction *
+B) numerator has no role
+C) fractions cannot be compared
+D) both fractions are equal
+E This common misconception treats denominators like whole numbers instead of considering part size.
+
+Q27 Open-ended problems are useful because they:
+A) allow multiple strategies and reasoning *
+B) have no learning value
+C) prevent discussion
+D) require only one memorised line
+E Open-ended tasks promote reasoning, communication, creativity, and comparison of methods.
+
+Q28 In teaching geometry, dynamic software such as GeoGebra helps learners:
+A) manipulate figures and observe invariants *
+B) avoid all reasoning
+C) memorise definitions only
+D) replace the teacher completely
+E Dynamic geometry tools allow exploration of properties that remain unchanged under movement.
+
+Q29 Performance-based assessment in mathematics may include:
+A) explaining a solution with a model *
+B) only copying a formula list
+C) marking uniform colour
+D) memorising roll numbers
+E Performance tasks assess application, reasoning, representation, and communication.
+
+Q30 Differentiated instruction in mathematics means:
+A) changing support based on learners' needs *
+B) giving no tasks to slow learners
+C) teaching only the fastest group
+D) using one worksheet forever
+E Differentiation adjusts content, process, product, or support while keeping meaningful learning goals.

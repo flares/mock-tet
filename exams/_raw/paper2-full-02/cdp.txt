@@ -1,0 +1,209 @@
+Q1 Which principle of development states that children gain control of the head before the legs?
+A) Proximodistal principle
+B) Cephalocaudal principle *
+C) Principle of uniformity
+D) Principle of discontinuity
+E Cephalocaudal development proceeds from head to toe, so head and neck control appear before leg control.
+
+Q2 In Piaget's theory, conservation of number generally develops during which stage?
+A) Sensorimotor
+B) Pre-operational
+C) Concrete operational *
+D) Formal operational
+E Concrete operational children can conserve number, mass, and volume when they can reason about concrete transformations.
+
+Q3 Vygotsky's Zone of Proximal Development refers to the gap between:
+A) inherited ability and classroom marks
+B) what a learner can do alone and with guidance *
+C) school curriculum and home language
+D) physical age and mental age
+E ZPD describes tasks a learner cannot yet do independently but can complete with support from a more knowledgeable person.
+
+Q4 A teacher giving hints and gradually withdrawing help is using:
+A) reinforcement
+B) scaffolding *
+C) punishment
+D) maturation
+E Scaffolding is temporary support that is reduced as the learner becomes more competent.
+
+Q5 Kohlberg's conventional level of moral development is mainly guided by:
+A) obedience to avoid punishment only
+B) social approval and law-and-order thinking *
+C) universal ethical principles
+D) reflexive biological needs
+E At the conventional level, children judge actions by social expectations, approval, rules, and authority.
+
+Q6 Gardner's theory helps teachers understand that intelligence is:
+A) a single fixed IQ score
+B) limited to linguistic ability
+C) expressed in multiple forms *
+D) unrelated to learning
+E Multiple intelligences include linguistic, logical, spatial, bodily, musical, interpersonal, intrapersonal, and naturalistic abilities.
+
+Q7 Erikson's stage most associated with adolescence is:
+A) trust versus mistrust
+B) initiative versus guilt
+C) identity versus role confusion *
+D) integrity versus despair
+E Adolescents explore values, roles, and self-concept, making identity formation the key psychosocial task.
+
+Q8 The strongest example of gender stereotyping in a classroom is:
+A) asking all students to clean their desks
+B) assigning leadership roles only to boys *
+C) forming mixed-ability groups
+D) using examples from daily life
+E Giving leadership only to boys reinforces a social belief that leadership is male, which is a gender stereotype.
+
+Q9 A learner with dyscalculia is most likely to need support in:
+A) reading musical notation
+B) understanding numbers and arithmetic *
+C) hearing classroom instructions
+D) controlling eye movement
+E Dyscalculia is a specific learning difficulty that affects number sense, calculation, and mathematical reasoning.
+
+Q10 Universal Design for Learning mainly asks teachers to provide:
+A) identical worksheets for all learners
+B) multiple means of engagement, representation, and expression *
+C) only oral tests
+D) separate classrooms for children with disabilities
+E UDL reduces barriers by offering varied ways to access content, stay engaged, and show learning.
+
+Q11 In an inclusive classroom, the teacher should first:
+A) lower expectations for children with disabilities
+B) identify barriers and adapt teaching strategies *
+C) exclude difficult topics
+D) ask parents to teach the child at home
+E Inclusion keeps high expectations while changing supports, materials, and assessment methods to remove barriers.
+
+Q12 A child who learns by observing a peer solve a problem illustrates:
+A) Bandura's social learning theory *
+B) Pavlov's classical conditioning
+C) Spearman's g factor
+D) Kohlberg's moral dilemma
+E Bandura emphasized observational learning, modelling, imitation, and vicarious reinforcement.
+
+Q13 In Skinner's operant conditioning, a reward given after a desired response is:
+A) negative punishment
+B) positive reinforcement *
+C) extinction
+D) spontaneous recovery
+E Positive reinforcement adds a pleasant consequence to increase the likelihood of the behavior.
+
+Q14 Intrinsic motivation is best shown when a student studies because:
+A) the teacher promises a prize
+B) parents demand high marks
+C) the topic is personally interesting *
+D) a punishment is expected
+E Intrinsic motivation comes from curiosity, interest, satisfaction, or a sense of competence.
+
+Q15 Formative assessment is primarily used to:
+A) rank students at the end of the year
+B) support learning during instruction *
+C) replace teaching
+D) certify school completion
+E Formative assessment provides feedback during learning so teaching and learning strategies can be adjusted.
+
+Q16 A child-centered classroom is characterized by:
+A) strict lecturing for the whole period
+B) active participation and learner choice *
+C) memorisation without discussion
+D) punishment for wrong answers
+E Child-centered teaching values active exploration, participation, and learning experiences connected to the learner.
+
+Q17 Assimilation in Piaget's theory means:
+A) changing an existing schema to fit new information
+B) fitting new information into an existing schema *
+C) copying adult behavior
+D) forgetting unused knowledge
+E Assimilation occurs when a child interprets a new experience using an existing mental structure.
+
+Q18 Accommodation occurs when a learner:
+A) changes a schema after new evidence *
+B) repeats a memorised answer
+C) receives a reward
+D) avoids a task
+E Accommodation modifies existing mental structures when current schemas do not explain new experiences.
+
+Q19 The Right to Education Act 2009 emphasizes education for children aged:
+A) 3 to 6 years
+B) 6 to 14 years *
+C) 14 to 18 years
+D) 18 to 21 years
+E The RTE Act makes free and compulsory education a right for children from 6 to 14 years of age.
+
+Q20 A diagnostic test in learning is mainly used to:
+A) award certificates
+B) locate specific learning difficulties *
+C) compare schools
+D) select only gifted learners
+E Diagnostic assessment identifies the nature and causes of learning problems so remediation can be planned.
+
+Q21 A teacher encourages students to give more than one solution to a problem. This promotes:
+A) rote learning
+B) divergent thinking *
+C) fixed response training
+D) mechanical repetition
+E Divergent thinking involves generating multiple possible solutions or ideas.
+
+Q22 In Maslow's hierarchy, which need must be addressed before a hungry child can focus well on learning?
+A) self-actualisation
+B) aesthetic need
+C) physiological need *
+D) prestige need
+E Physiological needs such as food, water, and rest are basic needs that strongly affect attention and learning.
+
+Q23 Which is a constructivist teaching practice?
+A) giving definitions for copying only
+B) letting students build concepts through activities *
+C) punishing every incorrect answer
+D) asking only recall questions
+E Constructivism views learners as active makers of meaning through experience, discussion, and reflection.
+
+Q24 A portfolio is useful because it:
+A) records only the final exam score
+B) shows growth through collected work over time *
+C) eliminates teacher feedback
+D) compares one child with the whole class
+E Portfolios document progress, effort, feedback, and reflection across a period of learning.
+
+Q25 A child with ADHD may especially require:
+A) long silent copying tasks only
+B) clear routines, short tasks, and movement breaks *
+C) exclusion from group work
+D) removal from all academic tasks
+E ADHD support often includes structured routines, brief instructions, active tasks, and positive reinforcement.
+
+Q26 NCF 2005 strongly recommends:
+A) learning without understanding
+B) connecting knowledge to life outside school *
+C) banning local examples
+D) replacing assessment with punishment
+E NCF 2005 emphasizes constructivist learning, reducing rote load, and linking school knowledge with life.
+
+Q27 NEP 2020 highlights which approach for foundational and school learning?
+A) rigid separation of subjects
+B) multilingualism and experiential learning *
+C) only annual board exams
+D) no vocational exposure
+E NEP 2020 values mother tongue, experiential learning, flexibility, skills, and competency-based education.
+
+Q28 Emotional intelligence includes the ability to:
+A) solve only algebraic problems
+B) recognize and manage emotions *
+C) memorise historical dates
+D) ignore social relationships
+E Emotional intelligence involves awareness, regulation, empathy, motivation, and social skills.
+
+Q29 Individual differences mean that teachers should:
+A) teach every child in exactly one way
+B) use varied strategies and flexible assessment *
+C) ignore learners who are slow
+D) give only competitive tasks
+E Learners differ in readiness, interests, pace, background, and learning preferences, so teaching must be flexible.
+
+Q30 Peer influence during adolescence is important because adolescents:
+A) stop needing social approval
+B) seek identity and belonging *
+C) cannot think abstractly at all
+D) have no emotional changes
+E Adolescents often explore identity and social belonging through peer relationships.
