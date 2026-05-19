@@ -1,0 +1,16 @@
+{
+  "exams": [
+    {
+      "id": "ctet-paper1-demo",
+      "title": "CTET Paper I — Demo",
+      "subtitle": "Child Development & Pedagogy, Language I, Language II, Mathematics, Environmental Studies",
+      "type": "Paper 1",
+      "targetClasses": "Classes I–V",
+      "duration": 150,
+      "totalQuestions": 150,
+      "totalMarks": 150,
+      "negativeMarking": false,
+      "file": "exams/ctet-paper1-demo.json"
+    }
+  ]
+}

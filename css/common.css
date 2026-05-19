@@ -1,0 +1,149 @@
+/* ── Site header (home / instructions pages) ── */
+.site-header {
+  background: var(--color-header-bg);
+  color: var(--color-header-text);
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 12px;
+  border-bottom: 2px solid var(--color-header-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.site-header__logo {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.site-header__subtitle {
+  font-size: var(--font-size-sm);
+  color: #a8c4e0;
+  margin-top: 2px;
+}
+
+/* ── Shared button base ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 16px;
+  border-radius: var(--border-radius-sm);
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.3px;
+  transition: background var(--transition-fast), opacity var(--transition-fast);
+  white-space: nowrap;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn--primary {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+}
+.btn--primary:not(:disabled):hover { background: var(--btn-primary-hover); }
+
+.btn--save {
+  background: var(--btn-save-bg);
+  color: #fff;
+}
+.btn--save:not(:disabled):hover { background: var(--btn-save-hover); }
+
+.btn--mark {
+  background: var(--btn-mark-bg);
+  color: #fff;
+}
+.btn--mark:not(:disabled):hover { background: var(--btn-mark-hover); }
+
+.btn--clear {
+  background: var(--btn-clear-bg);
+  color: var(--btn-clear-text);
+  border: 1px solid var(--btn-clear-border);
+}
+.btn--clear:not(:disabled):hover { background: #e8e8e8; }
+
+.btn--back {
+  background: var(--btn-back-bg);
+  color: var(--btn-back-text);
+  border: 1px solid var(--btn-back-border);
+}
+.btn--back:not(:disabled):hover { background: #e8e8e8; }
+
+.btn--danger {
+  background: var(--btn-submit-bg);
+  color: #fff;
+}
+.btn--danger:not(:disabled):hover { background: var(--btn-submit-hover); }
+
+.btn--outline {
+  background: transparent;
+  color: var(--btn-primary-bg);
+  border: 1.5px solid var(--btn-primary-bg);
+}
+.btn--outline:hover { background: #e8f0fb; }
+
+/* ── Submit confirmation dialog ── */
+.dialog-box {
+  width: min(480px, 92vw);
+  font-size: var(--font-size-base);
+}
+
+.dialog-box__header {
+  background: var(--color-header-bg);
+  color: #fff;
+  padding: 14px 20px;
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  border-radius: var(--border-radius-md) var(--border-radius-md) 0 0;
+}
+
+.dialog-box__body {
+  padding: 20px;
+}
+
+.dialog-box__table {
+  margin-bottom: 16px;
+  font-size: 13px;
+}
+
+.dialog-box__table td {
+  padding: 6px 10px;
+  border: 1px solid #e0e0e0;
+}
+
+.dialog-box__table tr:nth-child(odd) td { background: #f8f8f8; }
+
+.dialog-box__table td:last-child {
+  font-weight: 700;
+  text-align: center;
+  width: 60px;
+}
+
+.dialog-box__warning {
+  font-size: 13px;
+  color: #c62828;
+  margin-bottom: 16px;
+  padding: 8px 12px;
+  background: #fff3f3;
+  border-left: 3px solid #c62828;
+  border-radius: 2px;
+}
+
+.dialog-box__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* ── Utility ── */
+.text-center { text-align: center; }
+.text-muted { color: #757575; }
+.mt-1 { margin-top: 8px; }
+.mt-2 { margin-top: 16px; }
+.mt-3 { margin-top: 24px; }
