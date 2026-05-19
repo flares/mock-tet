@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exam — Mock TET</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/exam.css">
+</head>
+<body class="exam-body">
+
+  <!-- Loading overlay -->
+  <div id="loading-overlay" class="loading-overlay">
+    <div class="spinner"></div>
+    <span>Loading exam&hellip;</span>
+  </div>
+
+  <!-- ── Header ── -->
+  <header class="exam-header">
+    <div class="exam-header__logo">Mock TET</div>
+    <div class="exam-header__divider"></div>
+    <div class="exam-header__title" id="exam-title">Loading&hellip;</div>
+
+    <div class="exam-header__lang-toggle">
+      <button class="lang-btn active" id="btn-lang-en" title="English">EN</button>
+      <button class="lang-btn" id="btn-lang-hi" title="Hindi">हि</button>
+    </div>
+
+    <div class="exam-header__timer" id="exam-timer" role="timer" aria-live="off">
+      00:00:00
+    </div>
+  </header>
+
+  <!-- ── Section tabs ── -->
+  <nav class="section-tabs" id="section-tabs" aria-label="Exam sections">
+    <!-- Populated by exam.js -->
+  </nav>
+
+  <!-- ── Main content ── -->
+  <div class="exam-main">
+
+    <!-- Question pane -->
+    <section class="question-pane" id="question-pane">
+      <div class="question-meta">
+        <span class="question-counter" id="question-counter">Question 1 of 150</span>
+        <span class="question-section-label" id="question-section-label"></span>
+      </div>
+
+      <div class="question-card" id="question-card">
+        <!-- Populated by QuestionRenderer -->
+      </div>
+    </section>
+
+    <!-- Right palette panel -->
+    <aside class="palette-panel" id="palette-panel" aria-label="Question palette">
+      <div class="palette-candidate">
+        <div class="palette-candidate__name">Candidate</div>
+        <div class="palette-candidate__label">Practice Mode</div>
+      </div>
+      <div id="palette-container">
+        <!-- Populated by PaletteRenderer -->
+      </div>
+    </aside>
+
+  </div><!-- /.exam-main -->
+
+  <!-- ── Footer action bar ── -->
+  <footer class="exam-footer">
+    <button class="btn btn--back" id="btn-back" disabled>&#8592; Back</button>
+    <button class="btn btn--clear" id="btn-clear">Clear Response</button>
+    <div class="exam-footer__spacer"></div>
+    <button class="btn btn--palette-toggle" id="btn-palette-toggle">Question Palette</button>
+    <button class="btn btn--mark" id="btn-mark">Mark for Review &amp; Next &#9654;</button>
+    <button class="btn btn--save" id="btn-save">Save &amp; Next &#9654;</button>
+    <button class="btn btn--submit" id="btn-submit">Submit</button>
+  </footer>
+
+  <!-- ── Submit confirmation dialog ── -->
+  <dialog id="submit-dialog" aria-labelledby="dialog-heading">
+    <div class="dialog-box">
+      <div class="dialog-box__header" id="dialog-heading">Submit Examination</div>
+      <div class="dialog-box__body">
+        <table class="dialog-box__table">
+          <tbody>
+            <tr><td>Total Questions</td>            <td id="sd-total">—</td></tr>
+            <tr><td>Answered</td>                   <td id="sd-answered">—</td></tr>
+            <tr><td>Not Answered</td>               <td id="sd-not-answered">—</td></tr>
+            <tr><td>Marked for Review</td>          <td id="sd-marked">—</td></tr>
+            <tr><td>Answered &amp; Marked</td>      <td id="sd-ans-marked">—</td></tr>
+            <tr><td>Not Visited</td>                <td id="sd-not-visited">—</td></tr>
+          </tbody>
+        </table>
+        <p class="dialog-box__warning">
+          &#9888; Once submitted, you cannot return to the exam.
+          Answers marked with &ldquo;Answered &amp; Marked for Review&rdquo; will be evaluated.
+        </p>
+        <div class="dialog-box__actions">
+          <button class="btn btn--outline" id="dialog-cancel">Go Back to Exam</button>
+          <button class="btn btn--danger" id="dialog-confirm">Submit Final Answers</button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="js/state.js"></script>
+  <script src="js/timer.js"></script>
+  <script src="js/palette.js"></script>
+  <script src="js/question.js"></script>
+  <script src="js/exam.js"></script>
+</body>
+</html>

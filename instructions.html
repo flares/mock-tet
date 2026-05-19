@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instructions — Mock TET</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/instructions.css">
+</head>
+<body class="instructions-body">
+
+  <header class="site-header">
+    <div>
+      <div class="site-header__logo">Mock TET</div>
+      <div class="site-header__subtitle">Teacher Eligibility Test — CBT Practice Interface</div>
+    </div>
+  </header>
+
+  <main class="instructions-main">
+
+    <!-- Exam meta -->
+    <div class="exam-meta-card">
+      <div>
+        <div class="exam-meta-card__title" id="exam-title">Loading&hellip;</div>
+        <div class="exam-meta-card__body" id="exam-type"></div>
+      </div>
+      <div class="exam-meta-card__stats">
+        <div class="stat-item"><strong id="exam-duration">—</strong>Duration</div>
+        <div class="stat-item"><strong id="exam-marks">—</strong>Total Marks</div>
+        <div class="stat-item"><strong id="exam-questions">—</strong>Questions</div>
+      </div>
+    </div>
+
+    <!-- Error (hidden by default) -->
+    <p id="error-msg" class="error-msg" style="display:none;margin-bottom:16px"></p>
+
+    <!-- Instructions -->
+    <div class="instructions-box">
+      <div class="instructions-box__header">General Instructions</div>
+      <div class="instructions-box__body">
+        <ol class="instructions-list" id="instructions-list">
+          <li>Loading instructions&hellip;</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- Agreement -->
+    <div class="agreement-row" onclick="document.getElementById('agree-checkbox').click()">
+      <input type="checkbox" id="agree-checkbox">
+      <label for="agree-checkbox">
+        I have read and understood all the instructions. I agree to follow the exam rules and not
+        use any unfair means during the test.
+      </label>
+    </div>
+
+    <!-- Actions -->
+    <div class="instructions-actions">
+      <button class="btn btn--outline" id="btn-back-home">&#8592; Back to Home</button>
+      <button class="btn btn--save" id="btn-start" disabled>
+        Start Test &#8594;
+      </button>
+    </div>
+
+  </main>
+
+  <script src="js/instructions.js"></script>
+</body>
+</html>
