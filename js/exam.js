@@ -25,16 +25,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   const btnMark        = document.getElementById('btn-mark');
   const btnSave        = document.getElementById('btn-save');
   const btnSubmit      = document.getElementById('btn-submit');
-  const btnLangEn      = document.getElementById('btn-lang-en');
-  const btnLangHi      = document.getElementById('btn-lang-hi');
   const btnPaletteToggle = document.getElementById('btn-palette-toggle');
   const palettePanel   = document.querySelector('.palette-panel');
 
   const submitDialog    = document.getElementById('submit-dialog');
   const btnDialogCancel = document.getElementById('dialog-cancel');
   const btnDialogSubmit = document.getElementById('dialog-confirm');
-
-  let currentLang = localStorage.getItem('tet_lang') || 'en';
 
   // ── Load exam ───────────────────────────────────────────────────────────
   try {
@@ -70,7 +66,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   // ── Render initial state ────────────────────────────────────────────────
-  applyLanguage(currentLang);
   renderCurrentQuestion();
   loadingOverlay.style.display = 'none';
 
@@ -148,18 +143,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   btnSubmit.addEventListener('click', () => openSubmitDialog());
-
-  // ── Language toggle ─────────────────────────────────────────────────────
-  btnLangEn.addEventListener('click', () => applyLanguage('en'));
-  btnLangHi.addEventListener('click', () => applyLanguage('hi'));
-
-  function applyLanguage(lang) {
-    currentLang = lang;
-    localStorage.setItem('tet_lang', lang);
-    document.body.classList.toggle('lang-hi', lang === 'hi');
-    btnLangEn.classList.toggle('active', lang === 'en');
-    btnLangHi.classList.toggle('active', lang === 'hi');
-  }
 
   // ── Mobile palette toggle ───────────────────────────────────────────────
   if (btnPaletteToggle) {
