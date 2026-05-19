@@ -12,7 +12,7 @@ The primary goal is to help candidates practise the **computer interface** of th
 - Five question statuses (Not Visited / Not Answered / Answered / Marked / Answered & Marked) with exact NTA colour scheme
 - Save & Next, Mark for Review & Next, Clear Response, Back navigation
 - Auto-submit on timer expiry
-- Bilingual questions (English / Hindi toggle)
+- English-medium questions with one Telugu language subject; EN/हि toggle in the header is a visual placeholder for CBT fidelity
 - Section-wise navigation tabs
 - Submit confirmation dialog with question count summary
 - Result page with score, section breakdown, and question-by-question review
@@ -20,10 +20,7 @@ The primary goal is to help candidates practise the **computer interface** of th
 
 ## Exam Data
 
-Exam papers are stored as JSON files in `exams/`. The `exams/manifest.json` index lists all available papers. Add new papers by:
-
-1. Creating a new JSON file in `exams/` following the schema in `exams/ctet-paper1-demo.json`
-2. Adding an entry to `exams/manifest.json`
+Exam papers are stored as JSON files in `exams/`. The `exams/manifest.json` index lists all available papers. New exams are generated via the `/create-mock-test` skill, which writes raw question files under `exams/_raw/<exam-id>/` and then runs `scripts/build_exam.py <exam-id>` to assemble the final JSON and update the manifest.
 
 ## Running Locally
 

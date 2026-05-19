@@ -6,56 +6,67 @@ You are creating a new mock exam JSON file for the Mock TET repository. Read thi
 
 ## Step-by-step workflow
 
-1. **Parse the user's request** — determine which sections/subjects are wanted and whether it's a full test or mini-test.
+The work is split into three phases to keep per-call output token usage low and to let a deterministic Python script handle JSON assembly + manifest update (zero LLM tokens).
+
+### Phase A — set up
+
+1. **Parse the user's request.** Decide whether it is a full Paper 2 (default sections: `cdp english telugu math science`) or a mini-test (a subset of those). If unspecified, default to the full set.
 2. **Read `exams/manifest.json`** to see existing exams and avoid duplicate IDs.
-3. **Generate a unique exam ID** using the pattern `<type>-<subjects>-<nn>` (e.g. `paper2-math-sci-01`, `paper2-mini-cdp-math-01`).
-4. **Write questions** for each requested section, following the syllabus below. Every question must be factually accurate.
-5. **Write the JSON file** to `exams/<exam-id>.json` using the schema below.
-6. **Update `exams/manifest.json`** — add the new entry to the `exams` array.
-7. **Confirm** — tell the user the file is ready, which sections are in it, total questions, and duration.
+3. **Generate a unique exam ID** using the pattern `<type>-<subjects>-<nn>` (e.g. `paper2-full-01`, `paper2-mini-cdp-math-01`, `paper2-mini-telugu-01`).
+4. **Create `exams/_raw/<exam-id>/meta.txt`** — see "Meta file format" below. This is the only file the main session writes during Phase A; everything else is written by subagents or the build script.
+
+### Phase B — dispatch per-section subagents (sequential)
+
+For **each** section listed in `meta.txt`, dispatch one Sonnet subagent (use the Agent tool, subagent_type omitted = general-purpose, sequential — wait for each to finish before starting the next so the main context doesn't grow). Each subagent's prompt must include:
+
+- Only that section's syllabus slice from this file (do **not** paste the full syllabus into every subagent).
+- The exact question count required (always 30 unless the user asked for fewer in a mini-test).
+- The raw question-format spec and a one-question example (see "Raw question format" below).
+- The output file path: `exams/_raw/<exam-id>/<section>.txt`.
+- Question-writing rules 1–7 from this file.
+- For the **`telugu`** section only: an explicit instruction to write all question text, options, and explanations in Telugu script (UTF-8). The format markers (`Q`, `A)`–`D)`, `E`, ` *`) stay ASCII.
+- Instruction to write the file and return only a short confirmation — **not** to echo the questions back into the chat.
+
+### Phase C — build and confirm
+
+5. Run `python3 scripts/build_exam.py <exam-id>` via Bash. On non-zero exit, surface the script's error message to the user and stop.
+6. **Confirm** to the user: file path of the new JSON, total questions, duration, sections included.
 
 ---
 
 ## Mini-test logic
 
-When the user asks for a subset (e.g. "just Maths and CDP", "Science only"):
-- Include **only the requested sections** — omit the others entirely.
-- Set `duration` = `sum(questionCount per section) × 1` minute (1 min per mark, same as real exam).  
-  Example: CDP (30 Qs) + Math (30 Qs) = 60 questions → 60 minutes.
-- The `duration` field in the JSON is the **source of truth** — the exam timer reads from it.
-- Set `type` to `"Mini-Test"` and note the included sections in `subtitle`.
+When the user asks for a subset (e.g. "just Maths and CDP", "Telugu only"):
+- Include **only the requested sections** in `meta.txt`'s `sections:` line — omit the others entirely.
+- `duration`, `totalMarks`, and `totalQuestions` are derived by the build script as `sum(questionCount per section)`, 1 min per mark — no manual math needed.
+- Set `type: Mini-Test` in `meta.txt`. The script writes the subtitle from the joined section names.
 
 ---
 
-## Full Paper 2 structure (official CTET)
+## Full Paper 2 structure (Telugu-medium adaptation of CTET)
 
-| Section | Questions | Marks | Duration contribution |
-|---|---|---|---|
-| Child Development & Pedagogy (CDP) | 30 | 30 | 30 min |
-| Language I | 30 | 30 | 30 min |
-| Language II | 30 | 30 | 30 min |
-| Mathematics & Science (combined) | 60 | 60 | 60 min |
-| **Total** | **150** | **150** | **150 min** |
+| Section | id | Questions | Marks | Duration contribution | Content language |
+|---|---|---|---|---|---|
+| Child Development & Pedagogy | `cdp` | 30 | 30 | 30 min | English |
+| English | `english` | 30 | 30 | 30 min | English |
+| Telugu | `telugu` | 30 | 30 | 30 min | **Telugu (UTF-8)** |
+| Mathematics | `math` | 30 | 30 | 30 min | English |
+| Science | `science` | 30 | 30 | 30 min | English |
+| **Total** | | **150** | **150** | **150 min** | |
 
-Within Mathematics & Science:
-- Mathematics: 30 questions (≈20 content + ≈10 pedagogy)
-- Science: 30 questions (≈20 content + ≈10 pedagogy)
-
-No negative marking. 1 mark per question.
+Math has ≈20 content + ≈10 pedagogy questions. Science has ≈20 content + ≈10 pedagogy. No negative marking. 1 mark per question.
 
 ---
 
-## Section IDs and `startIndex` values (full Paper 2)
+## Section IDs (for the `sections:` line in `meta.txt`)
+
+Valid IDs: `cdp`, `english`, `telugu`, `math`, `science`. The build script computes `startIndex` cumulatively in the order they appear on the `sections:` line, so order = exam order. For full Paper 2 use:
 
 ```
-cdp      startIndex: 0    questionCount: 30
-lang1    startIndex: 30   questionCount: 30
-lang2    startIndex: 60   questionCount: 30
-math     startIndex: 90   questionCount: 30
-science  startIndex: 120  questionCount: 30
+sections: cdp english telugu math science
 ```
 
-For mini-tests, recalculate `startIndex` sequentially starting from 0.
+For mini-tests, list only the desired IDs; everything else (duration, startIndex, totals) is derived.
 
 ---
 
@@ -101,35 +112,46 @@ For mini-tests, recalculate `startIndex` sequentially starting from 0.
 
 ---
 
-### B. Language I — 30 Questions
+### B. English (`english`) — 30 Questions
+
+All questions, options, and explanations are in **English**.
 
 **Reading Comprehension (15 questions)**
-- Two unseen passages (narrative/discursive/literary) followed by inference, vocabulary, and comprehension questions
+- One or two short unseen English passages (narrative / discursive / literary) followed by inference, vocabulary, tone, and comprehension questions
 
 **Pedagogy of Language Development (15 questions)**
 - Principles of language learning and acquisition (Krashen's Monitor Model, Input Hypothesis)
 - Difference between language acquisition and language learning
-- Role of listening, speaking, reading and writing (LSRW) in language development
-- Methods of teaching language: Communicative Language Teaching (CLT), Direct Method, Grammar-Translation
+- Role of LSRW (listening, speaking, reading, writing) in second-language development
+- Methods of teaching language: Communicative Language Teaching (CLT), Direct Method, Grammar-Translation, Audio-Lingual
 - Reading: decoding, fluency, comprehension strategies; reading for meaning
 - Writing: process writing, drafting, revising; creative writing
 - Grammar: functional grammar in context (not prescriptive rules)
-- Role of home language/L1 in learning L2
-- Challenges of teaching language in a diverse multilingual classroom
-- Evaluation of language: formative tools (portfolio, observation, peer assessment)
-- Remedial teaching in language
+- Role of home language/L1 (Telugu) in learning L2 (English)
+- Challenges of teaching English in a Telugu-medium / multilingual classroom
+- Evaluation: formative tools (portfolio, observation, peer assessment)
+- Remedial teaching in English
 
 ---
 
-### C. Language II — 30 Questions
+### C. Telugu (`telugu`) — 30 Questions
 
-Same structure as Language I (different language). Typically English as Language II.
+**All questions, options, and explanations must be written in Telugu script (UTF-8).** The format markers (`Q`, `A)`, `B)`, `C)`, `D)`, `E`, ` *`, blank lines) remain ASCII.
 
 **Reading Comprehension (15 questions)**
-- Two passages; questions on comprehension, inference, vocabulary in context, tone
+- One or two short Telugu passages (narrative / poetic / informational) followed by comprehension, inference, vocabulary-in-context, and tone questions. Passages should be authentic Telugu prose suitable for upper-primary readers.
 
 **Pedagogy of Language Development (15 questions)**
-- All same pedagogy topics as Language I applied to English as a second/third language
+- Principles of mother-tongue language acquisition; importance of L1 in early education
+- LSRW in Telugu development; oral fluency before literacy
+- Methods of teaching Telugu reading and writing: phonics, whole-language, balanced approach
+- Telugu script literacy: vowels, consonants, conjuncts; common reading errors
+- Role of literature, folklore, and oral tradition in Telugu pedagogy
+- Reading comprehension strategies for Telugu texts
+- Grammar in context (sandhi, samaasa, vibhakti basics) — taught functionally
+- Multilingual classroom: relating Telugu to English / Hindi / Sanskrit
+- Evaluation of Telugu language skills: formative tools, portfolio, observation
+- Remedial teaching for struggling readers in Telugu
 
 ---
 
@@ -264,58 +286,56 @@ Same structure as Language I (different language). Typically English as Language
 
 ---
 
-## JSON Schema (complete reference)
+## JSON schema — owned by the build script
 
-```json
-{
-  "id": "<exam-id>",
-  "title": "<Full title>",
-  "titleHindi": "<Hindi title>",
-  "type": "Paper 2" | "Mini-Test",
-  "conductingBody": "Central Board of Secondary Education",
-  "conductingBodyHindi": "केन्द्रीय माध्यमिक शिक्षा बोर्ड",
-  "duration": <integer minutes>,
-  "totalMarks": <integer — equals total questions>,
-  "negativeMarking": false,
-  "marksPerQuestion": 1,
-  "instructions": ["...", "..."],
-  "instructionsHindi": ["...", "..."],
-  "sections": [
-    {
-      "id": "<section-id>",
-      "name": "<English name>",
-      "nameHindi": "<Hindi name>",
-      "shortName": "<tab label>",
-      "questionCount": <integer>,
-      "startIndex": <cumulative count from previous sections>
-    }
-  ],
-  "questions": [
-    {
-      "id": "q<n>",
-      "sectionId": "<section-id>",
-      "globalIndex": <0-based integer across ALL questions>,
-      "text": "<Question in English>",
-      "textHindi": "<Question in Hindi>",
-      "options": [
-        { "key": "A", "text": "<Option A>", "textHindi": "<Option A Hindi>" },
-        { "key": "B", "text": "<Option B>", "textHindi": "<Option B Hindi>" },
-        { "key": "C", "text": "<Option C>", "textHindi": "<Option C Hindi>" },
-        { "key": "D", "text": "<Option D>", "textHindi": "<Option D Hindi>" }
-      ],
-      "correctAnswer": "A" | "B" | "C" | "D",
-      "explanation": "<Why this answer is correct>",
-      "explanationHindi": "<Explanation in Hindi>"
-    }
-  ]
-}
+You do not author the final JSON — `scripts/build_exam.py` does. It owns the schema, computes `globalIndex` / `startIndex` / `duration` / `totalMarks` / `totalQuestions`, fills in canned `instructions` and `conductingBody`, and writes `exams/<exam-id>.json`. There are **no `*Hindi` fields**. Each text field carries content in one language: English for `cdp` / `english` / `math` / `science`; Telugu for `telugu`.
+
+To inspect or change the schema, edit `scripts/build_exam.py`.
+
+---
+
+## Raw question format
+
+Each section is written by its subagent to `exams/_raw/<exam-id>/<section>.txt`. Each question is **exactly 6 non-blank lines**, separated by a blank line:
+
+```
+Q1 According to Piaget, which stage involves abstract reasoning?
+A) Sensorimotor
+B) Pre-operational
+C) Concrete operational
+D) Formal operational *
+E The Formal Operational Stage (12+ years) marks the onset of abstract and hypothetical reasoning.
+
+Q2 Vygotsky's ZPD refers to:
+A) The IQ range of a class
+B) The gap between what a learner can do alone vs with guidance *
+C) A fixed developmental milestone
+D) A reading-level diagnostic
+E Zone of Proximal Development is the difference between independent performance and assisted performance.
 ```
 
-Critical rules:
-- `globalIndex` must be a zero-based integer sequential across the ENTIRE exam (not per-section).
-- `startIndex` in each section = sum of `questionCount` of all preceding sections.
-- `totalMarks` = total number of questions.
-- `duration` in minutes = total questions (1 minute per mark) for standard tests.
+Parser rules (enforced by `scripts/build_exam.py`):
+- `Q<n> <text>` opens a new question; `<n>` is 1-indexed per-section and must match position in the file.
+- `A) <text>` / `B) <text>` / `C) <text>` / `D) <text>` are option lines (in order). A trailing ` *` (space + asterisk) marks the correct answer — exactly one per question.
+- `E <text>` is the explanation — exactly one per question.
+- Blank lines separate questions. Lines starting with `#` are comments (ignored).
+- For the `telugu` section, the **content** after each marker is Telugu script; the markers themselves stay ASCII.
+
+---
+
+## Meta file format
+
+`exams/_raw/<exam-id>/meta.txt` — written by the main session in Phase A. Plain `key: value` lines:
+
+```
+id: paper2-full-02
+title: CTET Paper 2 — Telugu Medium — Test 2
+type: Paper 2
+targetClasses: Classes VI–VIII (+ IX–X extension)
+sections: cdp english telugu math science
+```
+
+Required keys: `id`, `title`, `type`, `targetClasses`, `sections`. Everything else is derived.
 
 ---
 
@@ -323,43 +343,28 @@ Critical rules:
 
 1. **Factual accuracy first** — every content question must be verifiably correct per NCERT textbooks (classes 6–10).
 2. **One clearly correct answer** — distractors should be plausible but unambiguously wrong.
-3. **Pedagogy questions** test teaching knowledge, not content. They should reference specific pedagogical approaches, learning theories, or assessment strategies.
+3. **Pedagogy questions** test teaching knowledge, not content. Reference specific pedagogical approaches, learning theories, or assessment strategies.
 4. **Difficulty spread**: aim for ≈40% easy, ≈40% medium, ≈20% hard within each section.
 5. **No trick questions** — the real TET exam tests genuine knowledge, not word traps.
-6. **Hindi translations**: provide accurate Hindi for question text and all options. If unsure of exact Hindi phrasing for a technical term, keep the English term and add हिंदी context around it.
-7. **Unique questions**: before writing, check the existing JSON files in `exams/` to avoid repeating questions from previous tests.
-8. **Explanations**: every question needs a brief, educational explanation (1–2 sentences) that would help a candidate understand why the answer is correct.
+6. **Language by section** — `cdp` / `english` / `math` / `science` content in English; `telugu` content in Telugu script (UTF-8). No bilingual side-by-side text in the raw files.
+7. **Unique questions**: before writing, check existing raw `.txt` files under `exams/_raw/` and assembled JSONs under `exams/` to avoid duplicates.
+8. **Explanations**: every question needs a brief, educational explanation (1–2 sentences) that helps a candidate understand why the answer is correct.
 
 ---
 
-## Manifest entry format
+## Manifest entry
 
-After writing the JSON file, add this entry to the `exams` array in `exams/manifest.json`:
-
-```json
-{
-  "id": "<exam-id>",
-  "title": "<Full title as shown on card>",
-  "subtitle": "<Comma-separated list of included sections>",
-  "type": "Paper 2" | "Mini-Test",
-  "targetClasses": "Classes VI–VIII (+ IX–X extension)" | "<custom>",
-  "duration": <same as JSON>,
-  "totalQuestions": <same as JSON>,
-  "totalMarks": <same as in JSON>,
-  "negativeMarking": false,
-  "file": "exams/<exam-id>.json"
-}
-```
+The build script writes the manifest entry — do not edit `exams/manifest.json` by hand. See `scripts/build_exam.py`.
 
 ---
 
 ## Example invocations
 
-| User says | What to do |
-|---|---|
-| "Create a new mock test" | Full Paper 2: CDP + Lang I + Lang II + Maths + Science, 150 Qs, 150 min |
-| "Create a mini test for Maths only" | Maths section only, 30 Qs, 30 min |
-| "Mini test for CDP and Science" | CDP (30) + Science (30), 60 Qs, 60 min, startIndex recalculated |
-| "Create a Paper 2 Math Science test" | CDP + Lang I + Lang II + Maths + Science (full Paper 2 format) |
-| "Quick test for pedagogy topics" | CDP (30 Qs focused on pedagogy sub-topics), 30 min |
-| "New test, focus on class 10 science topics" | Full Paper 2 but Science questions drawn from class 9–10 extension topics |
+| User says | `sections:` line in `meta.txt` | Result |
+|---|---|---|
+| "Create a new mock test" | `cdp english telugu math science` | Full Paper 2: 150 Qs, 150 min |
+| "Create a mini test for Maths only" | `math` | 30 Qs, 30 min |
+| "Mini test for CDP and Science" | `cdp science` | 60 Qs, 60 min |
+| "Telugu-only mini test" | `telugu` | 30 Qs, 30 min, all in Telugu script |
+| "Quick test for English pedagogy" | `english` | 30 Qs (skew towards pedagogy block), 30 min |
+| "New test, focus on class 10 science topics" | `cdp english telugu math science` | Full Paper 2; Science subagent prompt skews towards class 9–10 extension topics |
