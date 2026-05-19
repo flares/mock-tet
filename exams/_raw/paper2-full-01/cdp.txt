@@ -1,0 +1,209 @@
+Q1 Which of the following best describes the relationship between growth and development?
+A) Growth and development are identical concepts
+B) Development refers only to physical changes, while growth refers to all changes
+C) Growth is quantitative while development is qualitative and includes growth *
+D) Development precedes growth in all domains
+E Growth is an increase in measurable physical attributes (height, weight), while development is a broader, qualitative process that encompasses growth along with cognitive, emotional, and social changes.
+
+Q2 Which principle of development states that development proceeds from head to toe?
+A) Proximodistal principle
+B) Cephalocaudal principle *
+C) Principle of continuity
+D) Principle of differentiation
+E The cephalocaudal principle (head-to-tail) states that development begins at the head and moves downward; for example, infants gain control of their head before their legs.
+
+Q3 According to Piaget, object permanence is primarily achieved during which stage?
+A) Pre-operational stage
+B) Concrete operational stage
+C) Sensorimotor stage *
+D) Formal operational stage
+E Object permanence — the understanding that objects continue to exist even when out of sight — is a key achievement of the sensorimotor stage (0–2 years), typically emerging around 8–12 months.
+
+Q4 A child can solve problems mentally and understand conservation but cannot yet reason abstractly. Which Piagetian stage does this child most likely belong to?
+A) Sensorimotor
+B) Pre-operational
+C) Concrete operational *
+D) Formal operational
+E The concrete operational stage (7–11 years) is characterised by logical thinking about concrete objects, mastery of conservation, and mental operations — but abstract and hypothetical reasoning is not yet possible.
+
+Q5 Vygotsky's Zone of Proximal Development (ZPD) is best defined as:
+A) The range of tasks a child can perform independently
+B) The difference between a child's mental age and chronological age
+C) The gap between what a child can do alone and what they can do with guidance *
+D) The stage at which a child is ready to begin formal schooling
+E The ZPD is the distance between a learner's current independent capability and the higher level of performance achievable with the assistance of a more knowledgeable other, making it the optimal zone for instruction.
+
+Q6 Which concept in Vygotsky's theory refers to the temporary support provided by a teacher or peer to help a child accomplish a task within the ZPD?
+A) Assimilation
+B) Equilibration
+C) Scaffolding *
+D) Accommodation
+E Scaffolding is a Vygotskian concept where a more capable person provides adjustable support that is gradually withdrawn as the learner gains competence, enabling the child to complete tasks they could not do alone.
+
+Q7 According to Kohlberg, a child who follows rules solely to avoid punishment is at which level of moral development?
+A) Conventional — Law and Order
+B) Post-conventional — Social Contract
+C) Pre-conventional — Obedience and Punishment *
+D) Conventional — Good Boy/Girl
+E Kohlberg's pre-conventional level (Stage 1) is characterised by an egocentric focus on avoiding punishment; morality is determined by the consequences of the act rather than social norms or principles.
+
+Q8 A teenager argues that laws should be followed because they maintain social order and protect everyone. According to Kohlberg, this reasoning reflects which stage?
+A) Stage 1 — Punishment and Obedience
+B) Stage 3 — Good Interpersonal Relationships
+C) Stage 4 — Law and Social Order *
+D) Stage 6 — Universal Ethical Principles
+E Stage 4 (Law and Social Order) is at the conventional level; the individual upholds laws and social rules because they are necessary for maintaining a functioning society, rather than merely to avoid personal punishment.
+
+Q9 Howard Gardner proposed the theory of Multiple Intelligences. Which intelligence is best demonstrated by a student who excels at chess and pattern recognition?
+A) Spatial intelligence *
+B) Logical-mathematical intelligence
+C) Bodily-kinaesthetic intelligence
+D) Intrapersonal intelligence
+E Spatial intelligence involves the ability to think in three dimensions, visualise, and mentally manipulate objects and patterns; chess playing and pattern recognition are classic examples of this intelligence in action.
+
+Q10 Which of Erikson's psychosocial stages corresponds to the school-age period (6–12 years)?
+A) Initiative vs Guilt
+B) Trust vs Mistrust
+C) Industry vs Inferiority *
+D) Identity vs Role Confusion
+E Erikson's fourth stage, Industry vs Inferiority (6–12 years), is characterised by children developing competence through academic and social tasks; success builds a sense of industry while repeated failure leads to inferiority.
+
+Q11 Chomsky's Language Acquisition Device (LAD) supports which view of language development?
+A) Language is entirely learned through imitation and reinforcement
+B) Children are born with an innate capacity for language acquisition *
+C) Language develops only after cognitive development is complete
+D) Language learning depends solely on socio-cultural context
+E Chomsky proposed that humans are biologically pre-wired for language via the LAD, an innate mental structure containing universal grammar rules that allows children to rapidly acquire language despite limited and imperfect input.
+
+Q12 Spearman's theory of intelligence proposes:
+A) Seven primary mental abilities independent of one another
+B) Eight distinct intelligences based on biological bases
+C) A general intelligence factor 'g' underlying all cognitive tasks *
+D) Emotional and social intelligence as the primary factors
+E Spearman's two-factor theory holds that all cognitive tasks share a common general factor 'g' plus a specific factor 's'; a high 'g' score predicts performance across diverse intellectual tasks.
+
+Q13 Which of the following statements about gender as a social construct is most accurate?
+A) Gender differences are entirely determined by biological sex
+B) Gender roles are fixed and universal across all cultures
+C) Gender is shaped by cultural norms, expectations, and socialisation *
+D) Girls are naturally less capable of spatial reasoning than boys
+E Gender is a social construct — the roles, behaviours, and expectations associated with being male or female are largely created and reinforced by society, culture, and education, not solely by biology.
+
+Q14 Which characteristic is most typical of adolescence according to developmental psychology?
+A) Mastery of concrete operations
+B) Strong attachment to parents with minimal peer influence
+C) Identity formation and increased importance of peer relationships *
+D) Complete absence of abstract reasoning
+E Adolescence (12–18 years) is marked by Erikson's Identity vs Role Confusion stage; teenagers explore personal identity and are heavily influenced by peers as they seek to establish who they are apart from their family.
+
+Q15 The principle of 'individual differences' in development implies that teachers should:
+A) Teach all students the same content using the same method
+B) Expect all students to reach milestones at the same age
+C) Recognise that each learner has a unique developmental pace and learning style *
+D) Focus only on academically gifted students for efficient teaching
+E Individual differences mean that students vary in their abilities, learning styles, cultural backgrounds, and developmental rates; effective teaching acknowledges this diversity and adapts instruction accordingly.
+
+Q16 Which of the following is NOT a category under Howard Gardner's Multiple Intelligences theory?
+A) Musical intelligence
+B) Naturalist intelligence
+C) Emotional intelligence *
+D) Bodily-kinaesthetic intelligence
+E Gardner originally proposed eight intelligences: linguistic, logical-mathematical, spatial, musical, bodily-kinaesthetic, interpersonal, intrapersonal, and naturalist. Emotional intelligence is associated with Daniel Goleman, not Gardner.
+
+Q17 A student with dyslexia primarily struggles with:
+A) Performing arithmetic calculations
+B) Reading and decoding written language *
+C) Controlling motor movements
+D) Maintaining attention for extended periods
+E Dyslexia is a specific learning disability affecting phonological processing, making it difficult to decode written words and spell accurately; it is not related to intelligence and does not affect mathematical ability directly.
+
+Q18 The Rights of Persons with Disabilities Act (RPwD Act) in India was enacted in:
+A) 2005
+B) 2009
+C) 2016 *
+D) 2020
+E The Rights of Persons with Disabilities Act was enacted in 2016, replacing the Persons with Disabilities Act of 1995; it recognises 21 types of disabilities and mandates inclusive education in all government-funded institutions.
+
+Q19 Universal Design for Learning (UDL) in an inclusive classroom primarily means:
+A) Designing separate curricula for students with disabilities
+B) Providing a single best method of teaching for all students
+C) Designing flexible learning environments and materials accessible to all learners *
+D) Reducing academic expectations for students with special needs
+E UDL is a proactive approach that removes learning barriers by providing multiple means of representation, action/expression, and engagement, ensuring all students — regardless of ability — can access and participate in learning.
+
+Q20 Under the Right to Education (RTE) Act 2009, children with special needs are entitled to:
+A) Education only in special schools
+B) Free and compulsory education in neighbourhood schools with appropriate support *
+C) Education only if their disability is below a prescribed severity level
+D) Home schooling funded by the government
+E The RTE Act 2009 mandates free and compulsory education for all children aged 6–14, including those with disabilities, in regular neighbourhood schools; it promotes inclusive education as a fundamental right.
+
+Q21 Classical conditioning, associated with Pavlov, explains learning through:
+A) Reinforcement and punishment of voluntary behaviour
+B) Association between a neutral stimulus and an unconditioned stimulus *
+C) Observation and imitation of models
+D) Cognitive restructuring of schemas
+E Pavlov's classical conditioning shows that a neutral stimulus (like a bell) can elicit a response (salivation) when repeatedly paired with an unconditioned stimulus (food); learning occurs through this associative pairing.
+
+Q22 B.F. Skinner's operant conditioning differs from Pavlov's classical conditioning primarily because:
+A) Operant conditioning involves reflexive responses
+B) Operant conditioning focuses on consequences of voluntary behaviour *
+C) Classical conditioning uses positive reinforcement
+D) Operant conditioning does not involve reinforcement
+E Operant conditioning concerns voluntary behaviours that are strengthened (reinforced) or weakened (punished) by their consequences; unlike classical conditioning, the learner actively operates on the environment.
+
+Q23 Albert Bandura's social learning theory emphasises that children learn by:
+A) Conditioning reflexes through repeated stimulus-response pairings
+B) Constructing knowledge individually through hands-on exploration
+C) Observing and imitating the behaviour of others (models) *
+D) Progressing through fixed cognitive developmental stages
+E Bandura proposed that a large part of human learning is observational — children watch models, encode the behaviour, and reproduce it; factors like attention, retention, motivation, and self-efficacy all influence this process.
+
+Q24 Intrinsic motivation is best illustrated by which of the following?
+A) A student studies hard to earn a gold star sticker from the teacher
+B) A student reads extra books because she genuinely loves the subject *
+C) A student completes homework to avoid parental scolding
+D) A student participates in a quiz to win a cash prize
+E Intrinsic motivation arises from internal satisfaction, curiosity, or interest in the task itself, without reliance on external rewards; it is associated with deeper learning, creativity, and long-term engagement.
+
+Q25 According to Maslow's hierarchy of needs, which level must be satisfied before a student can focus on self-esteem needs?
+A) Self-actualisation
+B) Cognitive needs
+C) Love and belonging needs *
+D) Aesthetic needs
+E Maslow's hierarchy places love and belonging (social needs — friendship, family, sense of connection) at the third level; these must be reasonably met before a person can effectively pursue esteem needs (achievement, recognition).
+
+Q26 Formative assessment differs from summative assessment primarily in that formative assessment:
+A) Occurs only at the end of the academic year
+B) Is used exclusively to assign grades and ranks
+C) Provides ongoing feedback to guide and improve learning *
+D) Tests only factual recall and does not measure understanding
+E Formative assessment is ongoing (quizzes, class discussions, observations) and aims to monitor learning progress and provide feedback to students and teachers, allowing adjustments to instruction before a final evaluation.
+
+Q27 A teacher uses open-ended projects, peer collaboration, and real-world problem-solving tasks. This approach best reflects:
+A) Behaviourist pedagogy
+B) Rote-learning methodology
+C) Constructivist child-centred pedagogy *
+D) Summative assessment focus
+E Constructivist and child-centred pedagogy emphasises active knowledge construction, real-world application, and collaborative inquiry rather than passive reception of information, aligning with NCF 2005 recommendations.
+
+Q28 The National Curriculum Framework (NCF) 2005 emphasises connecting school knowledge to:
+A) Examination syllabi and rote memorisation
+B) Children's life outside school and their everyday experiences *
+C) Strict subject boundaries with no integration
+D) Uniform national content regardless of local context
+E NCF 2005's central theme of "connecting knowledge to life outside school" urges educators to build on children's prior experiences and local context, making learning meaningful rather than an exercise in memorising isolated facts.
+
+Q29 A teacher notices that a student understands a concept when working in a small group but cannot solve similar problems alone. The most appropriate action according to Vygotskian principles is to:
+A) Mark the student as unable to learn the concept independently
+B) Move to a new concept since group work demonstrated understanding
+C) Gradually reduce peer support so the student internalises the skill *
+D) Assign the student to a lower-ability group permanently
+E Vygotsky's scaffolding model suggests that support within the ZPD should be progressively withdrawn (faded) as the learner develops competence, enabling the student to eventually perform independently.
+
+Q30 NEP 2020 recommends a new school structure replacing the previous 10+2 system. The new structure is:
+A) 4+4+2+2
+B) 5+4+3+3 (Foundational, Preparatory, Middle, Secondary) *
+C) 6+3+3+2
+D) 4+3+3+4
+E NEP 2020 introduces a 5+3+3+4 curricular structure: 5 years Foundational (ages 3–8), 3 years Preparatory (8–11), 3 years Middle (11–14), and 4 years Secondary (14–18), aligning schooling with the cognitive developmental stages of children.

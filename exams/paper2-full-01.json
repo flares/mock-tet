@@ -1,0 +1,3963 @@
+{
+  "id": "paper2-full-01",
+  "title": "CTET Paper 2 — Telugu Medium — Test 1",
+  "type": "Paper 2",
+  "conductingBody": "Central Board of Secondary Education",
+  "duration": 150,
+  "totalMarks": 150,
+  "totalQuestions": 150,
+  "negativeMarking": false,
+  "marksPerQuestion": 1,
+  "instructions": [
+    "This test comprises 150 questions, each carrying 1 mark.",
+    "All questions are compulsory. There is no negative marking for wrong answers.",
+    "The exam duration is 2 hours and 30 minutes (150 minutes).",
+    "The timer will start as soon as you click 'Start Test'. The test will auto-submit when the timer reaches 00:00:00.",
+    "Use the question palette on the right to navigate directly to any question.",
+    "Click 'Save & Next' to save your answer and move to the next question. Answers are NOT saved automatically.",
+    "Use 'Mark for Review & Next' to flag a question for later review. If you have answered it, the answer will still be counted.",
+    "Use 'Clear Response' to deselect your chosen option for the current question.",
+    "You can switch between sections at any time using the section tabs in the header.",
+    "Do not refresh or close the browser window during the exam — your progress is saved but it is not recommended.",
+    "Click 'Submit' to end the exam before the timer expires. A confirmation screen will appear."
+  ],
+  "sections": [
+    {
+      "id": "cdp",
+      "name": "Child Development & Pedagogy",
+      "shortName": "CDP",
+      "questionCount": 30,
+      "startIndex": 0
+    },
+    {
+      "id": "english",
+      "name": "English",
+      "shortName": "English",
+      "questionCount": 30,
+      "startIndex": 30
+    },
+    {
+      "id": "telugu",
+      "name": "Telugu",
+      "shortName": "Telugu",
+      "questionCount": 30,
+      "startIndex": 60
+    },
+    {
+      "id": "math",
+      "name": "Mathematics",
+      "shortName": "Math",
+      "questionCount": 30,
+      "startIndex": 90
+    },
+    {
+      "id": "science",
+      "name": "Science",
+      "shortName": "Science",
+      "questionCount": 30,
+      "startIndex": 120
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "sectionId": "cdp",
+      "globalIndex": 0,
+      "text": "Which of the following best describes the relationship between growth and development?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Growth and development are identical concepts"
+        },
+        {
+          "key": "B",
+          "text": "Development refers only to physical changes, while growth refers to all changes"
+        },
+        {
+          "key": "C",
+          "text": "Growth is quantitative while development is qualitative and includes growth"
+        },
+        {
+          "key": "D",
+          "text": "Development precedes growth in all domains"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Growth is an increase in measurable physical attributes (height, weight), while development is a broader, qualitative process that encompasses growth along with cognitive, emotional, and social changes."
+    },
+    {
+      "id": "q2",
+      "sectionId": "cdp",
+      "globalIndex": 1,
+      "text": "Which principle of development states that development proceeds from head to toe?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Proximodistal principle"
+        },
+        {
+          "key": "B",
+          "text": "Cephalocaudal principle"
+        },
+        {
+          "key": "C",
+          "text": "Principle of continuity"
+        },
+        {
+          "key": "D",
+          "text": "Principle of differentiation"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "The cephalocaudal principle (head-to-tail) states that development begins at the head and moves downward; for example, infants gain control of their head before their legs."
+    },
+    {
+      "id": "q3",
+      "sectionId": "cdp",
+      "globalIndex": 2,
+      "text": "According to Piaget, object permanence is primarily achieved during which stage?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Pre-operational stage"
+        },
+        {
+          "key": "B",
+          "text": "Concrete operational stage"
+        },
+        {
+          "key": "C",
+          "text": "Sensorimotor stage"
+        },
+        {
+          "key": "D",
+          "text": "Formal operational stage"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Object permanence — the understanding that objects continue to exist even when out of sight — is a key achievement of the sensorimotor stage (0–2 years), typically emerging around 8–12 months."
+    },
+    {
+      "id": "q4",
+      "sectionId": "cdp",
+      "globalIndex": 3,
+      "text": "A child can solve problems mentally and understand conservation but cannot yet reason abstractly. Which Piagetian stage does this child most likely belong to?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Sensorimotor"
+        },
+        {
+          "key": "B",
+          "text": "Pre-operational"
+        },
+        {
+          "key": "C",
+          "text": "Concrete operational"
+        },
+        {
+          "key": "D",
+          "text": "Formal operational"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "The concrete operational stage (7–11 years) is characterised by logical thinking about concrete objects, mastery of conservation, and mental operations — but abstract and hypothetical reasoning is not yet possible."
+    },
+    {
+      "id": "q5",
+      "sectionId": "cdp",
+      "globalIndex": 4,
+      "text": "Vygotsky's Zone of Proximal Development (ZPD) is best defined as:",
+      "options": [
+        {
+          "key": "A",
+          "text": "The range of tasks a child can perform independently"
+        },
+        {
+          "key": "B",
+          "text": "The difference between a child's mental age and chronological age"
+        },
+        {
+          "key": "C",
+          "text": "The gap between what a child can do alone and what they can do with guidance"
+        },
+        {
+          "key": "D",
+          "text": "The stage at which a child is ready to begin formal schooling"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "The ZPD is the distance between a learner's current independent capability and the higher level of performance achievable with the assistance of a more knowledgeable other, making it the optimal zone for instruction."
+    },
+    {
+      "id": "q6",
+      "sectionId": "cdp",
+      "globalIndex": 5,
+      "text": "Which concept in Vygotsky's theory refers to the temporary support provided by a teacher or peer to help a child accomplish a task within the ZPD?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Assimilation"
+        },
+        {
+          "key": "B",
+          "text": "Equilibration"
+        },
+        {
+          "key": "C",
+          "text": "Scaffolding"
+        },
+        {
+          "key": "D",
+          "text": "Accommodation"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Scaffolding is a Vygotskian concept where a more capable person provides adjustable support that is gradually withdrawn as the learner gains competence, enabling the child to complete tasks they could not do alone."
+    },
+    {
+      "id": "q7",
+      "sectionId": "cdp",
+      "globalIndex": 6,
+      "text": "According to Kohlberg, a child who follows rules solely to avoid punishment is at which level of moral development?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Conventional — Law and Order"
+        },
+        {
+          "key": "B",
+          "text": "Post-conventional — Social Contract"
+        },
+        {
+          "key": "C",
+          "text": "Pre-conventional — Obedience and Punishment"
+        },
+        {
+          "key": "D",
+          "text": "Conventional — Good Boy/Girl"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Kohlberg's pre-conventional level (Stage 1) is characterised by an egocentric focus on avoiding punishment; morality is determined by the consequences of the act rather than social norms or principles."
+    },
+    {
+      "id": "q8",
+      "sectionId": "cdp",
+      "globalIndex": 7,
+      "text": "A teenager argues that laws should be followed because they maintain social order and protect everyone. According to Kohlberg, this reasoning reflects which stage?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Stage 1 — Punishment and Obedience"
+        },
+        {
+          "key": "B",
+          "text": "Stage 3 — Good Interpersonal Relationships"
+        },
+        {
+          "key": "C",
+          "text": "Stage 4 — Law and Social Order"
+        },
+        {
+          "key": "D",
+          "text": "Stage 6 — Universal Ethical Principles"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Stage 4 (Law and Social Order) is at the conventional level; the individual upholds laws and social rules because they are necessary for maintaining a functioning society, rather than merely to avoid personal punishment."
+    },
+    {
+      "id": "q9",
+      "sectionId": "cdp",
+      "globalIndex": 8,
+      "text": "Howard Gardner proposed the theory of Multiple Intelligences. Which intelligence is best demonstrated by a student who excels at chess and pattern recognition?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Spatial intelligence"
+        },
+        {
+          "key": "B",
+          "text": "Logical-mathematical intelligence"
+        },
+        {
+          "key": "C",
+          "text": "Bodily-kinaesthetic intelligence"
+        },
+        {
+          "key": "D",
+          "text": "Intrapersonal intelligence"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Spatial intelligence involves the ability to think in three dimensions, visualise, and mentally manipulate objects and patterns; chess playing and pattern recognition are classic examples of this intelligence in action."
+    },
+    {
+      "id": "q10",
+      "sectionId": "cdp",
+      "globalIndex": 9,
+      "text": "Which of Erikson's psychosocial stages corresponds to the school-age period (6–12 years)?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Initiative vs Guilt"
+        },
+        {
+          "key": "B",
+          "text": "Trust vs Mistrust"
+        },
+        {
+          "key": "C",
+          "text": "Industry vs Inferiority"
+        },
+        {
+          "key": "D",
+          "text": "Identity vs Role Confusion"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Erikson's fourth stage, Industry vs Inferiority (6–12 years), is characterised by children developing competence through academic and social tasks; success builds a sense of industry while repeated failure leads to inferiority."
+    },
+    {
+      "id": "q11",
+      "sectionId": "cdp",
+      "globalIndex": 10,
+      "text": "Chomsky's Language Acquisition Device (LAD) supports which view of language development?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Language is entirely learned through imitation and reinforcement"
+        },
+        {
+          "key": "B",
+          "text": "Children are born with an innate capacity for language acquisition"
+        },
+        {
+          "key": "C",
+          "text": "Language develops only after cognitive development is complete"
+        },
+        {
+          "key": "D",
+          "text": "Language learning depends solely on socio-cultural context"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Chomsky proposed that humans are biologically pre-wired for language via the LAD, an innate mental structure containing universal grammar rules that allows children to rapidly acquire language despite limited and imperfect input."
+    },
+    {
+      "id": "q12",
+      "sectionId": "cdp",
+      "globalIndex": 11,
+      "text": "Spearman's theory of intelligence proposes:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Seven primary mental abilities independent of one another"
+        },
+        {
+          "key": "B",
+          "text": "Eight distinct intelligences based on biological bases"
+        },
+        {
+          "key": "C",
+          "text": "A general intelligence factor 'g' underlying all cognitive tasks"
+        },
+        {
+          "key": "D",
+          "text": "Emotional and social intelligence as the primary factors"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Spearman's two-factor theory holds that all cognitive tasks share a common general factor 'g' plus a specific factor 's'; a high 'g' score predicts performance across diverse intellectual tasks."
+    },
+    {
+      "id": "q13",
+      "sectionId": "cdp",
+      "globalIndex": 12,
+      "text": "Which of the following statements about gender as a social construct is most accurate?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Gender differences are entirely determined by biological sex"
+        },
+        {
+          "key": "B",
+          "text": "Gender roles are fixed and universal across all cultures"
+        },
+        {
+          "key": "C",
+          "text": "Gender is shaped by cultural norms, expectations, and socialisation"
+        },
+        {
+          "key": "D",
+          "text": "Girls are naturally less capable of spatial reasoning than boys"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Gender is a social construct — the roles, behaviours, and expectations associated with being male or female are largely created and reinforced by society, culture, and education, not solely by biology."
+    },
+    {
+      "id": "q14",
+      "sectionId": "cdp",
+      "globalIndex": 13,
+      "text": "Which characteristic is most typical of adolescence according to developmental psychology?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Mastery of concrete operations"
+        },
+        {
+          "key": "B",
+          "text": "Strong attachment to parents with minimal peer influence"
+        },
+        {
+          "key": "C",
+          "text": "Identity formation and increased importance of peer relationships"
+        },
+        {
+          "key": "D",
+          "text": "Complete absence of abstract reasoning"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Adolescence (12–18 years) is marked by Erikson's Identity vs Role Confusion stage; teenagers explore personal identity and are heavily influenced by peers as they seek to establish who they are apart from their family."
+    },
+    {
+      "id": "q15",
+      "sectionId": "cdp",
+      "globalIndex": 14,
+      "text": "The principle of 'individual differences' in development implies that teachers should:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Teach all students the same content using the same method"
+        },
+        {
+          "key": "B",
+          "text": "Expect all students to reach milestones at the same age"
+        },
+        {
+          "key": "C",
+          "text": "Recognise that each learner has a unique developmental pace and learning style"
+        },
+        {
+          "key": "D",
+          "text": "Focus only on academically gifted students for efficient teaching"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Individual differences mean that students vary in their abilities, learning styles, cultural backgrounds, and developmental rates; effective teaching acknowledges this diversity and adapts instruction accordingly."
+    },
+    {
+      "id": "q16",
+      "sectionId": "cdp",
+      "globalIndex": 15,
+      "text": "Which of the following is NOT a category under Howard Gardner's Multiple Intelligences theory?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Musical intelligence"
+        },
+        {
+          "key": "B",
+          "text": "Naturalist intelligence"
+        },
+        {
+          "key": "C",
+          "text": "Emotional intelligence"
+        },
+        {
+          "key": "D",
+          "text": "Bodily-kinaesthetic intelligence"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Gardner originally proposed eight intelligences: linguistic, logical-mathematical, spatial, musical, bodily-kinaesthetic, interpersonal, intrapersonal, and naturalist. Emotional intelligence is associated with Daniel Goleman, not Gardner."
+    },
+    {
+      "id": "q17",
+      "sectionId": "cdp",
+      "globalIndex": 16,
+      "text": "A student with dyslexia primarily struggles with:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Performing arithmetic calculations"
+        },
+        {
+          "key": "B",
+          "text": "Reading and decoding written language"
+        },
+        {
+          "key": "C",
+          "text": "Controlling motor movements"
+        },
+        {
+          "key": "D",
+          "text": "Maintaining attention for extended periods"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Dyslexia is a specific learning disability affecting phonological processing, making it difficult to decode written words and spell accurately; it is not related to intelligence and does not affect mathematical ability directly."
+    },
+    {
+      "id": "q18",
+      "sectionId": "cdp",
+      "globalIndex": 17,
+      "text": "The Rights of Persons with Disabilities Act (RPwD Act) in India was enacted in:",
+      "options": [
+        {
+          "key": "A",
+          "text": "2005"
+        },
+        {
+          "key": "B",
+          "text": "2009"
+        },
+        {
+          "key": "C",
+          "text": "2016"
+        },
+        {
+          "key": "D",
+          "text": "2020"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "The Rights of Persons with Disabilities Act was enacted in 2016, replacing the Persons with Disabilities Act of 1995; it recognises 21 types of disabilities and mandates inclusive education in all government-funded institutions."
+    },
+    {
+      "id": "q19",
+      "sectionId": "cdp",
+      "globalIndex": 18,
+      "text": "Universal Design for Learning (UDL) in an inclusive classroom primarily means:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Designing separate curricula for students with disabilities"
+        },
+        {
+          "key": "B",
+          "text": "Providing a single best method of teaching for all students"
+        },
+        {
+          "key": "C",
+          "text": "Designing flexible learning environments and materials accessible to all learners"
+        },
+        {
+          "key": "D",
+          "text": "Reducing academic expectations for students with special needs"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "UDL is a proactive approach that removes learning barriers by providing multiple means of representation, action/expression, and engagement, ensuring all students — regardless of ability — can access and participate in learning."
+    },
+    {
+      "id": "q20",
+      "sectionId": "cdp",
+      "globalIndex": 19,
+      "text": "Under the Right to Education (RTE) Act 2009, children with special needs are entitled to:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Education only in special schools"
+        },
+        {
+          "key": "B",
+          "text": "Free and compulsory education in neighbourhood schools with appropriate support"
+        },
+        {
+          "key": "C",
+          "text": "Education only if their disability is below a prescribed severity level"
+        },
+        {
+          "key": "D",
+          "text": "Home schooling funded by the government"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "The RTE Act 2009 mandates free and compulsory education for all children aged 6–14, including those with disabilities, in regular neighbourhood schools; it promotes inclusive education as a fundamental right."
+    },
+    {
+      "id": "q21",
+      "sectionId": "cdp",
+      "globalIndex": 20,
+      "text": "Classical conditioning, associated with Pavlov, explains learning through:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Reinforcement and punishment of voluntary behaviour"
+        },
+        {
+          "key": "B",
+          "text": "Association between a neutral stimulus and an unconditioned stimulus"
+        },
+        {
+          "key": "C",
+          "text": "Observation and imitation of models"
+        },
+        {
+          "key": "D",
+          "text": "Cognitive restructuring of schemas"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Pavlov's classical conditioning shows that a neutral stimulus (like a bell) can elicit a response (salivation) when repeatedly paired with an unconditioned stimulus (food); learning occurs through this associative pairing."
+    },
+    {
+      "id": "q22",
+      "sectionId": "cdp",
+      "globalIndex": 21,
+      "text": "B.F. Skinner's operant conditioning differs from Pavlov's classical conditioning primarily because:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Operant conditioning involves reflexive responses"
+        },
+        {
+          "key": "B",
+          "text": "Operant conditioning focuses on consequences of voluntary behaviour"
+        },
+        {
+          "key": "C",
+          "text": "Classical conditioning uses positive reinforcement"
+        },
+        {
+          "key": "D",
+          "text": "Operant conditioning does not involve reinforcement"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Operant conditioning concerns voluntary behaviours that are strengthened (reinforced) or weakened (punished) by their consequences; unlike classical conditioning, the learner actively operates on the environment."
+    },
+    {
+      "id": "q23",
+      "sectionId": "cdp",
+      "globalIndex": 22,
+      "text": "Albert Bandura's social learning theory emphasises that children learn by:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Conditioning reflexes through repeated stimulus-response pairings"
+        },
+        {
+          "key": "B",
+          "text": "Constructing knowledge individually through hands-on exploration"
+        },
+        {
+          "key": "C",
+          "text": "Observing and imitating the behaviour of others (models)"
+        },
+        {
+          "key": "D",
+          "text": "Progressing through fixed cognitive developmental stages"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Bandura proposed that a large part of human learning is observational — children watch models, encode the behaviour, and reproduce it; factors like attention, retention, motivation, and self-efficacy all influence this process."
+    },
+    {
+      "id": "q24",
+      "sectionId": "cdp",
+      "globalIndex": 23,
+      "text": "Intrinsic motivation is best illustrated by which of the following?",
+      "options": [
+        {
+          "key": "A",
+          "text": "A student studies hard to earn a gold star sticker from the teacher"
+        },
+        {
+          "key": "B",
+          "text": "A student reads extra books because she genuinely loves the subject"
+        },
+        {
+          "key": "C",
+          "text": "A student completes homework to avoid parental scolding"
+        },
+        {
+          "key": "D",
+          "text": "A student participates in a quiz to win a cash prize"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Intrinsic motivation arises from internal satisfaction, curiosity, or interest in the task itself, without reliance on external rewards; it is associated with deeper learning, creativity, and long-term engagement."
+    },
+    {
+      "id": "q25",
+      "sectionId": "cdp",
+      "globalIndex": 24,
+      "text": "According to Maslow's hierarchy of needs, which level must be satisfied before a student can focus on self-esteem needs?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Self-actualisation"
+        },
+        {
+          "key": "B",
+          "text": "Cognitive needs"
+        },
+        {
+          "key": "C",
+          "text": "Love and belonging needs"
+        },
+        {
+          "key": "D",
+          "text": "Aesthetic needs"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Maslow's hierarchy places love and belonging (social needs — friendship, family, sense of connection) at the third level; these must be reasonably met before a person can effectively pursue esteem needs (achievement, recognition)."
+    },
+    {
+      "id": "q26",
+      "sectionId": "cdp",
+      "globalIndex": 25,
+      "text": "Formative assessment differs from summative assessment primarily in that formative assessment:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Occurs only at the end of the academic year"
+        },
+        {
+          "key": "B",
+          "text": "Is used exclusively to assign grades and ranks"
+        },
+        {
+          "key": "C",
+          "text": "Provides ongoing feedback to guide and improve learning"
+        },
+        {
+          "key": "D",
+          "text": "Tests only factual recall and does not measure understanding"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Formative assessment is ongoing (quizzes, class discussions, observations) and aims to monitor learning progress and provide feedback to students and teachers, allowing adjustments to instruction before a final evaluation."
+    },
+    {
+      "id": "q27",
+      "sectionId": "cdp",
+      "globalIndex": 26,
+      "text": "A teacher uses open-ended projects, peer collaboration, and real-world problem-solving tasks. This approach best reflects:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Behaviourist pedagogy"
+        },
+        {
+          "key": "B",
+          "text": "Rote-learning methodology"
+        },
+        {
+          "key": "C",
+          "text": "Constructivist child-centred pedagogy"
+        },
+        {
+          "key": "D",
+          "text": "Summative assessment focus"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Constructivist and child-centred pedagogy emphasises active knowledge construction, real-world application, and collaborative inquiry rather than passive reception of information, aligning with NCF 2005 recommendations."
+    },
+    {
+      "id": "q28",
+      "sectionId": "cdp",
+      "globalIndex": 27,
+      "text": "The National Curriculum Framework (NCF) 2005 emphasises connecting school knowledge to:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Examination syllabi and rote memorisation"
+        },
+        {
+          "key": "B",
+          "text": "Children's life outside school and their everyday experiences"
+        },
+        {
+          "key": "C",
+          "text": "Strict subject boundaries with no integration"
+        },
+        {
+          "key": "D",
+          "text": "Uniform national content regardless of local context"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "NCF 2005's central theme of \"connecting knowledge to life outside school\" urges educators to build on children's prior experiences and local context, making learning meaningful rather than an exercise in memorising isolated facts."
+    },
+    {
+      "id": "q29",
+      "sectionId": "cdp",
+      "globalIndex": 28,
+      "text": "A teacher notices that a student understands a concept when working in a small group but cannot solve similar problems alone. The most appropriate action according to Vygotskian principles is to:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Mark the student as unable to learn the concept independently"
+        },
+        {
+          "key": "B",
+          "text": "Move to a new concept since group work demonstrated understanding"
+        },
+        {
+          "key": "C",
+          "text": "Gradually reduce peer support so the student internalises the skill"
+        },
+        {
+          "key": "D",
+          "text": "Assign the student to a lower-ability group permanently"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Vygotsky's scaffolding model suggests that support within the ZPD should be progressively withdrawn (faded) as the learner develops competence, enabling the student to eventually perform independently."
+    },
+    {
+      "id": "q30",
+      "sectionId": "cdp",
+      "globalIndex": 29,
+      "text": "NEP 2020 recommends a new school structure replacing the previous 10+2 system. The new structure is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "4+4+2+2"
+        },
+        {
+          "key": "B",
+          "text": "5+4+3+3 (Foundational, Preparatory, Middle, Secondary)"
+        },
+        {
+          "key": "C",
+          "text": "6+3+3+2"
+        },
+        {
+          "key": "D",
+          "text": "4+3+3+4"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "NEP 2020 introduces a 5+3+3+4 curricular structure: 5 years Foundational (ages 3–8), 3 years Preparatory (8–11), 3 years Middle (11–14), and 4 years Secondary (14–18), aligning schooling with the cognitive developmental stages of children."
+    },
+    {
+      "id": "q31",
+      "sectionId": "english",
+      "globalIndex": 30,
+      "text": "Read the following passage and answer Q1–Q8: \"The library was Meena's favourite place in the whole school. Every afternoon, she would slip inside, breathe in the smell of old paper, and lose herself in stories. She read about explorers who crossed frozen tundras, scientists who stayed awake for weeks in pursuit of discovery, and ordinary children who found extraordinary courage. Her teachers noticed that her vocabulary grew richer each term. By the end of the year, she could hold her own in class discussions that once made her shrink into silence. The library, she later wrote, had given her a second world to live in.\" What is the main idea of this passage?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Libraries are important school infrastructure"
+        },
+        {
+          "key": "B",
+          "text": "Meena's vocabulary improved after reading science books"
+        },
+        {
+          "key": "C",
+          "text": "Reading widely helped Meena grow in language and confidence"
+        },
+        {
+          "key": "D",
+          "text": "Teachers noticed Meena was absent from class every afternoon"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "The passage as a whole shows how extensive reading built Meena's vocabulary, confidence, and participation — making option C the central idea."
+    },
+    {
+      "id": "q32",
+      "sectionId": "english",
+      "globalIndex": 31,
+      "text": "Based on the passage in Q1, the phrase \"a second world to live in\" most likely means:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Meena wanted to leave her school"
+        },
+        {
+          "key": "B",
+          "text": "Books provided Meena with an imaginative and enriching experience"
+        },
+        {
+          "key": "C",
+          "text": "Meena believed libraries were better than classrooms"
+        },
+        {
+          "key": "D",
+          "text": "She escaped from her family duties by reading"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "\"A second world\" is a metaphor for the imaginative realm that reading opens up, extending one's experience beyond everyday life."
+    },
+    {
+      "id": "q33",
+      "sectionId": "english",
+      "globalIndex": 32,
+      "text": "In the passage (Q1), what evidence shows that Meena's reading had a practical academic benefit?",
+      "options": [
+        {
+          "key": "A",
+          "text": "She smelled the old paper in the library"
+        },
+        {
+          "key": "B",
+          "text": "She read about explorers and scientists"
+        },
+        {
+          "key": "C",
+          "text": "Her vocabulary grew richer and she participated more in discussions"
+        },
+        {
+          "key": "D",
+          "text": "She stayed in the library every afternoon"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "The passage explicitly states that her vocabulary grew and she could hold her own in class discussions — concrete academic benefits of her reading habit."
+    },
+    {
+      "id": "q34",
+      "sectionId": "english",
+      "globalIndex": 33,
+      "text": "The word \"extraordinary\" in the passage (Q1) is closest in meaning to:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Ordinary"
+        },
+        {
+          "key": "B",
+          "text": "Unexpected and remarkable"
+        },
+        {
+          "key": "C",
+          "text": "Frightening"
+        },
+        {
+          "key": "D",
+          "text": "Familiar and comfortable"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "\"Extraordinary\" means beyond what is ordinary or usual — remarkable or exceptional — which is the opposite of the word \"ordinary\" used just before it in the sentence."
+    },
+    {
+      "id": "q35",
+      "sectionId": "english",
+      "globalIndex": 34,
+      "text": "Which literary device is used in the phrase \"breathe in the smell of old paper\" in the passage (Q1)?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Simile"
+        },
+        {
+          "key": "B",
+          "text": "Hyperbole"
+        },
+        {
+          "key": "C",
+          "text": "Personification"
+        },
+        {
+          "key": "D",
+          "text": "Imagery"
+        }
+      ],
+      "correctAnswer": "D",
+      "explanation": "Imagery appeals to the senses — here, the sense of smell — to create a vivid mental picture. This is not a simile (no like/as), not personification (paper is not given human traits), and not hyperbole (no exaggeration)."
+    },
+    {
+      "id": "q36",
+      "sectionId": "english",
+      "globalIndex": 35,
+      "text": "The tone of the passage (Q1) can best be described as:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Critical and judgmental"
+        },
+        {
+          "key": "B",
+          "text": "Humorous and sarcastic"
+        },
+        {
+          "key": "C",
+          "text": "Warm and appreciative"
+        },
+        {
+          "key": "D",
+          "text": "Anxious and uncertain"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "The narrator describes Meena's library experiences with evident affection and admiration for how reading transformed her, establishing a warm, positive tone throughout."
+    },
+    {
+      "id": "q37",
+      "sectionId": "english",
+      "globalIndex": 36,
+      "text": "Which inference is best supported by the passage (Q1)?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Meena's teachers assigned her extra reading as punishment"
+        },
+        {
+          "key": "B",
+          "text": "Meena was shy before she developed her reading habit"
+        },
+        {
+          "key": "C",
+          "text": "Meena disliked classroom discussions throughout the year"
+        },
+        {
+          "key": "D",
+          "text": "The library was open only on weekday afternoons"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "The passage says she \"could hold her own in class discussions that once made her shrink into silence\" — implying she was previously shy or hesitant, not that she disliked discussions."
+    },
+    {
+      "id": "q38",
+      "sectionId": "english",
+      "globalIndex": 37,
+      "text": "The passage (Q1) is best classified as what type of writing?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Discursive essay presenting two sides of an argument"
+        },
+        {
+          "key": "B",
+          "text": "Narrative prose describing a character's experience"
+        },
+        {
+          "key": "C",
+          "text": "Instructional text giving steps to follow"
+        },
+        {
+          "key": "D",
+          "text": "Persuasive letter asking for library funding"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "The passage tells a story about a named character (Meena), describes her actions and growth over time, and uses narrative techniques — making it narrative prose."
+    },
+    {
+      "id": "q39",
+      "sectionId": "english",
+      "globalIndex": 38,
+      "text": "Read the following passage and answer Q9–Q15: \"English is spoken as a second language by millions of children across India. In many Telugu-medium schools, students encounter English only inside the classroom, with little exposure outside. Research suggests that comprehensible input — language that is slightly above the learner's current level — is crucial for acquisition. Teachers who use only textbook drills may produce students who can fill in blanks but cannot construct meaning. Effective teachers create rich language environments: they read aloud, use stories, encourage peer talk, and allow students to draw on their home language when needed. Assessment, too, must move beyond grammar tests to include observation and portfolio evidence of real language use.\" According to the passage, what does the term 'comprehensible input' refer to?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Input that is far above the learner's ability to challenge them"
+        },
+        {
+          "key": "B",
+          "text": "Input delivered only through textbooks"
+        },
+        {
+          "key": "C",
+          "text": "Language input slightly above the learner's current level"
+        },
+        {
+          "key": "D",
+          "text": "Grammar exercises that fill in blanks"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "The passage directly defines comprehensible input as \"language that is slightly above the learner's current level,\" which aligns with Krashen's i+1 formula."
+    },
+    {
+      "id": "q40",
+      "sectionId": "english",
+      "globalIndex": 39,
+      "text": "According to the passage in Q9, what is a limitation of relying solely on textbook drills?",
+      "options": [
+        {
+          "key": "A",
+          "text": "They are too expensive for Telugu-medium schools"
+        },
+        {
+          "key": "B",
+          "text": "They produce students who cannot construct meaning"
+        },
+        {
+          "key": "C",
+          "text": "They ignore listening and speaking entirely"
+        },
+        {
+          "key": "D",
+          "text": "They are not aligned with the national curriculum"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "The passage explicitly states that teachers who use only textbook drills \"may produce students who can fill in blanks but cannot construct meaning\" — showing the limitation of drill-only instruction."
+    },
+    {
+      "id": "q41",
+      "sectionId": "english",
+      "globalIndex": 40,
+      "text": "Which of the following teaching strategies is NOT mentioned in the passage (Q9) as part of a rich language environment?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Reading aloud"
+        },
+        {
+          "key": "B",
+          "text": "Encouraging peer talk"
+        },
+        {
+          "key": "C",
+          "text": "Memorising grammar rules"
+        },
+        {
+          "key": "D",
+          "text": "Allowing students to draw on their home language"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "The passage lists reading aloud, using stories, peer talk, and using L1 as strategies. Memorising grammar rules is the approach associated with the Grammar-Translation method and is not mentioned as a strategy for a rich language environment."
+    },
+    {
+      "id": "q42",
+      "sectionId": "english",
+      "globalIndex": 41,
+      "text": "Based on the passage (Q9), which form of assessment does the author prefer?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Standardised grammar tests administered every week"
+        },
+        {
+          "key": "B",
+          "text": "Observation and portfolio evidence of real language use"
+        },
+        {
+          "key": "C",
+          "text": "Fill-in-the-blank exercises from the textbook"
+        },
+        {
+          "key": "D",
+          "text": "Oral examinations conducted in English only"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "The passage explicitly contrasts grammar tests with \"observation and portfolio evidence of real language use,\" arguing for the latter — a formative, authentic approach."
+    },
+    {
+      "id": "q43",
+      "sectionId": "english",
+      "globalIndex": 42,
+      "text": "The passage (Q9) implies that in many Telugu-medium schools, students:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Are fluent in English because they study it daily"
+        },
+        {
+          "key": "B",
+          "text": "Have rich English exposure from television and family"
+        },
+        {
+          "key": "C",
+          "text": "Encounter English mainly within the classroom"
+        },
+        {
+          "key": "D",
+          "text": "Prefer English over Telugu for daily communication"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "The passage directly states that in many Telugu-medium schools, \"students encounter English only inside the classroom, with little exposure outside\" — meaning classroom is their primary English environment."
+    },
+    {
+      "id": "q44",
+      "sectionId": "english",
+      "globalIndex": 43,
+      "text": "What is the author's overall stance in the passage (Q9)?",
+      "options": [
+        {
+          "key": "A",
+          "text": "English teaching in India is already highly effective"
+        },
+        {
+          "key": "B",
+          "text": "Rote methods are sufficient for functional English skills"
+        },
+        {
+          "key": "C",
+          "text": "Grammar-Translation is the most efficient method for Indian classrooms"
+        },
+        {
+          "key": "D",
+          "text": "Teaching must go beyond drills to create meaningful language experiences"
+        }
+      ],
+      "correctAnswer": "D",
+      "explanation": "Throughout the passage the author contrasts shallow drill methods with richer approaches (stories, peer talk, authentic assessment), clearly arguing for the latter stance."
+    },
+    {
+      "id": "q45",
+      "sectionId": "english",
+      "globalIndex": 44,
+      "text": "The word \"exposure\" in the passage (Q9) is used to mean:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Revealing secrets to other students"
+        },
+        {
+          "key": "B",
+          "text": "The risk of catching a disease"
+        },
+        {
+          "key": "C",
+          "text": "Contact with and experience of the language"
+        },
+        {
+          "key": "D",
+          "text": "Outdoor activities beyond the classroom"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "In language learning contexts, \"exposure\" means contact with the target language in use — hearing it, reading it, encountering it in authentic situations."
+    },
+    {
+      "id": "q46",
+      "sectionId": "english",
+      "globalIndex": 45,
+      "text": "According to Stephen Krashen's Input Hypothesis, language acquisition is best promoted when learners receive input that is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Grammatically simple and fully within their current competence"
+        },
+        {
+          "key": "B",
+          "text": "Slightly above their current level of proficiency (i+1)"
+        },
+        {
+          "key": "C",
+          "text": "Delivered exclusively through written texts"
+        },
+        {
+          "key": "D",
+          "text": "Based on explicit grammar rules taught before reading"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Krashen's i+1 formula holds that acquisition happens when input is comprehensible but just beyond the learner's current ability — challenging without being incomprehensible."
+    },
+    {
+      "id": "q47",
+      "sectionId": "english",
+      "globalIndex": 46,
+      "text": "What is the key distinction between 'language acquisition' and 'language learning' as described by Krashen?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Acquisition is formal; learning is informal"
+        },
+        {
+          "key": "B",
+          "text": "Acquisition occurs subconsciously through meaningful use; learning is conscious study of rules"
+        },
+        {
+          "key": "C",
+          "text": "Learning is faster than acquisition for young children"
+        },
+        {
+          "key": "D",
+          "text": "Acquisition depends on grammar drills; learning depends on conversation"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Krashen distinguishes acquisition (natural, subconscious, like a child picking up L1) from learning (deliberate, conscious study of language rules). Only acquisition produces fluent, spontaneous use."
+    },
+    {
+      "id": "q48",
+      "sectionId": "english",
+      "globalIndex": 47,
+      "text": "In the Communicative Language Teaching (CLT) approach, what is the primary goal of classroom activities?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Accurate reproduction of grammar patterns"
+        },
+        {
+          "key": "B",
+          "text": "Memorisation of vocabulary lists"
+        },
+        {
+          "key": "C",
+          "text": "Meaningful communication and real-language use"
+        },
+        {
+          "key": "D",
+          "text": "Translating passages from L1 to English"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "CLT prioritises the ability to communicate meaningfully in authentic contexts over the ability to reproduce grammatical rules perfectly. Accuracy is pursued in service of communication, not as an end in itself."
+    },
+    {
+      "id": "q49",
+      "sectionId": "english",
+      "globalIndex": 48,
+      "text": "A teacher asks students to role-play ordering food at a restaurant in English. This activity best reflects which method?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Grammar-Translation Method"
+        },
+        {
+          "key": "B",
+          "text": "Audio-Lingual Method"
+        },
+        {
+          "key": "C",
+          "text": "Communicative Language Teaching"
+        },
+        {
+          "key": "D",
+          "text": "Direct Drilling Method"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Role-plays simulate real-life communication tasks, which is the hallmark of CLT. The focus is on authentic, meaningful interaction rather than pattern drilling or translation."
+    },
+    {
+      "id": "q50",
+      "sectionId": "english",
+      "globalIndex": 49,
+      "text": "The Audio-Lingual Method (ALM) relies heavily on which learning theory?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Constructivism"
+        },
+        {
+          "key": "B",
+          "text": "Behaviourism — stimulus–response habit formation"
+        },
+        {
+          "key": "C",
+          "text": "Nativist / Universal Grammar theory"
+        },
+        {
+          "key": "D",
+          "text": "Socio-cultural theory"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "ALM is grounded in behaviourism: language is a set of habits formed through repetition, drilling, and reinforcement. Errors are corrected immediately to prevent \"bad habits.\""
+    },
+    {
+      "id": "q51",
+      "sectionId": "english",
+      "globalIndex": 50,
+      "text": "Which of the following best describes the role of a learner's home language (L1) in second-language acquisition?",
+      "options": [
+        {
+          "key": "A",
+          "text": "L1 always interferes with L2 and should be completely banned from the classroom"
+        },
+        {
+          "key": "B",
+          "text": "L1 is irrelevant to the process of learning L2"
+        },
+        {
+          "key": "C",
+          "text": "L1 can serve as a cognitive resource and scaffolding tool when used judiciously"
+        },
+        {
+          "key": "D",
+          "text": "L1 should replace L2 instruction at lower primary level"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Research supports the view that L1 provides a cognitive scaffold — learners translate concepts into the new language and build bridges. Banning L1 entirely can raise anxiety and hinder understanding, particularly for beginners."
+    },
+    {
+      "id": "q52",
+      "sectionId": "english",
+      "globalIndex": 51,
+      "text": "In LSRW skill development, which skill is typically developed first in natural first-language acquisition?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Reading"
+        },
+        {
+          "key": "B",
+          "text": "Writing"
+        },
+        {
+          "key": "C",
+          "text": "Speaking"
+        },
+        {
+          "key": "D",
+          "text": "Listening"
+        }
+      ],
+      "correctAnswer": "D",
+      "explanation": "In natural L1 acquisition, children listen extensively before they produce spoken language. Listening (receptive skill) precedes speaking (productive), which precedes reading and writing."
+    },
+    {
+      "id": "q53",
+      "sectionId": "english",
+      "globalIndex": 52,
+      "text": "A teacher uses a portfolio to assess her students' English progress. Which type of assessment does this represent?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Summative assessment"
+        },
+        {
+          "key": "B",
+          "text": "Norm-referenced assessment"
+        },
+        {
+          "key": "C",
+          "text": "Formative assessment"
+        },
+        {
+          "key": "D",
+          "text": "Diagnostic placement test"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Portfolios collect ongoing evidence of learning over time, providing feedback to guide further learning — the defining feature of formative assessment. They are not used to rank students or assign final grades."
+    },
+    {
+      "id": "q54",
+      "sectionId": "english",
+      "globalIndex": 53,
+      "text": "Which approach to grammar teaching is most consistent with the constructivist view of language learning?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Teaching grammar rules first, then applying them to exercises"
+        },
+        {
+          "key": "B",
+          "text": "Helping learners notice patterns in authentic texts and construct rules inductively"
+        },
+        {
+          "key": "C",
+          "text": "Memorising a list of rules before any reading or writing"
+        },
+        {
+          "key": "D",
+          "text": "Correcting every grammatical error immediately during oral work"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Constructivism holds that learners build understanding by discovering patterns themselves. Inductive grammar teaching — noticing patterns in authentic texts — aligns with this view far better than deductive rule-memorisation."
+    },
+    {
+      "id": "q55",
+      "sectionId": "english",
+      "globalIndex": 54,
+      "text": "What does 'process writing' emphasise compared to traditional composition tasks?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Producing a perfect first draft quickly"
+        },
+        {
+          "key": "B",
+          "text": "Neatness and handwriting quality"
+        },
+        {
+          "key": "C",
+          "text": "Multiple stages of drafting, peer review, and revision"
+        },
+        {
+          "key": "D",
+          "text": "Memorising paragraph structures before writing"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Process writing treats writing as a recursive activity: brainstorming, drafting, getting feedback, revising, and editing. It emphasises the act of composing over a final polished product."
+    },
+    {
+      "id": "q56",
+      "sectionId": "english",
+      "globalIndex": 55,
+      "text": "A student consistently confuses \"was\" and \"were\" in writing. The most appropriate first step for the teacher is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Assign extra grammar drills on the same day"
+        },
+        {
+          "key": "B",
+          "text": "Deduct marks for every error in the next assignment"
+        },
+        {
+          "key": "C",
+          "text": "Diagnose whether the error is developmental or due to L1 interference"
+        },
+        {
+          "key": "D",
+          "text": "Ask the student to copy correct sentences fifty times"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Effective remedial teaching begins with diagnosis — understanding why the error occurs (developmental stage, L1 Telugu syntax, or a rule misconception) before prescribing the right intervention."
+    },
+    {
+      "id": "q57",
+      "sectionId": "english",
+      "globalIndex": 56,
+      "text": "In a multilingual classroom where students speak Telugu at home, which strategy best supports English language development?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Forbidding Telugu in the classroom at all times to force English use"
+        },
+        {
+          "key": "B",
+          "text": "Using Telugu only for classroom management and English for all content"
+        },
+        {
+          "key": "C",
+          "text": "Translating every English sentence into Telugu for students"
+        },
+        {
+          "key": "D",
+          "text": "Allowing strategic code-switching while gradually expanding English use"
+        }
+      ],
+      "correctAnswer": "D",
+      "explanation": "Research supports allowing learners to use their L1 as a bridge while gradually increasing L2 use. Strategic code-switching reduces anxiety and supports comprehension without abandoning the English language goal."
+    },
+    {
+      "id": "q58",
+      "sectionId": "english",
+      "globalIndex": 57,
+      "text": "'Decoding' in the context of reading instruction refers to:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Summarising the meaning of a paragraph"
+        },
+        {
+          "key": "B",
+          "text": "Identifying the author's purpose"
+        },
+        {
+          "key": "C",
+          "text": "Converting written symbols (letters/words) into sounds or spoken language"
+        },
+        {
+          "key": "D",
+          "text": "Making inferences about unstated information"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Decoding is the foundational reading skill of recognising the relationship between letters/graphemes and their sounds/phonemes, enabling a reader to pronounce written words. It is distinct from comprehension."
+    },
+    {
+      "id": "q59",
+      "sectionId": "english",
+      "globalIndex": 58,
+      "text": "A teacher reads a story aloud with expression and pauses to ask prediction questions. What primary language skill is being developed in students?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Writing fluency"
+        },
+        {
+          "key": "B",
+          "text": "Decoding and phonics"
+        },
+        {
+          "key": "C",
+          "text": "Listening comprehension and inferencing"
+        },
+        {
+          "key": "D",
+          "text": "Grammar pattern recognition"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Read-aloud with interactive questions targets listening comprehension — students must follow the narrative, interpret expression, and make inferences — a critical component of LSRW-based language development."
+    },
+    {
+      "id": "q60",
+      "sectionId": "english",
+      "globalIndex": 59,
+      "text": "Which statement about the Direct Method of language teaching is accurate?",
+      "options": [
+        {
+          "key": "A",
+          "text": "It relies on translation into the mother tongue to explain meaning"
+        },
+        {
+          "key": "B",
+          "text": "It teaches grammar rules explicitly before introducing vocabulary"
+        },
+        {
+          "key": "C",
+          "text": "It uses only the target language in the classroom and teaches meaning through demonstration"
+        },
+        {
+          "key": "D",
+          "text": "It is identical to the Communicative Language Teaching approach"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "The Direct Method prohibits use of L1 and relies on demonstration, objects, pictures, and actions to convey meaning entirely in the target language. It differs from CLT, which allows L1 and focuses on communicative function over form."
+    },
+    {
+      "id": "q61",
+      "sectionId": "telugu",
+      "globalIndex": 60,
+      "text": "కింది పద్యం చదువండి: \"చెలెలీ నీ చూపు చంద్రకిరణ, తెలుపనీ ఆకాశం లీనం, నీ నవ్వు పూల ముఖరం, మీటె ఆనందం ఆపనం.\" ఈ పద్యానికి సరైన శీర్షిక ఏది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "బాధ"
+        },
+        {
+          "key": "B",
+          "text": "ఆనందం"
+        },
+        {
+          "key": "C",
+          "text": "భయం"
+        },
+        {
+          "key": "D",
+          "text": "కోపం"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "ఈ పద్యం చెలెలి యొక్క సౌందర్యం, చెలువుకు మరియు ఆనందం గురించి నిర్వచించినందువల్ల శీర్షిక \"ఆనందం\"."
+    },
+    {
+      "id": "q62",
+      "sectionId": "telugu",
+      "globalIndex": 61,
+      "text": "పై పద్యంలో \"ఆకాశం లీనం\" అనే వాక్యానికి అర్థం ఏది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "ఆకాశం అంధకారంగా ఉంది"
+        },
+        {
+          "key": "B",
+          "text": "ఆకాశం భయానకంగా ఉంది"
+        },
+        {
+          "key": "C",
+          "text": "నీ తెలుపన ఆకాశంలో కరిగిపోతుంది"
+        },
+        {
+          "key": "D",
+          "text": "ఆకాశం చీకటిగా ఉంది"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "\"లీనం\" అంటే కరిగిపోవడం, నీ తెలుపన ఆకాశంతో కలిసిపోవడం అని అర్థం."
+    },
+    {
+      "id": "q63",
+      "sectionId": "telugu",
+      "globalIndex": 62,
+      "text": "పై పద్యం ఏ రకమైన సాహిత్యం?",
+      "options": [
+        {
+          "key": "A",
+          "text": "నాటకం"
+        },
+        {
+          "key": "B",
+          "text": "గద్యం"
+        },
+        {
+          "key": "C",
+          "text": "పద్యం"
+        },
+        {
+          "key": "D",
+          "text": "కథ"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "పద్యానికి లయ, అలంకారాలు, ఇండిలు ఉంటాయి, అందువల్ల ఇది పద్యం."
+    },
+    {
+      "id": "q64",
+      "sectionId": "telugu",
+      "globalIndex": 63,
+      "text": "\"నవ్వు\" అనే పదానికి పర్యాయపదం ఏది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "సిగ్గు"
+        },
+        {
+          "key": "B",
+          "text": "మందహాసం"
+        },
+        {
+          "key": "C",
+          "text": "బెంబలు"
+        },
+        {
+          "key": "D",
+          "text": "కన్నీళ్లు"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "\"నవ్వు\" ఎంటకు సమానమైన \"హాసం\" లేదా \"మందహాసం\" ఇచ్చిన సందర్భానికి సరిపోతుంది."
+    },
+    {
+      "id": "q65",
+      "sectionId": "telugu",
+      "globalIndex": 64,
+      "text": "కింది పద్యాంశాన్ని చదువండి: \"చేటకు చేటకు చేర్చిన నీటిలో చేను ఉంది, కరుణ ఉంది, సుఖం ఉంది, సంసారం నీటిలో ఉంది.\" ఇది కిందిలో ఏ భావానికి సంబంధించినది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "రణరంగం"
+        },
+        {
+          "key": "B",
+          "text": "ప్రకృతి"
+        },
+        {
+          "key": "C",
+          "text": "దేవుళ్ల కల్పన"
+        },
+        {
+          "key": "D",
+          "text": "రాక్షస కथ"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "నీటి గురించిన ఈ వర్ణన ప్రకృతి మరియు దాని ప్రభావం గురించిన భావన."
+    },
+    {
+      "id": "q66",
+      "sectionId": "telugu",
+      "globalIndex": 65,
+      "text": "పై పద్యంలో \"సంసారం\" అనే పదానికి అర్థం?",
+      "options": [
+        {
+          "key": "A",
+          "text": "సంపద"
+        },
+        {
+          "key": "B",
+          "text": "ఆభరణాలు"
+        },
+        {
+          "key": "C",
+          "text": "ఈ లోకం, జీవితం"
+        },
+        {
+          "key": "D",
+          "text": "దుష్కర్మ"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "\"సంసారం\" సంస్కృతం నుండి వచ్చిన పదం, దీని అర్థం జన్మ-మరణ చక్రం లేదా ప్రపంచం."
+    },
+    {
+      "id": "q67",
+      "sectionId": "telugu",
+      "globalIndex": 66,
+      "text": "తెలుగు భాష అభిలషణలో కూపలేఖన (అక్షరం) క్రమం ఎటువంటిది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "ఖండితాల తర్వాత చరాలు ఉంటాయి"
+        },
+        {
+          "key": "B",
+          "text": "చరాలు తర్వాత ఖండితాలు ఉంటాయి"
+        },
+        {
+          "key": "C",
+          "text": "రెండూ ఒకేలా ఉంటాయి"
+        },
+        {
+          "key": "D",
+          "text": "ఖండితాలకు ఒక సంఖ్య లేదు"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "తెలుగు ఎక్కువ చరాలు (అచలాలు) గా వర్గీకరించబడిన తర్వాత ఖండితాలు (వ్యంజనాలు) వస్తాయి."
+    },
+    {
+      "id": "q68",
+      "sectionId": "telugu",
+      "globalIndex": 67,
+      "text": "తెలుగు భాష విద్యార్థులకు సరిగ్గా చదువించటానికి ఉపయోగించే సూత్రం ఏది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "కృత్రిమ సూత్రం"
+        },
+        {
+          "key": "B",
+          "text": "సంపూర్ణ భాష సూత్రం"
+        },
+        {
+          "key": "C",
+          "text": "కేవలం వ్యాకరణ సూత్రం"
+        },
+        {
+          "key": "D",
+          "text": "యాంత్రిక సూత్రం"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "సంపూర్ణ భాష సూత్రం (Holistic approach) చదువుకుంటున్నవారికి సంపూర్ణ చిత్రం ఇచ్చుతుంది."
+    },
+    {
+      "id": "q69",
+      "sectionId": "telugu",
+      "globalIndex": 68,
+      "text": "ప్రారంభ దశలో తెలుగు చదువుకున్న తర్వాత విద్యార్థులు కింది వాటిలో ఏది సాధించాలి?",
+      "options": [
+        {
+          "key": "A",
+          "text": "సంస్కృతం"
+        },
+        {
+          "key": "B",
+          "text": "ఉచ్చారణ సరిగా చేయుట"
+        },
+        {
+          "key": "C",
+          "text": "ఈ అంచెలు లేనిందువల్ల ఇవ్వాలని"
+        },
+        {
+          "key": "D",
+          "text": "గణితం"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "సరిగ్గా ఉచ్చారణ చేయడం తెలుగు భాష నేర్చుకోవటానికి ఆధారం."
+    },
+    {
+      "id": "q70",
+      "sectionId": "telugu",
+      "globalIndex": 69,
+      "text": "తెలుగు గ్రంధాలలో \"సంధి\" గురించి సరైన భావన ఏది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "పదాల సంయోగం"
+        },
+        {
+          "key": "B",
+          "text": "రెండు శబ్దాలు కలిసినప్పుడు జరిగే మార్పులు"
+        },
+        {
+          "key": "C",
+          "text": "వ్యాకరణ నియమం"
+        },
+        {
+          "key": "D",
+          "text": "అక్షరాల సంఖ్య"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "సంధి అంటే రెండు శబ్దాలు కలిసినప్పుడు మొదటి శబ్దం చివరి అక్షరం లేదా రెండవ శబ్దం మొదటి అక్షరంలో జరిగే మార్పులు."
+    },
+    {
+      "id": "q71",
+      "sectionId": "telugu",
+      "globalIndex": 70,
+      "text": "కింది వాటిలో తెలుగు వాక్యంలో కర్త కర్మ క్రియల క్రమం ఏది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "కర్మ, కర్త, క్రియ"
+        },
+        {
+          "key": "B",
+          "text": "క్రియ, కర్త, కర్మ"
+        },
+        {
+          "key": "C",
+          "text": "కర్త, కర్మ, క్రియ"
+        },
+        {
+          "key": "D",
+          "text": "కర్త, క్రియ, కర్మ"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "సాధారణంగా తెలుగు వాక్యాలలో కర్త మొదట, కర్మ మధ్యలో, క్రియ చివర వస్తుంది."
+    },
+    {
+      "id": "q72",
+      "sectionId": "telugu",
+      "globalIndex": 71,
+      "text": "ప్రారంభ పాఠశాలలో తెలుగు చదువుకుండగా విద్యార్థులకు ఏ నైపుణ్యం మెచ్చిక్కంటుంది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "తెలుగు సంభాషణ నిపుణత"
+        },
+        {
+          "key": "B",
+          "text": "సంస్కృతం నేర్చుకోవడం"
+        },
+        {
+          "key": "C",
+          "text": "ఆంగ్లం నేర్చుకోవడం"
+        },
+        {
+          "key": "D",
+          "text": "గణిత నైపుణ్యం"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "ఆరంభ దశలో సంభాషణ నిపుణత ముఖ్యం, కాబట్టి అది ఆధారం."
+    },
+    {
+      "id": "q73",
+      "sectionId": "telugu",
+      "globalIndex": 72,
+      "text": "తెలుగు పాఠ్యపుస్తకాలలో జీవిత కథలు (చరితలు) చేర్చడం ఎందుకు ముఖ్యం?",
+      "options": [
+        {
+          "key": "A",
+          "text": "జ్ఞానం పెరుగుటకు"
+        },
+        {
+          "key": "B",
+          "text": "చితర చిత్రాలు కోసం"
+        },
+        {
+          "key": "C",
+          "text": "పేజీ నింపటకు"
+        },
+        {
+          "key": "D",
+          "text": "చదువుకోవడం కష్టమైనందువల్ల"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "చరిత్రలు విద్యార్థులకు జీవితానికి సంబంధించిన పాఠాలు, నైతిక విలువలు, మరియు సామాజిక జ్ఞానం అందిస్తాయి."
+    },
+    {
+      "id": "q74",
+      "sectionId": "telugu",
+      "globalIndex": 73,
+      "text": "తెలుగు భాషలో \"లఘువృత్తం\" (short vowel) ఏ రకమైన ఉచ్చారణ?",
+      "options": [
+        {
+          "key": "A",
+          "text": "కాలం ఎక్కువ ఉండే ఉచ్చారణ"
+        },
+        {
+          "key": "B",
+          "text": "కాలం తక్కువ ఉండే ఉచ్చారణ"
+        },
+        {
+          "key": "C",
+          "text": "పైన లేదా క్రిందకు ఉచ్చారణ"
+        },
+        {
+          "key": "D",
+          "text": "కంపనాలతో ఉచ్చారణ"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "లఘువృత్తం అంటే కాలం తక్కువ ఉండే ఉచ్చారణ, ఉదాహరణకు \"అ\" కంటే \"ఆ\"."
+    },
+    {
+      "id": "q75",
+      "sectionId": "telugu",
+      "globalIndex": 74,
+      "text": "తెలుగు చదువుకోవటానికి విద్యార్థులకు అత్యంత ఉపయోగకరమైన సాధనం ఏది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "విద్యుత్ సాధనాలు మాత్రమే"
+        },
+        {
+          "key": "B",
+          "text": "పుస్తకాలు మరియు మలిచిన పదార్థాలు"
+        },
+        {
+          "key": "C",
+          "text": "కుటుంబ ఆధారం"
+        },
+        {
+          "key": "D",
+          "text": "గీతలు మాత్రమే"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "పుస్తకాలు, ప్రకాశనాలు, మరియు ఇతర సంచిత జ్ఞానం తెలుగు చదువుకోవటకు సరిపడా సాధనాలు."
+    },
+    {
+      "id": "q76",
+      "sectionId": "telugu",
+      "globalIndex": 75,
+      "text": "తెలుగు భాష సిద్ధాంతం ప్రకారం \"విభక్తి\" ఎవరిని సూచిస్తుంది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "వర్ణాలను"
+        },
+        {
+          "key": "B",
+          "text": "పదాల సంబంధాన్ని"
+        },
+        {
+          "key": "C",
+          "text": "ఊర్ధ్వ నిర్దేశాన్ని"
+        },
+        {
+          "key": "D",
+          "text": "ఖండితాలను"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "విభక్తిలు పదాల మధ్య సంబంధాన్ని సూచిస్తాయి, ఉదాహరణకు \"నీకు\", \"నా\" ఇవి విభక్తిలు."
+    },
+    {
+      "id": "q77",
+      "sectionId": "telugu",
+      "globalIndex": 76,
+      "text": "ప్రారంభ తెలుగు చదువుకుందారికి సరిపడా పద్ధతి ఏది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "ఫోనిక్‌ల పద్ధతి"
+        },
+        {
+          "key": "B",
+          "text": "సరిసంబంధ పద్ధతి"
+        },
+        {
+          "key": "C",
+          "text": "యాంత్రిక పద్ధతి"
+        },
+        {
+          "key": "D",
+          "text": "పరిశీలన పద్ధతి"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "ఫోనిక్‌ల పద్ధతిలో అక్షరాల ఉచ్చారణ నుండి చదువుకోవటం ప్రారంభ దశకు అనుకూలం."
+    },
+    {
+      "id": "q78",
+      "sectionId": "telugu",
+      "globalIndex": 77,
+      "text": "తెలుగు భాష వర్గీకరణలో \"సమాస\" అంటే ఏది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "రెండు వ్యంజనాల కలయిక"
+        },
+        {
+          "key": "B",
+          "text": "రెండు శబ్దాల సంయోగం"
+        },
+        {
+          "key": "C",
+          "text": "ఒక పదం యొక్క విభక్తి"
+        },
+        {
+          "key": "D",
+          "text": "రెండు పదాల తుదిలో జరిగే మార్పు"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "సమాస అంటే రెండు లేదా అంతకంటే ఎక్కువ శబ్దాలు కలిసి ఒక కొత్త పదం లేదా అర్థం ఏర్పడటం."
+    },
+    {
+      "id": "q79",
+      "sectionId": "telugu",
+      "globalIndex": 78,
+      "text": "పాఠశాలలో తెలుగు లోక సాహిత్యం (పలుకుబడులు) చేర్చడం ఎందుకు ముఖ్యం?",
+      "options": [
+        {
+          "key": "A",
+          "text": "సరళంగా భాష విద్యార్థులకు సృష్టి చేయటకు"
+        },
+        {
+          "key": "B",
+          "text": "సాంస్కృతిక విలువలు, ఆచారాలు, మరియు సమాజ జ్ఞానం అందటకు"
+        },
+        {
+          "key": "C",
+          "text": "పేజీలు నింపటకు"
+        },
+        {
+          "key": "D",
+          "text": "చిత్రాలు చేర్చటకు"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "తెలుగు లోక సాహిత్యం విద్యార్థులకు తెలుగు సంస్కృతి, నైతిక నియమాలు, మరియు జ్ఞానం అందిస్తుంది."
+    },
+    {
+      "id": "q80",
+      "sectionId": "telugu",
+      "globalIndex": 79,
+      "text": "తెలుగు చదువుకోవటానికి విద్యార్థుల్లో \"ఇష్టం\" వచ్చటానికి ఉపయోగించే సాధనం ఏది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "శిక్షణ మరియు శాస్తీకరణ"
+        },
+        {
+          "key": "B",
+          "text": "సంగీతం, గీతలు, ఆటలు"
+        },
+        {
+          "key": "C",
+          "text": "విద్యుత్ సాధనాలు మాత్రమే"
+        },
+        {
+          "key": "D",
+          "text": "పరీక్షలు"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "సంగీతం, గీతలు, మరియు ఆటల ద్వారా చదువుకోవటం విద్యార్థులకు పాఠం ఆనందదాయకమైనదిగా మార్చుతుంది."
+    },
+    {
+      "id": "q81",
+      "sectionId": "telugu",
+      "globalIndex": 80,
+      "text": "దీర్ఘ వృత్త అక్షరాల పట్టిక తెలుగులో ఏ రకంగా విభజించబడినది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "5 అచలాలు"
+        },
+        {
+          "key": "B",
+          "text": "16 అచలాలు"
+        },
+        {
+          "key": "C",
+          "text": "36 అచలాలు"
+        },
+        {
+          "key": "D",
+          "text": "20 అచలాలు"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "తెలుగు గ్రంథం ప్రకారం దీర్ఘ వృత్తాకారం ఆ, ఈ, ఊ, ఏ, ఐ, ఓ, ఔ మరియు అలాంటి కలయికలతో చేసిన 36 ఛందస్సులుంటాయి."
+    },
+    {
+      "id": "q82",
+      "sectionId": "telugu",
+      "globalIndex": 81,
+      "text": "చిన్న పిల్లలకు తెలుగు చదువుకోవటానికి సరిపడా ఆరంభ దశ ఏది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "పదాలను చదువుకోవటం"
+        },
+        {
+          "key": "B",
+          "text": "అక్షరాలను పరిచయం చేసుకోవటం"
+        },
+        {
+          "key": "C",
+          "text": "వాక్యాలను చదువుకోవటం"
+        },
+        {
+          "key": "D",
+          "text": "కథలను చదువుకోవటం"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "చిన్న పిల్లలకు ఆరంభం ఆక్షర జ్ఞానం (అచలాలు మరియు వ్యంజనాలు) నుండి ఆరంభ్ఘమైనది."
+    },
+    {
+      "id": "q83",
+      "sectionId": "telugu",
+      "globalIndex": 82,
+      "text": "చదువుకున్న తెలుగు లిపిలో చిన్న పిల్లలకు సరిపడా \"సంచయం\" ఏది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "గ్రంథ పఠన"
+        },
+        {
+          "key": "B",
+          "text": "పదాల భాండార పెరుగుట"
+        },
+        {
+          "key": "C",
+          "text": "ఆటలు"
+        },
+        {
+          "key": "D",
+          "text": "సంగీతం"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "పదాల భాండార (vocabulary) పెరుగుటం చదువుకోవటానికి సరిపడా ఆధారం."
+    },
+    {
+      "id": "q84",
+      "sectionId": "telugu",
+      "globalIndex": 83,
+      "text": "తెలుగు చదువుకోవటానికి విద్యార్థుల్లో \"చదువుకోవటానికి ఇష్టం\" వస్తే ఎటువంటి సంభవనీయ ఫలితాలు?",
+      "options": [
+        {
+          "key": "A",
+          "text": "తక్కువ ఉత్సాహం"
+        },
+        {
+          "key": "B",
+          "text": "విజయవంతమైన చదువుకోవటం మరియు అభిరుచిలలో స్థిరత్వం"
+        },
+        {
+          "key": "C",
+          "text": "చదువుకోవటం ఆపివేయటం"
+        },
+        {
+          "key": "D",
+          "text": "కుటుంబ సమస్యలు"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "ఇష్టం ఉన్నపుడు చదువుకోవటం సులభమైన, సంతోషకరమైన, మరియు స్థిరమైన ప్రక్రియ."
+    },
+    {
+      "id": "q85",
+      "sectionId": "telugu",
+      "globalIndex": 84,
+      "text": "తెలుగు భాష గ్రంథంలో \"సందర్భ ఆధారిత పదార్థం\" ఎందుకు చేర్చబడింది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "సరళ చదువుకోవటం"
+        },
+        {
+          "key": "B",
+          "text": "సందర్భానికి సరిపడా భాష నేర్చుకోవటం"
+        },
+        {
+          "key": "C",
+          "text": "పేజీ నింపటకు"
+        },
+        {
+          "key": "D",
+          "text": "ఉపయోగ లేని ఉపయోగం"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "సందర్భ ఆధారిత పదార్థం విద్యార్థులకు నిజమైన ప్రపంచ పరిస్థితుల్లో భాష వాడటం నేర్పుతుంది."
+    },
+    {
+      "id": "q86",
+      "sectionId": "telugu",
+      "globalIndex": 85,
+      "text": "తెలుగు చదువుకుందారు \"చదువుకుంటున్నపుడు\" ఏ రకమైన సలహా సరిపోతుంది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "తరచుగా పరీక్షలు"
+        },
+        {
+          "key": "B",
+          "text": "సానుభూతిపూర్వక మరియు ప్రోత్సాహకర సలహా"
+        },
+        {
+          "key": "C",
+          "text": "విమర్శ మరియు నిందించటం"
+        },
+        {
+          "key": "D",
+          "text": "సైతం చేయటం లేనిది"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "సానుభూతిపూర్వక సలహా చదువుకున్న వారికి ఆత్మవిశ్వాసం, ఆత్మమాన, మరియు సంతోషం నిస్సంక్షిప్తం ఉండటానికి సహాయపడుతుంది."
+    },
+    {
+      "id": "q87",
+      "sectionId": "telugu",
+      "globalIndex": 86,
+      "text": "తెలుగు భాష \"నిరూపణ\" (evaluation) లో \"పోర్ట్‌ఫోలియో\" విధానం ఏ సౌకర్యం ఇస్తుంది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "గుర్తించటం"
+        },
+        {
+          "key": "B",
+          "text": "చదువుకున్నవారి పూర్తి చిత్రం వీక్షించటం"
+        },
+        {
+          "key": "C",
+          "text": "కేవలం అంకెలు"
+        },
+        {
+          "key": "D",
+          "text": "ఏమీ లేనిది"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "పోర్ట్‌ఫోలియో విధానం కేవలం పరీక్ష ఫలితాలు కాకుండా, విద్యార్థి యొక్క పూర్తి చదువుకోవటం, పురోగతి, మరియు సామర్థ్యం చూపుతుంది."
+    },
+    {
+      "id": "q88",
+      "sectionId": "telugu",
+      "globalIndex": 87,
+      "text": "మల్టీలింగ్వల్ (బహుభాషా) తరగతిలో తెలుగు విద్యార్థులకు ఏ విధానం సరిపోతుంది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "ఆంగ్లం మాత్రమే బోధించటం"
+        },
+        {
+          "key": "B",
+          "text": "తెలుగు, ఆంగ్లం, హిందీ భాషల మధ్య సంబంధాలు చూపటం"
+        },
+        {
+          "key": "C",
+          "text": "సంస్కృతం మాత్రమే బోధించటం"
+        },
+        {
+          "key": "D",
+          "text": "భాష నేర్చుకోవటం నిషేధించటం"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "బహుభాషా తరగతిలో భాషల మధ్య సంబంధాలు చూపటం విద్యార్థులకు గ్రహణశక్తి పెరుగుతుంది."
+    },
+    {
+      "id": "q89",
+      "sectionId": "telugu",
+      "globalIndex": 88,
+      "text": "తెలుగు చదువుకోవటానికి \"సంఖ్యాత్మక\" (phonological) అవగాహన ఎందుకు ఉపయోగకరం?",
+      "options": [
+        {
+          "key": "A",
+          "text": "చిత్రాలు చేర్చటకు"
+        },
+        {
+          "key": "B",
+          "text": "ఉచ్చారణ, చదువుకోవటం, మరియు వ్రాయటం సరిగా చేయటానికి"
+        },
+        {
+          "key": "C",
+          "text": "పరీక్ష రాయటానికి"
+        },
+        {
+          "key": "D",
+          "text": "ఆటలు ఆడటానికి"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "సంఖ్యాత్మక అవగాహన (sound awareness) చదువుకోవటం, ఉచ్చారణ, మరియు ఆర్థోగ్రఫీ (స్పెల్లింగ్) ను సరిగా చేయటానికి ఆధారం."
+    },
+    {
+      "id": "q90",
+      "sectionId": "telugu",
+      "globalIndex": 89,
+      "text": "తెలుగు భాష నిపుణతలను \"సమర్థవంత\" భాషిక్ కార్యక్రమం చేత కలుగుటకు మీ సూచన ఏది?",
+      "options": [
+        {
+          "key": "A",
+          "text": "కేవలం గ్రంథ చదువుకోవటం"
+        },
+        {
+          "key": "B",
+          "text": "సంభాషణ, చదువుకోవటం, వ్రాయటం, విని అర్థం చేసుకోవటం లేదా LSRW నిపుణతలను ఏకీకృతం చేయటం"
+        },
+        {
+          "key": "C",
+          "text": "కేవలం గ్రంథ రచన"
+        },
+        {
+          "key": "D",
+          "text": "ఒక నిపుణత మాత్రమే"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "LSRW (Listening, Speaking, Reading, Writing) నిపుణతలను ఏకీకృతంగా కలిసి బోధించటం సమర్థవంత భాష నేర్చుకోవటం అందిస్తుంది."
+    },
+    {
+      "id": "q91",
+      "sectionId": "math",
+      "globalIndex": 90,
+      "text": "What is the highest common factor (HCF) of 24 and 36?",
+      "options": [
+        {
+          "key": "A",
+          "text": "6"
+        },
+        {
+          "key": "B",
+          "text": "12"
+        },
+        {
+          "key": "C",
+          "text": "8"
+        },
+        {
+          "key": "D",
+          "text": "18"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "The HCF is the largest number dividing both; 12 divides both 24 and 36, and no larger number does."
+    },
+    {
+      "id": "q92",
+      "sectionId": "math",
+      "globalIndex": 91,
+      "text": "Express 0.375 as a fraction in its simplest form.",
+      "options": [
+        {
+          "key": "A",
+          "text": "3/8"
+        },
+        {
+          "key": "B",
+          "text": "5/12"
+        },
+        {
+          "key": "C",
+          "text": "7/16"
+        },
+        {
+          "key": "D",
+          "text": "2/5"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "0.375 = 375/1000; dividing by 125 gives 3/8 in lowest terms."
+    },
+    {
+      "id": "q93",
+      "sectionId": "math",
+      "globalIndex": 92,
+      "text": "If 5x + 3 = 23, what is the value of x?",
+      "options": [
+        {
+          "key": "A",
+          "text": "3"
+        },
+        {
+          "key": "B",
+          "text": "4"
+        },
+        {
+          "key": "C",
+          "text": "5"
+        },
+        {
+          "key": "D",
+          "text": "6"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Subtracting 3 from both sides gives 5x = 20; dividing by 5 yields x = 4."
+    },
+    {
+      "id": "q94",
+      "sectionId": "math",
+      "globalIndex": 93,
+      "text": "Which of the following is an irrational number?",
+      "options": [
+        {
+          "key": "A",
+          "text": "2/5"
+        },
+        {
+          "key": "B",
+          "text": "√16"
+        },
+        {
+          "key": "C",
+          "text": "√7"
+        },
+        {
+          "key": "D",
+          "text": "0.25"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "√7 cannot be expressed as a ratio of integers; the others are rational numbers."
+    },
+    {
+      "id": "q95",
+      "sectionId": "math",
+      "globalIndex": 94,
+      "text": "The perimeter of a rectangle is 48 cm and its length is 14 cm. What is its width?",
+      "options": [
+        {
+          "key": "A",
+          "text": "8 cm"
+        },
+        {
+          "key": "B",
+          "text": "10 cm"
+        },
+        {
+          "key": "C",
+          "text": "12 cm"
+        },
+        {
+          "key": "D",
+          "text": "16 cm"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Using P = 2(l + w), we get 48 = 2(14 + w); solving gives w = 10 cm."
+    },
+    {
+      "id": "q96",
+      "sectionId": "math",
+      "globalIndex": 95,
+      "text": "In triangle ABC, if angle A = 50° and angle B = 70°, what is angle C?",
+      "options": [
+        {
+          "key": "A",
+          "text": "50°"
+        },
+        {
+          "key": "B",
+          "text": "60°"
+        },
+        {
+          "key": "C",
+          "text": "70°"
+        },
+        {
+          "key": "D",
+          "text": "60°"
+        }
+      ],
+      "correctAnswer": "D",
+      "explanation": "The sum of angles in a triangle equals 180°; therefore C = 180° - 50° - 70° = 60°."
+    },
+    {
+      "id": "q97",
+      "sectionId": "math",
+      "globalIndex": 96,
+      "text": "What is the area of a circle with radius 7 cm? (Use π ≈ 22/7)",
+      "options": [
+        {
+          "key": "A",
+          "text": "154 cm²"
+        },
+        {
+          "key": "B",
+          "text": "144 cm²"
+        },
+        {
+          "key": "C",
+          "text": "140 cm²"
+        },
+        {
+          "key": "D",
+          "text": "165 cm²"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Area = πr² = (22/7) × 7 × 7 = 22 × 7 = 154 cm²."
+    },
+    {
+      "id": "q98",
+      "sectionId": "math",
+      "globalIndex": 97,
+      "text": "Which pedagogical approach best addresses student misconceptions in fractions?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Direct lecture without questioning"
+        },
+        {
+          "key": "B",
+          "text": "Diagnostic assessment followed by targeted remediation"
+        },
+        {
+          "key": "C",
+          "text": "Assigning more practice problems"
+        },
+        {
+          "key": "D",
+          "text": "Using only symbolic notation"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Identifying the root cause through diagnosis enables effective remedial teaching tailored to each learner."
+    },
+    {
+      "id": "q99",
+      "sectionId": "math",
+      "globalIndex": 98,
+      "text": "Simplify: (a + b)² - (a - b)²",
+      "options": [
+        {
+          "key": "A",
+          "text": "4ab"
+        },
+        {
+          "key": "B",
+          "text": "2ab"
+        },
+        {
+          "key": "C",
+          "text": "a² + b²"
+        },
+        {
+          "key": "D",
+          "text": "0"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Expanding: (a² + 2ab + b²) - (a² - 2ab + b²) = 4ab."
+    },
+    {
+      "id": "q100",
+      "sectionId": "math",
+      "globalIndex": 99,
+      "text": "The mean of five numbers is 12. If four of them are 8, 10, 14, and 16, what is the fifth number?",
+      "options": [
+        {
+          "key": "A",
+          "text": "10"
+        },
+        {
+          "key": "B",
+          "text": "12"
+        },
+        {
+          "key": "C",
+          "text": "14"
+        },
+        {
+          "key": "D",
+          "text": "16"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Sum of five numbers = 5 × 12 = 60; fourth number = 60 - (8 + 10 + 14 + 16) = 12."
+    },
+    {
+      "id": "q101",
+      "sectionId": "math",
+      "globalIndex": 100,
+      "text": "Which property of manipulation best helps primary students understand negative integers?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Memorising rules without context"
+        },
+        {
+          "key": "B",
+          "text": "Number line representation"
+        },
+        {
+          "key": "C",
+          "text": "Symbolic manipulation only"
+        },
+        {
+          "key": "D",
+          "text": "Skip-counting"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "The number line provides a concrete visual model for understanding operations with integers."
+    },
+    {
+      "id": "q102",
+      "sectionId": "math",
+      "globalIndex": 101,
+      "text": "Factorize: x² - 9",
+      "options": [
+        {
+          "key": "A",
+          "text": "(x - 3)²"
+        },
+        {
+          "key": "B",
+          "text": "(x - 9)(x + 1)"
+        },
+        {
+          "key": "C",
+          "text": "(x - 3)(x + 3)"
+        },
+        {
+          "key": "D",
+          "text": "(x - 6)(x + 3)"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "This is a difference of squares; x² - 9 = x² - 3² = (x - 3)(x + 3)."
+    },
+    {
+      "id": "q103",
+      "sectionId": "math",
+      "globalIndex": 102,
+      "text": "A shop sells pens in packs of 12 and pencils in packs of 18. What is the least number of each pack to buy if you want equal numbers of pens and pencils?",
+      "options": [
+        {
+          "key": "A",
+          "text": "2 packs of pens, 2 packs of pencils"
+        },
+        {
+          "key": "B",
+          "text": "3 packs of pens, 2 packs of pencils"
+        },
+        {
+          "key": "C",
+          "text": "4 packs of pens, 3 packs of pencils"
+        },
+        {
+          "key": "D",
+          "text": "5 packs of pens, 3 packs of pencils"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "LCM of 12 and 18 is 36; 36 ÷ 12 = 3 packs of pens; 36 ÷ 18 = 2 packs of pencils."
+    },
+    {
+      "id": "q104",
+      "sectionId": "math",
+      "globalIndex": 103,
+      "text": "In a bar graph, the y-axis shows \"Number of Students\". What does the x-axis represent?",
+      "options": [
+        {
+          "key": "A",
+          "text": "It varies depending on the data being shown"
+        },
+        {
+          "key": "B",
+          "text": "Always time"
+        },
+        {
+          "key": "C",
+          "text": "Always marks obtained"
+        },
+        {
+          "key": "D",
+          "text": "Always age"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "A bar graph's axes labels depend entirely on what data is being represented."
+    },
+    {
+      "id": "q105",
+      "sectionId": "math",
+      "globalIndex": 104,
+      "text": "Solve: 2(x - 3) = 4x - 14",
+      "options": [
+        {
+          "key": "A",
+          "text": "2"
+        },
+        {
+          "key": "B",
+          "text": "3"
+        },
+        {
+          "key": "C",
+          "text": "4"
+        },
+        {
+          "key": "D",
+          "text": "5"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Expanding: 2x - 6 = 4x - 14; rearranging: -2x = -8; therefore x = 4."
+    },
+    {
+      "id": "q106",
+      "sectionId": "math",
+      "globalIndex": 105,
+      "text": "Which of the following demonstrates the commutative property of addition?",
+      "options": [
+        {
+          "key": "A",
+          "text": "(3 + 4) + 5 = 3 + (4 + 5)"
+        },
+        {
+          "key": "B",
+          "text": "3 + 4 = 4 + 3"
+        },
+        {
+          "key": "C",
+          "text": "3 + 0 = 3"
+        },
+        {
+          "key": "D",
+          "text": "3 × 4 = 4 × 3"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "The commutative property states that order doesn't matter; 3 + 4 = 4 + 3 is the additive example."
+    },
+    {
+      "id": "q107",
+      "sectionId": "math",
+      "globalIndex": 106,
+      "text": "The volume of a rectangular box is 120 cm³. If length = 10 cm and width = 3 cm, what is the height?",
+      "options": [
+        {
+          "key": "A",
+          "text": "2 cm"
+        },
+        {
+          "key": "B",
+          "text": "4 cm"
+        },
+        {
+          "key": "C",
+          "text": "6 cm"
+        },
+        {
+          "key": "D",
+          "text": "8 cm"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Volume = length × width × height; 120 = 10 × 3 × h; solving gives h = 4 cm."
+    },
+    {
+      "id": "q108",
+      "sectionId": "math",
+      "globalIndex": 107,
+      "text": "A student writes 5 + 3 = 8 but 5 - 3 = 2. They have not made an error. Which operation misconception is common for subtraction?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Thinking subtraction is commutative"
+        },
+        {
+          "key": "B",
+          "text": "Confusing subtraction with division"
+        },
+        {
+          "key": "C",
+          "text": "Not understanding regrouping in multidigit numbers"
+        },
+        {
+          "key": "D",
+          "text": "Thinking negative numbers don't exist"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Subtraction is often misunderstood when regrouping (borrowing) is required, especially in primary grades."
+    },
+    {
+      "id": "q109",
+      "sectionId": "math",
+      "globalIndex": 108,
+      "text": "In the ratio 5:8, if the first quantity is 25, what is the second quantity?",
+      "options": [
+        {
+          "key": "A",
+          "text": "30"
+        },
+        {
+          "key": "B",
+          "text": "35"
+        },
+        {
+          "key": "C",
+          "text": "40"
+        },
+        {
+          "key": "D",
+          "text": "45"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "In a ratio, if 5 corresponds to 25, then each unit equals 5; therefore 8 units = 8 × 5 = 40."
+    },
+    {
+      "id": "q110",
+      "sectionId": "math",
+      "globalIndex": 109,
+      "text": "Which net can be folded to form a cube?",
+      "options": [
+        {
+          "key": "A",
+          "text": "A cross shape with 4 squares in a row and one on each side"
+        },
+        {
+          "key": "B",
+          "text": "A straight line of 6 squares"
+        },
+        {
+          "key": "C",
+          "text": "A T-shape with 6 squares"
+        },
+        {
+          "key": "D",
+          "text": "Any arrangement of 6 squares"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Only certain nets fold into cubes; the cross pattern (with opposite faces non-adjacent) is a valid cube net."
+    },
+    {
+      "id": "q111",
+      "sectionId": "math",
+      "globalIndex": 110,
+      "text": "What is the mode of the dataset: 5, 7, 5, 9, 5, 12, 9?",
+      "options": [
+        {
+          "key": "A",
+          "text": "5"
+        },
+        {
+          "key": "B",
+          "text": "7"
+        },
+        {
+          "key": "C",
+          "text": "8"
+        },
+        {
+          "key": "D",
+          "text": "9"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "The mode is the value that appears most frequently; 5 appears three times, more than any other value."
+    },
+    {
+      "id": "q112",
+      "sectionId": "math",
+      "globalIndex": 111,
+      "text": "How should a teacher address a student who cannot add fractions with different denominators?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Give harder practice immediately"
+        },
+        {
+          "key": "B",
+          "text": "Use visual aids (fraction bars, diagrams) and ensure understanding of LCM"
+        },
+        {
+          "key": "C",
+          "text": "Drill the algorithm repeatedly"
+        },
+        {
+          "key": "D",
+          "text": "Teach decimal conversion instead"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Constructivist pedagogy emphasises concrete visual representations before symbolic rules."
+    },
+    {
+      "id": "q113",
+      "sectionId": "math",
+      "globalIndex": 112,
+      "text": "Which of the following equations represents a linear equation in two variables?",
+      "options": [
+        {
+          "key": "A",
+          "text": "3x² + 5 = 0"
+        },
+        {
+          "key": "B",
+          "text": "2x + 3y = 7"
+        },
+        {
+          "key": "C",
+          "text": "y = x² + 1"
+        },
+        {
+          "key": "D",
+          "text": "x + y + z = 5"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "A linear equation in two variables has the form ax + by = c with exactly two unknowns and no exponents."
+    },
+    {
+      "id": "q114",
+      "sectionId": "math",
+      "globalIndex": 113,
+      "text": "If the probability of an event is 0.3, what is the probability of its complement?",
+      "options": [
+        {
+          "key": "A",
+          "text": "0.5"
+        },
+        {
+          "key": "B",
+          "text": "0.6"
+        },
+        {
+          "key": "C",
+          "text": "0.7"
+        },
+        {
+          "key": "D",
+          "text": "0.8"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "The sum of an event's probability and its complement's probability equals 1; P(complement) = 1 - 0.3 = 0.7."
+    },
+    {
+      "id": "q115",
+      "sectionId": "math",
+      "globalIndex": 114,
+      "text": "Using Euclid's division algorithm, find HCF of 91 and 49.",
+      "options": [
+        {
+          "key": "A",
+          "text": "1"
+        },
+        {
+          "key": "B",
+          "text": "7"
+        },
+        {
+          "key": "C",
+          "text": "13"
+        },
+        {
+          "key": "D",
+          "text": "21"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "91 = 49 × 1 + 42; 49 = 42 × 1 + 7; 42 = 7 × 6 + 0; HCF is 7."
+    },
+    {
+      "id": "q116",
+      "sectionId": "math",
+      "globalIndex": 115,
+      "text": "Which manipulative best helps teach the concept of area to Class VI students?",
+      "options": [
+        {
+          "key": "A",
+          "text": "A single ruler"
+        },
+        {
+          "key": "B",
+          "text": "Grid paper and unit squares"
+        },
+        {
+          "key": "C",
+          "text": "A protractor"
+        },
+        {
+          "key": "D",
+          "text": "A number line"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Grid paper and unit squares provide concrete visual experience of \"covering space\", essential for understanding area."
+    },
+    {
+      "id": "q117",
+      "sectionId": "math",
+      "globalIndex": 116,
+      "text": "Simplify: √50 - √18",
+      "options": [
+        {
+          "key": "A",
+          "text": "2√2"
+        },
+        {
+          "key": "B",
+          "text": "√32"
+        },
+        {
+          "key": "C",
+          "text": "3√2"
+        },
+        {
+          "key": "D",
+          "text": "4√2"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "√50 = 5√2 and √18 = 3√2; therefore √50 - √18 = 5√2 - 3√2 = 2√2."
+    },
+    {
+      "id": "q118",
+      "sectionId": "math",
+      "globalIndex": 117,
+      "text": "Which statement about congruent triangles is true?",
+      "options": [
+        {
+          "key": "A",
+          "text": "They must have equal perimeters and areas"
+        },
+        {
+          "key": "B",
+          "text": "They must be of the same colour"
+        },
+        {
+          "key": "C",
+          "text": "They can have different side lengths"
+        },
+        {
+          "key": "D",
+          "text": "They must be equilateral"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Congruent triangles are identical in shape and size, so both perimeters and areas are equal."
+    },
+    {
+      "id": "q119",
+      "sectionId": "math",
+      "globalIndex": 118,
+      "text": "A student incorrectly solves 2x + 3 = 9 and writes x = 3 instead of x = 3. Upon inspection, they subtracted 3 correctly but forgot to divide by 2. What is the root cause?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Careless arithmetic"
+        },
+        {
+          "key": "B",
+          "text": "Incomplete understanding of inverse operations"
+        },
+        {
+          "key": "C",
+          "text": "Misreading the problem"
+        },
+        {
+          "key": "D",
+          "text": "Inability to add"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "This error stems from not fully grasping that division by the coefficient is a necessary inverse step."
+    },
+    {
+      "id": "q120",
+      "sectionId": "math",
+      "globalIndex": 119,
+      "text": "In a pie chart, a sector with a central angle of 72° represents what fraction of the whole circle?",
+      "options": [
+        {
+          "key": "A",
+          "text": "1/5"
+        },
+        {
+          "key": "B",
+          "text": "1/6"
+        },
+        {
+          "key": "C",
+          "text": "1/4"
+        },
+        {
+          "key": "D",
+          "text": "2/5"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "A circle has 360°; a 72° sector represents 72/360 = 1/5 of the whole."
+    },
+    {
+      "id": "q121",
+      "sectionId": "science",
+      "globalIndex": 120,
+      "text": "Which of the following is a macronutrient required by the human body?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Vitamin A"
+        },
+        {
+          "key": "B",
+          "text": "Iodine"
+        },
+        {
+          "key": "C",
+          "text": "Carbohydrates"
+        },
+        {
+          "key": "D",
+          "text": "Zinc"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Macronutrients (carbohydrates, proteins, and fats) are required in large quantities, while micronutrients (vitamins and minerals) are needed in smaller amounts."
+    },
+    {
+      "id": "q122",
+      "sectionId": "science",
+      "globalIndex": 121,
+      "text": "What is the primary function of mitochondria in a cell?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Photosynthesis"
+        },
+        {
+          "key": "B",
+          "text": "Protein synthesis"
+        },
+        {
+          "key": "C",
+          "text": "Energy production"
+        },
+        {
+          "key": "D",
+          "text": "Storage of water"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Mitochondria are the powerhouse of the cell, producing ATP through aerobic respiration to provide energy for cellular activities."
+    },
+    {
+      "id": "q123",
+      "sectionId": "science",
+      "globalIndex": 122,
+      "text": "Which gas is absorbed by plants during photosynthesis?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Oxygen"
+        },
+        {
+          "key": "B",
+          "text": "Carbon dioxide"
+        },
+        {
+          "key": "C",
+          "text": "Nitrogen"
+        },
+        {
+          "key": "D",
+          "text": "Hydrogen"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Plants use carbon dioxide from the atmosphere in the light-independent reactions (Calvin cycle) to synthesise glucose."
+    },
+    {
+      "id": "q124",
+      "sectionId": "science",
+      "globalIndex": 123,
+      "text": "What is the correct order of the food chain: grass → ? → eagle",
+      "options": [
+        {
+          "key": "A",
+          "text": "Frog"
+        },
+        {
+          "key": "B",
+          "text": "Mouse"
+        },
+        {
+          "key": "C",
+          "text": "Flower"
+        },
+        {
+          "key": "D",
+          "text": "Snake"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "In this food chain, the mouse (primary consumer) feeds on grass and is then consumed by the eagle (secondary consumer)."
+    },
+    {
+      "id": "q125",
+      "sectionId": "science",
+      "globalIndex": 124,
+      "text": "Which of the following is a non-metal that conducts electricity?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Carbon (graphite)"
+        },
+        {
+          "key": "B",
+          "text": "Copper"
+        },
+        {
+          "key": "C",
+          "text": "Aluminium"
+        },
+        {
+          "key": "D",
+          "text": "Iron"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Graphite, an allotrope of carbon, conducts electricity due to the presence of free electrons in its structure."
+    },
+    {
+      "id": "q126",
+      "sectionId": "science",
+      "globalIndex": 125,
+      "text": "The pH value of a neutral solution is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "0"
+        },
+        {
+          "key": "B",
+          "text": "7"
+        },
+        {
+          "key": "C",
+          "text": "14"
+        },
+        {
+          "key": "D",
+          "text": "10"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "The pH scale ranges from 0 to 14, with 7 being neutral; values below 7 indicate acidity and above 7 indicate alkalinity."
+    },
+    {
+      "id": "q127",
+      "sectionId": "science",
+      "globalIndex": 126,
+      "text": "Which hormone controls the growth and development during adolescence?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Insulin"
+        },
+        {
+          "key": "B",
+          "text": "Testosterone and Oestrogen"
+        },
+        {
+          "key": "C",
+          "text": "Adrenaline"
+        },
+        {
+          "key": "D",
+          "text": "Thyroxine"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Sex hormones (testosterone in males and oestrogen in females) are responsible for secondary sexual characteristics and growth during puberty."
+    },
+    {
+      "id": "q128",
+      "sectionId": "science",
+      "globalIndex": 127,
+      "text": "What is the main component of bone that provides strength?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Calcium phosphate"
+        },
+        {
+          "key": "B",
+          "text": "Collagen"
+        },
+        {
+          "key": "C",
+          "text": "Fat"
+        },
+        {
+          "key": "D",
+          "text": "Water"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Calcium phosphate gives bones their hardness and rigidity, while collagen provides flexibility."
+    },
+    {
+      "id": "q129",
+      "sectionId": "science",
+      "globalIndex": 128,
+      "text": "Which process describes the movement of water from roots to leaves in plants?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Transpiration"
+        },
+        {
+          "key": "B",
+          "text": "Photosynthesis"
+        },
+        {
+          "key": "C",
+          "text": "Translocation"
+        },
+        {
+          "key": "D",
+          "text": "Osmosis"
+        }
+      ],
+      "correctAnswer": "D",
+      "explanation": "Osmosis allows water to move into root cells due to a water potential gradient, and capillary action and root pressure push water upward through the xylem."
+    },
+    {
+      "id": "q130",
+      "sectionId": "science",
+      "globalIndex": 129,
+      "text": "A student observes that plants grown in the dark do not produce starch. Which scientific method step is this?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Hypothesis"
+        },
+        {
+          "key": "B",
+          "text": "Observation"
+        },
+        {
+          "key": "C",
+          "text": "Experimentation"
+        },
+        {
+          "key": "D",
+          "text": "Conclusion"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Observation is the first step in the scientific method where one notices a phenomenon or outcome without yet drawing conclusions."
+    },
+    {
+      "id": "q131",
+      "sectionId": "science",
+      "globalIndex": 130,
+      "text": "Which of the following is an example of asexual reproduction?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Pollination"
+        },
+        {
+          "key": "B",
+          "text": "Budding in yeast"
+        },
+        {
+          "key": "C",
+          "text": "Fertilisation"
+        },
+        {
+          "key": "D",
+          "text": "Meiosis"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Budding produces identical offspring from a single parent organism without the fusion of gametes, making it asexual reproduction."
+    },
+    {
+      "id": "q132",
+      "sectionId": "science",
+      "globalIndex": 131,
+      "text": "The SI unit of force is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Newton"
+        },
+        {
+          "key": "B",
+          "text": "Joule"
+        },
+        {
+          "key": "C",
+          "text": "Watt"
+        },
+        {
+          "key": "D",
+          "text": "Pascal"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "Newton (N) is the standard unit of force in the International System of Units, defined as the force needed to accelerate 1 kg by 1 m/s²."
+    },
+    {
+      "id": "q133",
+      "sectionId": "science",
+      "globalIndex": 132,
+      "text": "Which vitamin is synthesised by the human body when skin is exposed to sunlight?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Vitamin A"
+        },
+        {
+          "key": "B",
+          "text": "Vitamin B"
+        },
+        {
+          "key": "C",
+          "text": "Vitamin C"
+        },
+        {
+          "key": "D",
+          "text": "Vitamin D"
+        }
+      ],
+      "correctAnswer": "D",
+      "explanation": "Vitamin D is synthesised in the skin through the action of ultraviolet (UV) rays from sunlight on 7-dehydrocholesterol."
+    },
+    {
+      "id": "q134",
+      "sectionId": "science",
+      "globalIndex": 133,
+      "text": "A deficiency of which mineral causes goitre in humans?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Iron"
+        },
+        {
+          "key": "B",
+          "text": "Iodine"
+        },
+        {
+          "key": "C",
+          "text": "Copper"
+        },
+        {
+          "key": "D",
+          "text": "Zinc"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Iodine is essential for thyroid hormone synthesis; its deficiency leads to thyroid enlargement (goitre) and metabolic disorders."
+    },
+    {
+      "id": "q135",
+      "sectionId": "science",
+      "globalIndex": 134,
+      "text": "Which of the following best describes the concept of biodiversity?",
+      "options": [
+        {
+          "key": "A",
+          "text": "The number of plants in a forest"
+        },
+        {
+          "key": "B",
+          "text": "The variety of species, genes, and ecosystems in a region"
+        },
+        {
+          "key": "C",
+          "text": "The total biomass of organisms"
+        },
+        {
+          "key": "D",
+          "text": "The adaptation of a single species"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Biodiversity encompasses all levels of biological variation: genetic diversity within species, species diversity, and ecosystem diversity."
+    },
+    {
+      "id": "q136",
+      "sectionId": "science",
+      "globalIndex": 135,
+      "text": "What is the primary role of the pancreas in the digestive system?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Storage of digestive enzymes"
+        },
+        {
+          "key": "B",
+          "text": "Production of bile"
+        },
+        {
+          "key": "C",
+          "text": "Secretion of digestive enzymes and hormones"
+        },
+        {
+          "key": "D",
+          "text": "Absorption of nutrients"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "The pancreas produces digestive enzymes (amylase, protease, lipase) and hormones (insulin, glucagon) that regulate digestion and glucose metabolism."
+    },
+    {
+      "id": "q137",
+      "sectionId": "science",
+      "globalIndex": 136,
+      "text": "Which of the following is a misconception about photosynthesis?",
+      "options": [
+        {
+          "key": "A",
+          "text": "It occurs only during the day"
+        },
+        {
+          "key": "B",
+          "text": "It requires chlorophyll"
+        },
+        {
+          "key": "C",
+          "text": "It produces glucose and oxygen"
+        },
+        {
+          "key": "D",
+          "text": "It requires heat energy but not light"
+        }
+      ],
+      "correctAnswer": "D",
+      "explanation": "Photosynthesis requires light energy directly in light-dependent reactions; heat alone cannot substitute for light in this process."
+    },
+    {
+      "id": "q138",
+      "sectionId": "science",
+      "globalIndex": 137,
+      "text": "The process by which water vapour is lost from plant leaves is called:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Evaporation"
+        },
+        {
+          "key": "B",
+          "text": "Transpiration"
+        },
+        {
+          "key": "C",
+          "text": "Precipitation"
+        },
+        {
+          "key": "D",
+          "text": "Condensation"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Transpiration is the loss of water vapour from plant leaves (primarily through stomata) as part of the water cycle in plants."
+    },
+    {
+      "id": "q139",
+      "sectionId": "science",
+      "globalIndex": 138,
+      "text": "Which structure in a plant cell is responsible for storing starch?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Chloroplast"
+        },
+        {
+          "key": "B",
+          "text": "Mitochondrion"
+        },
+        {
+          "key": "C",
+          "text": "Amyloplast"
+        },
+        {
+          "key": "D",
+          "text": "Vacuole"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Amyloplasts are specialised plastids that synthesise and store starch in plant cells, particularly in roots and seeds."
+    },
+    {
+      "id": "q140",
+      "sectionId": "science",
+      "globalIndex": 139,
+      "text": "When teaching the concept of \"weight vs mass\", which misconception most commonly arises?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Students think weight is constant everywhere"
+        },
+        {
+          "key": "B",
+          "text": "Students confuse weight (force) with mass (quantity of matter)"
+        },
+        {
+          "key": "C",
+          "text": "Students think mass increases with gravity"
+        },
+        {
+          "key": "D",
+          "text": "Students overestimate their own mass"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "A common error is treating weight and mass as identical; weight varies with gravity (W = mg), but mass is invariant."
+    },
+    {
+      "id": "q141",
+      "sectionId": "science",
+      "globalIndex": 140,
+      "text": "Which of the following is a characteristic of living organisms that distinguishes them from non-living things?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Reproduction"
+        },
+        {
+          "key": "B",
+          "text": "Hardness"
+        },
+        {
+          "key": "C",
+          "text": "Weight"
+        },
+        {
+          "key": "D",
+          "text": "Colour"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "All living organisms can reproduce (asexually or sexually) to produce offspring, a key characteristic absent in non-living matter."
+    },
+    {
+      "id": "q142",
+      "sectionId": "science",
+      "globalIndex": 141,
+      "text": "The phenomenon by which the frequency of a sound wave changes due to the motion of the source is called:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Refraction"
+        },
+        {
+          "key": "B",
+          "text": "Diffraction"
+        },
+        {
+          "key": "C",
+          "text": "Doppler effect"
+        },
+        {
+          "key": "D",
+          "text": "Interference"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "The Doppler effect explains why the pitch of a siren changes as an ambulance moves towards or away from an observer."
+    },
+    {
+      "id": "q143",
+      "sectionId": "science",
+      "globalIndex": 142,
+      "text": "Which of the following is the correct electron configuration of an oxygen atom (atomic number 8)?",
+      "options": [
+        {
+          "key": "A",
+          "text": "2, 5"
+        },
+        {
+          "key": "B",
+          "text": "2, 6"
+        },
+        {
+          "key": "C",
+          "text": "2, 4"
+        },
+        {
+          "key": "D",
+          "text": "2, 8"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Oxygen has 8 electrons: 2 in the first shell (K) and 6 in the second shell (L), giving the configuration 2,6."
+    },
+    {
+      "id": "q144",
+      "sectionId": "science",
+      "globalIndex": 143,
+      "text": "A pendulum swings faster at lower temperatures. Which step of the scientific method should a student use to verify this observation?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Hypothesis"
+        },
+        {
+          "key": "B",
+          "text": "Experimentation and controlling variables"
+        },
+        {
+          "key": "C",
+          "text": "Literature review"
+        },
+        {
+          "key": "D",
+          "text": "Observation only"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "To verify an observation, a controlled experiment testing the hypothesis with proper variables is essential; this requires controlling factors like pendulum length."
+    },
+    {
+      "id": "q145",
+      "sectionId": "science",
+      "globalIndex": 144,
+      "text": "Which process results in the formation of gametes in humans?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Mitosis"
+        },
+        {
+          "key": "B",
+          "text": "Meiosis"
+        },
+        {
+          "key": "C",
+          "text": "Binary fission"
+        },
+        {
+          "key": "D",
+          "text": "Budding"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "Meiosis produces haploid gametes (sperm and ova) with half the chromosome number (23) of somatic cells (46), essential for sexual reproduction."
+    },
+    {
+      "id": "q146",
+      "sectionId": "science",
+      "globalIndex": 145,
+      "text": "In a food web, organisms at the highest trophic level are called:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Producers"
+        },
+        {
+          "key": "B",
+          "text": "Primary consumers"
+        },
+        {
+          "key": "C",
+          "text": "Secondary consumers"
+        },
+        {
+          "key": "D",
+          "text": "Top predators"
+        }
+      ],
+      "correctAnswer": "D",
+      "explanation": "Top predators occupy the apex of food chains and are not preyed upon by other organisms in the ecosystem."
+    },
+    {
+      "id": "q147",
+      "sectionId": "science",
+      "globalIndex": 146,
+      "text": "Which of the following is an example of a simple machine that provides mechanical advantage?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Pulley"
+        },
+        {
+          "key": "B",
+          "text": "Magnet"
+        },
+        {
+          "key": "C",
+          "text": "Thermometer"
+        },
+        {
+          "key": "D",
+          "text": "Compass"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanation": "A pulley is a simple machine that changes the direction of force and can provide mechanical advantage, making lifting easier."
+    },
+    {
+      "id": "q148",
+      "sectionId": "science",
+      "globalIndex": 147,
+      "text": "The respiratory system's primary function is to:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Produce energy"
+        },
+        {
+          "key": "B",
+          "text": "Transport oxygen through the body"
+        },
+        {
+          "key": "C",
+          "text": "Exchange oxygen and carbon dioxide with the environment"
+        },
+        {
+          "key": "D",
+          "text": "Filter blood"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "The respiratory system (lungs and airways) facilitates the exchange of O₂ and CO₂ between the air and blood through diffusion in alveoli."
+    },
+    {
+      "id": "q149",
+      "sectionId": "science",
+      "globalIndex": 148,
+      "text": "When teaching the concept of \"burning\" to upper primary students, which is the best approach?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Memorise the chemical formula of combustion"
+        },
+        {
+          "key": "B",
+          "text": "Conduct a controlled observation: light a candle, observe the flame, allow cooling, and discuss oxygen's role"
+        },
+        {
+          "key": "C",
+          "text": "Provide a definition without demonstration"
+        },
+        {
+          "key": "D",
+          "text": "Show only photos of fire"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanation": "An inquiry-based, observational approach with safe experimentation allows students to construct understanding of combustion empirically."
+    },
+    {
+      "id": "q150",
+      "sectionId": "science",
+      "globalIndex": 149,
+      "text": "Which of the following is an example of a renewable natural resource?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Coal"
+        },
+        {
+          "key": "B",
+          "text": "Petroleum"
+        },
+        {
+          "key": "C",
+          "text": "Forest wood"
+        },
+        {
+          "key": "D",
+          "text": "Iron ore"
+        }
+      ],
+      "correctAnswer": "C",
+      "explanation": "Forests are renewable if sustainably managed—trees can regrow, unlike fossil fuels (coal, petroleum) or limited minerals that take millions of years to form."
+    }
+  ]
+}
