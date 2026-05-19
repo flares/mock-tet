@@ -1,0 +1,209 @@
+Q1 Which of the following is a macronutrient required by the human body?
+A) Vitamin A
+B) Iodine
+C) Carbohydrates *
+D) Zinc
+E Macronutrients (carbohydrates, proteins, and fats) are required in large quantities, while micronutrients (vitamins and minerals) are needed in smaller amounts.
+
+Q2 What is the primary function of mitochondria in a cell?
+A) Photosynthesis
+B) Protein synthesis
+C) Energy production *
+D) Storage of water
+E Mitochondria are the powerhouse of the cell, producing ATP through aerobic respiration to provide energy for cellular activities.
+
+Q3 Which gas is absorbed by plants during photosynthesis?
+A) Oxygen
+B) Carbon dioxide *
+C) Nitrogen
+D) Hydrogen
+E Plants use carbon dioxide from the atmosphere in the light-independent reactions (Calvin cycle) to synthesise glucose.
+
+Q4 What is the correct order of the food chain: grass → ? → eagle
+A) Frog
+B) Mouse *
+C) Flower
+D) Snake
+E In this food chain, the mouse (primary consumer) feeds on grass and is then consumed by the eagle (secondary consumer).
+
+Q5 Which of the following is a non-metal that conducts electricity?
+A) Carbon (graphite) *
+B) Copper
+C) Aluminium
+D) Iron
+E Graphite, an allotrope of carbon, conducts electricity due to the presence of free electrons in its structure.
+
+Q6 The pH value of a neutral solution is:
+A) 0
+B) 7 *
+C) 14
+D) 10
+E The pH scale ranges from 0 to 14, with 7 being neutral; values below 7 indicate acidity and above 7 indicate alkalinity.
+
+Q7 Which hormone controls the growth and development during adolescence?
+A) Insulin
+B) Testosterone and Oestrogen *
+C) Adrenaline
+D) Thyroxine
+E Sex hormones (testosterone in males and oestrogen in females) are responsible for secondary sexual characteristics and growth during puberty.
+
+Q8 What is the main component of bone that provides strength?
+A) Calcium phosphate *
+B) Collagen
+C) Fat
+D) Water
+E Calcium phosphate gives bones their hardness and rigidity, while collagen provides flexibility.
+
+Q9 Which process describes the movement of water from roots to leaves in plants?
+A) Transpiration
+B) Photosynthesis
+C) Translocation
+D) Osmosis *
+E Osmosis allows water to move into root cells due to a water potential gradient, and capillary action and root pressure push water upward through the xylem.
+
+Q10 A student observes that plants grown in the dark do not produce starch. Which scientific method step is this?
+A) Hypothesis
+B) Observation *
+C) Experimentation
+D) Conclusion
+E Observation is the first step in the scientific method where one notices a phenomenon or outcome without yet drawing conclusions.
+
+Q11 Which of the following is an example of asexual reproduction?
+A) Pollination
+B) Budding in yeast *
+C) Fertilisation
+D) Meiosis
+E Budding produces identical offspring from a single parent organism without the fusion of gametes, making it asexual reproduction.
+
+Q12 The SI unit of force is:
+A) Newton *
+B) Joule
+C) Watt
+D) Pascal
+E Newton (N) is the standard unit of force in the International System of Units, defined as the force needed to accelerate 1 kg by 1 m/s².
+
+Q13 Which vitamin is synthesised by the human body when skin is exposed to sunlight?
+A) Vitamin A
+B) Vitamin B
+C) Vitamin C
+D) Vitamin D *
+E Vitamin D is synthesised in the skin through the action of ultraviolet (UV) rays from sunlight on 7-dehydrocholesterol.
+
+Q14 A deficiency of which mineral causes goitre in humans?
+A) Iron
+B) Iodine *
+C) Copper
+D) Zinc
+E Iodine is essential for thyroid hormone synthesis; its deficiency leads to thyroid enlargement (goitre) and metabolic disorders.
+
+Q15 Which of the following best describes the concept of biodiversity?
+A) The number of plants in a forest
+B) The variety of species, genes, and ecosystems in a region *
+C) The total biomass of organisms
+D) The adaptation of a single species
+E Biodiversity encompasses all levels of biological variation: genetic diversity within species, species diversity, and ecosystem diversity.
+
+Q16 What is the primary role of the pancreas in the digestive system?
+A) Storage of digestive enzymes
+B) Production of bile
+C) Secretion of digestive enzymes and hormones *
+D) Absorption of nutrients
+E The pancreas produces digestive enzymes (amylase, protease, lipase) and hormones (insulin, glucagon) that regulate digestion and glucose metabolism.
+
+Q17 Which of the following is a misconception about photosynthesis?
+A) It occurs only during the day
+B) It requires chlorophyll
+C) It produces glucose and oxygen
+D) It requires heat energy but not light *
+E Photosynthesis requires light energy directly in light-dependent reactions; heat alone cannot substitute for light in this process.
+
+Q18 The process by which water vapour is lost from plant leaves is called:
+A) Evaporation
+B) Transpiration *
+C) Precipitation
+D) Condensation
+E Transpiration is the loss of water vapour from plant leaves (primarily through stomata) as part of the water cycle in plants.
+
+Q19 Which structure in a plant cell is responsible for storing starch?
+A) Chloroplast
+B) Mitochondrion
+C) Amyloplast *
+D) Vacuole
+E Amyloplasts are specialised plastids that synthesise and store starch in plant cells, particularly in roots and seeds.
+
+Q20 When teaching the concept of "weight vs mass", which misconception most commonly arises?
+A) Students think weight is constant everywhere
+B) Students confuse weight (force) with mass (quantity of matter) *
+C) Students think mass increases with gravity
+D) Students overestimate their own mass
+E A common error is treating weight and mass as identical; weight varies with gravity (W = mg), but mass is invariant.
+
+Q21 Which of the following is a characteristic of living organisms that distinguishes them from non-living things?
+A) Reproduction *
+B) Hardness
+C) Weight
+D) Colour
+E All living organisms can reproduce (asexually or sexually) to produce offspring, a key characteristic absent in non-living matter.
+
+Q22 The phenomenon by which the frequency of a sound wave changes due to the motion of the source is called:
+A) Refraction
+B) Diffraction
+C) Doppler effect *
+D) Interference
+E The Doppler effect explains why the pitch of a siren changes as an ambulance moves towards or away from an observer.
+
+Q23 Which of the following is the correct electron configuration of an oxygen atom (atomic number 8)?
+A) 2, 5
+B) 2, 6 *
+C) 2, 4
+D) 2, 8
+E Oxygen has 8 electrons: 2 in the first shell (K) and 6 in the second shell (L), giving the configuration 2,6.
+
+Q24 A pendulum swings faster at lower temperatures. Which step of the scientific method should a student use to verify this observation?
+A) Hypothesis
+B) Experimentation and controlling variables *
+C) Literature review
+D) Observation only
+E To verify an observation, a controlled experiment testing the hypothesis with proper variables is essential; this requires controlling factors like pendulum length.
+
+Q25 Which process results in the formation of gametes in humans?
+A) Mitosis
+B) Meiosis *
+C) Binary fission
+D) Budding
+E Meiosis produces haploid gametes (sperm and ova) with half the chromosome number (23) of somatic cells (46), essential for sexual reproduction.
+
+Q26 In a food web, organisms at the highest trophic level are called:
+A) Producers
+B) Primary consumers
+C) Secondary consumers
+D) Top predators *
+E Top predators occupy the apex of food chains and are not preyed upon by other organisms in the ecosystem.
+
+Q27 Which of the following is an example of a simple machine that provides mechanical advantage?
+A) Pulley *
+B) Magnet
+C) Thermometer
+D) Compass
+E A pulley is a simple machine that changes the direction of force and can provide mechanical advantage, making lifting easier.
+
+Q28 The respiratory system's primary function is to:
+A) Produce energy
+B) Transport oxygen through the body
+C) Exchange oxygen and carbon dioxide with the environment *
+D) Filter blood
+E The respiratory system (lungs and airways) facilitates the exchange of O₂ and CO₂ between the air and blood through diffusion in alveoli.
+
+Q29 When teaching the concept of "burning" to upper primary students, which is the best approach?
+A) Memorise the chemical formula of combustion
+B) Conduct a controlled observation: light a candle, observe the flame, allow cooling, and discuss oxygen's role *
+C) Provide a definition without demonstration
+D) Show only photos of fire
+E An inquiry-based, observational approach with safe experimentation allows students to construct understanding of combustion empirically.
+
+Q30 Which of the following is an example of a renewable natural resource?
+A) Coal
+B) Petroleum
+C) Forest wood *
+D) Iron ore
+E Forests are renewable if sustainably managed—trees can regrow, unlike fossil fuels (coal, petroleum) or limited minerals that take millions of years to form.

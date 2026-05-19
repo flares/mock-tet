@@ -1,0 +1,209 @@
+Q1 What is the highest common factor (HCF) of 24 and 36?
+A) 6
+B) 12 *
+C) 8
+D) 18
+E The HCF is the largest number dividing both; 12 divides both 24 and 36, and no larger number does.
+
+Q2 Express 0.375 as a fraction in its simplest form.
+A) 3/8 *
+B) 5/12
+C) 7/16
+D) 2/5
+E 0.375 = 375/1000; dividing by 125 gives 3/8 in lowest terms.
+
+Q3 If 5x + 3 = 23, what is the value of x?
+A) 3
+B) 4 *
+C) 5
+D) 6
+E Subtracting 3 from both sides gives 5x = 20; dividing by 5 yields x = 4.
+
+Q4 Which of the following is an irrational number?
+A) 2/5
+B) √16
+C) √7 *
+D) 0.25
+E √7 cannot be expressed as a ratio of integers; the others are rational numbers.
+
+Q5 The perimeter of a rectangle is 48 cm and its length is 14 cm. What is its width?
+A) 8 cm
+B) 10 cm *
+C) 12 cm
+D) 16 cm
+E Using P = 2(l + w), we get 48 = 2(14 + w); solving gives w = 10 cm.
+
+Q6 In triangle ABC, if angle A = 50° and angle B = 70°, what is angle C?
+A) 50°
+B) 60°
+C) 70°
+D) 60° *
+E The sum of angles in a triangle equals 180°; therefore C = 180° - 50° - 70° = 60°.
+
+Q7 What is the area of a circle with radius 7 cm? (Use π ≈ 22/7)
+A) 154 cm² *
+B) 144 cm²
+C) 140 cm²
+D) 165 cm²
+E Area = πr² = (22/7) × 7 × 7 = 22 × 7 = 154 cm².
+
+Q8 Which pedagogical approach best addresses student misconceptions in fractions?
+A) Direct lecture without questioning
+B) Diagnostic assessment followed by targeted remediation *
+C) Assigning more practice problems
+D) Using only symbolic notation
+E Identifying the root cause through diagnosis enables effective remedial teaching tailored to each learner.
+
+Q9 Simplify: (a + b)² - (a - b)²
+A) 4ab *
+B) 2ab
+C) a² + b²
+D) 0
+E Expanding: (a² + 2ab + b²) - (a² - 2ab + b²) = 4ab.
+
+Q10 The mean of five numbers is 12. If four of them are 8, 10, 14, and 16, what is the fifth number?
+A) 10
+B) 12 *
+C) 14
+D) 16
+E Sum of five numbers = 5 × 12 = 60; fourth number = 60 - (8 + 10 + 14 + 16) = 12.
+
+Q11 Which property of manipulation best helps primary students understand negative integers?
+A) Memorising rules without context
+B) Number line representation *
+C) Symbolic manipulation only
+D) Skip-counting
+E The number line provides a concrete visual model for understanding operations with integers.
+
+Q12 Factorize: x² - 9
+A) (x - 3)²
+B) (x - 9)(x + 1)
+C) (x - 3)(x + 3) *
+D) (x - 6)(x + 3)
+E This is a difference of squares; x² - 9 = x² - 3² = (x - 3)(x + 3).
+
+Q13 A shop sells pens in packs of 12 and pencils in packs of 18. What is the least number of each pack to buy if you want equal numbers of pens and pencils?
+A) 2 packs of pens, 2 packs of pencils
+B) 3 packs of pens, 2 packs of pencils *
+C) 4 packs of pens, 3 packs of pencils
+D) 5 packs of pens, 3 packs of pencils
+E LCM of 12 and 18 is 36; 36 ÷ 12 = 3 packs of pens; 36 ÷ 18 = 2 packs of pencils.
+
+Q14 In a bar graph, the y-axis shows "Number of Students". What does the x-axis represent?
+A) It varies depending on the data being shown *
+B) Always time
+C) Always marks obtained
+D) Always age
+E A bar graph's axes labels depend entirely on what data is being represented.
+
+Q15 Solve: 2(x - 3) = 4x - 14
+A) 2
+B) 3
+C) 4 *
+D) 5
+E Expanding: 2x - 6 = 4x - 14; rearranging: -2x = -8; therefore x = 4.
+
+Q16 Which of the following demonstrates the commutative property of addition?
+A) (3 + 4) + 5 = 3 + (4 + 5)
+B) 3 + 4 = 4 + 3 *
+C) 3 + 0 = 3
+D) 3 × 4 = 4 × 3
+E The commutative property states that order doesn't matter; 3 + 4 = 4 + 3 is the additive example.
+
+Q17 The volume of a rectangular box is 120 cm³. If length = 10 cm and width = 3 cm, what is the height?
+A) 2 cm
+B) 4 cm *
+C) 6 cm
+D) 8 cm
+E Volume = length × width × height; 120 = 10 × 3 × h; solving gives h = 4 cm.
+
+Q18 A student writes 5 + 3 = 8 but 5 - 3 = 2. They have not made an error. Which operation misconception is common for subtraction?
+A) Thinking subtraction is commutative
+B) Confusing subtraction with division
+C) Not understanding regrouping in multidigit numbers *
+D) Thinking negative numbers don't exist
+E Subtraction is often misunderstood when regrouping (borrowing) is required, especially in primary grades.
+
+Q19 In the ratio 5:8, if the first quantity is 25, what is the second quantity?
+A) 30
+B) 35
+C) 40 *
+D) 45
+E In a ratio, if 5 corresponds to 25, then each unit equals 5; therefore 8 units = 8 × 5 = 40.
+
+Q20 Which net can be folded to form a cube?
+A) A cross shape with 4 squares in a row and one on each side *
+B) A straight line of 6 squares
+C) A T-shape with 6 squares
+D) Any arrangement of 6 squares
+E Only certain nets fold into cubes; the cross pattern (with opposite faces non-adjacent) is a valid cube net.
+
+Q21 What is the mode of the dataset: 5, 7, 5, 9, 5, 12, 9?
+A) 5 *
+B) 7
+C) 8
+D) 9
+E The mode is the value that appears most frequently; 5 appears three times, more than any other value.
+
+Q22 How should a teacher address a student who cannot add fractions with different denominators?
+A) Give harder practice immediately
+B) Use visual aids (fraction bars, diagrams) and ensure understanding of LCM *
+C) Drill the algorithm repeatedly
+D) Teach decimal conversion instead
+E Constructivist pedagogy emphasises concrete visual representations before symbolic rules.
+
+Q23 Which of the following equations represents a linear equation in two variables?
+A) 3x² + 5 = 0
+B) 2x + 3y = 7 *
+C) y = x² + 1
+D) x + y + z = 5
+E A linear equation in two variables has the form ax + by = c with exactly two unknowns and no exponents.
+
+Q24 If the probability of an event is 0.3, what is the probability of its complement?
+A) 0.5
+B) 0.6
+C) 0.7 *
+D) 0.8
+E The sum of an event's probability and its complement's probability equals 1; P(complement) = 1 - 0.3 = 0.7.
+
+Q25 Using Euclid's division algorithm, find HCF of 91 and 49.
+A) 1
+B) 7 *
+C) 13
+D) 21
+E 91 = 49 × 1 + 42; 49 = 42 × 1 + 7; 42 = 7 × 6 + 0; HCF is 7.
+
+Q26 Which manipulative best helps teach the concept of area to Class VI students?
+A) A single ruler
+B) Grid paper and unit squares *
+C) A protractor
+D) A number line
+E Grid paper and unit squares provide concrete visual experience of "covering space", essential for understanding area.
+
+Q27 Simplify: √50 - √18
+A) 2√2 *
+B) √32
+C) 3√2
+D) 4√2
+E √50 = 5√2 and √18 = 3√2; therefore √50 - √18 = 5√2 - 3√2 = 2√2.
+
+Q28 Which statement about congruent triangles is true?
+A) They must have equal perimeters and areas *
+B) They must be of the same colour
+C) They can have different side lengths
+D) They must be equilateral
+E Congruent triangles are identical in shape and size, so both perimeters and areas are equal.
+
+Q29 A student incorrectly solves 2x + 3 = 9 and writes x = 3 instead of x = 3. Upon inspection, they subtracted 3 correctly but forgot to divide by 2. What is the root cause?
+A) Careless arithmetic
+B) Incomplete understanding of inverse operations *
+C) Misreading the problem
+D) Inability to add
+E This error stems from not fully grasping that division by the coefficient is a necessary inverse step.
+
+Q30 In a pie chart, a sector with a central angle of 72° represents what fraction of the whole circle?
+A) 1/5 *
+B) 1/6
+C) 1/4
+D) 2/5
+E A circle has 360°; a 72° sector represents 72/360 = 1/5 of the whole.
