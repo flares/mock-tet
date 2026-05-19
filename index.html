@@ -19,15 +19,321 @@
   </header>
 
   <main class="home-main">
-    <h1 class="home-main__heading">Select an Exam Paper</h1>
-    <p class="home-main__sub">
-      Choose a paper below and click <strong>Start Test</strong> to launch the practice exam in a
-      realistic CBT interface — identical to the actual TET computer-based test.
-    </p>
 
-    <div id="exam-grid" class="exam-grid">
-      <p class="loading-msg">Loading exam papers&hellip;</p>
+    <!-- Toolbar: tabs + clear-all -->
+    <div class="home-toolbar">
+      <div class="home-tabs" role="tablist">
+        <button class="home-tab-btn active" data-tab="tests" role="tab">Exam Papers</button>
+        <button class="home-tab-btn" data-tab="syllabus" role="tab">Syllabus</button>
+      </div>
+      <button class="btn btn--ghost btn--sm" id="btn-clear-all">&#128465; Clear All Results</button>
     </div>
+
+    <!-- ── Tests tab ─────────────────────────────────────────────────────── -->
+    <div id="tab-tests" class="home-tab-pane active">
+      <p class="home-main__sub">
+        Choose a paper below and click <strong>Start Test</strong> to launch the practice exam in a
+        realistic CBT interface — identical to the actual TET computer-based test.
+        Results are saved locally so you can track improvement across attempts.
+      </p>
+      <div id="exam-grid" class="exam-grid">
+        <p class="loading-msg">Loading exam papers&hellip;</p>
+      </div>
+    </div>
+
+    <!-- ── Syllabus tab ──────────────────────────────────────────────────── -->
+    <div id="tab-syllabus" class="home-tab-pane">
+      <p class="home-main__sub">
+        Full syllabus for CTET Paper 2 (Telugu-medium adaptation) covering Classes VI–VIII with
+        extended topics from Classes IX–X. Click any section to expand.
+      </p>
+
+      <!-- CDP -->
+      <div class="syl-section open">
+        <div class="syl-header">
+          <span class="syl-title">Child Development &amp; Pedagogy (CDP)</span>
+          <span class="syl-meta">30 Questions &middot; 30 Marks</span>
+          <span class="syl-toggle">&#9660;</span>
+        </div>
+        <div class="syl-body">
+
+          <div class="syl-topic">
+            <div class="syl-topic__title">Child Development — 15 Questions</div>
+            <ul>
+              <li>Concept of development; growth vs development; principles of development</li>
+              <li>Influence of heredity and environment on development</li>
+              <li>Stages of development: infancy, childhood, adolescence — physical, cognitive, emotional, social, moral dimensions</li>
+              <li>Piaget's cognitive development theory — 4 stages; schema, assimilation, accommodation, equilibration</li>
+              <li>Vygotsky's socio-cultural theory; Zone of Proximal Development (ZPD); scaffolding</li>
+              <li>Kohlberg's moral development theory — 6 stages, 3 levels</li>
+              <li>Howard Gardner's Multiple Intelligences — 8 intelligences</li>
+              <li>Erikson's psychosocial stages</li>
+              <li>Language development; Chomsky's Language Acquisition Device (LAD)</li>
+              <li>Theories of intelligence — Spearman's g factor, Thurstone's primary mental abilities</li>
+              <li>Emotional intelligence; social-emotional learning</li>
+              <li>Gender as a social construct; gender roles; gender-biased education</li>
+              <li>Individual differences and diversity in learning styles</li>
+              <li>Adolescence: characteristics, identity formation, peer influence, problems</li>
+            </ul>
+          </div>
+
+          <div class="syl-topic">
+            <div class="syl-topic__title">Inclusive Education — 5 Questions</div>
+            <ul>
+              <li>Concepts of diversity, disability, and inclusion</li>
+              <li>Types of disabilities: intellectual, learning disability (dyslexia, dyscalculia, dysgraphia), ADHD, hearing impairment, visual impairment, autism spectrum disorder, cerebral palsy</li>
+              <li>Inclusive classroom strategies; Universal Design for Learning (UDL)</li>
+              <li>Rights of children with disabilities; RTE Act 2009; Disabilities Act</li>
+              <li>Role of the teacher in an inclusive classroom</li>
+            </ul>
+          </div>
+
+          <div class="syl-topic">
+            <div class="syl-topic__title">Learning &amp; Pedagogy — 10 Questions</div>
+            <ul>
+              <li>How children think and learn; why children fail to achieve success</li>
+              <li>Behaviourism — Pavlov (classical conditioning), Skinner (operant conditioning)</li>
+              <li>Constructivism — Bruner, Piaget; Social Learning Theory — Bandura</li>
+              <li>Motivation: intrinsic vs extrinsic; Maslow's hierarchy of needs</li>
+              <li>Factors affecting learning: attention, memory, perception, emotion</li>
+              <li>Formative vs summative assessment; Continuous and Comprehensive Evaluation (CCE)</li>
+              <li>Critical thinking, problem-solving, creative thinking</li>
+              <li>Child-centred education; activity-based learning; collaborative learning</li>
+              <li>Role of language and cognition in learning</li>
+              <li>NCF 2005 key recommendations; NEP 2020 aspects for upper primary</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- English -->
+      <div class="syl-section">
+        <div class="syl-header">
+          <span class="syl-title">English</span>
+          <span class="syl-meta">30 Questions &middot; 30 Marks</span>
+          <span class="syl-toggle">&#9660;</span>
+        </div>
+        <div class="syl-body">
+
+          <div class="syl-topic">
+            <div class="syl-topic__title">Reading Comprehension — 15 Questions</div>
+            <ul>
+              <li>Unseen passages: narrative, discursive, and literary texts</li>
+              <li>Inference, vocabulary in context, tone, main idea, and detail questions</li>
+            </ul>
+          </div>
+
+          <div class="syl-topic">
+            <div class="syl-topic__title">Pedagogy of Language Development — 15 Questions</div>
+            <ul>
+              <li>Language acquisition vs language learning; Krashen's Monitor Model and Input Hypothesis</li>
+              <li>LSRW (listening, speaking, reading, writing) in second-language development</li>
+              <li>Methods: Communicative Language Teaching (CLT), Direct Method, Grammar-Translation, Audio-Lingual</li>
+              <li>Reading: decoding, fluency, comprehension strategies</li>
+              <li>Writing: process writing, drafting, revising, creative writing</li>
+              <li>Functional grammar in context (not prescriptive rules)</li>
+              <li>Role of L1 (Telugu) in learning L2 (English); multilingual classroom challenges</li>
+              <li>Formative evaluation tools: portfolio, observation, peer assessment</li>
+              <li>Remedial teaching in English</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Telugu -->
+      <div class="syl-section">
+        <div class="syl-header">
+          <span class="syl-title">Telugu</span>
+          <span class="syl-meta">30 Questions &middot; 30 Marks &middot; Questions in Telugu Script</span>
+          <span class="syl-toggle">&#9660;</span>
+        </div>
+        <div class="syl-body">
+
+          <div class="syl-topic">
+            <div class="syl-topic__title">Reading Comprehension — 15 Questions</div>
+            <ul>
+              <li>Telugu passages (narrative, poetic, informational) for upper-primary readers</li>
+              <li>Comprehension, inference, vocabulary-in-context, tone</li>
+            </ul>
+          </div>
+
+          <div class="syl-topic">
+            <div class="syl-topic__title">Pedagogy of Telugu Language — 15 Questions</div>
+            <ul>
+              <li>Mother-tongue acquisition principles; importance of L1 in early education</li>
+              <li>LSRW in Telugu; oral fluency before literacy</li>
+              <li>Teaching reading and writing: phonics, whole-language, balanced approach</li>
+              <li>Telugu script literacy: vowels, consonants, conjuncts; common reading errors</li>
+              <li>Literature, folklore, and oral tradition in Telugu pedagogy</li>
+              <li>Functional grammar: sandhi, samaasa, vibhakti basics</li>
+              <li>Multilingual classroom — relating Telugu to English / Hindi / Sanskrit</li>
+              <li>Formative evaluation tools; remedial teaching for struggling readers</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Mathematics -->
+      <div class="syl-section">
+        <div class="syl-header">
+          <span class="syl-title">Mathematics</span>
+          <span class="syl-meta">30 Questions &middot; 30 Marks &middot; ≈20 Content + ≈10 Pedagogy</span>
+          <span class="syl-toggle">&#9660;</span>
+        </div>
+        <div class="syl-body">
+
+          <div class="syl-topic">
+            <div class="syl-topic__title">Number System</div>
+            <ul>
+              <li>Integers: positive/negative, absolute value, number line; divisibility rules; LCM and HCF (Euclid's algorithm)</li>
+              <li>Fractions (types, operations); rational numbers (definition, representation, operations)</li>
+              <li>Decimals: terminating and non-terminating; conversion between fractions and decimals</li>
+              <li>Exponents and powers; laws of exponents; scientific notation</li>
+              <li><em>Class 9–10:</em> Real numbers, Euclid's division lemma, irrational numbers (√2, √3 proofs), decimal expansion of rationals</li>
+            </ul>
+          </div>
+
+          <div class="syl-topic">
+            <div class="syl-topic__title">Algebra</div>
+            <ul>
+              <li>Variables, constants, algebraic expressions; ratio and proportion; unitary method; direct and inverse proportion</li>
+              <li>Algebraic identities: (a±b)², (a+b)(a−b), (a+b+c)², (a±b)³, a³±b³</li>
+              <li>Factorisation: common factor, grouping, difference of squares, trinomials</li>
+              <li>Linear equations in one and two variables; graphical and algebraic solutions</li>
+              <li><em>Class 9–10:</em> Polynomials (remainder and factor theorems); quadratic equations (discriminant, nature of roots, quadratic formula); Arithmetic Progressions (nth term, sum formula)</li>
+            </ul>
+          </div>
+
+          <div class="syl-topic">
+            <div class="syl-topic__title">Geometry</div>
+            <ul>
+              <li>Lines, angles (types), parallel lines and transversal</li>
+              <li>Triangles: angle-sum, exterior angle, triangle inequality; congruence (SSS, SAS, ASA, RHS, AAS); similarity (AA, SAS, SSS)</li>
+              <li>Quadrilaterals: types and properties; angle sum; polygons — interior/exterior angle formulae</li>
+              <li>Circles: chord, arc, sector, segment; central and inscribed angles; tangent properties</li>
+              <li>Symmetry: line and rotational symmetry; 3D shapes — nets; Euler's formula (V + F = E + 2)</li>
+              <li>Constructions: bisectors, triangles, quadrilaterals</li>
+              <li><em>Class 9–10:</em> Coordinate geometry (distance, section formula, mid-point, slope, collinearity); Trigonometry (sin/cos/tan, identities, complementary angles, heights and distances)</li>
+            </ul>
+          </div>
+
+          <div class="syl-topic">
+            <div class="syl-topic__title">Mensuration</div>
+            <ul>
+              <li>Perimeter and area: square, rectangle, parallelogram, triangle, trapezium, rhombus, circle; combined shapes; paths</li>
+              <li>Surface area and volume: cube, cuboid, cylinder, cone, sphere, hemisphere, frustum</li>
+              <li><em>Class 9–10:</em> Heron's formula; complex 3D figures; conversion of solids</li>
+            </ul>
+          </div>
+
+          <div class="syl-topic">
+            <div class="syl-topic__title">Data Handling</div>
+            <ul>
+              <li>Bar graphs, histograms, pie charts, line graphs; frequency distribution tables</li>
+              <li>Mean (direct, assumed mean, step deviation), median, mode</li>
+              <li>Probability: experimental vs theoretical; complementary events</li>
+              <li><em>Class 9–10:</em> Cumulative frequency (ogive); quartiles; addition rule of probability</li>
+            </ul>
+          </div>
+
+          <div class="syl-topic">
+            <div class="syl-topic__title">Pedagogical Issues in Mathematics</div>
+            <ul>
+              <li>Nature of mathematics: abstract, logical, hierarchical structure; role of conjecture and proof</li>
+              <li>Language of mathematics; community mathematics; ethnomathematics</li>
+              <li>Common student misconceptions in arithmetic, algebra, and geometry</li>
+              <li>Strategies: constructivist approach, inductive-deductive methods, problem-solving, project method</li>
+              <li>Manipulatives and technology: Geogebra, abacus, Dienes blocks, number strips</li>
+              <li>Evaluation: oral, written, performance-based, diagnostic testing; remedial teaching</li>
+              <li>Differentiated instruction for diverse learners</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Science -->
+      <div class="syl-section">
+        <div class="syl-header">
+          <span class="syl-title">Science</span>
+          <span class="syl-meta">30 Questions &middot; 30 Marks &middot; ≈20 Content + ≈10 Pedagogy</span>
+          <span class="syl-toggle">&#9660;</span>
+        </div>
+        <div class="syl-body">
+
+          <div class="syl-topic">
+            <div class="syl-topic__title">Food &amp; Materials</div>
+            <ul>
+              <li>Sources of food; components: carbohydrates, proteins, fats, vitamins (A, B-complex, C, D), minerals; deficiency diseases</li>
+              <li>Separation methods: hand-picking, winnowing, sieving, sedimentation, filtration, evaporation, distillation, chromatography</li>
+              <li>Fibre to Fabric: natural (cotton, wool, silk, jute) and synthetic fibres (nylon, polyester, acrylic)</li>
+              <li>Metals and Non-metals: properties, reactivity series</li>
+              <li>Acids, Bases and Salts: indicators, pH scale, neutralisation; everyday applications</li>
+              <li><em>Class 9–10:</em> Atoms &amp; Molecules (laws of chemical combination, Dalton's theory, molar mass, Avogadro's number); Atomic structure (Thomson, Rutherford, Bohr models; atomic number; isotopes); Carbon compounds (covalent bonding, homologous series, IUPAC naming, ethanol, ethanoic acid, soaps and detergents); Periodic table (Dobereiner, Newlands, Mendeleev, Modern periodic law and trends)</li>
+            </ul>
+          </div>
+
+          <div class="syl-topic">
+            <div class="syl-topic__title">Living World</div>
+            <ul>
+              <li>Cell: structure (plant and animal); organelles and functions; prokaryotic vs eukaryotic</li>
+              <li>Organisation: cell → tissue → organ → organ system; animal and plant tissue types</li>
+              <li>Microorganisms: bacteria, viruses, fungi, protozoa; useful and harmful; disease and immunity; food preservation</li>
+              <li>Human body: digestive, respiratory, circulatory, excretory, skeletal and muscular systems</li>
+              <li>Reproduction: asexual (binary fission, budding, spore formation, vegetative propagation); sexual reproduction in plants and humans; adolescence and puberty</li>
+              <li>Ecosystems: food chains and webs, trophic levels, energy flow, biotic and abiotic factors; diversity and classification</li>
+              <li><em>Class 9–10:</em> Life Processes (photosynthesis, aerobic/anaerobic respiration, transportation, excretion — nephron); Control &amp; Coordination (neurons, reflex arc, CNS/PNS, endocrine system); Heredity &amp; Evolution (Mendel's laws, monohybrid/dihybrid cross, natural selection, speciation); Our Environment (biodegradable vs non-biodegradable, ozone layer, greenhouse effect, waste management)</li>
+            </ul>
+          </div>
+
+          <div class="syl-topic">
+            <div class="syl-topic__title">Force, Motion &amp; Energy</div>
+            <ul>
+              <li>Motion: types, speed, velocity, acceleration; distance-time and velocity-time graphs</li>
+              <li>Force: contact and non-contact; friction (types, factors, useful/harmful)</li>
+              <li>Simple machines: lever (3 classes), pulley, wheel and axle, inclined plane; mechanical advantage</li>
+              <li>Work, energy, power; KE and PE; conservation of mechanical energy</li>
+              <li>Sound: production, propagation, frequency, amplitude; echo; noise pollution</li>
+              <li>Light: rectilinear propagation; reflection (plane and curved mirrors); refraction (Snell's law, total internal reflection); dispersion; lenses; human eye and defects (myopia, hypermetropia)</li>
+              <li><em>Class 9–10:</em> Newton's 3 laws; gravitation (universal law, g, buoyancy, Archimedes' principle); Electricity (Ohm's law, series/parallel circuits, power, heating effect, domestic circuits); Magnetic effects (Oersted, electromagnet, Fleming's rules, electric motor and generator, AC vs DC)</li>
+            </ul>
+          </div>
+
+          <div class="syl-topic">
+            <div class="syl-topic__title">Natural Phenomena &amp; Resources</div>
+            <ul>
+              <li>Water cycle; types of rainfall; thunder and lightning; earthquakes (seismic waves, Richter scale)</li>
+              <li>Air: composition, oxygen and nitrogen cycles, air pollution</li>
+              <li>Water: importance, water cycle, pollution, conservation, rainwater harvesting</li>
+              <li>Soil: formation, layers, soil types, erosion, conservation</li>
+              <li>Coal and petroleum: formation, fractions of petroleum; fossil fuels as non-renewable</li>
+              <li>Forests: importance, deforestation, conservation; 3Rs; wildlife protection; biosphere reserves</li>
+              <li><em>Class 9–10:</em> Ecosystem in detail; ozone depletion; management of natural resources (Chipko movement, dam controversy, sustainability)</li>
+            </ul>
+          </div>
+
+          <div class="syl-topic">
+            <div class="syl-topic__title">Pedagogical Issues in Science</div>
+            <ul>
+              <li>Nature and structure of sciences: scientific method, hypothesis, experimentation, objectivity, falsifiability</li>
+              <li>Aims of science education: scientific temper, curiosity, environmental awareness</li>
+              <li>Approaches: inductive, deductive, inquiry-based, project-based, integrated</li>
+              <li>Importance of observation and experimentation; lab skills; designing experiments</li>
+              <li>Concept mapping; analogical reasoning; use of models, simulations, ICT tools</li>
+              <li>Common misconceptions (e.g. weight vs mass, photosynthesis at night, evolution as progress)</li>
+              <li>Evaluation: lab work assessment, MCQs vs open-ended questions, rubrics; formative strategies (think-pair-share, exit tickets, concept cartoons)</li>
+              <li>Remedial teaching; STEM integration; gender equity in science</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+    </div><!-- /tab-syllabus -->
+
   </main>
 
   <footer class="home-footer">
