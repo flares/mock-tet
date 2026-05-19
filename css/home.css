@@ -100,17 +100,6 @@
   color: #1a3a5c;
 }
 
-.exam-card__footer {
-  padding: 12px 18px 16px;
-  border-top: 1px solid #f0f0f0;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.exam-card__footer .btn {
-  padding: 8px 22px;
-  font-size: 13px;
-}
 
 /* ── Loading / error states ── */
 .loading-msg {
@@ -127,6 +116,196 @@
   border-radius: 4px;
   padding: 16px;
   font-size: 13px;
+}
+
+/* ── Toolbar + tabs ── */
+.home-toolbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.home-tabs {
+  display: flex;
+  border-bottom: 2px solid var(--color-panel-border);
+  gap: 0;
+}
+
+.home-tab-btn {
+  padding: 8px 22px;
+  border: none;
+  background: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: #666;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.home-tab-btn.active {
+  color: #1a3a5c;
+  border-bottom-color: var(--color-tab-active-bg);
+}
+
+.home-tab-btn:not(.active):hover {
+  color: #1a3a5c;
+}
+
+.home-tab-pane { display: none; }
+.home-tab-pane.active { display: block; }
+
+/* ── Extra button sizes ── */
+.btn--sm  { padding: 6px 14px; font-size: 12px; }
+.btn--xs  { padding: 4px 10px; font-size: 11px; }
+
+.btn--ghost {
+  background: transparent;
+  color: #666;
+  border: 1px solid #bbb;
+}
+.btn--ghost:hover { background: #f5f5f5; color: #333; }
+
+/* ── Card footer flex ── */
+.exam-card__footer {
+  padding: 10px 18px 14px;
+  border-top: 1px solid #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* ── Attempt history ── */
+.att-history {
+  background: #f4f6fb;
+  border: 1px solid #dce4f0;
+  border-radius: 5px;
+  padding: 8px 12px;
+  margin-top: 8px;
+}
+
+.att-history__label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.att-trend { font-size: 14px; font-weight: 800; }
+.att-trend--up   { color: #2e7d32; }
+.att-trend--down { color: #c62828; }
+.att-trend--flat { color: #888; }
+
+.att-history__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.att-history__badges span {
+  display: inline-block;
+  padding: 2px 9px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: default;
+}
+
+.att--good { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+.att--avg  { background: #fff8e1; color: #bf6000; border: 1px solid #ffd54f; }
+.att--low  { background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
+
+/* ── Syllabus ── */
+.syl-section {
+  background: #fff;
+  border: 1px solid var(--color-panel-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.syl-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: var(--color-header-bg);
+  color: #fff;
+  cursor: pointer;
+  user-select: none;
+}
+
+.syl-title {
+  font-size: 14px;
+  font-weight: 700;
+  flex: 1;
+}
+
+.syl-meta {
+  font-size: 11px;
+  opacity: 0.75;
+  white-space: nowrap;
+}
+
+.syl-toggle {
+  font-size: 12px;
+  opacity: 0.8;
+  transition: transform 0.2s ease;
+}
+
+.syl-section.open .syl-toggle {
+  transform: rotate(180deg);
+}
+
+.syl-body {
+  display: none;
+  padding: 16px 20px 12px;
+}
+
+.syl-section.open .syl-body {
+  display: block;
+}
+
+.syl-topic {
+  margin-bottom: 18px;
+}
+
+.syl-topic__title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #1a3a5c;
+  margin-bottom: 7px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #e4eaf4;
+}
+
+.syl-topic ul {
+  padding-left: 18px;
+  margin: 0;
+}
+
+.syl-topic li {
+  font-size: 12px;
+  color: #444;
+  line-height: 1.65;
+  margin-bottom: 3px;
+}
+
+.syl-topic li em {
+  color: #1565c0;
+  font-style: normal;
+  font-weight: 600;
 }
 
 /* ── Footer ── */

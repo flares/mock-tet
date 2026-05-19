@@ -7,6 +7,7 @@
 const ExamState = (() => {
   const STORAGE_KEY = 'tet_exam_session';
   const RESULT_PREFIX = 'tet_result_';
+  const ATTEMPTS_PREFIX = 'tet_attempts_';
 
   let examData = null;   // frozen after load
   let pendingAnswer = null;  // option key selected but not yet saved
@@ -219,11 +220,43 @@ const ExamState = (() => {
     return { correct, incorrect, attempted, unattempted: total - attempted, total, details };
   }
 
+  // Save compact attempt record to localStorage history
+  function saveAttempt(score) {
+    const total = examData.questions.length;
+    let answersStr = '';
+    for (let i = 0; i < total; i++) {
+      answersStr += session.answers[String(i)] || '-';
+    }
+    const marksScored = score.correct * examData.marksPerQuestion;
+    const pct = examData.totalMarks > 0
+      ? parseFloat(((marksScored / examData.totalMarks) * 100).toFixed(1))
+      : 0;
+    const elapsed = examData.duration * 60 - (session.remainingSeconds || 0);
+    const attempt = {
+      ts: Date.now(),
+      answers: answersStr,
+      correct: score.correct,
+      incorrect: score.incorrect,
+      unattempted: score.unattempted,
+      pct,
+      timeTaken: elapsed,
+    };
+    const key = `${ATTEMPTS_PREFIX}${session.examId}`;
+    let attempts = [];
+    try {
+      const raw = localStorage.getItem(key);
+      if (raw) { const parsed = JSON.parse(raw); if (Array.isArray(parsed)) attempts = parsed; }
+    } catch (_) {}
+    attempts.unshift(attempt);
+    localStorage.setItem(key, JSON.stringify(attempts));
+  }
+
   // Persist final state to localStorage for the result page
   function finalSubmit() {
     session.submitted = true;
     session.submittedAt = Date.now();
     const score = calculateScore();
+    saveAttempt(score);
     const resultKey = `${RESULT_PREFIX}${session.examId}`;
     localStorage.setItem(resultKey, JSON.stringify({ session, score, examData }));
     sessionStorage.removeItem(STORAGE_KEY);
@@ -236,6 +269,32 @@ const ExamState = (() => {
     try { return JSON.parse(raw); } catch (_) { return null; }
   }
 
+  // Read attempt history for an exam
+  function getAttempts(examId) {
+    try {
+      const raw = localStorage.getItem(`${ATTEMPTS_PREFIX}${examId}`);
+      if (!raw) return [];
+      const a = JSON.parse(raw);
+      return Array.isArray(a) ? a : [];
+    } catch (_) { return []; }
+  }
+
+  // Clear all stored results and attempts
+  function clearAllCache() {
+    const toRemove = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && (k.startsWith(ATTEMPTS_PREFIX) || k.startsWith(RESULT_PREFIX))) toRemove.push(k);
+    }
+    toRemove.forEach(k => localStorage.removeItem(k));
+  }
+
+  // Clear results for a single exam
+  function clearExamCache(examId) {
+    localStorage.removeItem(`${ATTEMPTS_PREFIX}${examId}`);
+    localStorage.removeItem(`${RESULT_PREFIX}${examId}`);
+  }
+
   function getSession() { return session; }
 
   return {
@@ -243,6 +302,6 @@ const ExamState = (() => {
     getStatus, getPendingAnswer, getSavedAnswer,
     selectOption, navigateTo, saveAndNext, markAndNext, clearResponse,
     tickTimer, getSummary, calculateScore, finalSubmit, loadResult,
-    getSession,
+    getSession, getAttempts, clearAllCache, clearExamCache,
   };
 })();
