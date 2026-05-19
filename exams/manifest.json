@@ -23,6 +23,18 @@
       "totalMarks": 150,
       "negativeMarking": false,
       "file": "exams/paper2-full-02.json"
+    },
+    {
+      "id": "paper2-mini-telugu-01",
+      "title": "Telugu Mini-Test - Sandhulu and Samaasaalu - Test 1",
+      "subtitle": "Telugu",
+      "type": "Mini-Test",
+      "targetClasses": "Classes VI-VIII (+ IX-X extension)",
+      "duration": 30,
+      "totalQuestions": 30,
+      "totalMarks": 30,
+      "negativeMarking": false,
+      "file": "exams/paper2-mini-telugu-01.json"
     }
   ]
 }

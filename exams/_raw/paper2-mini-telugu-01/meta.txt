@@ -1,0 +1,5 @@
+id: paper2-mini-telugu-01
+title: Telugu Mini-Test - Sandhulu and Samaasaalu - Test 1
+type: Mini-Test
+targetClasses: Classes VI-VIII (+ IX-X extension)
+sections: telugu
