@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   function filterExams(exams, filter) {
     if (filter === 'all') return exams;
-    if (filter === 'Full') return exams.filter(exam => exam.style === 'Full');
+    if (filter === 'Full' || filter === 'Real Paper') return exams.filter(exam => exam.style === filter);
     return exams.filter(exam =>
       exam.subjects && exam.subjects.includes(filter)
     );

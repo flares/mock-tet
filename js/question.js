@@ -1,10 +1,10 @@
 /**
  * QuestionRenderer — renders a question and its options into the DOM.
+ * Supports both text questions and image-based questions (questionType === 'image').
  */
 const QuestionRenderer = (() => {
   let _cardEl = null;
   let _onSelectCb = null;
-  let _currentQuestion = null;
 
   function init(questionCardEl, onSelect) {
     _cardEl = questionCardEl;
@@ -12,9 +12,14 @@ const QuestionRenderer = (() => {
   }
 
   function render(question, selectedKey) {
-    _currentQuestion = question;
-    const q = question;
+    if (question.questionType === 'image') {
+      _renderImage(question, selectedKey);
+    } else {
+      _renderText(question, selectedKey);
+    }
+  }
 
+  function _renderText(q, selectedKey) {
     const optionsHtml = q.options.map(opt => `
       <label class="option-item${selectedKey === opt.key ? ' selected' : ''}" data-key="${opt.key}">
         <input type="radio" name="option" value="${opt.key}" ${selectedKey === opt.key ? 'checked' : ''}>
@@ -29,11 +34,62 @@ const QuestionRenderer = (() => {
       <div class="options-list">${optionsHtml}</div>
     `;
 
-    // Bind option selection
+    _bindOptionClicks();
+  }
+
+  function _renderImage(q, selectedKey) {
+    const KEYS = ['1', '2', '3', '4'];
+
+    let optionRows = '';
+    if (q.optionsInQuestion) {
+      // Options are drawn inside the question image — show bare radio rows
+      optionRows = KEYS.map(k => `
+        <tr>
+          <td class="img-q-opt-num">${k}</td>
+          <td class="img-q-opt-cell">
+            <label class="option-item option-item--img${selectedKey === k ? ' selected' : ''}" data-key="${k}">
+              <input type="radio" name="option" value="${k}" ${selectedKey === k ? 'checked' : ''}>
+              <span class="option-item--img__label">Option ${k}</span>
+            </label>
+          </td>
+        </tr>`).join('');
+    } else {
+      optionRows = KEYS.map((k, i) => {
+        const src = q.optionImages[i] || '';
+        return `
+        <tr>
+          <td class="img-q-opt-num">${k}</td>
+          <td class="img-q-opt-cell">
+            <label class="option-item option-item--img${selectedKey === k ? ' selected' : ''}" data-key="${k}">
+              <input type="radio" name="option" value="${k}" ${selectedKey === k ? 'checked' : ''}>
+              <img src="${escHtml(src)}" alt="Option ${k}" class="option-img" loading="lazy">
+            </label>
+          </td>
+        </tr>`;
+      }).join('');
+    }
+
+    _cardEl.innerHTML = `
+      <div class="question-card__number-bar">Question No. ${q.globalIndex + 1}</div>
+      <table class="img-question-table">
+        <tbody>
+          <tr>
+            <td colspan="2" class="img-q-question-cell">
+              <img src="${escHtml(q.questionImage)}" alt="Question ${q.globalIndex + 1}" class="question-img" loading="lazy">
+            </td>
+          </tr>
+          ${optionRows}
+        </tbody>
+      </table>
+    `;
+
+    _bindOptionClicks();
+  }
+
+  function _bindOptionClicks() {
     _cardEl.querySelectorAll('.option-item').forEach(label => {
       label.addEventListener('click', () => {
         const key = label.dataset.key;
-        // Update visual selection
         _cardEl.querySelectorAll('.option-item').forEach(l => l.classList.remove('selected'));
         label.classList.add('selected');
         label.querySelector('input').checked = true;

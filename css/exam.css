@@ -527,3 +527,105 @@ body.lang-hi .text-en { display: none; }
 @media (min-width: 701px) {
   .btn--palette-toggle { display: none; }
 }
+
+/* ── Image-based question table ─────────────────────────────────────────── */
+.img-question-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+}
+
+.img-question-table td {
+  border: 2px solid #455a64;
+  padding: 10px 12px;
+  vertical-align: middle;
+}
+
+.img-q-question-cell {
+  text-align: center;
+  background: #fafafa;
+  padding: 16px !important;
+}
+
+.question-img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.img-q-opt-num {
+  width: 42px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 15px;
+  color: #1a3a5c;
+  background: #f0f4fb;
+  user-select: none;
+}
+
+.img-q-opt-cell {
+  padding: 6px 10px !important;
+}
+
+.option-item--img {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 4px 6px;
+  transition: background 0.15s;
+  width: 100%;
+}
+
+.option-item--img input[type="radio"] {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.option-item--img:hover {
+  background: #e8f0fe;
+}
+
+.option-item--img.selected {
+  background: #c8e6c9;
+  outline: 2px solid #388e3c;
+}
+
+.option-img {
+  max-width: 100%;
+  max-height: 120px;
+  height: auto;
+  display: block;
+}
+
+.option-item--img__label {
+  font-size: 14px;
+  color: #555;
+}
+
+/* ── Result page: image question review ─────────────────────────────────── */
+.review-question-img {
+  max-width: 340px;
+  max-height: 160px;
+  height: auto;
+  display: block;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+tr.row--no-key {
+  background: #fffde7;
+}
+
+.answer-badge--no-key {
+  background: #ffd54f;
+  color: #5d4037;
+  border-radius: 4px;
+  padding: 2px 7px;
+  font-size: 12px;
+  font-weight: 700;
+}

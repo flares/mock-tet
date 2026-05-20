@@ -212,8 +212,14 @@ const ExamState = (() => {
       let result = 'skipped';
       if (savedAnswer) {
         attempted++;
-        if (savedAnswer === q.correctAnswer) { correct++; result = 'correct'; }
-        else { incorrect++; result = 'incorrect'; }
+        if (q.correctAnswer == null) {
+          // No answer key available — count as attempted but not scored
+          result = 'no-key';
+        } else if (savedAnswer === q.correctAnswer) {
+          correct++; result = 'correct';
+        } else {
+          incorrect++; result = 'incorrect';
+        }
       }
       details.push({ globalIndex: i, question: q, userAnswer: savedAnswer, result });
     }
