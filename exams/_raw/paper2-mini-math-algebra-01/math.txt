@@ -1,0 +1,209 @@
+Q1 Which of the following pairs consists of like terms?
+A) 3x²y and 5xy²
+B) 7ab and -2ba *
+C) 4p²q and 4pq²
+D) 9mn and 9m
+E Like terms have identical variable parts with the same exponents; 7ab and -2ba both have variables a and b to the first power, so they are like terms.
+
+Q2 The coefficient of x in the expression 5 - 7x + 3x²y - 2xy is:
+A) -7
+B) 3
+C) -7 - 2y *
+D) -9
+E Collecting all terms containing x to the first power: -7x - 2xy = (-7 - 2y)x, so the coefficient of x is -7 - 2y.
+
+Q3 Simplify: (4a² - 3a + 7) - (2a² + 5a - 4)
+A) 2a² - 8a + 11 *
+B) 2a² + 2a + 3
+C) 6a² - 8a + 11
+D) 2a² - 8a + 3
+E Subtract by changing signs: 4a² - 3a + 7 - 2a² - 5a + 4 = 2a² - 8a + 11.
+
+Q4 The product (2x - 3)(x + 4) equals:
+A) 2x² + 5x - 12 *
+B) 2x² - 5x - 12
+C) 2x² + 11x - 12
+D) 2x² + 5x + 12
+E Using FOIL: 2x·x + 2x·4 - 3·x - 3·4 = 2x² + 8x - 3x - 12 = 2x² + 5x - 12.
+
+Q5 Divide 12x³y² - 8x²y³ + 4x²y² by 4x²y²:
+A) 3x - 2y + 1 *
+B) 3xy - 2y + 1
+C) 3x - 2y² + 1
+D) 3x - 2y + 4
+E Dividing each term: 12x³y²/4x²y² = 3x, -8x²y³/4x²y² = -2y, 4x²y²/4x²y² = 1.
+
+Q6 If (a + b)² = 49 and ab = 10, then a² + b² equals:
+A) 29 *
+B) 39
+C) 59
+D) 69
+E Since (a+b)² = a² + 2ab + b², we have 49 = a² + b² + 20, so a² + b² = 29.
+
+Q7 Expand: (3x - 2y)²
+A) 9x² - 12xy + 4y² *
+B) 9x² + 12xy + 4y²
+C) 9x² - 6xy + 4y²
+D) 3x² - 12xy + 2y²
+E Using (a-b)² = a² - 2ab + b²: (3x)² - 2(3x)(2y) + (2y)² = 9x² - 12xy + 4y².
+
+Q8 The value of 103 × 97 using identities is:
+A) 9991 *
+B) 9999
+C) 9981
+D) 10001
+E Writing as (100+3)(100-3) = 100² - 3² = 10000 - 9 = 9991.
+
+Q9 If a + b + c = 10 and a² + b² + c² = 40, then ab + bc + ca equals:
+A) 30 *
+B) 20
+C) 60
+D) 50
+E Using (a+b+c)² = a² + b² + c² + 2(ab+bc+ca): 100 = 40 + 2(ab+bc+ca), so ab+bc+ca = 30.
+
+Q10 Factorise: 12x²y - 18xy² + 6xy
+A) 6xy(2x - 3y + 1) *
+B) 6xy(2x - 3y)
+C) 6x(2xy - 3y² + 1)
+D) 6xy(2x + 3y + 1)
+E The HCF of the three terms is 6xy; dividing each gives 2x, -3y, and 1.
+
+Q11 Factorise: x² - 16y²
+A) (x - 4y)(x + 4y) *
+B) (x - 8y)(x + 8y)
+C) (x - 4y)²
+D) (x + 4y)²
+E This is a difference of squares: a² - b² = (a-b)(a+b) with a = x and b = 4y.
+
+Q12 Factorise: x² + 7x + 12
+A) (x + 3)(x + 4) *
+B) (x + 2)(x + 6)
+C) (x - 3)(x - 4)
+D) (x + 1)(x + 12)
+E We need two numbers whose product is 12 and sum is 7: these are 3 and 4.
+
+Q13 Factorise by grouping: ax + ay + bx + by
+A) (a + b)(x + y) *
+B) (a - b)(x + y)
+C) (a + b)(x - y)
+D) (ab + xy)
+E Group: a(x+y) + b(x+y) = (a+b)(x+y).
+
+Q14 If 5(x - 3) = 3(x + 5), then x equals:
+A) 15 *
+B) 5
+C) 10
+D) -15
+E Expanding: 5x - 15 = 3x + 15, so 2x = 30, giving x = 15.
+
+Q15 The sum of three consecutive integers is 78. The largest of the three is:
+A) 27 *
+B) 25
+C) 26
+D) 28
+E Let the integers be n-1, n, n+1; their sum is 3n = 78, so n = 26 and the largest is 27.
+
+Q16 A father is four times as old as his son. After 5 years, the father will be three times as old. The son's present age (in years) is:
+A) 10 *
+B) 8
+C) 12
+D) 15
+E Let son's age be x; father is 4x. Then 4x + 5 = 3(x + 5) gives 4x + 5 = 3x + 15, so x = 10.
+
+Q17 Solve for x: (x + 2)/3 - (x - 1)/4 = 2
+A) 13 *
+B) 17
+C) 11
+D) 9
+E Multiply through by 12: 4(x+2) - 3(x-1) = 24, giving 4x + 8 - 3x + 3 = 24, so x + 11 = 24 and x = 13.
+
+Q18 The solution of the system x + y = 7 and x - y = 3 is:
+A) x = 5, y = 2 *
+B) x = 4, y = 3
+C) x = 6, y = 1
+D) x = 3, y = 4
+E Adding the two equations: 2x = 10, so x = 5; then y = 7 - 5 = 2.
+
+Q19 If 2x + 3y = 12 and x = 3, then y equals:
+A) 2 *
+B) 3
+C) 4
+D) 6
+E Substituting x = 3: 6 + 3y = 12, so 3y = 6 and y = 2.
+
+Q20 Solve by elimination: 3x + 2y = 16, 5x - 2y = 8. The value of x is:
+A) 3 *
+B) 4
+C) 2
+D) 5
+E Adding the two equations eliminates y: 8x = 24, so x = 3.
+
+Q21 If a : b = 2 : 3 and b : c = 4 : 5, then a : c is:
+A) 8 : 15 *
+B) 2 : 5
+C) 5 : 8
+D) 10 : 12
+E Make b common: a:b = 8:12 and b:c = 12:15, so a:c = 8:15.
+
+Q22 If y varies inversely as x and y = 8 when x = 6, then y when x = 12 is:
+A) 4 *
+B) 16
+C) 8
+D) 2
+E In inverse variation, xy = k, so k = 48; when x = 12, y = 48/12 = 4.
+
+Q23 The degree of the polynomial 5x³y² - 4x²y + 7xy⁴ + 2 is:
+A) 5 *
+B) 4
+C) 3
+D) 6
+E Degree of each term: 5, 3, 5, 0; the highest is 5 (from 5x³y² and 7xy⁴).
+
+Q24 The zero of the polynomial p(x) = 3x - 12 is:
+A) 4 *
+B) -4
+C) 3
+D) -3
+E Setting p(x) = 0: 3x - 12 = 0, so x = 4.
+
+Q25 The remainder when x³ - 2x² + x + 1 is divided by (x - 1) is:
+A) 1 *
+B) 0
+C) 2
+D) -1
+E By the remainder theorem, the remainder equals p(1) = 1 - 2 + 1 + 1 = 1.
+
+Q26 If (x - 2) is a factor of x³ - 3x² + kx - 4, the value of k is:
+A) 4 *
+B) -4
+C) 2
+D) 8
+E By the factor theorem, p(2) = 0: 8 - 12 + 2k - 4 = 0, so 2k = 8 and k = 4.
+
+Q27 The discriminant of the quadratic 2x² - 5x + 3 is:
+A) 1 *
+B) 49
+C) -1
+D) 25
+E Discriminant = b² - 4ac = 25 - 24 = 1.
+
+Q28 If the roots of x² - px + 12 = 0 are 3 and 4, the value of p is:
+A) 7 *
+B) -7
+C) 12
+D) 1
+E Sum of roots = p = 3 + 4 = 7 (and product 3 × 4 = 12 confirms).
+
+Q29 The 15th term of the AP 7, 10, 13, 16, ... is:
+A) 49 *
+B) 52
+C) 46
+D) 45
+E nth term = a + (n-1)d = 7 + 14(3) = 7 + 42 = 49.
+
+Q30 The sum of the first 20 terms of the AP 2, 5, 8, 11, ... is:
+A) 610 *
+B) 580
+C) 600
+D) 620
+E Sum = (n/2)[2a + (n-1)d] = 10[4 + 19·3] = 10[4 + 57] = 10 × 61 = 610.

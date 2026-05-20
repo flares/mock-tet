@@ -87,12 +87,16 @@ document.addEventListener('DOMContentLoaded', () => {
         ? `<span class="answer-badge answer-badge--${d.result}">${d.userAnswer}</span>`
         : `<span class="answer-badge answer-badge--skipped">—</span>`;
       const correctBadge = `<span class="answer-badge answer-badge--correct">${d.question.correctAnswer}</span>`;
-      const qText = d.question.text.length > 80
-        ? escHtml(d.question.text.slice(0, 80)) + '…'
-        : escHtml(d.question.text);
+      const qText = escHtml(d.question.text);
+      const explanation = d.question.explanation
+        ? `<div class="review-explanation"><span class="review-explanation__label">Explanation:</span> ${escHtml(d.question.explanation)}</div>`
+        : '';
       return `<tr class="${rowClass}">
         <td>${d.question.globalIndex + 1}</td>
-        <td style="max-width:300px">${qText}</td>
+        <td class="review-cell-question">
+          <div class="review-question-text">${qText}</div>
+          ${explanation}
+        </td>
         <td style="text-align:center">${userBadge}</td>
         <td style="text-align:center">${correctBadge}</td>
         <td style="text-align:center">${d.result === 'correct' ? examData.marksPerQuestion : 0}</td>
