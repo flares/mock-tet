@@ -29,16 +29,11 @@ document.addEventListener('DOMContentLoaded', () => {
     `${examData.type} · ${examData.duration} minutes · ${examData.totalMarks} marks`;
 
   // ── Score ─────────────────────────────────────────────────────────────────
-  const hasAnswerKey = score.details.some(d => d.question.correctAnswer != null);
   const marksScored = score.correct * examData.marksPerQuestion;
-  document.getElementById('score-number').textContent = hasAnswerKey ? marksScored : score.attempted;
-  document.getElementById('score-total').textContent  = hasAnswerKey
-    ? `out of ${examData.totalMarks}`
-    : `answered out of ${examData.totalQuestions}`;
-  const pct = hasAnswerKey && examData.totalMarks > 0
-    ? ((marksScored / examData.totalMarks) * 100).toFixed(1)
-    : '0.0';
-  document.getElementById('score-percent').textContent = hasAnswerKey ? `${pct}%` : 'No answer key';
+  document.getElementById('score-number').textContent = marksScored;
+  document.getElementById('score-total').textContent  = `out of ${examData.totalMarks}`;
+  const pct = examData.totalMarks > 0 ? ((marksScored / examData.totalMarks) * 100).toFixed(1) : '0.0';
+  document.getElementById('score-percent').textContent = `${pct}%`;
 
   // ── Summary stat cards ────────────────────────────────────────────────────
   document.getElementById('stat-correct').textContent    = score.correct;
@@ -54,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const secDetails  = score.details.filter(d => d.question.sectionId === sec.id);
     const secCorrect  = secDetails.filter(d => d.result === 'correct').length;
     const secIncorrect = secDetails.filter(d => d.result === 'incorrect').length;
-    const secSkipped  = secDetails.filter(d => d.result === 'skipped' || d.result === 'no-key').length;
+    const secSkipped  = secDetails.filter(d => d.result === 'skipped').length;
     const secMarks    = secCorrect * examData.marksPerQuestion;
     return `<tr>
       <td>${escHtml(sec.name)}</td>
@@ -62,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <td style="color:#388e3c;font-weight:700">${secCorrect}</td>
       <td style="color:#d32f2f;font-weight:700">${secIncorrect}</td>
       <td style="color:#757575">${secSkipped}</td>
-      <td style="font-weight:700">${hasAnswerKey ? secMarks : '—'}</td>
+      <td style="font-weight:700">${secMarks}</td>
     </tr>`;
   }).join('');
 
@@ -88,17 +83,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     reviewBody.innerHTML = filtered.map(d => {
       const rowClass = d.result === 'correct' ? 'row--correct'
+        : d.result === 'discrepancy' ? 'row--discrepancy'
         : d.result === 'incorrect' ? 'row--incorrect'
-        : d.result === 'no-key' ? 'row--no-key'
         : 'row--skipped';
       const userBadge = d.userAnswer
         ? `<span class="answer-badge answer-badge--${d.result}">${d.userAnswer}</span>`
         : `<span class="answer-badge answer-badge--skipped">—</span>`;
-      const correctBadge = d.question.correctAnswer != null
-        ? `<span class="answer-badge answer-badge--correct">${d.question.correctAnswer}</span>`
-        : `<span class="answer-badge answer-badge--skipped">N/A</span>`;
-      const marks = !hasAnswerKey ? '—'
-        : d.result === 'correct' ? examData.marksPerQuestion : 0;
+      const correctBadge = d.result === 'discrepancy'
+        ? `<span class="answer-badge answer-badge--discrepancy" title="Official discrepancy — full marks to all">⚠️ Discrepancy</span>`
+        : `<span class="answer-badge answer-badge--correct">${d.question.correctAnswer}</span>`;
+      const marks = (d.result === 'correct' || d.result === 'discrepancy') ? examData.marksPerQuestion : 0;
 
       let questionContent;
       if (d.question.questionType === 'image') {

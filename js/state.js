@@ -210,16 +210,14 @@ const ExamState = (() => {
       const q = examData.questions[i];
       const savedAnswer = session.answers[String(i)] || null;
       let result = 'skipped';
-      if (savedAnswer) {
+      if (q.correctAnswer == null) {
+        // Official discrepancy — full marks awarded to all candidates regardless of response
+        correct++; result = 'discrepancy';
+        if (savedAnswer) attempted++;
+      } else if (savedAnswer) {
         attempted++;
-        if (q.correctAnswer == null) {
-          // No answer key available — count as attempted but not scored
-          result = 'no-key';
-        } else if (savedAnswer === q.correctAnswer) {
-          correct++; result = 'correct';
-        } else {
-          incorrect++; result = 'incorrect';
-        }
+        if (savedAnswer === q.correctAnswer) { correct++; result = 'correct'; }
+        else { incorrect++; result = 'incorrect'; }
       }
       details.push({ globalIndex: i, question: q, userAnswer: savedAnswer, result });
     }

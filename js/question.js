@@ -69,8 +69,13 @@ const QuestionRenderer = (() => {
       }).join('');
     }
 
+    const discrepancyBanner = q.correctAnswer == null
+      ? `<div class="discrepancy-banner">⚠️ Official discrepancy — full marks awarded to all candidates for this question.</div>`
+      : '';
+
     _cardEl.innerHTML = `
       <div class="question-card__number-bar">Question No. ${q.globalIndex + 1}</div>
+      ${discrepancyBanner}
       <table class="img-question-table">
         <tbody>
           <tr>
