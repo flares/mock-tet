@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', async () => {
-  const grid = document.getElementById('exam-grid');
+  const tableContainer = document.getElementById('exam-table-container');
   const ATTEMPTS_KEY = 'tet_attempts_';
   const RESULT_KEY   = 'tet_result_';
+  let currentFilter = 'all';
 
   // ── Tab switching ──────────────────────────────────────────────────────────
   document.querySelectorAll('.header-nav-btn').forEach(btn => {
@@ -74,8 +75,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     </div>`;
   }
 
-  // ── Render exam cards ──────────────────────────────────────────────────────
+  // ── Render exam table ─────────────────────────────────────────────────────
   let manifest = null;
+
+  function filterExams(exams, filter) {
+    if (filter === 'all') return exams;
+    if (filter === 'Full') return exams.filter(exam => exam.style === 'Full');
+    return exams.filter(exam =>
+      exam.subjects && exam.subjects.includes(filter)
+    );
+  }
 
   async function renderExams() {
     if (!manifest) {
@@ -84,51 +93,76 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
         manifest = await resp.json();
       } catch (err) {
-        grid.innerHTML = `<p class="error-msg">Could not load exam list: ${err.message}</p>`;
+        tableContainer.innerHTML = `<p class="error-msg">Could not load exam list: ${err.message}</p>`;
         return;
       }
     }
 
     if (!manifest.exams || manifest.exams.length === 0) {
-      grid.innerHTML = '<p class="loading-msg">No exam papers available yet.</p>';
+      tableContainer.innerHTML = '<p class="loading-msg">No exam papers available yet.</p>';
       return;
     }
 
-    grid.innerHTML = manifest.exams.map(exam => {
+    const filtered = filterExams(manifest.exams, currentFilter);
+
+    if (filtered.length === 0) {
+      tableContainer.innerHTML = '<p class="loading-msg">No exams match this filter.</p>';
+      return;
+    }
+
+    const rows = filtered.map(exam => {
       const attempts   = getAttempts(exam.id);
       const tried      = attempts.length > 0;
       const historyFrag = attemptHistoryHtml(attempts);
 
-      return `<div class="exam-card">
-        <div class="exam-card__header">
-          <div class="exam-card__type">${escHtml(exam.type)}</div>
-          <div class="exam-card__title">${escHtml(exam.title)}</div>
-        </div>
-        <div class="exam-card__body">
-          <p class="exam-card__subtitle">${escHtml(exam.subtitle || '')}</p>
-          <div class="exam-card__meta">
-            ${exam.targetClasses ? `<span class="meta-pill">&#127979; ${escHtml(exam.targetClasses)}</span>` : ''}
-            <span class="meta-pill">&#128221; ${exam.totalQuestions} Questions</span>
-            <span class="meta-pill">&#9201; ${exam.duration} Minutes</span>
-            <span class="meta-pill">&#127944; ${exam.totalMarks} Marks</span>
-            ${!exam.negativeMarking ? '<span class="meta-pill">&#10003; No Negative Marking</span>' : ''}
-          </div>
-          ${historyFrag}
-        </div>
-        <div class="exam-card__footer">
+      return `<tr>
+        <td class="exam-table-title">${escHtml(exam.title)}</td>
+        <td><span class="exam-table-style">${escHtml(exam.style || exam.type)}</span></td>
+        <td>${exam.duration} min</td>
+        <td>${exam.totalQuestions}</td>
+        <td>${exam.totalMarks}</td>
+        <td class="exam-table-results">${historyFrag || '<span style="color: #999;">—</span>'}</td>
+        <td class="exam-table-actions">
           ${tried ? `
             <button class="btn btn--ghost btn--xs" onclick="clearOneExam('${escHtml(exam.id)}')">Clear</button>
-            <button class="btn btn--outline btn--sm" onclick="viewResult('${escHtml(exam.id)}')">Last Result</button>
+            <button class="btn btn--outline btn--xs" onclick="viewResult('${escHtml(exam.id)}')">View</button>
           ` : ''}
-          <button class="btn btn--primary btn--sm" onclick="startExam('${escHtml(exam.id)}')">
-            ${tried ? '&#8635; Retake' : 'Start Test &#8594;'}
+          <button class="btn btn--primary btn--xs" onclick="startExam('${escHtml(exam.id)}')">
+            ${tried ? 'Retake' : 'Take Test'}
           </button>
-        </div>
-      </div>`;
+        </td>
+      </tr>`;
     }).join('');
+
+    tableContainer.innerHTML = `<table class="exam-table">
+      <thead>
+        <tr>
+          <th>Test Title</th>
+          <th>Test Style</th>
+          <th>Duration</th>
+          <th>Questions</th>
+          <th>Marks</th>
+          <th>Past Results</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rows}
+      </tbody>
+    </table>`;
   }
 
   await renderExams();
+
+  // ── Filter buttons ─────────────────────────────────────────────────────────
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      currentFilter = btn.dataset.filter;
+      document.querySelectorAll('.filter-btn').forEach(b =>
+        b.classList.toggle('active', b.dataset.filter === currentFilter));
+      renderExams();
+    });
+  });
 
   // ── Clear-all button ───────────────────────────────────────────────────────
   document.getElementById('btn-clear-all').addEventListener('click', () => {

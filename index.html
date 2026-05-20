@@ -32,11 +32,24 @@
     <!-- ── Tests tab ─────────────────────────────────────────────────────── -->
     <div id="tab-tests" class="home-tab-pane active">
       <p class="home-main__sub">
-        Choose a paper below and click <strong>Start Test</strong> to launch the practice exam in a
+        Choose a paper below and click <strong>Take Test</strong> to launch the practice exam in a
         realistic CBT interface — identical to the actual TET computer-based test.
         Results are saved locally so you can track improvement across attempts.
       </p>
-      <div id="exam-grid" class="exam-grid">
+
+      <!-- Filter buttons -->
+      <div class="exam-filters">
+        <button class="filter-btn active" data-filter="all">All Tests</button>
+        <button class="filter-btn" data-filter="Full">Full</button>
+        <button class="filter-btn" data-filter="Telugu">Telugu</button>
+        <button class="filter-btn" data-filter="Math">Math</button>
+        <button class="filter-btn" data-filter="Science">Science</button>
+        <button class="filter-btn" data-filter="English">English</button>
+        <button class="filter-btn" data-filter="CDP">CDP</button>
+      </div>
+
+      <!-- Table layout -->
+      <div id="exam-table-container" class="exam-table-container">
         <p class="loading-msg">Loading exam papers&hellip;</p>
       </div>
     </div>
@@ -45,8 +58,17 @@
     <div id="tab-syllabus" class="home-tab-pane">
       <p class="home-main__sub">
         Full syllabus for CTET Paper 2 (Telugu-medium adaptation) covering Classes VI–VIII with
-        extended topics from Classes IX–X. Click any section to expand.
+        extended topics from Classes IX–X. View the official PDF below or click any section to expand detailed topics.
       </p>
+
+      <!-- PDF Syllabus Viewer -->
+      <div class="syllabus-pdf-container">
+        <iframe
+          src="assets/syllabus/TGTET-June-2026_PAPER_II_SYLLABUS_Telugu.pdf"
+          title="TGTET Paper II Syllabus PDF"
+          class="syllabus-pdf-viewer">
+        </iframe>
+      </div>
 
       <!-- CDP -->
       <div class="syl-section open">
