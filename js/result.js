@@ -122,7 +122,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ── Actions ───────────────────────────────────────────────────────────────
   document.getElementById('btn-retake').addEventListener('click', () => {
-    location.href = `instructions.html?exam=${encodeURIComponent(examId)}`;
+    const colonIdx = examId.indexOf(':');
+    const baseId  = colonIdx >= 0 ? examId.slice(0, colonIdx) : examId;
+    const subject = colonIdx >= 0 ? examId.slice(colonIdx + 1) : null;
+    let url = `instructions.html?exam=${encodeURIComponent(baseId)}`;
+    if (subject) url += `&subject=${encodeURIComponent(subject)}`;
+    location.href = url;
   });
 
   document.getElementById('btn-home').addEventListener('click', () => {

@@ -1,3 +1,12 @@
+const SUBJECT_META = {
+  cdp:         { label: 'CDP',         color: '#1565c0', bg: '#e3f2fd' },
+  english:     { label: 'English',     color: '#2e7d32', bg: '#e8f5e9' },
+  telugu:      { label: 'Telugu',      color: '#bf360c', bg: '#fbe9e7' },
+  mathematics: { label: 'Math',        color: '#6a1b9a', bg: '#f3e5f5' },
+  science:     { label: 'Science',     color: '#00695c', bg: '#e0f2f1' },
+};
+const SUBJECT_ORDER = ['cdp', 'english', 'telugu', 'mathematics', 'science'];
+
 document.addEventListener('DOMContentLoaded', async () => {
   const tableContainer = document.getElementById('exam-table-container');
   const ATTEMPTS_KEY = 'tet_attempts_';
@@ -56,7 +65,12 @@ document.addEventListener('DOMContentLoaded', async () => {
       const cls = a.pct >= 60 ? 'att--good' : a.pct >= 40 ? 'att--avg' : 'att--low';
       const date = new Date(a.ts).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
       const num  = attempts.length - i;
-      return `<span class="${cls}" title="Attempt ${num} · ${date} · ${a.pct.toFixed(0)}%">${a.correct}&#10003; ${a.incorrect}&#10007;</span>`;
+      const sm   = a.subject ? SUBJECT_META[a.subject] : null;
+      const subjectDot = sm
+        ? `<span class="att-subject-dot" style="background:${sm.color}">${sm.label}</span>`
+        : '';
+      const borderStyle = sm ? `border-left:3px solid ${sm.color};` : '';
+      return `<span class="${cls}" style="${borderStyle}" title="Attempt ${num} · ${date} · ${a.pct.toFixed(0)}%${sm ? ' · ' + sm.label : ''}">${subjectDot}${a.correct}&#10003; ${a.incorrect}&#10007;</span>`;
     }).join('');
 
     let trend = '';
@@ -80,10 +94,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   function filterExams(exams, filter) {
     if (filter === 'all') return exams;
-    if (filter === 'Full' || filter === 'Real Paper') return exams.filter(exam => exam.style === filter);
-    return exams.filter(exam =>
-      exam.subjects && exam.subjects.includes(filter)
-    );
+    if (filter === 'Full' || filter === 'Real Paper') return exams.filter(e => e.style === filter);
+    // Subject filters: only show mock mini-tests, never real papers
+    return exams.filter(e => e.style !== 'Real Paper' && e.subjects && e.subjects.includes(filter));
   }
 
   async function renderExams() {
@@ -114,6 +127,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       const attempts   = getAttempts(exam.id);
       const tried      = attempts.length > 0;
       const historyFrag = attemptHistoryHtml(attempts);
+      const isReal     = exam.style === 'Real Paper';
+
+      const actionBtns = isReal ? _realPaperActions(exam, tried, attempts) : _mockActions(exam, tried);
 
       return `<tr>
         <td class="exam-table-title">
@@ -125,13 +141,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         <td class="col-num">${exam.totalQuestions}</td>
         <td class="col-num">${exam.totalMarks}</td>
         <td class="exam-table-results">${historyFrag || '<span style="color:#bbb; font-size:13px;">—</span>'}</td>
-        <td class="exam-table-actions">
-          ${tried ? `<button class="btn btn--ghost btn--xs" onclick="clearOneExam('${escHtml(exam.id)}')">Clear</button>
-            <button class="btn btn--outline btn--xs" onclick="viewResult('${escHtml(exam.id)}')">Results</button>` : ''}
-          <button class="btn btn--primary btn--xs" onclick="startExam('${escHtml(exam.id)}')">
-            ${tried ? 'Retake ↻' : 'Take Test →'}
-          </button>
-        </td>
+        <td class="exam-table-actions">${actionBtns}</td>
       </tr>`;
     }).join('');
 
@@ -170,12 +180,62 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (confirm('Delete all saved attempt results? This cannot be undone.')) clearAll();
   });
 
+  // ── Action fragment helpers ────────────────────────────────────────────────
+  function _mockActions(exam, tried) {
+    const eid = escHtml(exam.id);
+    return `
+      ${tried ? `<button class="btn btn--ghost btn--xs" onclick="clearOneExam('${eid}')">Clear</button>
+        <button class="btn btn--outline btn--xs" onclick="viewResult('${eid}')">Results</button>` : ''}
+      <button class="btn btn--primary btn--xs" onclick="startExam('${eid}')">
+        ${tried ? 'Retake ↻' : 'Take Test →'}
+      </button>`;
+  }
+
+  function _realPaperActions(exam, tried, attempts) {
+    const eid = escHtml(exam.id);
+    const mainLabel = tried ? 'Retake ↻' : 'Take Test →';
+    const subjectItems = SUBJECT_ORDER.map(s => {
+      const sm = SUBJECT_META[s];
+      return `<button class="split-drop-item" style="border-left:3px solid ${sm.color}"
+        onclick="startExam('${eid}','${s}')">
+        <span class="split-drop-dot" style="background:${sm.color}"></span>${sm.label} Only
+      </button>`;
+    }).join('');
+
+    const lastResult = attempts.length ? attempts[0].resultId : null;
+    return `
+      ${tried ? `<button class="btn btn--ghost btn--xs" onclick="clearOneExam('${eid}')">Clear</button>
+        <button class="btn btn--outline btn--xs" onclick="viewResult('${escHtml(lastResult || exam.id)}')">Results</button>` : ''}
+      <div class="split-btn-group">
+        <button class="btn btn--primary btn--xs" onclick="startExam('${eid}')">${mainLabel}</button>
+        <div class="split-drop-wrapper">
+          <button class="btn btn--primary btn--xs split-drop-toggle" onclick="toggleSplitMenu(event,this)" title="Take a single-subject mini-test">▾</button>
+          <div class="split-drop-menu" hidden>${subjectItems}</div>
+        </div>
+      </div>`;
+  }
+
   // ── Expose to inline onclick attrs ────────────────────────────────────────
-  window.startExam = id => { location.href = `instructions.html?exam=${encodeURIComponent(id)}`; };
+  window.startExam = (id, subject) => {
+    let url = `instructions.html?exam=${encodeURIComponent(id)}`;
+    if (subject) url += `&subject=${encodeURIComponent(subject)}`;
+    location.href = url;
+  };
   window.viewResult  = id => { location.href = `result.html?exam=${encodeURIComponent(id)}`; };
   window.clearOneExam = id => {
     if (confirm('Clear saved results for this exam? This cannot be undone.')) clearOne(id);
   };
+  window.toggleSplitMenu = (evt, btn) => {
+    evt.stopPropagation();
+    const menu = btn.nextElementSibling;
+    const isOpen = !menu.hidden;
+    // Close all other open menus
+    document.querySelectorAll('.split-drop-menu').forEach(m => { m.hidden = true; });
+    menu.hidden = isOpen;
+  };
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.split-drop-menu').forEach(m => { m.hidden = true; });
+  });
 });
 
 function escHtml(str) {

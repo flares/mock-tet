@@ -642,3 +642,78 @@ tr.row--discrepancy {
   border-radius: 4px;
   margin-bottom: 8px;
 }
+
+/* ── Split button (Real Papers subject picker) ───────────────────────────── */
+.split-btn-group {
+  display: inline-flex;
+  align-items: stretch;
+}
+
+.split-btn-group .btn--primary:first-child {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: 1px solid rgba(255,255,255,0.3);
+}
+
+.split-drop-wrapper {
+  position: relative;
+}
+
+.split-drop-toggle {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  padding: 0 7px !important;
+  font-size: 11px !important;
+}
+
+.split-drop-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 4px);
+  background: #fff;
+  border: 1px solid #c8d4e8;
+  border-radius: 6px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  z-index: 200;
+  min-width: 160px;
+  overflow: hidden;
+}
+
+.split-drop-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 9px 14px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #f0f0f0;
+  text-align: left;
+  font-size: 13px;
+  color: #1a3a5c;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+
+.split-drop-item:last-child { border-bottom: none; }
+.split-drop-item:hover { background: #f0f4fb; }
+
+.split-drop-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── Subject dot in attempt history badges ───────────────────────────────── */
+.att-subject-dot {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 700;
+  color: #fff;
+  border-radius: 3px;
+  padding: 1px 4px;
+  margin-right: 3px;
+  vertical-align: middle;
+  letter-spacing: 0.3px;
+}

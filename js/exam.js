@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // ── Read exam ID from URL ───────────────────────────────────────────────
   const params = new URLSearchParams(location.search);
   const examId = params.get('exam');
+  const subjectFilter = params.get('subject') || null;
   if (!examId) { location.replace('index.html'); return; }
 
   // ── DOM refs ────────────────────────────────────────────────────────────
@@ -34,7 +35,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // ── Load exam ───────────────────────────────────────────────────────────
   try {
-    await ExamState.load(examId);
+    await ExamState.load(examId, subjectFilter);
   } catch (err) {
     loadingOverlay.innerHTML = `<p style="color:#c62828">Failed to load exam: ${err.message}.<br><a href="index.html">Go back</a></p>`;
     return;
@@ -177,7 +178,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   btnDialogSubmit.addEventListener('click', () => {
     ExamTimer.stop();
     ExamState.finalSubmit();
-    location.replace(`result.html?exam=${examId}`);
+    const effectiveId = subjectFilter ? `${examId}:${subjectFilter}` : examId;
+    location.replace(`result.html?exam=${encodeURIComponent(effectiveId)}`);
   });
 
   // Click outside dialog to close
@@ -197,6 +199,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   function onTimerExpire() {
     timerEl.textContent = '00:00:00';
     ExamState.finalSubmit();
-    location.replace(`result.html?exam=${examId}&auto=1`);
+    const effectiveId = subjectFilter ? `${examId}:${subjectFilter}` : examId;
+    location.replace(`result.html?exam=${encodeURIComponent(effectiveId)}&auto=1`);
   }
 });
