@@ -5,11 +5,13 @@
       "title": "CTET Paper 2 — Telugu Medium — Test 1",
       "subtitle": "Child Development & Pedagogy, English, Telugu, Mathematics, Science",
       "type": "Paper 2",
+      "style": "Full",
       "targetClasses": "Classes VI–VIII (+ IX–X extension)",
       "duration": 150,
       "totalQuestions": 150,
       "totalMarks": 150,
       "negativeMarking": false,
+      "subjects": ["CDP", "English", "Telugu", "Math", "Science"],
       "file": "exams/paper2-full-01.json"
     },
     {
@@ -17,11 +19,13 @@
       "title": "CTET Paper 2 - Telugu Medium - Test 2",
       "subtitle": "Child Development & Pedagogy, English, Telugu, Mathematics, Science",
       "type": "Paper 2",
+      "style": "Full",
       "targetClasses": "Classes VI-VIII (+ IX-X extension)",
       "duration": 150,
       "totalQuestions": 150,
       "totalMarks": 150,
       "negativeMarking": false,
+      "subjects": ["CDP", "English", "Telugu", "Math", "Science"],
       "file": "exams/paper2-full-02.json"
     },
     {
@@ -29,11 +33,13 @@
       "title": "Telugu Mini-Test - Sandhulu and Samaasaalu - Test 1",
       "subtitle": "Telugu",
       "type": "Mini-Test",
+      "style": "Telugu",
       "targetClasses": "Classes VI-VIII (+ IX-X extension)",
       "duration": 30,
       "totalQuestions": 30,
       "totalMarks": 30,
       "negativeMarking": false,
+      "subjects": ["Telugu"],
       "file": "exams/paper2-mini-telugu-01.json"
     },
     {
@@ -41,11 +47,13 @@
       "title": "Telugu Mini-Test - Chandassu - Test 1",
       "subtitle": "Telugu",
       "type": "Mini-Test",
+      "style": "Telugu",
       "targetClasses": "Classes VI-VIII (+ IX-X extension)",
       "duration": 30,
       "totalQuestions": 30,
       "totalMarks": 30,
       "negativeMarking": false,
+      "subjects": ["Telugu"],
       "file": "exams/paper2-mini-telugu-02.json"
     },
     {
@@ -53,11 +61,13 @@
       "title": "Mathematics Mini-Test - Algebra - Test 1",
       "subtitle": "Mathematics",
       "type": "Mini-Test",
+      "style": "Math",
       "targetClasses": "Classes VI-VIII (+ IX-X extension)",
       "duration": 30,
       "totalQuestions": 30,
       "totalMarks": 30,
       "negativeMarking": false,
+      "subjects": ["Math"],
       "file": "exams/paper2-mini-math-algebra-01.json"
     }
   ]
