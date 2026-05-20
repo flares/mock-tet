@@ -207,6 +207,31 @@
 .review-table tr.row--incorrect { background: #fff5f5; }
 .review-table tr.row--skipped { background: #fafafa; }
 
+.review-cell-question { max-width: 480px; }
+
+.review-question-text {
+  font-weight: 500;
+  color: #1a1a1a;
+  line-height: 1.4;
+}
+
+.review-explanation {
+  margin-top: 6px;
+  padding: 6px 10px;
+  background: rgba(21, 101, 192, 0.06);
+  border-left: 3px solid #1565c0;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #2c3e50;
+  line-height: 1.45;
+}
+
+.review-explanation__label {
+  font-weight: 700;
+  color: #1565c0;
+  margin-right: 4px;
+}
+
 .answer-badge {
   display: inline-block;
   padding: 2px 8px;
