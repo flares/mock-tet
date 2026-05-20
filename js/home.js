@@ -1,17 +1,17 @@
 const SUBJECT_META = {
   cdp:         { label: 'CDP',         color: '#1565c0', bg: '#e3f2fd' },
-  english:     { label: 'English',     color: '#2e7d32', bg: '#e8f5e9' },
   telugu:      { label: 'Telugu',      color: '#bf360c', bg: '#fbe9e7' },
+  english:     { label: 'English',     color: '#2e7d32', bg: '#e8f5e9' },
   mathematics: { label: 'Math',        color: '#6a1b9a', bg: '#f3e5f5' },
   science:     { label: 'Science',     color: '#00695c', bg: '#e0f2f1' },
 };
-const SUBJECT_ORDER = ['cdp', 'english', 'telugu', 'mathematics', 'science'];
+const SUBJECT_ORDER = ['cdp', 'telugu', 'english', 'mathematics', 'science'];
 
 document.addEventListener('DOMContentLoaded', async () => {
   const tableContainer = document.getElementById('exam-table-container');
   const ATTEMPTS_KEY = 'tet_attempts_';
   const RESULT_KEY   = 'tet_result_';
-  let currentFilter = 'all';
+  let currentFilter = 'Real Paper';
 
   // ── Tab switching ──────────────────────────────────────────────────────────
   document.querySelectorAll('.header-nav-btn').forEach(btn => {
@@ -66,11 +66,12 @@ document.addEventListener('DOMContentLoaded', async () => {
       const date = new Date(a.ts).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
       const num  = attempts.length - i;
       const sm   = a.subject ? SUBJECT_META[a.subject] : null;
-      const subjectDot = sm
-        ? `<span class="att-subject-dot" style="background:${sm.color}">${sm.label}</span>`
-        : '';
-      const borderStyle = sm ? `border-left:3px solid ${sm.color};` : '';
-      return `<span class="${cls}" style="${borderStyle}" title="Attempt ${num} · ${date} · ${a.pct.toFixed(0)}%${sm ? ' · ' + sm.label : ''}">${subjectDot}${a.correct}&#10003; ${a.incorrect}&#10007;</span>`;
+      const dot  = sm ? `<span class="att-subject-dot" style="background:${sm.color}"></span>` : '';
+      const border = sm ? `border-left:3px solid ${sm.color};` : '';
+      const rid  = a.resultId || null;
+      const clickAttr = rid ? `data-result-id="${escHtml(rid)}" onclick="viewResult('${escHtml(rid)}')"` : '';
+      const title = `Attempt ${num} · ${date} · ${a.pct.toFixed(0)}%${sm ? ' · ' + sm.label : ''}`;
+      return `<span class="${cls}" style="${border}" title="${title}" ${clickAttr}>${dot}${a.correct}&#10003; ${a.incorrect}&#10007;</span>`;
     }).join('');
 
     let trend = '';
@@ -95,8 +96,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   function filterExams(exams, filter) {
     if (filter === 'all') return exams;
     if (filter === 'Full' || filter === 'Real Paper') return exams.filter(e => e.style === filter);
-    // Subject filters: only show mock mini-tests, never real papers
-    return exams.filter(e => e.style !== 'Real Paper' && e.subjects && e.subjects.includes(filter));
+    // Subject filters: only show mini-tests (exclude Real Papers and Full mocks)
+    return exams.filter(e =>
+      e.style !== 'Real Paper' && e.style !== 'Full' && e.subjects && e.subjects.includes(filter)
+    );
   }
 
   async function renderExams() {
@@ -186,7 +189,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     return `
       ${tried ? `<button class="btn btn--ghost btn--xs" onclick="clearOneExam('${eid}')">Clear</button>
         <button class="btn btn--outline btn--xs" onclick="viewResult('${eid}')">Results</button>` : ''}
-      <button class="btn btn--primary btn--xs" onclick="startExam('${eid}')">
+      <button class="btn btn--primary btn--sm" onclick="startExam('${eid}')">
         ${tried ? 'Retake ↻' : 'Take Test →'}
       </button>`;
   }
@@ -196,20 +199,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     const mainLabel = tried ? 'Retake ↻' : 'Take Test →';
     const subjectItems = SUBJECT_ORDER.map(s => {
       const sm = SUBJECT_META[s];
-      return `<button class="split-drop-item" style="border-left:3px solid ${sm.color}"
-        onclick="startExam('${eid}','${s}')">
-        <span class="split-drop-dot" style="background:${sm.color}"></span>${sm.label} Only
-      </button>`;
+      return `<button class="split-drop-item" style="border-left:3px solid ${sm.color}" onclick="startExam('${eid}','${s}')"><span class="split-drop-dot" style="background:${sm.color}"></span>${sm.label} Only</button>`;
     }).join('');
-
     const lastResult = attempts.length ? attempts[0].resultId : null;
     return `
       ${tried ? `<button class="btn btn--ghost btn--xs" onclick="clearOneExam('${eid}')">Clear</button>
         <button class="btn btn--outline btn--xs" onclick="viewResult('${escHtml(lastResult || exam.id)}')">Results</button>` : ''}
       <div class="split-btn-group">
-        <button class="btn btn--primary btn--xs" onclick="startExam('${eid}')">${mainLabel}</button>
+        <button class="btn btn--primary split-btn-main" onclick="startExam('${eid}')">${mainLabel}</button>
         <div class="split-drop-wrapper">
-          <button class="btn btn--primary btn--xs split-drop-toggle" onclick="toggleSplitMenu(event,this)" title="Take a single-subject mini-test">▾</button>
+          <button class="btn btn--primary split-drop-toggle" onclick="toggleSplitMenu(event,this)" title="Take a single-subject mini-test">▾</button>
           <div class="split-drop-menu" hidden>${subjectItems}</div>
         </div>
       </div>`;

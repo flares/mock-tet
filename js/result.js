@@ -96,7 +96,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
       let questionContent;
       if (d.question.questionType === 'image') {
-        questionContent = `<img src="${escHtml(d.question.questionImage)}" alt="Q${d.question.globalIndex + 1}" class="review-question-img" loading="lazy">`;
+        let optionsHtml = '';
+        if (!d.question.optionsInQuestion && d.question.optionImages && d.question.optionImages.length > 0) {
+          const optCells = d.question.optionImages.map((src, i) => {
+            const k = String(i + 1);
+            const isCorrect = d.question.correctAnswer === k;
+            const isUser = d.userAnswer === k;
+            const cls = isCorrect ? 'review-opt--correct' : (isUser && !isCorrect ? 'review-opt--user' : '');
+            return `<div class="review-opt ${cls}"><span class="review-opt-num">${k}</span><img src="${escHtml(src)}" alt="Option ${k}" class="review-opt-img" loading="lazy"></div>`;
+          }).join('');
+          optionsHtml = `<div class="review-opts-grid">${optCells}</div>`;
+        }
+        questionContent = `<img src="${escHtml(d.question.questionImage)}" alt="Q${d.question.globalIndex + 1}" class="review-question-img" loading="lazy">${optionsHtml}`;
       } else {
         const explanation = d.question.explanation
           ? `<div class="review-explanation"><span class="review-explanation__label">Explanation:</span> ${escHtml(d.question.explanation)}</div>`
