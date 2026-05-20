@@ -7,7 +7,7 @@
 .home-main {
   flex: 1;
   padding: 36px 24px;
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
   width: 100%;
 }
@@ -25,105 +25,142 @@
   margin-bottom: 28px;
 }
 
-/* ── Filter buttons ── */
+/* ── Material filter chips ── */
 .exam-filters {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 24px;
-  padding: 16px;
-  background: #f8f9fa;
-  border-radius: 6px;
-  border: 1px solid #e9ecef;
+  margin-bottom: 20px;
 }
 
-.filter-btn {
-  padding: 8px 14px;
-  border: 1px solid #bbb;
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 14px;
+  border: 1.5px solid #c8d4e8;
   background: #fff;
-  color: #333;
-  font-size: 12px;
-  font-weight: 600;
-  border-radius: 20px;
+  color: #1a3a5c;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 16px;
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: background var(--transition-fast), border-color var(--transition-fast),
+              box-shadow var(--transition-fast), color var(--transition-fast);
+  user-select: none;
+  letter-spacing: 0.1px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.08);
 }
 
-.filter-btn:hover {
+.filter-chip:hover {
   background: #eef2f8;
   border-color: #1a3a5c;
-  color: #1a3a5c;
+  box-shadow: 0 2px 5px rgba(26,58,92,0.15);
 }
 
-.filter-btn.active {
-  background: var(--color-tab-active-bg);
-  color: #1a1a1a;
-  border-color: var(--color-tab-active-bg);
+.filter-chip.active {
+  background: #1a3a5c;
+  color: #fff;
+  border-color: #1a3a5c;
+  box-shadow: 0 2px 6px rgba(26,58,92,0.35);
+  font-weight: 600;
+}
+
+.filter-chip.active:hover {
+  background: #234d7a;
+  border-color: #234d7a;
 }
 
 /* ── Exam table ── */
 .exam-table-container {
-  background: #fff;
-  border: 1px solid var(--color-panel-border);
-  border-radius: 6px;
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
+  border-radius: 8px;
+  overflow-x: auto;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1), 0 0 0 1px var(--color-panel-border);
 }
 
 .exam-table {
   width: 100%;
   border-collapse: collapse;
+  min-width: 780px;
 }
 
 .exam-table thead {
-  background: var(--color-header-bg);
+  background: #1a3a5c;
   color: #fff;
 }
 
 .exam-table th {
-  padding: 14px 16px;
+  padding: 13px 16px;
   text-align: left;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.7px;
+  white-space: nowrap;
 }
+
+.exam-table th:first-child { border-radius: 8px 0 0 0; }
+.exam-table th:last-child  { border-radius: 0 8px 0 0; text-align: right; }
 
 .exam-table td {
   padding: 14px 16px;
-  border-top: 1px solid #e9ecef;
+  border-bottom: 1px solid #edf0f4;
   font-size: 13px;
   color: #333;
+  vertical-align: middle;
 }
 
-.exam-table tbody tr:hover {
-  background: #f8f9fa;
-}
+.exam-table td:last-child { text-align: right; }
+
+.exam-table tbody tr:last-child td { border-bottom: none; }
+
+.exam-table tbody tr:nth-child(even) { background: #f9fafb; }
+
+.exam-table tbody tr:hover { background: #eef3fb; }
 
 .exam-table-title {
   font-weight: 600;
   color: #1a3a5c;
+  max-width: 340px;
+  line-height: 1.4;
+}
+
+.exam-table-title small {
+  display: block;
+  font-weight: 400;
+  font-size: 11px;
+  color: #777;
+  margin-top: 2px;
 }
 
 .exam-table-style {
-  display: inline-block;
-  padding: 3px 8px;
-  background: #eef2f8;
-  border-radius: 4px;
-  font-weight: 600;
-  color: #1a3a5c;
-  font-size: 11px;
-}
-
-.exam-table-actions {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
+  height: 24px;
+  padding: 0 10px;
+  background: #e8f0fb;
+  border-radius: 12px;
+  font-weight: 600;
+  color: #1565c0;
+  font-size: 11px;
   white-space: nowrap;
 }
 
+.exam-table td.col-num {
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  color: #444;
+}
+
+.exam-table-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
 .exam-table-results {
-  font-size: 12px;
+  min-width: 120px;
 }
 
 .exam-table-results .att-history {
@@ -134,13 +171,14 @@
 }
 
 .exam-table-results .att-history__label {
-  display: inline;
-  margin: 0;
-  margin-right: 8px;
+  display: block;
+  margin: 0 0 4px;
 }
 
 .exam-table-results .att-history__badges {
-  display: inline-flex;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
 }
 
 /* ── Loading / error states ── */

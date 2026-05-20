@@ -116,19 +116,20 @@ document.addEventListener('DOMContentLoaded', async () => {
       const historyFrag = attemptHistoryHtml(attempts);
 
       return `<tr>
-        <td class="exam-table-title">${escHtml(exam.title)}</td>
+        <td class="exam-table-title">
+          ${escHtml(exam.title)}
+          ${exam.subtitle ? `<small>${escHtml(exam.subtitle)}</small>` : ''}
+        </td>
         <td><span class="exam-table-style">${escHtml(exam.style || exam.type)}</span></td>
-        <td>${exam.duration} min</td>
-        <td>${exam.totalQuestions}</td>
-        <td>${exam.totalMarks}</td>
-        <td class="exam-table-results">${historyFrag || '<span style="color: #999;">—</span>'}</td>
+        <td class="col-num">${exam.duration} min</td>
+        <td class="col-num">${exam.totalQuestions}</td>
+        <td class="col-num">${exam.totalMarks}</td>
+        <td class="exam-table-results">${historyFrag || '<span style="color:#bbb; font-size:13px;">—</span>'}</td>
         <td class="exam-table-actions">
-          ${tried ? `
-            <button class="btn btn--ghost btn--xs" onclick="clearOneExam('${escHtml(exam.id)}')">Clear</button>
-            <button class="btn btn--outline btn--xs" onclick="viewResult('${escHtml(exam.id)}')">View</button>
-          ` : ''}
+          ${tried ? `<button class="btn btn--ghost btn--xs" onclick="clearOneExam('${escHtml(exam.id)}')">Clear</button>
+            <button class="btn btn--outline btn--xs" onclick="viewResult('${escHtml(exam.id)}')">Results</button>` : ''}
           <button class="btn btn--primary btn--xs" onclick="startExam('${escHtml(exam.id)}')">
-            ${tried ? 'Retake' : 'Take Test'}
+            ${tried ? 'Retake ↻' : 'Take Test →'}
           </button>
         </td>
       </tr>`;
@@ -155,10 +156,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   await renderExams();
 
   // ── Filter buttons ─────────────────────────────────────────────────────────
-  document.querySelectorAll('.filter-btn').forEach(btn => {
+  document.querySelectorAll('.filter-chip').forEach(btn => {
     btn.addEventListener('click', () => {
       currentFilter = btn.dataset.filter;
-      document.querySelectorAll('.filter-btn').forEach(b =>
+      document.querySelectorAll('.filter-chip').forEach(b =>
         b.classList.toggle('active', b.dataset.filter === currentFilter));
       renderExams();
     });
