@@ -14,8 +14,13 @@
   <header class="site-header">
     <div>
       <div class="site-header__logo">Mock TET</div>
-      <div class="site-header__subtitle">Teacher Eligibility Test — CBT Practice Interface</div>
     </div>
+    <nav class="site-header__nav">
+      <a class="header-nav-btn" href="index.html">Exams</a>
+      <a class="header-nav-btn" href="revision.html">Revision</a>
+      <a class="header-nav-btn" href="questionbank.html">Question Bank</a>
+      <a class="header-nav-btn" href="syllabus.html">Syllabus</a>
+    </nav>
   </header>
 
   <main class="instructions-main">
@@ -55,12 +60,17 @@
       </label>
     </div>
 
-    <!-- Actions -->
-    <div class="instructions-actions">
+    <!-- Mode selection -->
+    <div class="mode-selection-row">
       <button class="btn btn--outline" id="btn-back-home">&#8592; Back to Home</button>
-      <button class="btn btn--save" id="btn-start" disabled>
-        Start Test &#8594;
-      </button>
+      <div class="mode-btns">
+        <button class="btn btn--mode-strict" id="btn-start-strict" disabled>
+          &#128274; Strict Mode
+        </button>
+        <button class="btn btn--mode-practice" id="btn-start-practice" disabled>
+          &#128218; Practice Mode
+        </button>
+      </div>
     </div>
 
   </main>

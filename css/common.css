@@ -145,6 +145,7 @@
 #explanation-dialog {
   width: min(880px, 94vw);
   max-height: 90vh;
+  margin: auto;
   border: none;
   border-radius: var(--border-radius-md);
   padding: 0;
@@ -246,6 +247,43 @@
   border-left: 4px solid #f9a825;
   padding: 8px 12px;
   border-radius: 4px;
+}
+
+/* ── Site nav (shared across all pages) ── */
+.site-header__nav {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.header-nav-btn {
+  padding: 6px 16px;
+  border: none;
+  background: rgba(255,255,255,0.08);
+  color: #c8ddf0;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.header-nav-btn:hover {
+  background: rgba(255,255,255,0.16);
+  color: #fff;
+}
+
+.header-nav-btn.active {
+  background: var(--color-tab-active-bg);
+  color: #1a1a1a;
+}
+
+/* Nav links */
+a.header-nav-btn {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
 }
 
 /* ── Utility ── */

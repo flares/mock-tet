@@ -64,6 +64,7 @@
   border-color: #1a3a5c;
   box-shadow: 0 2px 6px rgba(26,58,92,0.35);
   font-weight: 600;
+  filter: saturate(1.15) brightness(0.85);
 }
 
 .filter-chip.active:hover {
@@ -162,6 +163,7 @@
 .exam-table-results {
   min-width: 120px;
 }
+.exam-table-results .btn { margin-top: 6px; }
 
 .exam-table-results .att-history {
   background: transparent;
@@ -198,38 +200,6 @@
   font-size: 13px;
 }
 
-/* ── Header nav (Exam Papers | Syllabus) ── */
-.site-header__nav {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.header-nav-btn {
-  padding: 6px 16px;
-  border: none;
-  background: rgba(255,255,255,0.08);
-  color: #c8ddf0;
-  font-size: 13px;
-  font-weight: 600;
-  border-radius: var(--border-radius-sm);
-  cursor: pointer;
-  transition: background var(--transition-fast), color var(--transition-fast);
-}
-
-.header-nav-btn:hover {
-  background: rgba(255,255,255,0.16);
-  color: #fff;
-}
-
-.header-nav-btn.active {
-  background: var(--color-tab-active-bg);
-  color: #1a1a1a;
-}
-
-.home-tab-pane { display: none; }
-.home-tab-pane.active { display: block; }
 
 /* ── Toolbar (clear-all only) ── */
 .home-toolbar {
@@ -321,10 +291,6 @@
   font-weight: 700;
   cursor: default;
 }
-
-.att--good { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
-.att--avg  { background: #fff8e1; color: #bf6000; border: 1px solid #ffd54f; }
-.att--low  { background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
 
 /* ── PDF Syllabus Viewer ── */
 .syllabus-pdf-container {
@@ -751,6 +717,232 @@
   color: #888;
 }
 
+.btn--retake {
+  background: #4f7ec3 !important;
+}
+.btn--retake:hover {
+  background: #3d6cae !important;
+}
+
+/* qbank-card styles live in the Question Bank section below */
+
 .btn--revision-done:hover {
   background: #e8f5e9;
 }
+
+/* ── btn--revision (Question Bank) ─────────────────────────────────────── */
+.btn--revision {
+  background: #fff;
+  color: #6a1b9a;
+  border: 1.5px solid #6a1b9a;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.btn--revision:hover { background: #f3e5f5; }
+.btn--revision--marked { background: #6a1b9a; color: #fff; }
+.btn--revision--marked:hover { background: #4a148c; }
+
+/* ── Revision table — new stacked layout ──────────────────────────────── */
+.rev-table--new {
+  border-collapse: collapse;
+  width: 100%;
+}
+.rev-table--new thead th {
+  background: #1a3a5c;
+  color: #fff;
+  padding: 10px 12px;
+  font-weight: 600;
+  font-size: 12px;
+  text-align: left;
+}
+.rev-table--new tbody tr {
+  border-bottom: 1px solid #d0d0d0;
+}
+.rev-table--new tbody td {
+  border: 1px solid #d0d0d0;
+  padding: 10px 12px;
+  vertical-align: top;
+}
+.rev-table--new tbody tr:hover { background: #f8faff; }
+
+.rev-idx-cell {
+  width: 36px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #888;
+  white-space: nowrap;
+}
+
+.rev-content-cell {
+  max-width: 720px;
+}
+
+.rev-source-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #1565c0;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.rev-opts-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.rev-opts-stack .rev-opt {
+  width: 100%;
+}
+
+.rev-actions-cell {
+  width: 140px;
+  white-space: nowrap;
+  vertical-align: top;
+  padding: 10px 8px;
+}
+
+.rev-action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: flex-start;
+}
+
+/* ── Question Bank — separate page ────────────────────────────────────── */
+.qbank-body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.qbank-main {
+  flex: 1;
+  min-height: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Card with visible margins on all four sides */
+.qbank-card {
+  flex: 1;
+  min-height: 0;
+  background: #fff;
+  border: 1px solid #d0dcee;
+  border-radius: 14px;
+  box-shadow: 0 10px 32px rgba(10,40,80,0.18);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Card header: subject filters + status filters + progress */
+.qbank-card__header {
+  padding: 12px 20px 10px;
+  border-bottom: 1px solid #e7edf6;
+  flex-shrink: 0;
+  background: #f8faff;
+}
+
+.qbank-card__header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.qbank-header-progress {
+  font-size: 12px;
+  font-weight: 700;
+  color: #445;
+  white-space: nowrap;
+  background: #e8edf8;
+  padding: 4px 12px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+/* 2:3 split body (left=question, right=explanation) */
+.qbank-card__body {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  overflow: hidden;
+}
+
+.qbank-card__left {
+  padding: 16px 18px;
+  border-right: 1px solid #e7edf6;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.qbank-card__right {
+  padding: 16px 18px;
+  overflow-y: auto;
+  background: #fafbff;
+}
+
+.qbank-card__qnum {
+  font-size: 11px;
+  font-weight: 700;
+  color: #1565c0;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 10px;
+  flex-shrink: 0;
+}
+
+.qbank-question-img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid #dde;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.qbank-card__left .rev-opts-stack {
+  margin-top: 10px;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+}
+
+.qbank-card__footer {
+  padding: 12px 20px;
+  border-top: 1px solid #e7edf6;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  background: #fff;
+}
+
+.qbank-card__footer-center {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.qbank-nav-btn {
+  padding: 8px 20px;
+  border: 1.5px solid #b9cbe3;
+  background: #fff;
+  color: #1a3a5c;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+.qbank-nav-btn:hover { background: #eef2f8; }

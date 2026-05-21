@@ -10,6 +10,15 @@ Target audience: Candidates preparing for **CTET Paper 2 (Classes VI–VIII)**, 
 
 ## Automated behaviour — read before every task
 
+## Change logging rule (mandatory)
+
+For every code or content change made in this repository, append an entry to `change_history.md` with:
+- Date/time
+- Complexity (`major` or `minor`)
+- One-line summary of the change
+
+Every commit must include a corresponding `change_history.md` update.
+
 **When the user asks to create a new mock test** (any phrasing like "create a test", "make a new exam", "new mock test", "mini test for X"), **automatically invoke the `/create-mock-test` skill** — it contains the complete syllabus, JSON schema, and generation instructions. Do not ask the user for the syllabus; it is already documented in the skill.
 
 **The JSON file is always the source of truth** for:
