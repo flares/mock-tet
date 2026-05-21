@@ -15,29 +15,13 @@ function escHtml(str) {
     .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
-function applySubjectChipColors() {
-  document.querySelectorAll('.filter-chip').forEach(chip => {
-    const key = (chip.dataset.subject || '').toLowerCase();
-    const normalized = key === 'math' ? 'mathematics' : key;
-    const meta = SUBJECT_META[normalized];
-    if (!meta) return;
-    chip.style.borderColor = meta.color;
-    if (chip.classList.contains('active')) {
-      chip.style.color = '#fff';
-      chip.style.background = meta.color;
-    } else {
-      chip.style.color = meta.color;
-      chip.style.background = meta.bg;
-    }
-  });
-}
 
-let qbankCache      = null;
-let qbankFiltered   = [];
+let qbankCache         = null;
+let qbankFiltered      = [];
 let qbankSubjectFilter = 'all';
-let qbankStatusFilter  = 'all';
-let qbankIndex      = 0;
-let manifest        = null;
+let qbankStatusFilter  = 'yet-to-read';   // default: show un-read questions
+let qbankIndex         = 0;
+let manifest           = null;
 
 function getUnderstoodSet() {
   try { return new Set(JSON.parse(localStorage.getItem(UNDERSTOOD_KEY)) || []); } catch { return new Set(); }
@@ -107,7 +91,10 @@ function updateProgress(filtered, understood) {
   const el = document.getElementById('qbank-header-progress');
   if (!el) return;
   const doneCount = filtered.filter(q => understood.has(q.questionImage)).length;
-  el.textContent = `${qbankIndex + 1} / ${filtered.length} · ${doneCount} understood`;
+  const current = filtered.length > 0 ? qbankIndex + 1 : 0;
+  el.innerHTML = `
+    <div class="qbank-progress-count">${current} <span class="qbank-progress-total">/ ${filtered.length}</span></div>
+    <div class="qbank-progress-sub">${doneCount} understood</div>`;
 }
 
 async function renderQuestionBank() {
@@ -215,22 +202,24 @@ async function loadQbankExplanation(questionImage) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  applySubjectChipColors();
   renderQuestionBank();
 
-  // Subject filter chips
-  document.querySelectorAll('#qbank-subject-filters .filter-chip').forEach(btn => {
+  // Subject filter buttons (large rectangular — class qbank-subj-btn)
+  document.querySelectorAll('#qbank-subject-filters .qbank-subj-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       qbankSubjectFilter = btn.dataset.subject;
+      qbankStatusFilter  = 'yet-to-read';   // always fall back to unread when subject changes
       qbankIndex = 0;
-      document.querySelectorAll('#qbank-subject-filters .filter-chip').forEach(b =>
+      document.querySelectorAll('#qbank-subject-filters .qbank-subj-btn').forEach(b =>
         b.classList.toggle('active', b.dataset.subject === qbankSubjectFilter));
-      applySubjectChipColors();
+      // Sync status chip highlight
+      document.querySelectorAll('#qbank-status-filters .filter-chip').forEach(b =>
+        b.classList.toggle('active', b.dataset.status === qbankStatusFilter));
       renderQuestionBank();
     });
   });
 
-  // Status filter chips
+  // Status filter chips (small pills)
   document.querySelectorAll('#qbank-status-filters .filter-chip').forEach(btn => {
     btn.addEventListener('click', () => {
       qbankStatusFilter = btn.dataset.status;
