@@ -607,3 +607,126 @@ body.lang-hi .text-en { display: none; }
   color: #555;
 }
 
+/* ── Answer highlight (Show Answer) ── */
+.option-item.option-correct {
+  background: #c8e6c9 !important;
+  outline: 2px solid #388e3c !important;
+}
+
+/* ── Strict / Practice mode toggle ── */
+.exam-header__mode-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.mode-toggle-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #a8c4e0;
+  white-space: nowrap;
+}
+
+.mode-toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+  cursor: pointer;
+}
+
+.mode-toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.mode-toggle-slider {
+  position: absolute;
+  inset: 0;
+  background: #4a7a9e;
+  border-radius: 22px;
+  transition: background 0.2s;
+}
+
+.mode-toggle-slider::before {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+
+.mode-toggle-switch input:checked + .mode-toggle-slider {
+  background: #e53935;
+}
+
+.mode-toggle-switch input:checked + .mode-toggle-slider::before {
+  transform: translateX(18px);
+}
+
+/* ── Practice buttons bar ── */
+.practice-btn-bar {
+  display: flex;
+  gap: 10px;
+  padding: 10px 0 4px;
+  border-top: 1px dashed #dde4f0;
+  margin-top: 12px;
+}
+
+.practice-btn-bar--hidden {
+  display: none;
+}
+
+.btn--revision {
+  padding: 7px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  background: #fff;
+  color: #1565c0;
+  border: 1.5px solid #1565c0;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.btn--revision:hover {
+  background: #e3f2fd;
+}
+
+.btn--revision.btn--revision--marked {
+  background: #1565c0;
+  color: #fff;
+}
+
+.btn--revision.btn--revision--marked:hover {
+  background: #0d47a1;
+}
+
+.btn--show-answer {
+  padding: 7px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  background: #fff;
+  color: #2e7d32;
+  border: 1.5px solid #2e7d32;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.btn--show-answer:hover:not(:disabled) {
+  background: #e8f5e9;
+}
+
+.btn--show-answer:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+

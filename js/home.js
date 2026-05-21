@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         b.classList.toggle('active', b.dataset.tab === target));
       document.querySelectorAll('.home-tab-pane').forEach(p =>
         p.classList.toggle('active', p.id === `tab-${target}`));
+      if (target === 'revision') renderRevisionTab();
     });
   });
 
@@ -132,7 +133,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const historyFrag = attemptHistoryHtml(attempts);
       const isReal     = exam.style === 'Real Paper';
 
-      const actionBtns = isReal ? _realPaperActions(exam, tried, attempts) : _mockActions(exam, tried);
+      const actionBtns = isReal ? _realPaperActions(exam, tried) : _mockActions(exam, tried);
 
       return `<tr>
         <td class="exam-table-title">
@@ -187,24 +188,21 @@ document.addEventListener('DOMContentLoaded', async () => {
   function _mockActions(exam, tried) {
     const eid = escHtml(exam.id);
     return `
-      ${tried ? `<button class="btn btn--ghost btn--xs" onclick="clearOneExam('${eid}')">Clear</button>
-        <button class="btn btn--outline btn--xs" onclick="viewResult('${eid}')">Results</button>` : ''}
+      ${tried ? `<button class="btn btn--ghost btn--xs" onclick="clearOneExam('${eid}')">Clear</button>` : ''}
       <button class="btn btn--primary btn--sm" onclick="startExam('${eid}')">
         ${tried ? 'Retake ↻' : 'Take Test →'}
       </button>`;
   }
 
-  function _realPaperActions(exam, tried, attempts) {
+  function _realPaperActions(exam, tried) {
     const eid = escHtml(exam.id);
     const mainLabel = tried ? 'Retake ↻' : 'Take Test →';
     const subjectItems = SUBJECT_ORDER.map(s => {
       const sm = SUBJECT_META[s];
       return `<button class="split-drop-item" style="border-left:3px solid ${sm.color}" onclick="startExam('${eid}','${s}')"><span class="split-drop-dot" style="background:${sm.color}"></span>${sm.label} Only</button>`;
     }).join('');
-    const lastResult = attempts.length ? attempts[0].resultId : null;
     return `
-      ${tried ? `<button class="btn btn--ghost btn--xs" onclick="clearOneExam('${eid}')">Clear</button>
-        <button class="btn btn--outline btn--xs" onclick="viewResult('${escHtml(lastResult || exam.id)}')">Results</button>` : ''}
+      ${tried ? `<button class="btn btn--ghost btn--xs" onclick="clearOneExam('${eid}')">Clear</button>` : ''}
       <div class="split-btn-group">
         <button class="btn btn--primary split-btn-main" onclick="startExam('${eid}')">${mainLabel}</button>
         <div class="split-drop-wrapper">
@@ -213,6 +211,95 @@ document.addEventListener('DOMContentLoaded', async () => {
         </div>
       </div>`;
   }
+
+  // ── Revision tab ─────────────────────────────────────────────────────────
+  const REVISION_KEY = 'tet_revision_questions';
+
+  function getRevisionList() {
+    try { return JSON.parse(localStorage.getItem(REVISION_KEY)) || []; } catch { return []; }
+  }
+
+  function renderRevisionTab() {
+    const container = document.getElementById('revision-container');
+    const toolbar   = document.getElementById('revision-toolbar');
+    const list = getRevisionList();
+
+    if (!list.length) {
+      toolbar.style.display = 'none';
+      container.innerHTML = '<p class="loading-msg">No questions marked for revision yet. Use the <strong>Mark for Revision</strong> button inside any exam (Practice Mode must be on).</p>';
+      return;
+    }
+
+    toolbar.style.display = '';
+
+    const rows = list.map((item, i) => {
+      const q = item.q;
+      const isImg = q.questionType === 'image';
+
+      const questionHtml = isImg
+        ? `<img src="${escHtml(q.questionImage)}" alt="Question" class="rev-question-img" loading="lazy">`
+        : `<div class="rev-question-text">${escHtml(q.text)}</div>`;
+
+      let optionsHtml;
+      if (isImg) {
+        if (q.optionsInQuestion) {
+          optionsHtml = ['1','2','3','4'].map(k => {
+            const cls = k === q.correctAnswer ? 'rev-opt rev-opt--correct' : 'rev-opt';
+            return `<div class="${cls}"><span class="rev-opt-num">${k}</span><span class="rev-opt-label">Option ${k}</span></div>`;
+          }).join('');
+        } else {
+          optionsHtml = (q.optionImages || []).map((src, idx2) => {
+            const k = String(idx2 + 1);
+            const cls = k === q.correctAnswer ? 'rev-opt rev-opt--correct' : 'rev-opt';
+            return `<div class="${cls}"><span class="rev-opt-num">${k}</span><img src="${escHtml(src)}" class="rev-opt-img" alt="Option ${k}" loading="lazy"></div>`;
+          }).join('');
+        }
+      } else {
+        optionsHtml = (q.options || []).map(opt => {
+          const cls = opt.key === q.correctAnswer ? 'rev-opt rev-opt--correct rev-opt--text' : 'rev-opt rev-opt--text';
+          return `<div class="${cls}"><span class="rev-opt-num">${opt.key}</span><span class="rev-opt-label">${escHtml(opt.text)}</span></div>`;
+        }).join('');
+      }
+
+      return `<tr>
+        <td class="rev-meta-cell">
+          <div class="rev-meta">${escHtml(item.examTitle || item.examId)}</div>
+          <div class="rev-qnum">Q${q.globalIndex != null ? q.globalIndex + 1 : '?'}</div>
+        </td>
+        <td class="rev-question-cell">${questionHtml}</td>
+        <td class="rev-options-cell"><div class="rev-opts-grid">${optionsHtml}</div></td>
+        <td class="rev-remove-cell">
+          <button class="btn btn--ghost btn--xs" onclick="removeRevisionQ(${i})">&#10005;</button>
+        </td>
+      </tr>`;
+    }).join('');
+
+    container.innerHTML = `<table class="rev-table">
+      <thead>
+        <tr>
+          <th>Source</th>
+          <th>Question</th>
+          <th>Options <span style="color:#388e3c;font-size:11px">(green = correct)</span></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+  }
+
+  window.removeRevisionQ = (idx) => {
+    const list = getRevisionList();
+    list.splice(idx, 1);
+    localStorage.setItem(REVISION_KEY, JSON.stringify(list));
+    renderRevisionTab();
+  };
+
+  document.getElementById('btn-clear-revision').addEventListener('click', () => {
+    if (confirm('Remove all revision questions? This cannot be undone.')) {
+      localStorage.removeItem(REVISION_KEY);
+      renderRevisionTab();
+    }
+  });
 
   // ── Expose to inline onclick attrs ────────────────────────────────────────
   window.startExam = (id, subject) => {

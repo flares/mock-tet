@@ -109,6 +109,15 @@ const QuestionRenderer = (() => {
     _cardEl.querySelectorAll('input[name="option"]').forEach(i => { i.checked = false; });
   }
 
+  function showAnswer(correctAnswer) {
+    if (!_cardEl || correctAnswer == null) return;
+    _cardEl.querySelectorAll('.option-item').forEach(label => {
+      if (label.dataset.key === String(correctAnswer)) {
+        label.classList.add('option-correct');
+      }
+    });
+  }
+
   function escHtml(str) {
     return String(str)
       .replace(/&/g, '&amp;')
@@ -117,5 +126,5 @@ const QuestionRenderer = (() => {
       .replace(/"/g, '&quot;');
   }
 
-  return { init, render, clearSelection };
+  return { init, render, clearSelection, showAnswer };
 })();

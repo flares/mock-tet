@@ -29,6 +29,39 @@ document.addEventListener('DOMContentLoaded', async () => {
   const btnPaletteToggle = document.getElementById('btn-palette-toggle');
   const palettePanel   = document.querySelector('.palette-panel');
 
+  // ── Practice mode refs ──────────────────────────────────────────────────
+  const strictToggleEl   = document.getElementById('strict-mode-toggle');
+  const modeLabelEl      = document.getElementById('mode-toggle-label');
+  const practiceBtnBar   = document.getElementById('practice-btn-bar');
+  const btnMarkRevision  = document.getElementById('btn-mark-revision');
+  const btnShowAnswer    = document.getElementById('btn-show-answer');
+
+  const REVISION_KEY = 'tet_revision_questions';
+  const STRICT_KEY   = 'tet_strict_mode';
+
+  function getRevisionList() {
+    try { return JSON.parse(localStorage.getItem(REVISION_KEY)) || []; } catch { return []; }
+  }
+
+  function isStrictMode() {
+    return localStorage.getItem(STRICT_KEY) === 'on';
+  }
+
+  // Init toggle state
+  strictToggleEl.checked = isStrictMode();
+  updateModeUI();
+
+  strictToggleEl.addEventListener('change', () => {
+    localStorage.setItem(STRICT_KEY, strictToggleEl.checked ? 'on' : 'off');
+    updateModeUI();
+  });
+
+  function updateModeUI() {
+    const strict = strictToggleEl.checked;
+    practiceBtnBar.classList.toggle('practice-btn-bar--hidden', strict);
+    modeLabelEl.textContent = strict ? 'Strict Mode' : 'Practice Mode';
+  }
+
   const submitDialog    = document.getElementById('submit-dialog');
   const btnDialogCancel = document.getElementById('dialog-cancel');
   const btnDialogSubmit = document.getElementById('dialog-confirm');
@@ -107,6 +140,28 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Back button — disable on first question
     btnBack.disabled = idx === 0;
+
+    // Practice buttons state
+    _updatePracticeBtns(q);
+  }
+
+  function _updatePracticeBtns(q) {
+    // Reset Show Answer button
+    btnShowAnswer.disabled = false;
+    btnShowAnswer.textContent = '👁 Show Answer';
+    if (q.correctAnswer == null) {
+      btnShowAnswer.disabled = true;
+      btnShowAnswer.textContent = 'No Official Answer';
+    }
+
+    // Update Mark for Revision button
+    const effectiveExamId = subjectFilter ? `${examId}:${subjectFilter}` : examId;
+    const list = getRevisionList();
+    const isMarked = list.some(r => r.examId === effectiveExamId && r.q.globalIndex === q.globalIndex);
+    btnMarkRevision.classList.toggle('btn--revision--marked', isMarked);
+    btnMarkRevision.innerHTML = isMarked
+      ? '&#10003; Marked for Revision'
+      : '&#128278; Mark for Revision';
   }
 
   function navigateTo(idx) {
@@ -159,6 +214,30 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (e.target.closest('.palette-btn') && palettePanel) {
       palettePanel.classList.remove('palette-panel--open');
     }
+  });
+
+  // ── Practice buttons ───────────────────────────────────────────────────
+  btnMarkRevision.addEventListener('click', () => {
+    const session = ExamState.getSession();
+    const q = ExamState.getQuestion(session.currentGlobalIndex);
+    const effectiveExamId = subjectFilter ? `${examId}:${subjectFilter}` : examId;
+    const list = getRevisionList();
+    const existingIdx = list.findIndex(r => r.examId === effectiveExamId && r.q.globalIndex === q.globalIndex);
+    if (existingIdx >= 0) {
+      list.splice(existingIdx, 1);
+    } else {
+      list.push({ examId: effectiveExamId, examTitle: examData.title, q });
+    }
+    localStorage.setItem(REVISION_KEY, JSON.stringify(list));
+    _updatePracticeBtns(q);
+  });
+
+  btnShowAnswer.addEventListener('click', () => {
+    const session = ExamState.getSession();
+    const q = ExamState.getQuestion(session.currentGlobalIndex);
+    QuestionRenderer.showAnswer(q.correctAnswer);
+    btnShowAnswer.disabled = true;
+    btnShowAnswer.textContent = '✓ Answer Shown';
   });
 
   // ── Submit dialog ───────────────────────────────────────────────────────
