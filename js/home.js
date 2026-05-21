@@ -168,6 +168,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   await renderExams();
+  renderRevisionTab();
 
   // ── Filter buttons ─────────────────────────────────────────────────────────
   document.querySelectorAll('.filter-chip').forEach(btn => {
@@ -232,15 +233,21 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     toolbar.style.display = '';
 
-    const rows = list.map((item, i) => {
+    try {
+    // Split into pending review and already revised
+    const pending  = list.map((item, i) => ({ item, i })).filter(({ item }) => !item.revised);
+    const revised  = list.map((item, i) => ({ item, i })).filter(({ item }) => item.revised);
+
+    const makeRows = (entries, showRevisedBtn) => entries.map(({ item, i }) => {
       const q = item.q;
+      if (!q) return '';
       const isImg = q.questionType === 'image';
 
       const questionHtml = isImg
-        ? `<img src="${escHtml(q.questionImage)}" alt="Question" class="rev-question-img" loading="lazy">`
-        : `<div class="rev-question-text">${escHtml(q.text)}</div>`;
+        ? `<img src="${escHtml(q.questionImage || '')}" alt="Question" class="rev-question-img" loading="lazy">`
+        : `<div class="rev-question-text">${escHtml(q.text || '')}</div>`;
 
-      let optionsHtml;
+      let optionsHtml = '';
       if (isImg) {
         if (q.optionsInQuestion) {
           optionsHtml = ['1','2','3','4'].map(k => {
@@ -257,24 +264,26 @@ document.addEventListener('DOMContentLoaded', async () => {
       } else {
         optionsHtml = (q.options || []).map(opt => {
           const cls = opt.key === q.correctAnswer ? 'rev-opt rev-opt--correct rev-opt--text' : 'rev-opt rev-opt--text';
-          return `<div class="${cls}"><span class="rev-opt-num">${opt.key}</span><span class="rev-opt-label">${escHtml(opt.text)}</span></div>`;
+          return `<div class="${cls}"><span class="rev-opt-num">${opt.key}</span><span class="rev-opt-label">${escHtml(opt.text || '')}</span></div>`;
         }).join('');
       }
 
+      const actionCell = showRevisedBtn
+        ? `<button class="btn btn--revision-done btn--xs" onclick="markAsRevised(${i})" title="Mark as Revised">&#10003; Revised</button><br><button class="btn btn--ghost btn--xs" style="margin-top:4px" onclick="removeRevisionQ(${i})">&#10005;</button>`
+        : `<button class="btn btn--ghost btn--xs" onclick="unmarkRevised(${i})" title="Move back to review">&#8617; Review</button><br><button class="btn btn--ghost btn--xs" style="margin-top:4px" onclick="removeRevisionQ(${i})">&#10005;</button>`;
+
       return `<tr>
-        <td class="rev-meta-cell">
-          <div class="rev-meta">${escHtml(item.examTitle || item.examId)}</div>
-          <div class="rev-qnum">Q${q.globalIndex != null ? q.globalIndex + 1 : '?'}</div>
-        </td>
-        <td class="rev-question-cell">${questionHtml}</td>
-        <td class="rev-options-cell"><div class="rev-opts-grid">${optionsHtml}</div></td>
-        <td class="rev-remove-cell">
-          <button class="btn btn--ghost btn--xs" onclick="removeRevisionQ(${i})">&#10005;</button>
-        </td>
-      </tr>`;
+          <td class="rev-meta-cell">
+            <div class="rev-meta">${escHtml(item.examTitle || item.examId || '')}</div>
+            <div class="rev-qnum">Q${q.globalIndex != null ? q.globalIndex + 1 : '?'}</div>
+          </td>
+          <td class="rev-question-cell">${questionHtml}</td>
+          <td class="rev-options-cell"><div class="rev-opts-grid">${optionsHtml}</div></td>
+          <td class="rev-remove-cell">${actionCell}</td>
+        </tr>`;
     }).join('');
 
-    container.innerHTML = `<table class="rev-table">
+    const makeTable = (entries, showRevisedBtn) => `<table class="rev-table">
       <thead>
         <tr>
           <th>Source</th>
@@ -283,13 +292,40 @@ document.addEventListener('DOMContentLoaded', async () => {
           <th></th>
         </tr>
       </thead>
-      <tbody>${rows}</tbody>
+      <tbody>${makeRows(entries, showRevisedBtn)}</tbody>
     </table>`;
+
+    let html = '';
+    if (pending.length) {
+      html += `<div class="rev-section-heading">To Review <span class="rev-count">${pending.length}</span></div>${makeTable(pending, true)}`;
+    }
+    if (revised.length) {
+      html += `<div class="rev-section-heading rev-section-heading--revised" style="margin-top:28px">Revised <span class="rev-count rev-count--revised">${revised.length}</span></div>${makeTable(revised, false)}`;
+    }
+
+      container.innerHTML = html;
+    } catch (err) {
+      container.innerHTML = `<p class="error-msg">Error rendering revision questions: ${escHtml(err.message)}. Try clearing and re-adding.</p>`;
+    }
   }
 
   window.removeRevisionQ = (idx) => {
     const list = getRevisionList();
     list.splice(idx, 1);
+    localStorage.setItem(REVISION_KEY, JSON.stringify(list));
+    renderRevisionTab();
+  };
+
+  window.markAsRevised = (idx) => {
+    const list = getRevisionList();
+    if (list[idx]) { list[idx].revised = true; }
+    localStorage.setItem(REVISION_KEY, JSON.stringify(list));
+    renderRevisionTab();
+  };
+
+  window.unmarkRevised = (idx) => {
+    const list = getRevisionList();
+    if (list[idx]) { list[idx].revised = false; }
     localStorage.setItem(REVISION_KEY, JSON.stringify(list));
     renderRevisionTab();
   };
