@@ -169,10 +169,16 @@ async function renderQuestionBank() {
     <img src="${qimg}" alt="Question" class="qbank-question-img" loading="lazy">
     <div class="rev-opts-stack">${opts}</div>`;
 
-  // Right panel: inline explanation + open-dialog button
+  // Stop any in-progress speech when navigating to a new question
+  if (typeof ExplanationModal !== 'undefined') ExplanationModal.stopSpeech();
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
+
+  // Right panel: inline explanation + action buttons
+  const ttsSupported = 'speechSynthesis' in window;
   rightEl.innerHTML = `
     <div class="qbank-explanation" id="qbank-explanation-body">Loading explanation&hellip;</div>
-    <div style="margin-top:12px; padding-top:10px; border-top:1px solid #e0e8f5">
+    <div class="qbank-right-actions">
+      ${ttsSupported ? `<button class="btn--read-aloud" id="qbank-read-aloud" title="Read explanation aloud">&#128266; Read Aloud</button>` : ''}
       <button class="btn btn--explain btn--xs" data-qimg="${qimg}">&#128218; Open Full Explanation</button>
     </div>`;
 
@@ -243,6 +249,33 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('qbank-next').addEventListener('click', () => {
     qbankIndex = Math.min(qbankFiltered.length - 1, qbankIndex + 1);
     renderQuestionBank();
+  });
+
+  // ── Inline Read Aloud for qbank right panel ──────────────────────────
+  document.getElementById('qbank-card-right').addEventListener('click', e => {
+    const btn = e.target.closest('#qbank-read-aloud');
+    if (!btn || !window.speechSynthesis) return;
+
+    if (window.speechSynthesis.speaking) {
+      window.speechSynthesis.cancel();
+      btn.textContent = '🔊 Read Aloud';
+      btn.title = 'Read explanation aloud';
+      return;
+    }
+
+    const bodyEl = document.getElementById('qbank-explanation-body');
+    const text = bodyEl ? (bodyEl.innerText || bodyEl.textContent || '').trim() : '';
+    if (!text) return;
+
+    btn.textContent = '⏹ Stop';
+    btn.title = 'Stop reading';
+
+    const utt = new SpeechSynthesisUtterance(text);
+    utt.lang = 'en-IN';
+    const done = () => { btn.textContent = '🔊 Read Aloud'; btn.title = 'Read explanation aloud'; };
+    utt.onend   = done;
+    utt.onerror = done;
+    window.speechSynthesis.speak(utt);
   });
 
   // Delegated clicks on dynamic card areas
