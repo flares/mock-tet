@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const practiceBtnBar   = document.getElementById('practice-btn-bar');
   const btnMarkRevision  = document.getElementById('btn-mark-revision');
   const btnShowAnswer    = document.getElementById('btn-show-answer');
+  const btnShowExplanation = document.getElementById('btn-show-explanation');
 
   const REVISION_KEY = 'tet_revision_questions';
   const STRICT_KEY   = 'tet_strict_mode';
@@ -238,6 +239,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     QuestionRenderer.showAnswer(q.correctAnswer);
     btnShowAnswer.disabled = true;
     btnShowAnswer.textContent = '✓ Answer Shown';
+  });
+
+  btnShowExplanation.addEventListener('click', () => {
+    const session = ExamState.getSession();
+    const q = ExamState.getQuestion(session.currentGlobalIndex);
+    ExplanationModal.open(q.questionImage);
   });
 
   // ── Submit dialog ───────────────────────────────────────────────────────

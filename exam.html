@@ -63,6 +63,7 @@
       <div id="practice-btn-bar" class="practice-btn-bar">
         <button class="btn btn--revision" id="btn-mark-revision">&#128278; Mark for Revision</button>
         <button class="btn btn--show-answer" id="btn-show-answer">&#128065; Show Answer</button>
+        <button class="btn btn--show-explanation" id="btn-show-explanation">&#128218; Show Explanation</button>
       </div>
     </section>
 
@@ -117,10 +118,21 @@
     </div>
   </dialog>
 
+  <!-- ── Explanation dialog ── -->
+  <dialog id="explanation-dialog" aria-labelledby="explanation-dialog-heading">
+    <div class="explanation-dialog__header">
+      <span class="explanation-dialog__header-title" id="explanation-dialog-heading">Explanation</span>
+      <span class="explanation-dialog__conf"></span>
+      <button class="explanation-dialog__close" aria-label="Close">&times;</button>
+    </div>
+    <div class="explanation-dialog__body"></div>
+  </dialog>
+
   <script src="js/state.js"></script>
   <script src="js/timer.js"></script>
   <script src="js/palette.js"></script>
   <script src="js/question.js"></script>
+  <script src="js/explanation.js"></script>
   <script src="js/exam.js"></script>
 </body>
 </html>
