@@ -15,6 +15,23 @@ function escHtml(str) {
     .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
+function applySubjectChipColors() {
+  document.querySelectorAll('.filter-chip').forEach(chip => {
+    const key = (chip.dataset.subject || '').toLowerCase();
+    const normalized = key === 'math' ? 'mathematics' : key;
+    const meta = SUBJECT_META[normalized];
+    if (!meta) return;
+    chip.style.borderColor = meta.color;
+    if (chip.classList.contains('active')) {
+      chip.style.color = '#fff';
+      chip.style.background = meta.color;
+    } else {
+      chip.style.color = meta.color;
+      chip.style.background = meta.bg;
+    }
+  });
+}
+
 let qbankCache      = null;
 let qbankFiltered   = [];
 let qbankSubjectFilter = 'all';
@@ -86,24 +103,25 @@ async function loadQuestionBank() {
   return qbankCache;
 }
 
-function updateHeaderProgress(filtered, understood) {
+function updateProgress(filtered, understood) {
   const el = document.getElementById('qbank-header-progress');
   if (!el) return;
-  const total = filtered.length;
   const doneCount = filtered.filter(q => understood.has(q.questionImage)).length;
-  el.textContent = `${qbankIndex + 1} / ${total} · ${doneCount} understood`;
+  el.textContent = `${qbankIndex + 1} / ${filtered.length} · ${doneCount} understood`;
 }
 
 async function renderQuestionBank() {
-  const container = document.getElementById('qbank-container');
+  const leftEl    = document.getElementById('qbank-card-left');
+  const rightEl   = document.getElementById('qbank-card-right');
+  const actionsEl = document.getElementById('qbank-footer-actions');
 
-  if (!qbankCache) container.innerHTML = '<p class="loading-msg">Loading question bank&hellip;</p>';
+  if (!qbankCache && leftEl) leftEl.innerHTML = '<p class="loading-msg">Loading question bank&hellip;</p>';
 
   let all;
   try {
     all = await loadQuestionBank();
   } catch (err) {
-    container.innerHTML = `<p class="error-msg">Could not load question bank: ${escHtml(err.message)}</p>`;
+    if (leftEl) leftEl.innerHTML = `<p class="error-msg">Could not load: ${escHtml(err.message)}</p>`;
     return;
   }
 
@@ -121,10 +139,12 @@ async function renderQuestionBank() {
   const filtered = all.filter(q => subjectMatches(q) && statusMatches(q));
   qbankFiltered = filtered;
 
-  updateHeaderProgress(filtered, understood);
+  updateProgress(filtered, understood);
 
   if (!filtered.length) {
-    container.innerHTML = '<p class="loading-msg">No questions match these filters.</p>';
+    leftEl.innerHTML = '<p class="loading-msg">No questions match these filters.</p>';
+    rightEl.innerHTML = '';
+    actionsEl.innerHTML = '';
     return;
   }
 
@@ -140,49 +160,42 @@ async function renderQuestionBank() {
     return `<div class="${cls}"><span class="rev-opt-num">${k}</span><img src="${escHtml(src)}" class="rev-opt-img" alt="Option ${k}" loading="lazy"></div>`;
   }).join('');
 
+  const sectionLabel = escHtml((item.sectionId || '').toUpperCase());
+  const qNum = item.globalIndex != null ? item.globalIndex + 1 : '?';
+
+  // Left panel: source label + question image + options
+  leftEl.innerHTML = `
+    <div class="qbank-card__qnum">${escHtml(item.examTitle || item.examId || '')} &middot; ${sectionLabel} &middot; Q${qNum}</div>
+    <img src="${qimg}" alt="Question" class="qbank-question-img" loading="lazy">
+    <div class="rev-opts-stack">${opts}</div>`;
+
+  // Right panel: inline explanation + open-dialog button
+  rightEl.innerHTML = `
+    <div class="qbank-explanation" id="qbank-explanation-body">Loading explanation&hellip;</div>
+    <div style="margin-top:12px; padding-top:10px; border-top:1px solid #e0e8f5">
+      <button class="btn btn--explain btn--xs" data-qimg="${qimg}">&#128218; Open Full Explanation</button>
+    </div>`;
+
+  // Footer action buttons
   const isUnderstood = understood.has(item.questionImage);
   const isInRevision = revisionImgs.has(item.questionImage);
   const understoodCls   = isUnderstood ? 'btn--understood--marked' : '';
   const understoodLabel = isUnderstood ? '&#10003; Understood' : 'Understood';
   const revisionLabel   = isInRevision ? '&#10003; Marked for Revision' : 'Mark for Revision';
 
-  const sectionLabel = escHtml((item.sectionId || '').toUpperCase());
-  const qNum = item.globalIndex != null ? item.globalIndex + 1 : '?';
-
-  container.innerHTML = `<div class="qbank-card">
-    <div class="qbank-card__body">
-      <div class="qbank-card__left">
-        <div class="qbank-card__qnum">${escHtml(item.examTitle || item.examId || '')} &middot; ${sectionLabel} &middot; Q${qNum}</div>
-        <img src="${qimg}" alt="Question" class="rev-question-img qbank-question-img" loading="lazy">
-        <div class="rev-opts-stack">${opts}</div>
-      </div>
-      <div class="qbank-card__right">
-        <div class="qbank-explanation" id="qbank-explanation-body">Loading explanation&hellip;</div>
-        <div style="margin-top:12px;padding-top:10px;border-top:1px solid #e0e8f5">
-          <button class="btn btn--explain btn--xs" data-qimg="${qimg}">&#128218; Open Full Explanation</button>
-        </div>
-      </div>
-    </div>
-    <div class="qbank-card__footer">
-      <button class="qbank-nav-btn" data-qbank-nav="prev">&#8592; Prev</button>
-      <div class="qbank-card__footer-center">
-        <button class="btn btn--revision btn--sm ${isInRevision ? 'btn--revision--marked' : ''}" data-qbank-revision="${qimg}">${revisionLabel}</button>
-        <button class="btn btn--understood btn--sm ${understoodCls}" data-qbank-understood="${qimg}">${understoodLabel}</button>
-        <button class="btn btn--ghost btn--sm" data-qbank-random="1">Random</button>
-      </div>
-      <button class="qbank-nav-btn" data-qbank-nav="next">Next &#8594;</button>
-    </div>
-  </div>`;
+  actionsEl.innerHTML = `
+    <button class="btn btn--revision btn--sm ${isInRevision ? 'btn--revision--marked' : ''}" data-qbank-revision="${qimg}">${revisionLabel}</button>
+    <button class="btn btn--understood btn--sm ${understoodCls}" data-qbank-understood="${qimg}">${understoodLabel}</button>
+    <button class="btn btn--ghost btn--sm" data-qbank-random="1">Random</button>`;
 
   loadQbankExplanation(item.questionImage);
-  updateHeaderProgress(filtered, understood);
 }
 
 async function loadQbankExplanation(questionImage) {
   const target = document.getElementById('qbank-explanation-body');
   if (!target) return;
   const lastSlash = questionImage.lastIndexOf('/');
-  if (lastSlash < 0) { target.textContent = 'No explanation available.'; return; }
+  if (lastSlash < 0) { target.innerHTML = '<em style="color:#888">No explanation available yet.</em>'; return; }
   const path = questionImage.substring(0, lastSlash) + '/metadata.json';
   try {
     const resp = await fetch(path);
@@ -196,15 +209,17 @@ async function loadQbankExplanation(questionImage) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  applySubjectChipColors();
   renderQuestionBank();
 
-  // Subject filter chips in header
-  document.querySelectorAll('#qbank-subject-filters .qbank-filter-btn').forEach(btn => {
+  // Subject filter chips
+  document.querySelectorAll('#qbank-subject-filters .filter-chip').forEach(btn => {
     btn.addEventListener('click', () => {
       qbankSubjectFilter = btn.dataset.subject;
       qbankIndex = 0;
-      document.querySelectorAll('#qbank-subject-filters .qbank-filter-btn').forEach(b =>
+      document.querySelectorAll('#qbank-subject-filters .filter-chip').forEach(b =>
         b.classList.toggle('active', b.dataset.subject === qbankSubjectFilter));
+      applySubjectChipColors();
       renderQuestionBank();
     });
   });
@@ -220,8 +235,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Card click delegation
-  document.getElementById('qbank-container').addEventListener('click', e => {
+  // Prev / Next buttons (outside the card body but inside the card footer)
+  document.getElementById('qbank-prev').addEventListener('click', () => {
+    qbankIndex = Math.max(0, qbankIndex - 1);
+    renderQuestionBank();
+  });
+  document.getElementById('qbank-next').addEventListener('click', () => {
+    qbankIndex = Math.min(qbankFiltered.length - 1, qbankIndex + 1);
+    renderQuestionBank();
+  });
+
+  // Delegated clicks on dynamic card areas
+  function handleCardClick(e) {
     const explainBtn = e.target.closest('.btn--explain');
     if (explainBtn && explainBtn.dataset.qimg) { ExplanationModal.open(explainBtn.dataset.qimg); return; }
 
@@ -231,19 +256,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const revisionBtn = e.target.closest('[data-qbank-revision]');
     if (revisionBtn) { toggleQbankRevision(revisionBtn.dataset.qbankRevision); renderQuestionBank(); return; }
 
-    const navBtn = e.target.closest('[data-qbank-nav]');
-    if (navBtn) {
-      qbankIndex += navBtn.dataset.qbankNav === 'next' ? 1 : -1;
-      qbankIndex = Math.max(0, Math.min(qbankIndex, qbankFiltered.length - 1));
-      renderQuestionBank();
-      return;
-    }
-
     const randomBtn = e.target.closest('[data-qbank-random]');
     if (randomBtn && qbankFiltered.length > 0) {
       qbankIndex = Math.floor(Math.random() * qbankFiltered.length);
       renderQuestionBank();
       return;
     }
-  });
+  }
+
+  document.getElementById('qbank-card-left').addEventListener('click', handleCardClick);
+  document.getElementById('qbank-card-right').addEventListener('click', handleCardClick);
+  document.getElementById('qbank-footer-actions').addEventListener('click', handleCardClick);
 });

@@ -11,43 +11,54 @@
 </head>
 <body class="qbank-body">
 
-  <!-- Header with subject filters centered -->
-  <header class="site-header qbank-site-header">
+  <header class="site-header">
     <div class="site-header__logo">Mock TET</div>
-
-    <div class="qbank-header__center" id="qbank-subject-filters">
-      <button class="qbank-filter-btn active" data-subject="all">All</button>
-      <button class="qbank-filter-btn" data-subject="cdp">CDP</button>
-      <button class="qbank-filter-btn" data-subject="telugu">Telugu</button>
-      <button class="qbank-filter-btn" data-subject="english">English</button>
-      <button class="qbank-filter-btn" data-subject="mathematics">Math</button>
-      <button class="qbank-filter-btn" data-subject="science">Science</button>
-    </div>
-
-    <div class="qbank-header__right">
-      <div class="qbank-header-progress" id="qbank-header-progress"></div>
-      <nav class="site-header__nav">
-        <a class="header-nav-btn" href="index.html">Exams</a>
-        <a class="header-nav-btn" href="revision.html">Revision</a>
-        <a class="header-nav-btn active" href="questionbank.html">Question Bank</a>
-        <a class="header-nav-btn" href="syllabus.html">Syllabus</a>
-      </nav>
-    </div>
+    <nav class="site-header__nav">
+      <a class="header-nav-btn" href="index.html">Exams</a>
+      <a class="header-nav-btn" href="revision.html">Revision</a>
+      <a class="header-nav-btn active" href="questionbank.html">Question Bank</a>
+      <a class="header-nav-btn" href="syllabus.html">Syllabus</a>
+    </nav>
   </header>
 
-  <!-- Status filter bar -->
-  <div class="qbank-status-bar">
-    <div class="exam-filters" id="qbank-status-filters" style="margin-bottom:0">
-      <button class="filter-chip active" data-status="all">All</button>
-      <button class="filter-chip" data-status="yet-to-read">Yet to Read</button>
-      <button class="filter-chip" data-status="understood">Understood</button>
-    </div>
-  </div>
-
-  <!-- Main card area -->
   <main class="qbank-main">
-    <div id="qbank-container">
-      <p class="loading-msg">Loading question bank&hellip;</p>
+    <div class="qbank-card">
+
+      <!-- Card header: subject + status filters -->
+      <div class="qbank-card__header">
+        <div class="qbank-card__header-top">
+          <div class="exam-filters" id="qbank-subject-filters" style="margin-bottom:0; flex-wrap:wrap">
+            <button class="filter-chip active" data-subject="all">All</button>
+            <button class="filter-chip" data-subject="cdp">CDP</button>
+            <button class="filter-chip" data-subject="telugu">Telugu</button>
+            <button class="filter-chip" data-subject="english">English</button>
+            <button class="filter-chip" data-subject="mathematics">Math</button>
+            <button class="filter-chip" data-subject="science">Science</button>
+          </div>
+          <div class="qbank-header-progress" id="qbank-header-progress"></div>
+        </div>
+        <div class="exam-filters" id="qbank-status-filters" style="margin-bottom:0">
+          <button class="filter-chip active" data-status="all">All</button>
+          <button class="filter-chip" data-status="yet-to-read">Yet to Read</button>
+          <button class="filter-chip" data-status="understood">Understood</button>
+        </div>
+      </div>
+
+      <!-- Card body: 2:3 split (left=question fixed, right=explanation scrollable) -->
+      <div class="qbank-card__body">
+        <div class="qbank-card__left" id="qbank-card-left">
+          <p class="loading-msg">Loading question bank&hellip;</p>
+        </div>
+        <div class="qbank-card__right" id="qbank-card-right"></div>
+      </div>
+
+      <!-- Card footer: nav + actions -->
+      <div class="qbank-card__footer">
+        <button class="qbank-nav-btn" id="qbank-prev">&#8592; Prev</button>
+        <div class="qbank-card__footer-center" id="qbank-footer-actions"></div>
+        <button class="qbank-nav-btn" id="qbank-next">Next &#8594;</button>
+      </div>
+
     </div>
   </main>
 
