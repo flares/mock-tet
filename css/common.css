@@ -145,6 +145,7 @@
 #explanation-dialog {
   width: min(880px, 94vw);
   max-height: 90vh;
+  margin: auto;
   border: none;
   border-radius: var(--border-radius-md);
   padding: 0;

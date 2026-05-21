@@ -13,6 +13,25 @@ document.addEventListener('DOMContentLoaded', async () => {
   const RESULT_KEY   = 'tet_result_';
   let currentFilter = 'Real Paper';
 
+  function applySubjectChipColors() {
+    const chips = document.querySelectorAll('.filter-chip');
+    chips.forEach(chip => {
+      const key = (chip.dataset.subject || chip.dataset.filter || '').toLowerCase();
+      const normalized = key === 'math' ? 'mathematics' : key;
+      const meta = SUBJECT_META[normalized];
+      if (!meta) return;
+      chip.style.borderColor = meta.color;
+      if (chip.classList.contains('active')) {
+        chip.style.color = '#fff';
+        chip.style.background = meta.color;
+      } else {
+        chip.style.color = meta.color;
+        chip.style.background = meta.bg;
+      }
+    });
+  }
+  applySubjectChipColors();
+
   // ── Tab switching ──────────────────────────────────────────────────────────
   document.querySelectorAll('.header-nav-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -21,6 +40,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         b.classList.toggle('active', b.dataset.tab === target));
       document.querySelectorAll('.home-tab-pane').forEach(p =>
         p.classList.toggle('active', p.id === `tab-${target}`));
+      if (target === 'tests') renderExams();
       if (target === 'revision') renderRevisionTab();
       if (target === 'questionbank') renderQuestionBankTab();
     });
@@ -64,16 +84,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (!attempts.length) return '';
 
     const badges = attempts.slice(0, 6).map((a, i) => {
-      const cls = a.pct >= 60 ? 'att--good' : a.pct >= 40 ? 'att--avg' : 'att--low';
       const date = new Date(a.ts).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
       const num  = attempts.length - i;
       const sm   = a.subject ? SUBJECT_META[a.subject] : null;
-      const dot  = sm ? `<span class="att-subject-dot" style="background:${sm.color}"></span>` : '';
-      const border = sm ? `border-left:3px solid ${sm.color};` : '';
+      const style = sm
+        ? `background:${sm.bg};color:${sm.color};border:1px solid ${sm.color};`
+        : 'background:#f1f3f6;color:#455a64;border:1px solid #b0bec5;';
       const rid  = a.resultId || null;
       const clickAttr = rid ? `data-result-id="${escHtml(rid)}" onclick="viewResult('${escHtml(rid)}')"` : '';
       const title = `Attempt ${num} · ${date} · ${a.pct.toFixed(0)}%${sm ? ' · ' + sm.label : ''}`;
-      return `<span class="${cls}" style="${border}" title="${title}" ${clickAttr}>${dot}${a.correct}&#10003; ${a.incorrect}&#10007;</span>`;
+      return `<span style="${style}" title="${title}" ${clickAttr}>${a.correct}&#10003; ${a.incorrect}&#10007;</span>`;
     }).join('');
 
     let trend = '';
@@ -136,6 +156,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       const actionBtns = isReal ? _realPaperActions(exam, tried) : _mockActions(exam, tried);
 
+      const clearBtn = tried ? `<button class="btn btn--ghost btn--xs" onclick="clearOneExam('${escHtml(exam.id)}')">Clear</button>` : '';
       return `<tr>
         <td class="exam-table-title">
           ${escHtml(exam.title)}
@@ -145,7 +166,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         <td class="col-num">${exam.duration} min</td>
         <td class="col-num">${exam.totalQuestions}</td>
         <td class="col-num">${exam.totalMarks}</td>
-        <td class="exam-table-results">${historyFrag || '<span style="color:#bbb; font-size:13px;">—</span>'}</td>
+        <td class="exam-table-results">${historyFrag || '<span style="color:#bbb; font-size:13px;">—</span>'}${clearBtn}</td>
         <td class="exam-table-actions">${actionBtns}</td>
       </tr>`;
     }).join('');
@@ -172,11 +193,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   renderRevisionTab();
 
   // ── Filter buttons ─────────────────────────────────────────────────────────
-  document.querySelectorAll('.filter-chip').forEach(btn => {
+  document.querySelectorAll('#tab-tests .filter-chip').forEach(btn => {
     btn.addEventListener('click', () => {
       currentFilter = btn.dataset.filter;
-      document.querySelectorAll('.filter-chip').forEach(b =>
+      document.querySelectorAll('#tab-tests .filter-chip').forEach(b =>
         b.classList.toggle('active', b.dataset.filter === currentFilter));
+      applySubjectChipColors();
       renderExams();
     });
   });
@@ -190,8 +212,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   function _mockActions(exam, tried) {
     const eid = escHtml(exam.id);
     return `
-      ${tried ? `<button class="btn btn--ghost btn--xs" onclick="clearOneExam('${eid}')">Clear</button>` : ''}
-      <button class="btn btn--primary btn--sm" onclick="startExam('${eid}')">
+      <button class="btn btn--primary btn--sm ${tried ? 'btn--retake' : ''}" onclick="startExam('${eid}')">
         ${tried ? 'Retake ↻' : 'Take Test →'}
       </button>`;
   }
@@ -204,9 +225,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       return `<button class="split-drop-item" style="border-left:3px solid ${sm.color}" onclick="startExam('${eid}','${s}')"><span class="split-drop-dot" style="background:${sm.color}"></span>${sm.label} Only</button>`;
     }).join('');
     return `
-      ${tried ? `<button class="btn btn--ghost btn--xs" onclick="clearOneExam('${eid}')">Clear</button>` : ''}
       <div class="split-btn-group">
-        <button class="btn btn--primary split-btn-main" onclick="startExam('${eid}')">${mainLabel}</button>
+        <button class="btn btn--primary split-btn-main ${tried ? 'btn--retake' : ''}" onclick="startExam('${eid}')">${mainLabel}</button>
         <div class="split-drop-wrapper">
           <button class="btn btn--primary split-drop-toggle" onclick="toggleSplitMenu(event,this)" title="Take a single-subject mini-test">▾</button>
           <div class="split-drop-menu" hidden>${subjectItems}</div>
@@ -345,6 +365,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       revisionSubjectFilter = btn.dataset.subject;
       document.querySelectorAll('#revision-subject-filters .filter-chip').forEach(b =>
         b.classList.toggle('active', b.dataset.subject === revisionSubjectFilter));
+      applySubjectChipColors();
       renderRevisionTab();
     });
   });
@@ -385,10 +406,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // ── Question Bank tab ────────────────────────────────────────────────────
   let qbankCache = null;          // [{ questionImage, optionImages, optionsInQuestion, questionType, correctAnswer, sectionId, examId, examTitle, globalIndex }]
+  let qbankFiltered = [];
   let qbankSubjectFilter = 'all';
   let qbankStatusFilter  = 'all';
-  let qbankPage = 1;
-  const QBANK_PAGE_SIZE = 25;
+  let qbankIndex = 0;
 
   function getUnderstoodSet() {
     try {
@@ -471,9 +492,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     };
 
     const filtered = all.filter(q => subjectMatches(q) && statusMatches(q));
-
-    const totalPages = Math.max(1, Math.ceil(filtered.length / QBANK_PAGE_SIZE));
-    if (qbankPage > totalPages) qbankPage = totalPages;
+    qbankFiltered = filtered;
 
     summary.innerHTML = `Showing <strong>${filtered.length}</strong> question${filtered.length === 1 ? '' : 's'}
       &middot; <span style="color:#2e7d32">${filtered.filter(q => understood.has(q.questionImage)).length} understood</span>
@@ -485,95 +504,96 @@ document.addEventListener('DOMContentLoaded', async () => {
       return;
     }
 
-    const start = (qbankPage - 1) * QBANK_PAGE_SIZE;
-    const slice = filtered.slice(start, start + QBANK_PAGE_SIZE);
-
-    const rows = slice.map(item => {
-      const qimg = escHtml(item.questionImage);
-      const opts = item.optionImages.map((src, idx2) => {
+    if (qbankIndex >= filtered.length) qbankIndex = filtered.length - 1;
+    if (qbankIndex < 0) qbankIndex = 0;
+    const item = filtered[qbankIndex];
+    const qimg = escHtml(item.questionImage);
+    const opts = item.optionImages.map((src, idx2) => {
         const k = String(idx2 + 1);
         const cls = k === item.correctAnswer ? 'rev-opt rev-opt--correct' : 'rev-opt';
         return `<div class="${cls}"><span class="rev-opt-num">${k}</span><img src="${escHtml(src)}" class="rev-opt-img" alt="Option ${k}" loading="lazy"></div>`;
       }).join('');
 
-      const isUnderstood = understood.has(item.questionImage);
-      const isInRevision = revisionImgs.has(item.questionImage);
-      const understoodCls = isUnderstood ? 'btn--understood--marked' : '';
-      const understoodLabel = isUnderstood ? '&#10003; Understood' : 'Understood';
-      const revisionLabel = isInRevision ? '&#10003; In Revision' : '&#128278; Revision';
+    const isUnderstood = understood.has(item.questionImage);
+    const isInRevision = revisionImgs.has(item.questionImage);
+    const understoodCls = isUnderstood ? 'btn--understood--marked' : '';
+    const understoodLabel = isUnderstood ? '✓ Understood' : 'Understood';
+    const revisionLabel = isInRevision ? '✓ In Revision' : 'Revision';
 
-      return `<tr>
-        <td class="rev-meta-cell">
+    container.innerHTML = `<div class="qbank-card">
+      <div class="qbank-card__header">
+        <div>
           <div class="rev-meta">${escHtml(item.examTitle || item.examId || '')}</div>
-          <div class="rev-qnum">${escHtml((item.sectionId || '').toUpperCase())} &middot; Q${item.globalIndex != null ? item.globalIndex + 1 : '?'}</div>
-        </td>
-        <td class="rev-question-cell"><img src="${qimg}" alt="Question" class="rev-question-img" loading="lazy"></td>
-        <td class="rev-options-cell"><div class="rev-opts-grid">${opts}</div></td>
-        <td class="rev-remove-cell">
-          <button class="btn btn--explain btn--xs" data-qimg="${qimg}">&#128218; Explain</button><br>
-          <button class="btn btn--revision btn--xs" style="margin-top:4px${isInRevision ? ';background:#1565c0;color:#fff' : ''}" data-qbank-revision="${qimg}" title="Mark for Revision">${revisionLabel}</button><br>
-          <button class="btn btn--understood btn--xs ${understoodCls}" style="margin-top:4px" data-qbank-understood="${qimg}" title="Toggle understood">${understoodLabel}</button>
-        </td>
-      </tr>`;
-    }).join('');
+          <div class="rev-qnum">Source: ${escHtml((item.sectionId || '').toUpperCase())} · Q${item.globalIndex != null ? item.globalIndex + 1 : '?'}</div>
+        </div>
+        <div class="qbank-card__progress">${qbankIndex + 1} / ${filtered.length} completed: ${filtered.filter(q => understood.has(q.questionImage)).length}</div>
+      </div>
+      <div class="qbank-card__body">
+        <div class="qbank-card__left">
+          <img src="${qimg}" alt="Question" class="rev-question-img" loading="lazy">
+          <div class="rev-opts-grid">${opts}</div>
+        </div>
+        <div class="qbank-card__right">
+          <div class="qbank-explanation" id="qbank-explanation-body">Loading explanation…</div>
+          <div style="margin-top:10px">
+            <button class="btn btn--explain btn--xs" data-qimg="${qimg}">Open Full Explanation</button>
+          </div>
+        </div>
+      </div>
+      <div class="qbank-card__footer">
+        <button class="qbank-nav-btn" data-qbank-nav="prev">Prev</button>
+        <div class="qbank-card__footer-center">
+          <button class="btn btn--revision btn--xs ${isInRevision ? 'btn--revision--marked' : ''}" data-qbank-revision="${qimg}" title="Mark for Revision">${revisionLabel}</button>
+          <button class="btn btn--understood btn--xs ${understoodCls}" data-qbank-understood="${qimg}" title="Toggle understood">${understoodLabel}</button>
+          <button class="btn btn--ghost btn--xs" data-qbank-random="1">Random Question</button>
+        </div>
+        <button class="qbank-nav-btn" data-qbank-nav="next">Next</button>
+      </div>
+    </div>`;
+    loadQbankExplanation(item.questionImage);
+    pagination.innerHTML = '';
+  }
 
-    container.innerHTML = `<table class="rev-table">
-      <thead>
-        <tr>
-          <th>Source</th>
-          <th>Question</th>
-          <th>Options <span style="color:#388e3c;font-size:11px">(green = correct)</span></th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>${rows}</tbody>
-    </table>`;
-
-    // Pagination controls
-    const pageNums = [];
-    const maxNumsShown = 7;
-    let from = Math.max(1, qbankPage - 3);
-    let to   = Math.min(totalPages, from + maxNumsShown - 1);
-    from = Math.max(1, Math.min(from, to - maxNumsShown + 1));
-    for (let p = from; p <= to; p++) pageNums.push(p);
-
-    pagination.innerHTML = `
-      <button class="qbank-page-btn" data-page="prev" ${qbankPage === 1 ? 'disabled' : ''}>‹ Prev</button>
-      ${pageNums.map(p => `<button class="qbank-page-btn ${p === qbankPage ? 'qbank-page-btn--active' : ''}" data-page="${p}">${p}</button>`).join('')}
-      <button class="qbank-page-btn" data-page="next" ${qbankPage === totalPages ? 'disabled' : ''}>Next ›</button>
-      <span class="qbank-page-info">Page ${qbankPage} of ${totalPages}</span>
-    `;
+  async function loadQbankExplanation(questionImage) {
+    const target = document.getElementById('qbank-explanation-body');
+    if (!target) return;
+    const lastSlash = questionImage.lastIndexOf('/');
+    if (lastSlash < 0) {
+      target.textContent = 'No explanation available.';
+      return;
+    }
+    const path = questionImage.substring(0, lastSlash) + '/metadata.json';
+    try {
+      const resp = await fetch(path);
+      if (!resp.ok) throw new Error('not found');
+      const data = await resp.json();
+      const html = data && data.explanation && data.explanation.html_text;
+      target.innerHTML = html || 'No explanation available.';
+    } catch (_) {
+      target.textContent = 'No explanation available.';
+    }
   }
 
   // Filter chip handlers for Question Bank
   document.querySelectorAll('#qbank-subject-filters .filter-chip').forEach(btn => {
     btn.addEventListener('click', () => {
       qbankSubjectFilter = btn.dataset.subject;
-      qbankPage = 1;
+      qbankIndex = 0;
       document.querySelectorAll('#qbank-subject-filters .filter-chip').forEach(b =>
         b.classList.toggle('active', b.dataset.subject === qbankSubjectFilter));
+      applySubjectChipColors();
       renderQuestionBankTab();
     });
   });
   document.querySelectorAll('#qbank-status-filters .filter-chip').forEach(btn => {
     btn.addEventListener('click', () => {
       qbankStatusFilter = btn.dataset.status;
-      qbankPage = 1;
+      qbankIndex = 0;
       document.querySelectorAll('#qbank-status-filters .filter-chip').forEach(b =>
         b.classList.toggle('active', b.dataset.status === qbankStatusFilter));
+      applySubjectChipColors();
       renderQuestionBankTab();
     });
-  });
-
-  // Pagination + action handlers (event delegation)
-  document.getElementById('qbank-pagination').addEventListener('click', e => {
-    const btn = e.target.closest('.qbank-page-btn');
-    if (!btn || btn.disabled) return;
-    const p = btn.dataset.page;
-    if (p === 'prev') qbankPage = Math.max(1, qbankPage - 1);
-    else if (p === 'next') qbankPage++;
-    else qbankPage = parseInt(p, 10) || qbankPage;
-    renderQuestionBankTab();
   });
 
   document.getElementById('qbank-container').addEventListener('click', e => {
@@ -591,6 +611,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     const revisionBtn = e.target.closest('[data-qbank-revision]');
     if (revisionBtn) {
       toggleQbankRevision(revisionBtn.dataset.qbankRevision);
+      renderQuestionBankTab();
+      return;
+    }
+    const navBtn = e.target.closest('[data-qbank-nav]');
+    if (navBtn) {
+      qbankIndex += navBtn.dataset.qbankNav === 'next' ? 1 : -1;
+      renderQuestionBankTab();
+      return;
+    }
+    const randomBtn = e.target.closest('[data-qbank-random]');
+    if (randomBtn) {
+      const max = Array.isArray(qbankFiltered) ? qbankFiltered.length : 0;
+      if (max > 0) qbankIndex = Math.floor(Math.random() * max);
       renderQuestionBankTab();
       return;
     }
