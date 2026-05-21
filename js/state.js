@@ -37,18 +37,19 @@ const ExamState = (() => {
 
   // ── Public API ────────────────────────────────────────────────────────────
 
-  async function load(examId) {
+  async function load(examId, subjectFilter) {
+    const effectiveId = subjectFilter ? `${examId}:${subjectFilter}` : examId;
+
     // Restore existing session if exam IDs match
     const raw = sessionStorage.getItem(STORAGE_KEY);
     if (raw) {
       try {
         const saved = JSON.parse(raw);
-        if (saved.examId === examId && !saved.submitted) {
+        if (saved.examId === effectiveId && !saved.submitted) {
           session = saved;
-          // Fetch exam data
           const resp = await fetch(`exams/${examId}.json`);
           if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-          examData = await resp.json();
+          examData = _applySubjectFilter(await resp.json(), subjectFilter, effectiveId);
           pendingAnswer = null;
           return;
         }
@@ -58,10 +59,10 @@ const ExamState = (() => {
     // Fresh session
     const resp = await fetch(`exams/${examId}.json`);
     if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-    examData = await resp.json();
+    examData = _applySubjectFilter(await resp.json(), subjectFilter, effectiveId);
 
     session = {
-      examId,
+      examId: effectiveId,
       startTime: Date.now(),
       remainingSeconds: examData.duration * 60,
       currentGlobalIndex: 0,
@@ -72,6 +73,29 @@ const ExamState = (() => {
     };
     pendingAnswer = null;
     persist();
+  }
+
+  function _applySubjectFilter(data, subjectFilter, effectiveId) {
+    if (!subjectFilter) return data;
+    const sec = data.sections.find(s => s.id === subjectFilter);
+    if (!sec) return data;
+    const LABELS = {
+      cdp: 'Child Development & Pedagogy', english: 'English',
+      telugu: 'Telugu', mathematics: 'Mathematics', science: 'Science',
+    };
+    const questions = data.questions
+      .slice(sec.startIndex, sec.startIndex + sec.questionCount)
+      .map((q, i) => ({ ...q, globalIndex: i }));
+    return {
+      ...data,
+      id: effectiveId,
+      title: `${data.title} — ${LABELS[subjectFilter] || subjectFilter}`,
+      totalQuestions: sec.questionCount,
+      totalMarks: sec.questionCount,
+      duration: 30,
+      sections: [{ ...sec, startIndex: 0 }],
+      questions,
+    };
   }
 
   function getExamData() { return examData; }
@@ -210,7 +234,11 @@ const ExamState = (() => {
       const q = examData.questions[i];
       const savedAnswer = session.answers[String(i)] || null;
       let result = 'skipped';
-      if (savedAnswer) {
+      if (q.correctAnswer == null) {
+        // Official discrepancy — full marks awarded to all candidates regardless of response
+        correct++; result = 'discrepancy';
+        if (savedAnswer) attempted++;
+      } else if (savedAnswer) {
         attempted++;
         if (savedAnswer === q.correctAnswer) { correct++; result = 'correct'; }
         else { incorrect++; result = 'incorrect'; }
@@ -232,8 +260,14 @@ const ExamState = (() => {
       ? parseFloat(((marksScored / examData.totalMarks) * 100).toFixed(1))
       : 0;
     const elapsed = examData.duration * 60 - (session.remainingSeconds || 0);
+    // Parse subject from effectiveId (e.g. "real-...:cdp" → subject = "cdp")
+    const colonIdx = session.examId.indexOf(':');
+    const subject = colonIdx >= 0 ? session.examId.slice(colonIdx + 1) : null;
+    const baseId  = colonIdx >= 0 ? session.examId.slice(0, colonIdx) : session.examId;
     const attempt = {
       ts: Date.now(),
+      subject,
+      resultId: session.examId,
       answers: answersStr,
       correct: score.correct,
       incorrect: score.incorrect,
@@ -241,7 +275,8 @@ const ExamState = (() => {
       pct,
       timeTaken: elapsed,
     };
-    const key = `${ATTEMPTS_PREFIX}${session.examId}`;
+    // Always store under base exam ID so home page sees all attempts together
+    const key = `${ATTEMPTS_PREFIX}${baseId}`;
     let attempts = [];
     try {
       const raw = localStorage.getItem(key);
@@ -289,10 +324,13 @@ const ExamState = (() => {
     toRemove.forEach(k => localStorage.removeItem(k));
   }
 
-  // Clear results for a single exam
+  // Clear results for a single exam (base + all subject variants)
   function clearExamCache(examId) {
     localStorage.removeItem(`${ATTEMPTS_PREFIX}${examId}`);
     localStorage.removeItem(`${RESULT_PREFIX}${examId}`);
+    ['cdp', 'english', 'telugu', 'mathematics', 'science'].forEach(s => {
+      localStorage.removeItem(`${RESULT_PREFIX}${examId}:${s}`);
+    });
   }
 
   function getSession() { return session; }

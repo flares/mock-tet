@@ -18,6 +18,7 @@
     </div>
     <nav class="site-header__nav">
       <button class="header-nav-btn active" data-tab="tests">Exam Papers</button>
+      <button class="header-nav-btn" data-tab="revision">Revision Questions</button>
       <button class="header-nav-btn" data-tab="syllabus">Syllabus</button>
     </nav>
   </header>
@@ -39,8 +40,9 @@
 
       <!-- Filter chips -->
       <div class="exam-filters">
-        <button class="filter-chip active" data-filter="all">All Tests</button>
-        <button class="filter-chip" data-filter="Full">Full</button>
+        <button class="filter-chip" data-filter="all">All Tests</button>
+        <button class="filter-chip active" data-filter="Real Paper">Real Papers</button>
+        <button class="filter-chip" data-filter="Full">Full (Mock)</button>
         <button class="filter-chip" data-filter="Telugu">Telugu</button>
         <button class="filter-chip" data-filter="Math">Math</button>
         <button class="filter-chip" data-filter="Science">Science</button>
@@ -51,6 +53,19 @@
       <!-- Table layout -->
       <div id="exam-table-container" class="exam-table-container">
         <p class="loading-msg">Loading exam papers&hellip;</p>
+      </div>
+    </div>
+
+    <!-- ── Revision Questions tab ────────────────────────────────────────── -->
+    <div id="tab-revision" class="home-tab-pane">
+      <p class="home-main__sub">
+        Questions you marked for revision during practice. Review them here with the correct answer highlighted.
+      </p>
+      <div class="home-toolbar" id="revision-toolbar" style="display:none">
+        <button class="btn btn--ghost btn--sm" id="btn-clear-revision">&#128465; Clear All Revision Questions</button>
+      </div>
+      <div id="revision-container">
+        <p class="loading-msg">No questions marked for revision yet.</p>
       </div>
     </div>
 

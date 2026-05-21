@@ -255,3 +255,68 @@
   padding: 10px 24px;
   font-size: 14px;
 }
+
+/* ── Image question review ───────────────────────────────────────────────── */
+.review-question-img {
+  max-width: 420px;
+  height: auto;
+  display: block;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.review-opts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-top: 8px;
+  max-width: 520px;
+}
+
+.review-opt {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 4px 8px;
+  background: #fafafa;
+}
+
+.review-opt--correct {
+  border-color: #388e3c;
+  background: #f1faf1;
+}
+
+.review-opt--user:not(.review-opt--correct) {
+  border-color: #d32f2f;
+  background: #fff5f5;
+}
+
+.review-opt-num {
+  font-weight: 700;
+  font-size: 13px;
+  color: #555;
+  width: 18px;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.review-opt-img {
+  max-width: 100%;
+  max-height: 90px;
+  height: auto;
+  display: block;
+}
+
+/* ── Discrepancy rows ────────────────────────────────────────────────────── */
+tr.row--discrepancy { background: #fff8e1; }
+
+.answer-badge--discrepancy {
+  background: #ffe082;
+  color: #5d4037;
+  border-radius: 4px;
+  padding: 2px 7px;
+  font-size: 12px;
+  font-weight: 700;
+}

@@ -46,11 +46,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // ── Section breakdown ─────────────────────────────────────────────────────
   const breakdownBody = document.getElementById('breakdown-body');
   breakdownBody.innerHTML = examData.sections.map(sec => {
-    const secDetails = score.details.filter(d => d.question.sectionId === sec.id);
-    const secCorrect   = secDetails.filter(d => d.result === 'correct').length;
+    const secDetails  = score.details.filter(d => d.question.sectionId === sec.id);
+    const secCorrect  = secDetails.filter(d => d.result === 'correct').length;
     const secIncorrect = secDetails.filter(d => d.result === 'incorrect').length;
-    const secSkipped   = secDetails.filter(d => d.result === 'skipped').length;
-    const secMarks     = secCorrect * examData.marksPerQuestion;
+    const secSkipped  = secDetails.filter(d => d.result === 'skipped').length;
+    const secMarks    = secCorrect * examData.marksPerQuestion;
     return `<tr>
       <td>${escHtml(sec.name)}</td>
       <td>${sec.questionCount}</td>
@@ -82,24 +82,45 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     reviewBody.innerHTML = filtered.map(d => {
-      const rowClass = d.result === 'correct' ? 'row--correct' : d.result === 'incorrect' ? 'row--incorrect' : 'row--skipped';
+      const rowClass = d.result === 'correct' ? 'row--correct'
+        : d.result === 'discrepancy' ? 'row--discrepancy'
+        : d.result === 'incorrect' ? 'row--incorrect'
+        : 'row--skipped';
       const userBadge = d.userAnswer
         ? `<span class="answer-badge answer-badge--${d.result}">${d.userAnswer}</span>`
         : `<span class="answer-badge answer-badge--skipped">—</span>`;
-      const correctBadge = `<span class="answer-badge answer-badge--correct">${d.question.correctAnswer}</span>`;
-      const qText = escHtml(d.question.text);
-      const explanation = d.question.explanation
-        ? `<div class="review-explanation"><span class="review-explanation__label">Explanation:</span> ${escHtml(d.question.explanation)}</div>`
-        : '';
+      const correctBadge = d.result === 'discrepancy'
+        ? `<span class="answer-badge answer-badge--discrepancy" title="Official discrepancy — full marks to all">⚠️ Discrepancy</span>`
+        : `<span class="answer-badge answer-badge--correct">${d.question.correctAnswer}</span>`;
+      const marks = (d.result === 'correct' || d.result === 'discrepancy') ? examData.marksPerQuestion : 0;
+
+      let questionContent;
+      if (d.question.questionType === 'image') {
+        let optionsHtml = '';
+        if (!d.question.optionsInQuestion && d.question.optionImages && d.question.optionImages.length > 0) {
+          const optCells = d.question.optionImages.map((src, i) => {
+            const k = String(i + 1);
+            const isCorrect = d.question.correctAnswer === k;
+            const isUser = d.userAnswer === k;
+            const cls = isCorrect ? 'review-opt--correct' : (isUser && !isCorrect ? 'review-opt--user' : '');
+            return `<div class="review-opt ${cls}"><span class="review-opt-num">${k}</span><img src="${escHtml(src)}" alt="Option ${k}" class="review-opt-img" loading="lazy"></div>`;
+          }).join('');
+          optionsHtml = `<div class="review-opts-grid">${optCells}</div>`;
+        }
+        questionContent = `<img src="${escHtml(d.question.questionImage)}" alt="Q${d.question.globalIndex + 1}" class="review-question-img" loading="lazy">${optionsHtml}`;
+      } else {
+        const explanation = d.question.explanation
+          ? `<div class="review-explanation"><span class="review-explanation__label">Explanation:</span> ${escHtml(d.question.explanation)}</div>`
+          : '';
+        questionContent = `<div class="review-question-text">${escHtml(d.question.text)}</div>${explanation}`;
+      }
+
       return `<tr class="${rowClass}">
         <td>${d.question.globalIndex + 1}</td>
-        <td class="review-cell-question">
-          <div class="review-question-text">${qText}</div>
-          ${explanation}
-        </td>
+        <td class="review-cell-question">${questionContent}</td>
         <td style="text-align:center">${userBadge}</td>
         <td style="text-align:center">${correctBadge}</td>
-        <td style="text-align:center">${d.result === 'correct' ? examData.marksPerQuestion : 0}</td>
+        <td style="text-align:center">${marks}</td>
       </tr>`;
     }).join('');
   }
@@ -112,7 +133,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ── Actions ───────────────────────────────────────────────────────────────
   document.getElementById('btn-retake').addEventListener('click', () => {
-    location.href = `instructions.html?exam=${encodeURIComponent(examId)}`;
+    const colonIdx = examId.indexOf(':');
+    const baseId  = colonIdx >= 0 ? examId.slice(0, colonIdx) : examId;
+    const subject = colonIdx >= 0 ? examId.slice(colonIdx + 1) : null;
+    let url = `instructions.html?exam=${encodeURIComponent(baseId)}`;
+    if (subject) url += `&subject=${encodeURIComponent(subject)}`;
+    location.href = url;
   });
 
   document.getElementById('btn-home').addEventListener('click', () => {

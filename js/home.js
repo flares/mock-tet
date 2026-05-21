@@ -1,8 +1,17 @@
+const SUBJECT_META = {
+  cdp:         { label: 'CDP',         color: '#1565c0', bg: '#e3f2fd' },
+  telugu:      { label: 'Telugu',      color: '#bf360c', bg: '#fbe9e7' },
+  english:     { label: 'English',     color: '#2e7d32', bg: '#e8f5e9' },
+  mathematics: { label: 'Math',        color: '#6a1b9a', bg: '#f3e5f5' },
+  science:     { label: 'Science',     color: '#00695c', bg: '#e0f2f1' },
+};
+const SUBJECT_ORDER = ['cdp', 'telugu', 'english', 'mathematics', 'science'];
+
 document.addEventListener('DOMContentLoaded', async () => {
   const tableContainer = document.getElementById('exam-table-container');
   const ATTEMPTS_KEY = 'tet_attempts_';
   const RESULT_KEY   = 'tet_result_';
-  let currentFilter = 'all';
+  let currentFilter = 'Real Paper';
 
   // ── Tab switching ──────────────────────────────────────────────────────────
   document.querySelectorAll('.header-nav-btn').forEach(btn => {
@@ -12,6 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         b.classList.toggle('active', b.dataset.tab === target));
       document.querySelectorAll('.home-tab-pane').forEach(p =>
         p.classList.toggle('active', p.id === `tab-${target}`));
+      if (target === 'revision') renderRevisionTab();
     });
   });
 
@@ -56,7 +66,13 @@ document.addEventListener('DOMContentLoaded', async () => {
       const cls = a.pct >= 60 ? 'att--good' : a.pct >= 40 ? 'att--avg' : 'att--low';
       const date = new Date(a.ts).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
       const num  = attempts.length - i;
-      return `<span class="${cls}" title="Attempt ${num} · ${date} · ${a.pct.toFixed(0)}%">${a.correct}&#10003; ${a.incorrect}&#10007;</span>`;
+      const sm   = a.subject ? SUBJECT_META[a.subject] : null;
+      const dot  = sm ? `<span class="att-subject-dot" style="background:${sm.color}"></span>` : '';
+      const border = sm ? `border-left:3px solid ${sm.color};` : '';
+      const rid  = a.resultId || null;
+      const clickAttr = rid ? `data-result-id="${escHtml(rid)}" onclick="viewResult('${escHtml(rid)}')"` : '';
+      const title = `Attempt ${num} · ${date} · ${a.pct.toFixed(0)}%${sm ? ' · ' + sm.label : ''}`;
+      return `<span class="${cls}" style="${border}" title="${title}" ${clickAttr}>${dot}${a.correct}&#10003; ${a.incorrect}&#10007;</span>`;
     }).join('');
 
     let trend = '';
@@ -80,9 +96,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   function filterExams(exams, filter) {
     if (filter === 'all') return exams;
-    if (filter === 'Full') return exams.filter(exam => exam.style === 'Full');
-    return exams.filter(exam =>
-      exam.subjects && exam.subjects.includes(filter)
+    if (filter === 'Full' || filter === 'Real Paper') return exams.filter(e => e.style === filter);
+    // Subject filters: only show mini-tests (exclude Real Papers and Full mocks)
+    return exams.filter(e =>
+      e.style !== 'Real Paper' && e.style !== 'Full' && e.subjects && e.subjects.includes(filter)
     );
   }
 
@@ -114,6 +131,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       const attempts   = getAttempts(exam.id);
       const tried      = attempts.length > 0;
       const historyFrag = attemptHistoryHtml(attempts);
+      const isReal     = exam.style === 'Real Paper';
+
+      const actionBtns = isReal ? _realPaperActions(exam, tried) : _mockActions(exam, tried);
 
       return `<tr>
         <td class="exam-table-title">
@@ -125,13 +145,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         <td class="col-num">${exam.totalQuestions}</td>
         <td class="col-num">${exam.totalMarks}</td>
         <td class="exam-table-results">${historyFrag || '<span style="color:#bbb; font-size:13px;">—</span>'}</td>
-        <td class="exam-table-actions">
-          ${tried ? `<button class="btn btn--ghost btn--xs" onclick="clearOneExam('${escHtml(exam.id)}')">Clear</button>
-            <button class="btn btn--outline btn--xs" onclick="viewResult('${escHtml(exam.id)}')">Results</button>` : ''}
-          <button class="btn btn--primary btn--xs" onclick="startExam('${escHtml(exam.id)}')">
-            ${tried ? 'Retake ↻' : 'Take Test →'}
-          </button>
-        </td>
+        <td class="exam-table-actions">${actionBtns}</td>
       </tr>`;
     }).join('');
 
@@ -154,6 +168,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   await renderExams();
+  renderRevisionTab();
 
   // ── Filter buttons ─────────────────────────────────────────────────────────
   document.querySelectorAll('.filter-chip').forEach(btn => {
@@ -170,12 +185,179 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (confirm('Delete all saved attempt results? This cannot be undone.')) clearAll();
   });
 
+  // ── Action fragment helpers ────────────────────────────────────────────────
+  function _mockActions(exam, tried) {
+    const eid = escHtml(exam.id);
+    return `
+      ${tried ? `<button class="btn btn--ghost btn--xs" onclick="clearOneExam('${eid}')">Clear</button>` : ''}
+      <button class="btn btn--primary btn--sm" onclick="startExam('${eid}')">
+        ${tried ? 'Retake ↻' : 'Take Test →'}
+      </button>`;
+  }
+
+  function _realPaperActions(exam, tried) {
+    const eid = escHtml(exam.id);
+    const mainLabel = tried ? 'Retake ↻' : 'Take Test →';
+    const subjectItems = SUBJECT_ORDER.map(s => {
+      const sm = SUBJECT_META[s];
+      return `<button class="split-drop-item" style="border-left:3px solid ${sm.color}" onclick="startExam('${eid}','${s}')"><span class="split-drop-dot" style="background:${sm.color}"></span>${sm.label} Only</button>`;
+    }).join('');
+    return `
+      ${tried ? `<button class="btn btn--ghost btn--xs" onclick="clearOneExam('${eid}')">Clear</button>` : ''}
+      <div class="split-btn-group">
+        <button class="btn btn--primary split-btn-main" onclick="startExam('${eid}')">${mainLabel}</button>
+        <div class="split-drop-wrapper">
+          <button class="btn btn--primary split-drop-toggle" onclick="toggleSplitMenu(event,this)" title="Take a single-subject mini-test">▾</button>
+          <div class="split-drop-menu" hidden>${subjectItems}</div>
+        </div>
+      </div>`;
+  }
+
+  // ── Revision tab ─────────────────────────────────────────────────────────
+  const REVISION_KEY = 'tet_revision_questions';
+
+  function getRevisionList() {
+    try { return JSON.parse(localStorage.getItem(REVISION_KEY)) || []; } catch { return []; }
+  }
+
+  function renderRevisionTab() {
+    const container = document.getElementById('revision-container');
+    const toolbar   = document.getElementById('revision-toolbar');
+    const list = getRevisionList();
+
+    if (!list.length) {
+      toolbar.style.display = 'none';
+      container.innerHTML = '<p class="loading-msg">No questions marked for revision yet. Use the <strong>Mark for Revision</strong> button inside any exam (Practice Mode must be on).</p>';
+      return;
+    }
+
+    toolbar.style.display = '';
+
+    try {
+    // Split into pending review and already revised
+    const pending  = list.map((item, i) => ({ item, i })).filter(({ item }) => !item.revised);
+    const revised  = list.map((item, i) => ({ item, i })).filter(({ item }) => item.revised);
+
+    const makeRows = (entries, showRevisedBtn) => entries.map(({ item, i }) => {
+      const q = item.q;
+      if (!q) return '';
+      const isImg = q.questionType === 'image';
+
+      const questionHtml = isImg
+        ? `<img src="${escHtml(q.questionImage || '')}" alt="Question" class="rev-question-img" loading="lazy">`
+        : `<div class="rev-question-text">${escHtml(q.text || '')}</div>`;
+
+      let optionsHtml = '';
+      if (isImg) {
+        if (q.optionsInQuestion) {
+          optionsHtml = ['1','2','3','4'].map(k => {
+            const cls = k === q.correctAnswer ? 'rev-opt rev-opt--correct' : 'rev-opt';
+            return `<div class="${cls}"><span class="rev-opt-num">${k}</span><span class="rev-opt-label">Option ${k}</span></div>`;
+          }).join('');
+        } else {
+          optionsHtml = (q.optionImages || []).map((src, idx2) => {
+            const k = String(idx2 + 1);
+            const cls = k === q.correctAnswer ? 'rev-opt rev-opt--correct' : 'rev-opt';
+            return `<div class="${cls}"><span class="rev-opt-num">${k}</span><img src="${escHtml(src)}" class="rev-opt-img" alt="Option ${k}" loading="lazy"></div>`;
+          }).join('');
+        }
+      } else {
+        optionsHtml = (q.options || []).map(opt => {
+          const cls = opt.key === q.correctAnswer ? 'rev-opt rev-opt--correct rev-opt--text' : 'rev-opt rev-opt--text';
+          return `<div class="${cls}"><span class="rev-opt-num">${opt.key}</span><span class="rev-opt-label">${escHtml(opt.text || '')}</span></div>`;
+        }).join('');
+      }
+
+      const actionCell = showRevisedBtn
+        ? `<button class="btn btn--revision-done btn--xs" onclick="markAsRevised(${i})" title="Mark as Revised">&#10003; Revised</button><br><button class="btn btn--ghost btn--xs" style="margin-top:4px" onclick="removeRevisionQ(${i})">&#10005;</button>`
+        : `<button class="btn btn--ghost btn--xs" onclick="unmarkRevised(${i})" title="Move back to review">&#8617; Review</button><br><button class="btn btn--ghost btn--xs" style="margin-top:4px" onclick="removeRevisionQ(${i})">&#10005;</button>`;
+
+      return `<tr>
+          <td class="rev-meta-cell">
+            <div class="rev-meta">${escHtml(item.examTitle || item.examId || '')}</div>
+            <div class="rev-qnum">Q${q.globalIndex != null ? q.globalIndex + 1 : '?'}</div>
+          </td>
+          <td class="rev-question-cell">${questionHtml}</td>
+          <td class="rev-options-cell"><div class="rev-opts-grid">${optionsHtml}</div></td>
+          <td class="rev-remove-cell">${actionCell}</td>
+        </tr>`;
+    }).join('');
+
+    const makeTable = (entries, showRevisedBtn) => `<table class="rev-table">
+      <thead>
+        <tr>
+          <th>Source</th>
+          <th>Question</th>
+          <th>Options <span style="color:#388e3c;font-size:11px">(green = correct)</span></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>${makeRows(entries, showRevisedBtn)}</tbody>
+    </table>`;
+
+    let html = '';
+    if (pending.length) {
+      html += `<div class="rev-section-heading">To Review <span class="rev-count">${pending.length}</span></div>${makeTable(pending, true)}`;
+    }
+    if (revised.length) {
+      html += `<div class="rev-section-heading rev-section-heading--revised" style="margin-top:28px">Revised <span class="rev-count rev-count--revised">${revised.length}</span></div>${makeTable(revised, false)}`;
+    }
+
+      container.innerHTML = html;
+    } catch (err) {
+      container.innerHTML = `<p class="error-msg">Error rendering revision questions: ${escHtml(err.message)}. Try clearing and re-adding.</p>`;
+    }
+  }
+
+  window.removeRevisionQ = (idx) => {
+    const list = getRevisionList();
+    list.splice(idx, 1);
+    localStorage.setItem(REVISION_KEY, JSON.stringify(list));
+    renderRevisionTab();
+  };
+
+  window.markAsRevised = (idx) => {
+    const list = getRevisionList();
+    if (list[idx]) { list[idx].revised = true; }
+    localStorage.setItem(REVISION_KEY, JSON.stringify(list));
+    renderRevisionTab();
+  };
+
+  window.unmarkRevised = (idx) => {
+    const list = getRevisionList();
+    if (list[idx]) { list[idx].revised = false; }
+    localStorage.setItem(REVISION_KEY, JSON.stringify(list));
+    renderRevisionTab();
+  };
+
+  document.getElementById('btn-clear-revision').addEventListener('click', () => {
+    if (confirm('Remove all revision questions? This cannot be undone.')) {
+      localStorage.removeItem(REVISION_KEY);
+      renderRevisionTab();
+    }
+  });
+
   // ── Expose to inline onclick attrs ────────────────────────────────────────
-  window.startExam = id => { location.href = `instructions.html?exam=${encodeURIComponent(id)}`; };
+  window.startExam = (id, subject) => {
+    let url = `instructions.html?exam=${encodeURIComponent(id)}`;
+    if (subject) url += `&subject=${encodeURIComponent(subject)}`;
+    location.href = url;
+  };
   window.viewResult  = id => { location.href = `result.html?exam=${encodeURIComponent(id)}`; };
   window.clearOneExam = id => {
     if (confirm('Clear saved results for this exam? This cannot be undone.')) clearOne(id);
   };
+  window.toggleSplitMenu = (evt, btn) => {
+    evt.stopPropagation();
+    const menu = btn.nextElementSibling;
+    const isOpen = !menu.hidden;
+    // Close all other open menus
+    document.querySelectorAll('.split-drop-menu').forEach(m => { m.hidden = true; });
+    menu.hidden = isOpen;
+  };
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.split-drop-menu').forEach(m => { m.hidden = true; });
+  });
 });
 
 function escHtml(str) {

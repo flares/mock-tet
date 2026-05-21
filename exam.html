@@ -28,6 +28,14 @@
       <button class="lang-btn" id="btn-lang-hi" title="Hindi">हि</button>
     </div>
 
+    <div class="exam-header__mode-toggle">
+      <label class="mode-toggle-switch" title="Toggle Strict / Practice Mode">
+        <input type="checkbox" id="strict-mode-toggle">
+        <span class="mode-toggle-slider"></span>
+      </label>
+      <span class="mode-toggle-label" id="mode-toggle-label">Practice Mode</span>
+    </div>
+
     <div class="exam-header__timer" id="exam-timer" role="timer" aria-live="off">
       00:00:00
     </div>
@@ -50,6 +58,11 @@
 
       <div class="question-card" id="question-card">
         <!-- Populated by QuestionRenderer -->
+      </div>
+
+      <div id="practice-btn-bar" class="practice-btn-bar">
+        <button class="btn btn--revision" id="btn-mark-revision">&#128278; Mark for Revision</button>
+        <button class="btn btn--show-answer" id="btn-show-answer">&#128065; Show Answer</button>
       </div>
     </section>
 
