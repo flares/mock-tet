@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revision — Mock TET</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/home.css">
+</head>
+<body class="home-body">
+
+  <header class="site-header">
+    <div class="site-header__logo">Mock TET</div>
+    <nav class="site-header__nav">
+      <a class="header-nav-btn" href="index.html">Exams</a>
+      <a class="header-nav-btn active" href="revision.html">Revision</a>
+      <a class="header-nav-btn" href="questionbank.html">Question Bank</a>
+      <a class="header-nav-btn" href="syllabus.html">Syllabus</a>
+    </nav>
+  </header>
+
+  <main class="home-main">
+
+    <div class="exam-filters" id="revision-subject-filters">
+      <button class="filter-chip active" data-subject="all">All Subjects</button>
+      <button class="filter-chip" data-subject="cdp">CDP</button>
+      <button class="filter-chip" data-subject="telugu">Telugu</button>
+      <button class="filter-chip" data-subject="english">English</button>
+      <button class="filter-chip" data-subject="mathematics">Math</button>
+      <button class="filter-chip" data-subject="science">Science</button>
+    </div>
+
+    <div class="home-toolbar" id="revision-toolbar" style="display:none">
+      <button class="btn btn--ghost btn--sm" id="btn-clear-revision">&#128465; Clear All Revision Questions</button>
+    </div>
+
+    <div id="revision-container">
+      <p class="loading-msg">No questions marked for revision yet.</p>
+    </div>
+
+  </main>
+
+  <footer class="home-footer">
+    Mock TET is an unofficial practice tool. It is not affiliated with NTA, CBSE, or any government body.
+  </footer>
+
+  <!-- Explanation dialog -->
+  <dialog id="explanation-dialog" aria-labelledby="explanation-dialog-heading">
+    <div class="explanation-dialog__header">
+      <span class="explanation-dialog__header-title" id="explanation-dialog-heading">Explanation</span>
+      <span class="explanation-dialog__conf"></span>
+      <button class="explanation-dialog__close" aria-label="Close">&times;</button>
+    </div>
+    <div class="explanation-dialog__body"></div>
+  </dialog>
+
+  <script src="js/explanation.js"></script>
+  <script src="js/revision.js"></script>
+</body>
+</html>

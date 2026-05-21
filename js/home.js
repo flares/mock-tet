@@ -11,11 +11,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   const tableContainer = document.getElementById('exam-table-container');
   const ATTEMPTS_KEY = 'tet_attempts_';
   const RESULT_KEY   = 'tet_result_';
-  let currentFilter = 'Real Paper';
+  let currentFilter  = 'Real Paper';
 
   function applySubjectChipColors() {
-    const chips = document.querySelectorAll('.filter-chip');
-    chips.forEach(chip => {
+    document.querySelectorAll('.filter-chip').forEach(chip => {
       const key = (chip.dataset.subject || chip.dataset.filter || '').toLowerCase();
       const normalized = key === 'math' ? 'mathematics' : key;
       const meta = SUBJECT_META[normalized];
@@ -31,27 +30,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
   applySubjectChipColors();
-
-  // ── Tab switching ──────────────────────────────────────────────────────────
-  document.querySelectorAll('.header-nav-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const target = btn.dataset.tab;
-      document.querySelectorAll('.header-nav-btn').forEach(b =>
-        b.classList.toggle('active', b.dataset.tab === target));
-      document.querySelectorAll('.home-tab-pane').forEach(p =>
-        p.classList.toggle('active', p.id === `tab-${target}`));
-      if (target === 'tests') renderExams();
-      if (target === 'revision') renderRevisionTab();
-      if (target === 'questionbank') renderQuestionBankTab();
-    });
-  });
-
-  // ── Syllabus accordion ─────────────────────────────────────────────────────
-  document.querySelectorAll('.syl-header').forEach(hdr => {
-    hdr.addEventListener('click', () => {
-      hdr.closest('.syl-section').classList.toggle('open');
-    });
-  });
 
   // ── LocalStorage helpers ───────────────────────────────────────────────────
   function getAttempts(examId) {
@@ -118,7 +96,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   function filterExams(exams, filter) {
     if (filter === 'all') return exams;
     if (filter === 'Full' || filter === 'Real Paper') return exams.filter(e => e.style === filter);
-    // Subject filters: only show mini-tests (exclude Real Papers and Full mocks)
     return exams.filter(e =>
       e.style !== 'Real Paper' && e.style !== 'Full' && e.subjects && e.subjects.includes(filter)
     );
@@ -153,10 +130,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       const tried      = attempts.length > 0;
       const historyFrag = attemptHistoryHtml(attempts);
       const isReal     = exam.style === 'Real Paper';
-
       const actionBtns = isReal ? _realPaperActions(exam, tried) : _mockActions(exam, tried);
+      const clearBtn   = tried ? `<button class="btn btn--ghost btn--xs" onclick="clearOneExam('${escHtml(exam.id)}')">Clear</button>` : '';
 
-      const clearBtn = tried ? `<button class="btn btn--ghost btn--xs" onclick="clearOneExam('${escHtml(exam.id)}')">Clear</button>` : '';
       return `<tr>
         <td class="exam-table-title">
           ${escHtml(exam.title)}
@@ -174,29 +150,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     tableContainer.innerHTML = `<table class="exam-table">
       <thead>
         <tr>
-          <th>Test Title</th>
-          <th>Test Style</th>
-          <th>Duration</th>
-          <th>Questions</th>
-          <th>Marks</th>
-          <th>Past Results</th>
-          <th>Action</th>
+          <th>Test Title</th><th>Test Style</th><th>Duration</th>
+          <th>Questions</th><th>Marks</th><th>Past Results</th><th>Action</th>
         </tr>
       </thead>
-      <tbody>
-        ${rows}
-      </tbody>
+      <tbody>${rows}</tbody>
     </table>`;
   }
 
   await renderExams();
-  renderRevisionTab();
 
   // ── Filter buttons ─────────────────────────────────────────────────────────
-  document.querySelectorAll('#tab-tests .filter-chip').forEach(btn => {
+  document.querySelectorAll('.filter-chip').forEach(btn => {
     btn.addEventListener('click', () => {
       currentFilter = btn.dataset.filter;
-      document.querySelectorAll('#tab-tests .filter-chip').forEach(b =>
+      document.querySelectorAll('.filter-chip').forEach(b =>
         b.classList.toggle('active', b.dataset.filter === currentFilter));
       applySubjectChipColors();
       renderExams();
@@ -211,10 +179,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   // ── Action fragment helpers ────────────────────────────────────────────────
   function _mockActions(exam, tried) {
     const eid = escHtml(exam.id);
-    return `
-      <button class="btn btn--primary btn--sm ${tried ? 'btn--retake' : ''}" onclick="startExam('${eid}')">
-        ${tried ? 'Retake ↻' : 'Take Test →'}
-      </button>`;
+    return `<button class="btn btn--primary btn--sm ${tried ? 'btn--retake' : ''}" onclick="startExam('${eid}')">
+      ${tried ? 'Retake ↻' : 'Take Test →'}
+    </button>`;
   }
 
   function _realPaperActions(exam, tried) {
@@ -224,423 +191,13 @@ document.addEventListener('DOMContentLoaded', async () => {
       const sm = SUBJECT_META[s];
       return `<button class="split-drop-item" style="border-left:3px solid ${sm.color}" onclick="startExam('${eid}','${s}')"><span class="split-drop-dot" style="background:${sm.color}"></span>${sm.label} Only</button>`;
     }).join('');
-    return `
-      <div class="split-btn-group">
-        <button class="btn btn--primary split-btn-main ${tried ? 'btn--retake' : ''}" onclick="startExam('${eid}')">${mainLabel}</button>
-        <div class="split-drop-wrapper">
-          <button class="btn btn--primary split-drop-toggle" onclick="toggleSplitMenu(event,this)" title="Take a single-subject mini-test">▾</button>
-          <div class="split-drop-menu" hidden>${subjectItems}</div>
-        </div>
-      </div>`;
-  }
-
-  // ── Revision tab ─────────────────────────────────────────────────────────
-  const REVISION_KEY = 'tet_revision_questions';
-  const UNDERSTOOD_KEY = 'tet_understood_questions';
-  let revisionSubjectFilter = 'all';
-
-  function getRevisionList() {
-    try { return JSON.parse(localStorage.getItem(REVISION_KEY)) || []; } catch { return []; }
-  }
-
-  // sectionId is exam-section ID ('cdp', 'telugu', 'english', 'math', 'science').
-  // The filter chips use the same id (lowercase). For mini-test subject-filter
-  // examIds the suffix after ':' is the subject token ('cdp'|'telugu'|...).
-  function questionSubject(item) {
-    const q = item && item.q;
-    if (q && q.sectionId) return String(q.sectionId).toLowerCase();
-    if (item && item.examId && item.examId.includes(':')) {
-      return item.examId.split(':').pop().toLowerCase();
-    }
-    return '';
-  }
-
-  function renderRevisionTab() {
-    const container = document.getElementById('revision-container');
-    const toolbar   = document.getElementById('revision-toolbar');
-    const allItems = getRevisionList();
-
-    if (!allItems.length) {
-      toolbar.style.display = 'none';
-      container.innerHTML = '<p class="loading-msg">No questions marked for revision yet. Use the <strong>Mark for Revision</strong> button inside any exam (Practice Mode must be on).</p>';
-      return;
-    }
-
-    toolbar.style.display = '';
-
-    try {
-    // Preserve original indexes (used by the action handlers) before filtering.
-    const indexed = allItems.map((item, i) => ({ item, i }));
-    const filtered = revisionSubjectFilter === 'all'
-      ? indexed
-      : indexed.filter(({ item }) => questionSubject(item) === revisionSubjectFilter);
-
-    if (!filtered.length) {
-      container.innerHTML = '<p class="loading-msg">No revision questions match this subject filter.</p>';
-      return;
-    }
-
-    const pending  = filtered.filter(({ item }) => !item.revised);
-    const revised  = filtered.filter(({ item }) => item.revised);
-
-    const makeRows = (entries, isPending) => entries.map(({ item, i }) => {
-      const q = item.q;
-      if (!q) return '';
-      const isImg = q.questionType === 'image';
-
-      const questionHtml = isImg
-        ? `<img src="${escHtml(q.questionImage || '')}" alt="Question" class="rev-question-img" loading="lazy">`
-        : `<div class="rev-question-text">${escHtml(q.text || '')}</div>`;
-
-      let optionsHtml = '';
-      if (isImg) {
-        if (q.optionsInQuestion) {
-          optionsHtml = ['1','2','3','4'].map(k => {
-            const cls = k === q.correctAnswer ? 'rev-opt rev-opt--correct' : 'rev-opt';
-            return `<div class="${cls}"><span class="rev-opt-num">${k}</span><span class="rev-opt-label">Option ${k}</span></div>`;
-          }).join('');
-        } else {
-          optionsHtml = (q.optionImages || []).map((src, idx2) => {
-            const k = String(idx2 + 1);
-            const cls = k === q.correctAnswer ? 'rev-opt rev-opt--correct' : 'rev-opt';
-            return `<div class="${cls}"><span class="rev-opt-num">${k}</span><img src="${escHtml(src)}" class="rev-opt-img" alt="Option ${k}" loading="lazy"></div>`;
-          }).join('');
-        }
-      } else {
-        optionsHtml = (q.options || []).map(opt => {
-          const cls = opt.key === q.correctAnswer ? 'rev-opt rev-opt--correct rev-opt--text' : 'rev-opt rev-opt--text';
-          return `<div class="${cls}"><span class="rev-opt-num">${opt.key}</span><span class="rev-opt-label">${escHtml(opt.text || '')}</span></div>`;
-        }).join('');
-      }
-
-      const qimg = escHtml(q.questionImage || '');
-      const explainBtn = qimg
-        ? `<button class="btn btn--explain btn--xs" data-qimg="${qimg}">&#128218; Explain</button>`
-        : '';
-
-      const actionCell = isPending
-        ? `${explainBtn}${explainBtn ? '<br>' : ''}<button class="btn btn--revision-done btn--xs" style="margin-top:4px" onclick="markAsRevised(${i})" title="Mark as Revised">&#10003; Revised</button>`
-        : `<button class="btn btn--ghost btn--xs" onclick="unmarkRevised(${i})" title="Move back to review">&#8617; Review</button><br><button class="btn btn--ghost btn--xs" style="margin-top:4px" onclick="removeRevisionQ(${i})">&#10005;</button>`;
-
-      return `<tr>
-          <td class="rev-meta-cell">
-            <div class="rev-meta">${escHtml(item.examTitle || item.examId || '')}</div>
-            <div class="rev-qnum">Q${q.globalIndex != null ? q.globalIndex + 1 : '?'}</div>
-          </td>
-          <td class="rev-question-cell">${questionHtml}</td>
-          <td class="rev-options-cell"><div class="rev-opts-grid">${optionsHtml}</div></td>
-          <td class="rev-remove-cell">${actionCell}</td>
-        </tr>`;
-    }).join('');
-
-    const makeTable = (entries, isPending) => `<table class="rev-table">
-      <thead>
-        <tr>
-          <th>Source</th>
-          <th>Question</th>
-          <th>Options <span style="color:#388e3c;font-size:11px">(green = correct)</span></th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>${makeRows(entries, isPending)}</tbody>
-    </table>`;
-
-    let html = '';
-    if (pending.length) {
-      html += `<div class="rev-section-heading">To Review <span class="rev-count">${pending.length}</span></div>${makeTable(pending, true)}`;
-    }
-    if (revised.length) {
-      html += `<div class="rev-section-heading rev-section-heading--revised" style="margin-top:28px">Revised <span class="rev-count rev-count--revised">${revised.length}</span></div>${makeTable(revised, false)}`;
-    }
-
-      container.innerHTML = html;
-    } catch (err) {
-      container.innerHTML = `<p class="error-msg">Error rendering revision questions: ${escHtml(err.message)}. Try clearing and re-adding.</p>`;
-    }
-  }
-
-  // Subject filter chip handler for revision tab
-  document.querySelectorAll('#revision-subject-filters .filter-chip').forEach(btn => {
-    btn.addEventListener('click', () => {
-      revisionSubjectFilter = btn.dataset.subject;
-      document.querySelectorAll('#revision-subject-filters .filter-chip').forEach(b =>
-        b.classList.toggle('active', b.dataset.subject === revisionSubjectFilter));
-      applySubjectChipColors();
-      renderRevisionTab();
-    });
-  });
-
-  // Single delegated Explain click handler on the revision container
-  document.getElementById('revision-container').addEventListener('click', e => {
-    const btn = e.target.closest('.btn--explain');
-    if (btn && btn.dataset.qimg) ExplanationModal.open(btn.dataset.qimg);
-  });
-
-  window.removeRevisionQ = (idx) => {
-    const list = getRevisionList();
-    list.splice(idx, 1);
-    localStorage.setItem(REVISION_KEY, JSON.stringify(list));
-    renderRevisionTab();
-  };
-
-  window.markAsRevised = (idx) => {
-    const list = getRevisionList();
-    if (list[idx]) { list[idx].revised = true; }
-    localStorage.setItem(REVISION_KEY, JSON.stringify(list));
-    renderRevisionTab();
-  };
-
-  window.unmarkRevised = (idx) => {
-    const list = getRevisionList();
-    if (list[idx]) { list[idx].revised = false; }
-    localStorage.setItem(REVISION_KEY, JSON.stringify(list));
-    renderRevisionTab();
-  };
-
-  document.getElementById('btn-clear-revision').addEventListener('click', () => {
-    if (confirm('Remove all revision questions? This cannot be undone.')) {
-      localStorage.removeItem(REVISION_KEY);
-      renderRevisionTab();
-    }
-  });
-
-  // ── Question Bank tab ────────────────────────────────────────────────────
-  let qbankCache = null;          // [{ questionImage, optionImages, optionsInQuestion, questionType, correctAnswer, sectionId, examId, examTitle, globalIndex }]
-  let qbankFiltered = [];
-  let qbankSubjectFilter = 'all';
-  let qbankStatusFilter  = 'all';
-  let qbankIndex = 0;
-
-  function getUnderstoodSet() {
-    try {
-      const raw = JSON.parse(localStorage.getItem(UNDERSTOOD_KEY)) || [];
-      return new Set(raw);
-    } catch { return new Set(); }
-  }
-
-  function toggleUnderstood(qimg) {
-    const set = getUnderstoodSet();
-    if (set.has(qimg)) set.delete(qimg); else set.add(qimg);
-    localStorage.setItem(UNDERSTOOD_KEY, JSON.stringify(Array.from(set)));
-  }
-
-  async function loadQuestionBank() {
-    if (qbankCache) return qbankCache;
-    if (!manifest) {
-      const resp = await fetch('exams/manifest.json');
-      manifest = await resp.json();
-    }
-    const realExams = (manifest.exams || []).filter(e => e.style === 'Real Paper');
-    const results = await Promise.all(realExams.map(async exam => {
-      try {
-        const r = await fetch(`exams/${exam.id}.json`);
-        if (!r.ok) return null;
-        const data = await r.json();
-        return { exam, data };
-      } catch { return null; }
-    }));
-
-    const dedupe = new Map();
-    for (const entry of results) {
-      if (!entry) continue;
-      const { exam, data } = entry;
-      for (const q of data.questions || []) {
-        if (!q.questionImage || dedupe.has(q.questionImage)) continue;
-        dedupe.set(q.questionImage, {
-          questionImage: q.questionImage,
-          optionImages: q.optionImages || [],
-          optionsInQuestion: !!q.optionsInQuestion,
-          questionType: q.questionType,
-          correctAnswer: q.correctAnswer,
-          sectionId: q.sectionId,
-          examId: data.id,
-          examTitle: data.title || exam.title,
-          globalIndex: q.globalIndex,
-          q,
-        });
-      }
-    }
-
-    qbankCache = Array.from(dedupe.values());
-    return qbankCache;
-  }
-
-  async function renderQuestionBankTab() {
-    const container = document.getElementById('qbank-container');
-    const summary   = document.getElementById('qbank-summary');
-    const pagination = document.getElementById('qbank-pagination');
-
-    if (!qbankCache) container.innerHTML = '<p class="loading-msg">Loading question bank&hellip;</p>';
-
-    let all;
-    try {
-      all = await loadQuestionBank();
-    } catch (err) {
-      container.innerHTML = `<p class="error-msg">Could not load question bank: ${escHtml(err.message)}</p>`;
-      return;
-    }
-
-    const understood = getUnderstoodSet();
-    const revisionImgs = new Set(getRevisionList().map(r => r.q && r.q.questionImage).filter(Boolean));
-
-    const subjectMatches = q =>
-      qbankSubjectFilter === 'all' || (q.sectionId || '').toLowerCase() === qbankSubjectFilter;
-    const statusMatches = q => {
-      if (qbankStatusFilter === 'all') return true;
-      const isUnderstood = understood.has(q.questionImage);
-      return qbankStatusFilter === 'understood' ? isUnderstood : !isUnderstood;
-    };
-
-    const filtered = all.filter(q => subjectMatches(q) && statusMatches(q));
-    qbankFiltered = filtered;
-
-    summary.innerHTML = `Showing <strong>${filtered.length}</strong> question${filtered.length === 1 ? '' : 's'}
-      &middot; <span style="color:#2e7d32">${filtered.filter(q => understood.has(q.questionImage)).length} understood</span>
-      &middot; <span style="color:#888">${filtered.filter(q => !understood.has(q.questionImage)).length} yet to read</span>`;
-
-    if (!filtered.length) {
-      container.innerHTML = '<p class="loading-msg">No questions match these filters.</p>';
-      pagination.innerHTML = '';
-      return;
-    }
-
-    if (qbankIndex >= filtered.length) qbankIndex = filtered.length - 1;
-    if (qbankIndex < 0) qbankIndex = 0;
-    const item = filtered[qbankIndex];
-    const qimg = escHtml(item.questionImage);
-    const opts = item.optionImages.map((src, idx2) => {
-        const k = String(idx2 + 1);
-        const cls = k === item.correctAnswer ? 'rev-opt rev-opt--correct' : 'rev-opt';
-        return `<div class="${cls}"><span class="rev-opt-num">${k}</span><img src="${escHtml(src)}" class="rev-opt-img" alt="Option ${k}" loading="lazy"></div>`;
-      }).join('');
-
-    const isUnderstood = understood.has(item.questionImage);
-    const isInRevision = revisionImgs.has(item.questionImage);
-    const understoodCls = isUnderstood ? 'btn--understood--marked' : '';
-    const understoodLabel = isUnderstood ? '✓ Understood' : 'Understood';
-    const revisionLabel = isInRevision ? '✓ In Revision' : 'Revision';
-
-    container.innerHTML = `<div class="qbank-card">
-      <div class="qbank-card__header">
-        <div>
-          <div class="rev-meta">${escHtml(item.examTitle || item.examId || '')}</div>
-          <div class="rev-qnum">Source: ${escHtml((item.sectionId || '').toUpperCase())} · Q${item.globalIndex != null ? item.globalIndex + 1 : '?'}</div>
-        </div>
-        <div class="qbank-card__progress">${qbankIndex + 1} / ${filtered.length} completed: ${filtered.filter(q => understood.has(q.questionImage)).length}</div>
-      </div>
-      <div class="qbank-card__body">
-        <div class="qbank-card__left">
-          <img src="${qimg}" alt="Question" class="rev-question-img" loading="lazy">
-          <div class="rev-opts-grid">${opts}</div>
-        </div>
-        <div class="qbank-card__right">
-          <div class="qbank-explanation" id="qbank-explanation-body">Loading explanation…</div>
-          <div style="margin-top:10px">
-            <button class="btn btn--explain btn--xs" data-qimg="${qimg}">Open Full Explanation</button>
-          </div>
-        </div>
-      </div>
-      <div class="qbank-card__footer">
-        <button class="qbank-nav-btn" data-qbank-nav="prev">Prev</button>
-        <div class="qbank-card__footer-center">
-          <button class="btn btn--revision btn--xs ${isInRevision ? 'btn--revision--marked' : ''}" data-qbank-revision="${qimg}" title="Mark for Revision">${revisionLabel}</button>
-          <button class="btn btn--understood btn--xs ${understoodCls}" data-qbank-understood="${qimg}" title="Toggle understood">${understoodLabel}</button>
-          <button class="btn btn--ghost btn--xs" data-qbank-random="1">Random Question</button>
-        </div>
-        <button class="qbank-nav-btn" data-qbank-nav="next">Next</button>
+    return `<div class="split-btn-group">
+      <button class="btn btn--primary split-btn-main ${tried ? 'btn--retake' : ''}" onclick="startExam('${eid}')">${mainLabel}</button>
+      <div class="split-drop-wrapper">
+        <button class="btn btn--primary split-drop-toggle" onclick="toggleSplitMenu(event,this)" title="Take a single-subject mini-test">▾</button>
+        <div class="split-drop-menu" hidden>${subjectItems}</div>
       </div>
     </div>`;
-    loadQbankExplanation(item.questionImage);
-    pagination.innerHTML = '';
-  }
-
-  async function loadQbankExplanation(questionImage) {
-    const target = document.getElementById('qbank-explanation-body');
-    if (!target) return;
-    const lastSlash = questionImage.lastIndexOf('/');
-    if (lastSlash < 0) {
-      target.textContent = 'No explanation available.';
-      return;
-    }
-    const path = questionImage.substring(0, lastSlash) + '/metadata.json';
-    try {
-      const resp = await fetch(path);
-      if (!resp.ok) throw new Error('not found');
-      const data = await resp.json();
-      const html = data && data.explanation && data.explanation.html_text;
-      target.innerHTML = html || 'No explanation available.';
-    } catch (_) {
-      target.textContent = 'No explanation available.';
-    }
-  }
-
-  // Filter chip handlers for Question Bank
-  document.querySelectorAll('#qbank-subject-filters .filter-chip').forEach(btn => {
-    btn.addEventListener('click', () => {
-      qbankSubjectFilter = btn.dataset.subject;
-      qbankIndex = 0;
-      document.querySelectorAll('#qbank-subject-filters .filter-chip').forEach(b =>
-        b.classList.toggle('active', b.dataset.subject === qbankSubjectFilter));
-      applySubjectChipColors();
-      renderQuestionBankTab();
-    });
-  });
-  document.querySelectorAll('#qbank-status-filters .filter-chip').forEach(btn => {
-    btn.addEventListener('click', () => {
-      qbankStatusFilter = btn.dataset.status;
-      qbankIndex = 0;
-      document.querySelectorAll('#qbank-status-filters .filter-chip').forEach(b =>
-        b.classList.toggle('active', b.dataset.status === qbankStatusFilter));
-      applySubjectChipColors();
-      renderQuestionBankTab();
-    });
-  });
-
-  document.getElementById('qbank-container').addEventListener('click', e => {
-    const explainBtn = e.target.closest('.btn--explain');
-    if (explainBtn && explainBtn.dataset.qimg) {
-      ExplanationModal.open(explainBtn.dataset.qimg);
-      return;
-    }
-    const understoodBtn = e.target.closest('[data-qbank-understood]');
-    if (understoodBtn) {
-      toggleUnderstood(understoodBtn.dataset.qbankUnderstood);
-      renderQuestionBankTab();
-      return;
-    }
-    const revisionBtn = e.target.closest('[data-qbank-revision]');
-    if (revisionBtn) {
-      toggleQbankRevision(revisionBtn.dataset.qbankRevision);
-      renderQuestionBankTab();
-      return;
-    }
-    const navBtn = e.target.closest('[data-qbank-nav]');
-    if (navBtn) {
-      qbankIndex += navBtn.dataset.qbankNav === 'next' ? 1 : -1;
-      renderQuestionBankTab();
-      return;
-    }
-    const randomBtn = e.target.closest('[data-qbank-random]');
-    if (randomBtn) {
-      const max = Array.isArray(qbankFiltered) ? qbankFiltered.length : 0;
-      if (max > 0) qbankIndex = Math.floor(Math.random() * max);
-      renderQuestionBankTab();
-      return;
-    }
-  });
-
-  function toggleQbankRevision(qimg) {
-    if (!qbankCache) return;
-    const item = qbankCache.find(x => x.questionImage === qimg);
-    if (!item) return;
-    const list = getRevisionList();
-    const existingIdx = list.findIndex(r => r.q && r.q.questionImage === qimg);
-    if (existingIdx >= 0) {
-      list.splice(existingIdx, 1);
-    } else {
-      list.push({ examId: item.examId, examTitle: item.examTitle, q: item.q });
-    }
-    localStorage.setItem(REVISION_KEY, JSON.stringify(list));
   }
 
   // ── Expose to inline onclick attrs ────────────────────────────────────────
@@ -657,7 +214,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     evt.stopPropagation();
     const menu = btn.nextElementSibling;
     const isOpen = !menu.hidden;
-    // Close all other open menus
     document.querySelectorAll('.split-drop-menu').forEach(m => { m.hidden = true; });
     menu.hidden = isOpen;
   };
@@ -668,8 +224,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 function escHtml(str) {
   return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }

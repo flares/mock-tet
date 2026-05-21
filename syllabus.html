@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Syllabus — Mock TET</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/home.css">
+  <style>
+    .syllabus-body { height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+    .syllabus-main { flex: 1; min-height: 0; display: flex; flex-direction: column; padding: 16px 20px; }
+    .syllabus-pdf-container { flex: 1; min-height: 0; border: 1px solid var(--color-panel-border); border-radius: 6px; overflow: hidden; box-shadow: var(--shadow-sm); }
+    .syllabus-pdf-viewer { width: 100%; height: 100%; border: none; display: block; }
+  </style>
+</head>
+<body class="syllabus-body">
+
+  <header class="site-header">
+    <div class="site-header__logo">Mock TET</div>
+    <nav class="site-header__nav">
+      <a class="header-nav-btn" href="index.html">Exams</a>
+      <a class="header-nav-btn" href="revision.html">Revision</a>
+      <a class="header-nav-btn" href="questionbank.html">Question Bank</a>
+      <a class="header-nav-btn active" href="syllabus.html">Syllabus</a>
+    </nav>
+  </header>
+
+  <main class="syllabus-main">
+    <div class="syllabus-pdf-container">
+      <iframe
+        src="assets/syllabus/TGTET-June-2026_PAPER_II_SYLLABUS_Telugu.pdf"
+        title="TGTET Paper II Syllabus PDF"
+        class="syllabus-pdf-viewer">
+      </iframe>
+    </div>
+  </main>
+
+  <footer class="home-footer">
+    Mock TET is an unofficial practice tool. It is not affiliated with NTA, CBSE, or any government body.
+  </footer>
+
+</body>
+</html>

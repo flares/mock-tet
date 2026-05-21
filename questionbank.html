@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Question Bank — Mock TET</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/home.css">
+</head>
+<body class="qbank-body">
+
+  <!-- Header with subject filters centered -->
+  <header class="site-header qbank-site-header">
+    <div class="site-header__logo">Mock TET</div>
+
+    <div class="qbank-header__center" id="qbank-subject-filters">
+      <button class="qbank-filter-btn active" data-subject="all">All</button>
+      <button class="qbank-filter-btn" data-subject="cdp">CDP</button>
+      <button class="qbank-filter-btn" data-subject="telugu">Telugu</button>
+      <button class="qbank-filter-btn" data-subject="english">English</button>
+      <button class="qbank-filter-btn" data-subject="mathematics">Math</button>
+      <button class="qbank-filter-btn" data-subject="science">Science</button>
+    </div>
+
+    <div class="qbank-header__right">
+      <div class="qbank-header-progress" id="qbank-header-progress"></div>
+      <nav class="site-header__nav">
+        <a class="header-nav-btn" href="index.html">Exams</a>
+        <a class="header-nav-btn" href="revision.html">Revision</a>
+        <a class="header-nav-btn active" href="questionbank.html">Question Bank</a>
+        <a class="header-nav-btn" href="syllabus.html">Syllabus</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Status filter bar -->
+  <div class="qbank-status-bar">
+    <div class="exam-filters" id="qbank-status-filters" style="margin-bottom:0">
+      <button class="filter-chip active" data-status="all">All</button>
+      <button class="filter-chip" data-status="yet-to-read">Yet to Read</button>
+      <button class="filter-chip" data-status="understood">Understood</button>
+    </div>
+  </div>
+
+  <!-- Main card area -->
+  <main class="qbank-main">
+    <div id="qbank-container">
+      <p class="loading-msg">Loading question bank&hellip;</p>
+    </div>
+  </main>
+
+  <!-- Explanation dialog -->
+  <dialog id="explanation-dialog" aria-labelledby="explanation-dialog-heading">
+    <div class="explanation-dialog__header">
+      <span class="explanation-dialog__header-title" id="explanation-dialog-heading">Explanation</span>
+      <span class="explanation-dialog__conf"></span>
+      <button class="explanation-dialog__close" aria-label="Close">&times;</button>
+    </div>
+    <div class="explanation-dialog__body"></div>
+  </dialog>
+
+  <script src="js/explanation.js"></script>
+  <script src="js/questionbank.js"></script>
+</body>
+</html>
