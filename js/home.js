@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       document.querySelectorAll('.home-tab-pane').forEach(p =>
         p.classList.toggle('active', p.id === `tab-${target}`));
       if (target === 'revision') renderRevisionTab();
+      if (target === 'questionbank') renderQuestionBankTab();
     });
   });
 
@@ -215,17 +216,31 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // ── Revision tab ─────────────────────────────────────────────────────────
   const REVISION_KEY = 'tet_revision_questions';
+  const UNDERSTOOD_KEY = 'tet_understood_questions';
+  let revisionSubjectFilter = 'all';
 
   function getRevisionList() {
     try { return JSON.parse(localStorage.getItem(REVISION_KEY)) || []; } catch { return []; }
   }
 
+  // sectionId is exam-section ID ('cdp', 'telugu', 'english', 'math', 'science').
+  // The filter chips use the same id (lowercase). For mini-test subject-filter
+  // examIds the suffix after ':' is the subject token ('cdp'|'telugu'|...).
+  function questionSubject(item) {
+    const q = item && item.q;
+    if (q && q.sectionId) return String(q.sectionId).toLowerCase();
+    if (item && item.examId && item.examId.includes(':')) {
+      return item.examId.split(':').pop().toLowerCase();
+    }
+    return '';
+  }
+
   function renderRevisionTab() {
     const container = document.getElementById('revision-container');
     const toolbar   = document.getElementById('revision-toolbar');
-    const list = getRevisionList();
+    const allItems = getRevisionList();
 
-    if (!list.length) {
+    if (!allItems.length) {
       toolbar.style.display = 'none';
       container.innerHTML = '<p class="loading-msg">No questions marked for revision yet. Use the <strong>Mark for Revision</strong> button inside any exam (Practice Mode must be on).</p>';
       return;
@@ -234,11 +249,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     toolbar.style.display = '';
 
     try {
-    // Split into pending review and already revised
-    const pending  = list.map((item, i) => ({ item, i })).filter(({ item }) => !item.revised);
-    const revised  = list.map((item, i) => ({ item, i })).filter(({ item }) => item.revised);
+    // Preserve original indexes (used by the action handlers) before filtering.
+    const indexed = allItems.map((item, i) => ({ item, i }));
+    const filtered = revisionSubjectFilter === 'all'
+      ? indexed
+      : indexed.filter(({ item }) => questionSubject(item) === revisionSubjectFilter);
 
-    const makeRows = (entries, showRevisedBtn) => entries.map(({ item, i }) => {
+    if (!filtered.length) {
+      container.innerHTML = '<p class="loading-msg">No revision questions match this subject filter.</p>';
+      return;
+    }
+
+    const pending  = filtered.filter(({ item }) => !item.revised);
+    const revised  = filtered.filter(({ item }) => item.revised);
+
+    const makeRows = (entries, isPending) => entries.map(({ item, i }) => {
       const q = item.q;
       if (!q) return '';
       const isImg = q.questionType === 'image';
@@ -268,8 +293,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         }).join('');
       }
 
-      const actionCell = showRevisedBtn
-        ? `<button class="btn btn--revision-done btn--xs" onclick="markAsRevised(${i})" title="Mark as Revised">&#10003; Revised</button><br><button class="btn btn--ghost btn--xs" style="margin-top:4px" onclick="removeRevisionQ(${i})">&#10005;</button>`
+      const qimg = escHtml(q.questionImage || '');
+      const explainBtn = qimg
+        ? `<button class="btn btn--explain btn--xs" data-qimg="${qimg}">&#128218; Explain</button>`
+        : '';
+
+      const actionCell = isPending
+        ? `${explainBtn}${explainBtn ? '<br>' : ''}<button class="btn btn--revision-done btn--xs" style="margin-top:4px" onclick="markAsRevised(${i})" title="Mark as Revised">&#10003; Revised</button>`
         : `<button class="btn btn--ghost btn--xs" onclick="unmarkRevised(${i})" title="Move back to review">&#8617; Review</button><br><button class="btn btn--ghost btn--xs" style="margin-top:4px" onclick="removeRevisionQ(${i})">&#10005;</button>`;
 
       return `<tr>
@@ -283,7 +313,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         </tr>`;
     }).join('');
 
-    const makeTable = (entries, showRevisedBtn) => `<table class="rev-table">
+    const makeTable = (entries, isPending) => `<table class="rev-table">
       <thead>
         <tr>
           <th>Source</th>
@@ -292,7 +322,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           <th></th>
         </tr>
       </thead>
-      <tbody>${makeRows(entries, showRevisedBtn)}</tbody>
+      <tbody>${makeRows(entries, isPending)}</tbody>
     </table>`;
 
     let html = '';
@@ -308,6 +338,22 @@ document.addEventListener('DOMContentLoaded', async () => {
       container.innerHTML = `<p class="error-msg">Error rendering revision questions: ${escHtml(err.message)}. Try clearing and re-adding.</p>`;
     }
   }
+
+  // Subject filter chip handler for revision tab
+  document.querySelectorAll('#revision-subject-filters .filter-chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      revisionSubjectFilter = btn.dataset.subject;
+      document.querySelectorAll('#revision-subject-filters .filter-chip').forEach(b =>
+        b.classList.toggle('active', b.dataset.subject === revisionSubjectFilter));
+      renderRevisionTab();
+    });
+  });
+
+  // Single delegated Explain click handler on the revision container
+  document.getElementById('revision-container').addEventListener('click', e => {
+    const btn = e.target.closest('.btn--explain');
+    if (btn && btn.dataset.qimg) ExplanationModal.open(btn.dataset.qimg);
+  });
 
   window.removeRevisionQ = (idx) => {
     const list = getRevisionList();
@@ -336,6 +382,233 @@ document.addEventListener('DOMContentLoaded', async () => {
       renderRevisionTab();
     }
   });
+
+  // ── Question Bank tab ────────────────────────────────────────────────────
+  let qbankCache = null;          // [{ questionImage, optionImages, optionsInQuestion, questionType, correctAnswer, sectionId, examId, examTitle, globalIndex }]
+  let qbankSubjectFilter = 'all';
+  let qbankStatusFilter  = 'all';
+  let qbankPage = 1;
+  const QBANK_PAGE_SIZE = 25;
+
+  function getUnderstoodSet() {
+    try {
+      const raw = JSON.parse(localStorage.getItem(UNDERSTOOD_KEY)) || [];
+      return new Set(raw);
+    } catch { return new Set(); }
+  }
+
+  function toggleUnderstood(qimg) {
+    const set = getUnderstoodSet();
+    if (set.has(qimg)) set.delete(qimg); else set.add(qimg);
+    localStorage.setItem(UNDERSTOOD_KEY, JSON.stringify(Array.from(set)));
+  }
+
+  async function loadQuestionBank() {
+    if (qbankCache) return qbankCache;
+    if (!manifest) {
+      const resp = await fetch('exams/manifest.json');
+      manifest = await resp.json();
+    }
+    const realExams = (manifest.exams || []).filter(e => e.style === 'Real Paper');
+    const results = await Promise.all(realExams.map(async exam => {
+      try {
+        const r = await fetch(`exams/${exam.id}.json`);
+        if (!r.ok) return null;
+        const data = await r.json();
+        return { exam, data };
+      } catch { return null; }
+    }));
+
+    const dedupe = new Map();
+    for (const entry of results) {
+      if (!entry) continue;
+      const { exam, data } = entry;
+      for (const q of data.questions || []) {
+        if (!q.questionImage || dedupe.has(q.questionImage)) continue;
+        dedupe.set(q.questionImage, {
+          questionImage: q.questionImage,
+          optionImages: q.optionImages || [],
+          optionsInQuestion: !!q.optionsInQuestion,
+          questionType: q.questionType,
+          correctAnswer: q.correctAnswer,
+          sectionId: q.sectionId,
+          examId: data.id,
+          examTitle: data.title || exam.title,
+          globalIndex: q.globalIndex,
+          q,
+        });
+      }
+    }
+
+    qbankCache = Array.from(dedupe.values());
+    return qbankCache;
+  }
+
+  async function renderQuestionBankTab() {
+    const container = document.getElementById('qbank-container');
+    const summary   = document.getElementById('qbank-summary');
+    const pagination = document.getElementById('qbank-pagination');
+
+    if (!qbankCache) container.innerHTML = '<p class="loading-msg">Loading question bank&hellip;</p>';
+
+    let all;
+    try {
+      all = await loadQuestionBank();
+    } catch (err) {
+      container.innerHTML = `<p class="error-msg">Could not load question bank: ${escHtml(err.message)}</p>`;
+      return;
+    }
+
+    const understood = getUnderstoodSet();
+    const revisionImgs = new Set(getRevisionList().map(r => r.q && r.q.questionImage).filter(Boolean));
+
+    const subjectMatches = q =>
+      qbankSubjectFilter === 'all' || (q.sectionId || '').toLowerCase() === qbankSubjectFilter;
+    const statusMatches = q => {
+      if (qbankStatusFilter === 'all') return true;
+      const isUnderstood = understood.has(q.questionImage);
+      return qbankStatusFilter === 'understood' ? isUnderstood : !isUnderstood;
+    };
+
+    const filtered = all.filter(q => subjectMatches(q) && statusMatches(q));
+
+    const totalPages = Math.max(1, Math.ceil(filtered.length / QBANK_PAGE_SIZE));
+    if (qbankPage > totalPages) qbankPage = totalPages;
+
+    summary.innerHTML = `Showing <strong>${filtered.length}</strong> question${filtered.length === 1 ? '' : 's'}
+      &middot; <span style="color:#2e7d32">${filtered.filter(q => understood.has(q.questionImage)).length} understood</span>
+      &middot; <span style="color:#888">${filtered.filter(q => !understood.has(q.questionImage)).length} yet to read</span>`;
+
+    if (!filtered.length) {
+      container.innerHTML = '<p class="loading-msg">No questions match these filters.</p>';
+      pagination.innerHTML = '';
+      return;
+    }
+
+    const start = (qbankPage - 1) * QBANK_PAGE_SIZE;
+    const slice = filtered.slice(start, start + QBANK_PAGE_SIZE);
+
+    const rows = slice.map(item => {
+      const qimg = escHtml(item.questionImage);
+      const opts = item.optionImages.map((src, idx2) => {
+        const k = String(idx2 + 1);
+        const cls = k === item.correctAnswer ? 'rev-opt rev-opt--correct' : 'rev-opt';
+        return `<div class="${cls}"><span class="rev-opt-num">${k}</span><img src="${escHtml(src)}" class="rev-opt-img" alt="Option ${k}" loading="lazy"></div>`;
+      }).join('');
+
+      const isUnderstood = understood.has(item.questionImage);
+      const isInRevision = revisionImgs.has(item.questionImage);
+      const understoodCls = isUnderstood ? 'btn--understood--marked' : '';
+      const understoodLabel = isUnderstood ? '&#10003; Understood' : 'Understood';
+      const revisionLabel = isInRevision ? '&#10003; In Revision' : '&#128278; Revision';
+
+      return `<tr>
+        <td class="rev-meta-cell">
+          <div class="rev-meta">${escHtml(item.examTitle || item.examId || '')}</div>
+          <div class="rev-qnum">${escHtml((item.sectionId || '').toUpperCase())} &middot; Q${item.globalIndex != null ? item.globalIndex + 1 : '?'}</div>
+        </td>
+        <td class="rev-question-cell"><img src="${qimg}" alt="Question" class="rev-question-img" loading="lazy"></td>
+        <td class="rev-options-cell"><div class="rev-opts-grid">${opts}</div></td>
+        <td class="rev-remove-cell">
+          <button class="btn btn--explain btn--xs" data-qimg="${qimg}">&#128218; Explain</button><br>
+          <button class="btn btn--revision btn--xs" style="margin-top:4px${isInRevision ? ';background:#1565c0;color:#fff' : ''}" data-qbank-revision="${qimg}" title="Mark for Revision">${revisionLabel}</button><br>
+          <button class="btn btn--understood btn--xs ${understoodCls}" style="margin-top:4px" data-qbank-understood="${qimg}" title="Toggle understood">${understoodLabel}</button>
+        </td>
+      </tr>`;
+    }).join('');
+
+    container.innerHTML = `<table class="rev-table">
+      <thead>
+        <tr>
+          <th>Source</th>
+          <th>Question</th>
+          <th>Options <span style="color:#388e3c;font-size:11px">(green = correct)</span></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+
+    // Pagination controls
+    const pageNums = [];
+    const maxNumsShown = 7;
+    let from = Math.max(1, qbankPage - 3);
+    let to   = Math.min(totalPages, from + maxNumsShown - 1);
+    from = Math.max(1, Math.min(from, to - maxNumsShown + 1));
+    for (let p = from; p <= to; p++) pageNums.push(p);
+
+    pagination.innerHTML = `
+      <button class="qbank-page-btn" data-page="prev" ${qbankPage === 1 ? 'disabled' : ''}>‹ Prev</button>
+      ${pageNums.map(p => `<button class="qbank-page-btn ${p === qbankPage ? 'qbank-page-btn--active' : ''}" data-page="${p}">${p}</button>`).join('')}
+      <button class="qbank-page-btn" data-page="next" ${qbankPage === totalPages ? 'disabled' : ''}>Next ›</button>
+      <span class="qbank-page-info">Page ${qbankPage} of ${totalPages}</span>
+    `;
+  }
+
+  // Filter chip handlers for Question Bank
+  document.querySelectorAll('#qbank-subject-filters .filter-chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      qbankSubjectFilter = btn.dataset.subject;
+      qbankPage = 1;
+      document.querySelectorAll('#qbank-subject-filters .filter-chip').forEach(b =>
+        b.classList.toggle('active', b.dataset.subject === qbankSubjectFilter));
+      renderQuestionBankTab();
+    });
+  });
+  document.querySelectorAll('#qbank-status-filters .filter-chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      qbankStatusFilter = btn.dataset.status;
+      qbankPage = 1;
+      document.querySelectorAll('#qbank-status-filters .filter-chip').forEach(b =>
+        b.classList.toggle('active', b.dataset.status === qbankStatusFilter));
+      renderQuestionBankTab();
+    });
+  });
+
+  // Pagination + action handlers (event delegation)
+  document.getElementById('qbank-pagination').addEventListener('click', e => {
+    const btn = e.target.closest('.qbank-page-btn');
+    if (!btn || btn.disabled) return;
+    const p = btn.dataset.page;
+    if (p === 'prev') qbankPage = Math.max(1, qbankPage - 1);
+    else if (p === 'next') qbankPage++;
+    else qbankPage = parseInt(p, 10) || qbankPage;
+    renderQuestionBankTab();
+  });
+
+  document.getElementById('qbank-container').addEventListener('click', e => {
+    const explainBtn = e.target.closest('.btn--explain');
+    if (explainBtn && explainBtn.dataset.qimg) {
+      ExplanationModal.open(explainBtn.dataset.qimg);
+      return;
+    }
+    const understoodBtn = e.target.closest('[data-qbank-understood]');
+    if (understoodBtn) {
+      toggleUnderstood(understoodBtn.dataset.qbankUnderstood);
+      renderQuestionBankTab();
+      return;
+    }
+    const revisionBtn = e.target.closest('[data-qbank-revision]');
+    if (revisionBtn) {
+      toggleQbankRevision(revisionBtn.dataset.qbankRevision);
+      renderQuestionBankTab();
+      return;
+    }
+  });
+
+  function toggleQbankRevision(qimg) {
+    if (!qbankCache) return;
+    const item = qbankCache.find(x => x.questionImage === qimg);
+    if (!item) return;
+    const list = getRevisionList();
+    const existingIdx = list.findIndex(r => r.q && r.q.questionImage === qimg);
+    if (existingIdx >= 0) {
+      list.splice(existingIdx, 1);
+    } else {
+      list.push({ examId: item.examId, examTitle: item.examTitle, q: item.q });
+    }
+    localStorage.setItem(REVISION_KEY, JSON.stringify(list));
+  }
 
   // ── Expose to inline onclick attrs ────────────────────────────────────────
   window.startExam = (id, subject) => {

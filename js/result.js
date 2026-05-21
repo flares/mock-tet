@@ -92,7 +92,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const correctBadge = d.result === 'discrepancy'
         ? `<span class="answer-badge answer-badge--discrepancy" title="Official discrepancy — full marks to all">⚠️ Discrepancy</span>`
         : `<span class="answer-badge answer-badge--correct">${d.question.correctAnswer}</span>`;
-      const marks = (d.result === 'correct' || d.result === 'discrepancy') ? examData.marksPerQuestion : 0;
+      const explainBtn = d.question.questionImage
+        ? `<button class="btn btn--explain btn--xs" data-qimg="${escHtml(d.question.questionImage)}">&#128218; Explain</button>`
+        : '<span style="color:#bbb">—</span>';
 
       let questionContent;
       if (d.question.questionType === 'image') {
@@ -120,13 +122,18 @@ document.addEventListener('DOMContentLoaded', () => {
         <td class="review-cell-question">${questionContent}</td>
         <td style="text-align:center">${userBadge}</td>
         <td style="text-align:center">${correctBadge}</td>
-        <td style="text-align:center">${marks}</td>
+        <td style="text-align:center">${explainBtn}</td>
       </tr>`;
     }).join('');
   }
 
   document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', () => renderReview(btn.dataset.filter));
+  });
+
+  reviewBody.addEventListener('click', e => {
+    const btn = e.target.closest('.btn--explain');
+    if (btn && btn.dataset.qimg) ExplanationModal.open(btn.dataset.qimg);
   });
 
   renderReview('all');

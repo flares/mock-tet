@@ -249,6 +249,30 @@
 }
 .btn--ghost:hover { background: #f5f5f5; color: #333; }
 
+.btn--explain {
+  background: #fff;
+  color: #6a1b9a;
+  border: 1.5px solid #6a1b9a;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.btn--explain:hover { background: #f3e5f5; }
+
+.btn--understood {
+  background: #fff;
+  color: #2e7d32;
+  border: 1.5px solid #2e7d32;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.btn--understood:hover { background: #e8f5e9; }
+
+.btn--understood--marked {
+  background: #2e7d32;
+  color: #fff;
+}
+.btn--understood--marked:hover { background: #1b5e20; }
+
 /* ── Card footer flex ── */
 .exam-card__footer {
   padding: 10px 18px 14px;
@@ -680,6 +704,51 @@
   cursor: pointer;
   transition: background 0.15s;
   white-space: nowrap;
+}
+
+/* ── Question Bank tab ─────────────────────────────────────────────────── */
+.qbank-summary {
+  margin: 6px 0 14px;
+  font-size: 13px;
+  color: #444;
+}
+
+.qbank-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 1px solid #e8edf5;
+}
+
+.qbank-page-btn {
+  padding: 5px 11px;
+  font-size: 12px;
+  font-weight: 600;
+  background: #fff;
+  color: #1a3a5c;
+  border: 1.5px solid #c8d4e8;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.15s;
+  min-width: 32px;
+}
+.qbank-page-btn:hover:not(:disabled) { background: #eef2f8; }
+.qbank-page-btn:disabled { opacity: 0.4; cursor: default; }
+
+.qbank-page-btn--active {
+  background: #1a3a5c;
+  color: #fff;
+  border-color: #1a3a5c;
+}
+.qbank-page-btn--active:hover { background: #234d7a !important; }
+
+.qbank-page-info {
+  margin-left: auto;
+  font-size: 12px;
+  color: #888;
 }
 
 .btn--revision-done:hover {
