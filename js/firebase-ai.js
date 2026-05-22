@@ -1,15 +1,16 @@
 /**
- * firebase-ai.js — Firebase AI (Gemini Developer API) integration.
- * Loaded as <script type="module"> so it can use ES import syntax.
- * Exposes window.AiExplainer for use by non-module scripts (questionbank.js).
+ * firebase-ai.js — Firebase AI Logic (Gemini Developer API) + Analytics.
+ * Loaded as <script type="module"> in questionbank.html.
+ * Exposes window.AiExplainer for use by non-module scripts.
  *
- * Prerequisites (one-time Firebase console setup):
- *   1. Copy js/firebase-config.example.js → js/firebase-config.js and fill in real values.
- *   2. In Firebase console → Build → AI → enable Gemini Developer API.
+ * No separate Gemini API key needed — Firebase project config is sufficient.
+ * Requires: window.FIREBASE_CONFIG set in js/firebase-config.js (gitignored).
+ * Firebase console: Build → AI → enable Gemini Developer API (already done).
  */
 
-import { initializeApp }                           from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
-import { getAI, getGenerativeModel, GoogleAIBackend } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-ai.js";
+import { initializeApp }                              from "https://esm.run/firebase/app";
+import { getAI, getGenerativeModel, GoogleAIBackend } from "https://esm.run/firebase/ai";
+import { getAnalytics, logEvent }                     from "https://esm.run/firebase/analytics";
 
 // ── Constants ───────────────────────────────────────────────────────────────
 
@@ -20,7 +21,7 @@ const SUBJECT_LABELS = {
   cdp:         "Child Development & Pedagogy",
   telugu:      "Language",
   english:     "Language",
-  mathematics:  "Maths",
+  mathematics: "Maths",
   science:     "Science",
 };
 
@@ -100,22 +101,26 @@ function correctLetter(correctAnswer) {
   return !isNaN(n) && n >= 1 && n <= 4 ? "ABCD"[n - 1] : null;
 }
 
-// ── Core ────────────────────────────────────────────────────────────────────
+// ── Init ────────────────────────────────────────────────────────────────────
 
-let model = null;
+let model     = null;
+let analytics = null;
 
-function initModel() {
+function initFirebase() {
   if (model) return true;
   const config = window.FIREBASE_CONFIG;
   if (!config || config.apiKey === "YOUR_FIREBASE_API_KEY") return false;
   try {
-    const app = initializeApp(config);
-    const ai  = getAI(app, { backend: new GoogleAIBackend() });
-    model = getGenerativeModel(ai, {
+    const app  = initializeApp(config);
+    const ai   = getAI(app, { backend: new GoogleAIBackend() });
+    model      = getGenerativeModel(ai, {
       model: MODEL_NAME,
       systemInstruction: SYSTEM_INSTRUCTION,
       generationConfig: { temperature: 0.3 },
     });
+    if (config.measurementId) {
+      analytics = getAnalytics(app);
+    }
     return true;
   } catch (err) {
     console.error("[firebase-ai] init failed:", err);
@@ -123,63 +128,59 @@ function initModel() {
   }
 }
 
+function track(eventName, params) {
+  if (analytics) {
+    try { logEvent(analytics, eventName, params); } catch (_) {}
+  }
+}
+
+// ── Core ────────────────────────────────────────────────────────────────────
+
 async function explain({ questionImage, optionImages = [], optionsInQuestion = false, correctAnswer, sectionId }) {
-  // Check session cache first
   const cacheKey = sessionKey(questionImage);
   const cached = sessionStorage.getItem(cacheKey);
-  if (cached) return cached;
+  if (cached) {
+    track("ai_explain_cache_hit", { subject: sectionId });
+    return cached;
+  }
 
-  if (!initModel()) {
-    throw new Error("Firebase AI not configured — copy js/firebase-config.example.js to js/firebase-config.js and fill in your project values.");
+  if (!initFirebase()) {
+    throw new Error("Firebase config not found or placeholder values detected — check js/firebase-config.js.");
   }
 
   const letter      = correctLetter(correctAnswer);
   const subjectArea = SUBJECT_LABELS[(sectionId || "").toLowerCase()] || sectionId || "General";
 
-  // Build image parts
-  const imagesToFetch = [questionImage];
+  track("ai_explain_requested", { subject: sectionId });
+
+  const imagesToFetch = [questionImage, ...(!optionsInQuestion ? optionImages.slice(0, 4) : [])];
+  const imageParts    = await Promise.all(imagesToFetch.map(fetchImageAsInlineData));
+
+  const parts = [{ text: `Subject area: ${subjectArea}` }];
   if (!optionsInQuestion) {
-    imagesToFetch.push(...optionImages.slice(0, 4));
-  }
-  const imageParts = await Promise.all(imagesToFetch.map(fetchImageAsInlineData));
-
-  // Build content parts
-  const parts = [];
-  parts.push({ text: `Subject area: ${subjectArea}` });
-  if (!optionsInQuestion) {
-    parts.push({ text: "Question image:" });
-    parts.push(imageParts[0]);
-    parts.push({ text: "Option A:" }); parts.push(imageParts[1]);
-    parts.push({ text: "Option B:" }); parts.push(imageParts[2]);
-    parts.push({ text: "Option C:" }); parts.push(imageParts[3]);
-    parts.push({ text: "Option D:" }); parts.push(imageParts[4]);
+    parts.push({ text: "Question image:" },      imageParts[0]);
+    parts.push({ text: "Option A:" },             imageParts[1]);
+    parts.push({ text: "Option B:" },             imageParts[2]);
+    parts.push({ text: "Option C:" },             imageParts[3]);
+    parts.push({ text: "Option D:" },             imageParts[4]);
   } else {
-    parts.push({ text: "Question image (options are printed inside the question image):" });
-    parts.push(imageParts[0]);
+    parts.push({ text: "Question image (options are inside):" }, imageParts[0]);
   }
-
-  if (letter) {
-    parts.push({ text: `The verified correct answer from the official key is option ${letter}. Do not second-guess this.` });
-  } else {
-    parts.push({ text: "The correct answer is unknown — deduce it from the content if possible, mark it tentatively." });
-  }
-
-  parts.push({ text: `Generate the bilingual HTML explanation now. Remember: output ONLY the raw HTML fragment starting with <div and ending with </div>. data-subject="${subjectArea}".` });
+  parts.push({
+    text: letter
+      ? `Verified correct answer: option ${letter}. Do not second-guess this. Generate the bilingual HTML explanation now. data-subject="${subjectArea}".`
+      : `Correct answer unknown — deduce if possible. Generate the bilingual HTML explanation now. data-subject="${subjectArea}".`,
+  });
 
   const result = await model.generateContent({ contents: [{ role: "user", parts }] });
   let html = result.response.text().trim();
-
-  // Strip any accidental markdown code fence
   html = html.replace(/^```html?\s*/i, "").replace(/```\s*$/, "").trim();
 
-  if (!html.startsWith("<")) {
-    throw new Error("Unexpected response format from AI — did not return HTML.");
-  }
+  if (!html.startsWith("<")) throw new Error("Unexpected response format from AI.");
 
   sessionStorage.setItem(cacheKey, html);
+  track("ai_explain_success", { subject: sectionId });
   return html;
 }
 
-// ── Public API on window ─────────────────────────────────────────────────────
-
-window.AiExplainer = { explain, isConfigured: () => initModel() };
+window.AiExplainer = { explain, isConfigured: () => initFirebase() };
