@@ -260,16 +260,20 @@
       }, { signal });
     }
 
-    // ── Understood — marks understood, removes from revision list, closes dialog ──
+    // ── Understood — marks understood, marks revised in revision list, closes dialog ──
     dlg.querySelector('#expdlg-und').addEventListener('click', function () {
       const set = getUnderstoodSet();
       if (!set.has(questionImage)) {
         set.add(questionImage);
         localStorage.setItem(UNDERSTOOD_KEY, JSON.stringify(Array.from(set)));
-        const filtered = getRevisionList().filter(r => !(r.q && r.q.questionImage === questionImage));
-        localStorage.setItem(REVISION_KEY, JSON.stringify(filtered));
+        // Move to Revised section (set revised:true) rather than removing
+        const list = getRevisionList();
+        const idx = list.findIndex(r => r.q && r.q.questionImage === questionImage);
+        if (idx >= 0) { list[idx].revised = true; localStorage.setItem(REVISION_KEY, JSON.stringify(list)); }
       }
       closeDlg();
+      // Refresh revision page if open
+      if (typeof window.renderRevision === 'function') window.renderRevision();
     }, { signal });
 
     // ── Load explanation — AI cache → metadata.json ──
