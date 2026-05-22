@@ -90,11 +90,12 @@ async function loadQuestionBank() {
 function updateProgress(filtered, understood) {
   const el = document.getElementById('qbank-header-progress');
   if (!el) return;
-  const doneCount = filtered.filter(q => understood.has(q.questionImage)).length;
+  const understoodCount = filtered.filter(q => understood.has(q.questionImage)).length;
+  const explainedCount  = filtered.filter(q => !!ExplanationModal.getAiCache(q.questionImage)).length;
   const current = filtered.length > 0 ? qbankIndex + 1 : 0;
   el.innerHTML = `
     <div class="qbank-progress-count">${current} <span class="qbank-progress-total">/ ${filtered.length}</span></div>
-    <div class="qbank-progress-sub">${doneCount} understood</div>`;
+    <div class="qbank-progress-sub">${understoodCount} understood &middot; ${explainedCount} explained</div>`;
 }
 
 async function renderQuestionBank() {
@@ -119,8 +120,10 @@ async function renderQuestionBank() {
     qbankSubjectFilter === 'all' || (q.sectionId || '').toLowerCase() === qbankSubjectFilter;
   const statusMatches = q => {
     if (qbankStatusFilter === 'all') return true;
-    const isUnderstood = understood.has(q.questionImage);
-    return qbankStatusFilter === 'understood' ? isUnderstood : !isUnderstood;
+    if (qbankStatusFilter === 'understood') return understood.has(q.questionImage);
+    if (qbankStatusFilter === 'explained')  return !!ExplanationModal.getAiCache(q.questionImage);
+    // yet-to-read: not understood
+    return !understood.has(q.questionImage);
   };
 
   const filtered = all.filter(q => subjectMatches(q) && statusMatches(q));

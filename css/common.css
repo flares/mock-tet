@@ -212,9 +212,11 @@
 /* ── Fullcard explanation dialog (revision / result pages) ── */
 /* Must include [open] — otherwise display:flex overrides the UA's dialog:not([open]){display:none} */
 #explanation-dialog[open].expdlg--card {
-  width: min(1120px, 96vw);
-  height: min(820px, 90vh);
-  max-height: 90vh;
+  /* Match qbank card: viewport minus header and the same margins qbank-main uses */
+  width: calc(100vw - 2 * clamp(8px, 4vw, 60px));
+  height: calc(100vh - var(--header-height) - 2 * clamp(8px, 2vw, 28px));
+  max-width: 100vw;
+  max-height: 100vh;
   padding: 0;
   overflow: hidden;
   display: flex;
