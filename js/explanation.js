@@ -183,7 +183,7 @@
 
         <div class="qbank-card__footer" style="justify-content:center;gap:8px">
           <button class="btn btn--understood btn--sm ${isUnderstood ? 'btn--understood--marked' : ''}" id="expdlg-und">
-            ${isUnderstood ? '&#10003; Understood' : 'Understood'}
+            ${isUnderstood ? 'Close' : 'Understood'}
           </button>
         </div>
       </div>`;
@@ -260,21 +260,16 @@
       }, { signal });
     }
 
-    // ── Understood — marks understood AND removes from revision list ──
+    // ── Understood — marks understood, removes from revision list, closes dialog ──
     dlg.querySelector('#expdlg-und').addEventListener('click', function () {
       const set = getUnderstoodSet();
-      if (set.has(questionImage)) {
-        set.delete(questionImage);
-        this.innerHTML = 'Understood';
-        this.classList.remove('btn--understood--marked');
-      } else {
+      if (!set.has(questionImage)) {
         set.add(questionImage);
-        this.innerHTML = '&#10003; Understood';
-        this.classList.add('btn--understood--marked');
+        localStorage.setItem(UNDERSTOOD_KEY, JSON.stringify(Array.from(set)));
         const filtered = getRevisionList().filter(r => !(r.q && r.q.questionImage === questionImage));
         localStorage.setItem(REVISION_KEY, JSON.stringify(filtered));
       }
-      localStorage.setItem(UNDERSTOOD_KEY, JSON.stringify(Array.from(set)));
+      closeDlg();
     }, { signal });
 
     // ── Load explanation — AI cache → metadata.json ──
