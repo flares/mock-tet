@@ -844,6 +844,7 @@ async function handleAiExplain() {
       correctAnswer:     item.correctAnswer,
       sectionId:         item.sectionId,
       forceRegenerate:   isRegen,
+      mobile:            true,
     });
     expEl.innerHTML = html;
     aiBtn.innerHTML = '&#10024; Regenerate';

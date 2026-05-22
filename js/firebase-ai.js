@@ -41,8 +41,6 @@ For #4) memory hooks, use better visual html styling rather than simple raw para
 
 Ensure you are using the correct HTML formatting and inline styling for visually clean view. Your output will be copied as is into the explanation section, so ensure you have all styling in place.
 
-Give html output in a mobile-friendly manner. Note that the html you output will be displayed as-is without any processing, so curate your response accurately for mobile viewing following other principles mentioned below. Use compact layouts, avoid wide tables (prefer stacked rows or definition lists on mobile), keep font sizes readable (min 13px), use padding generously, avoid fixed widths, and prefer flex column layouts over multi-column grids.
-
 <div class="tet-explanation" data-subject="{SUBJECT_AREA}">
   <section class="answer">
     <h3>Correct answer: {LETTER}</h3>
@@ -157,7 +155,9 @@ function track(eventName, params) {
 
 // ── Core ────────────────────────────────────────────────────────────────────
 
-async function explain({ questionImage, optionImages = [], optionsInQuestion = false, correctAnswer, sectionId, forceRegenerate = false }) {
+const MOBILE_ADDENDUM = `Give html output in a mobile-friendly manner. Note that the html you output will be displayed as-is without any processing, so curate your response accurately for mobile viewing following other principles mentioned below. Use compact layouts, avoid wide tables (prefer stacked rows or definition lists on mobile), keep font sizes readable (min 13px), use padding generously, avoid fixed widths, and prefer flex column layouts over multi-column grids.`;
+
+async function explain({ questionImage, optionImages = [], optionsInQuestion = false, correctAnswer, sectionId, forceRegenerate = false, mobile = false }) {
   const cacheKey = sessionKey(questionImage);
 
   // Check localStorage first (persists across sessions), then sessionStorage
@@ -195,6 +195,8 @@ async function explain({ questionImage, optionImages = [], optionsInQuestion = f
       ? `Verified correct answer: option ${letter}. Do not second-guess this. Generate the HTML explanation now. data-subject="${subjectArea}".`
       : `Correct answer unknown — deduce if possible. Generate the HTML now. data-subject="${subjectArea}".`,
   });
+
+  if (mobile) parts.push({ text: MOBILE_ADDENDUM });
 
   const result = await model.generateContent({ contents: [{ role: "user", parts }] });
   let html = result.response.text().trim();
