@@ -226,35 +226,34 @@ img { display: block; max-width: 100%; height: auto; }
 .pwa-opt {
   display: flex;
   align-items: flex-start;
-  gap: 8px;
-  padding: 7px 10px;
-  background: #fff;
-  border: 1.5px solid #d8e3f0;
-  border-radius: 7px;
-  margin-bottom: 7px;
+  gap: 6px;
+  padding: 6px 8px;
+  background: #fafbff;
+  border: 1.5px solid #dde4f0;
+  border-radius: 5px;
+  margin-bottom: 6px;
 }
 .pwa-opt--correct {
-  border-color: #2e7d32;
-  background: #f1f8f1;
+  border-color: #388e3c;
+  background: #e8f5e9;
 }
 .pwa-opt-num {
   flex-shrink: 0;
-  width: 22px; height: 22px;
-  border-radius: 50%;
-  background: #e8eef6;
-  color: #1a3a5c;
-  font-size: 11px;
+  min-width: 18px;
+  font-size: 12px;
   font-weight: 700;
-  display: flex; align-items: center; justify-content: center;
-  margin-top: 2px;
+  color: #666;
+  padding-top: 3px;
 }
 .pwa-opt--correct .pwa-opt-num {
-  background: #2e7d32;
-  color: #fff;
+  color: #2e7d32;
 }
 .pwa-opt img {
-  flex: 1;
-  min-width: 0;
+  /* natural size, shrink to fit container but never upscale */
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  display: block;
   border-radius: 3px;
 }
 
@@ -290,28 +289,27 @@ img { display: block; max-width: 100%; height: auto; }
   min-height: 48px;
 }
 
-/* AI action bar */
+/* AI action bar — sits above explanation body */
 #pwa-ai-actions {
   display: flex;
-  justify-content: center;
-  margin-top: 14px;
-  padding-bottom: 4px;
+  justify-content: flex-start;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 #pwa-ai-btn {
-  padding: 10px 24px;
-  background: linear-gradient(135deg, #1565c0, #6a1b9a);
-  color: #fff;
+  padding: 9px 22px;
+  background: #fff;
+  color: #e65100;
   font-size: 14px;
   font-weight: 700;
-  border-radius: 24px;
-  box-shadow: 0 3px 10px rgba(21,101,192,0.35);
-  transition: opacity 0.15s, transform 0.1s;
-  border: none;
+  border-radius: 6px;
+  border: 1.5px solid #e65100;
+  transition: background 0.15s, color 0.15s;
 }
-#pwa-ai-btn:hover { opacity: 0.92; }
-#pwa-ai-btn:active { transform: scale(0.97); }
-#pwa-ai-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+#pwa-ai-btn:hover:not(:disabled) { background: #fff3e0; }
+#pwa-ai-btn:active:not(:disabled) { background: #ffe0c2; }
+#pwa-ai-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
 /* AI loading spinner */
 .pwa-ai-loading {
@@ -349,11 +347,35 @@ img { display: block; max-width: 100%; height: auto; }
   font-size: 14px;
 }
 
+/* ── Toast ────────────────────────────────────────────────────────────── */
+#pwa-toast {
+  position: fixed;
+  bottom: calc(56px + env(safe-area-inset-bottom) + 16px);
+  left: 50%;
+  transform: translateX(-50%) translateY(12px);
+  background: rgba(20,30,48,0.92);
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.22s, transform 0.22s;
+  z-index: 200;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+}
+#pwa-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
 /* ── FAB — floating revision + understood ─────────────────────────────── */
 #pwa-fab {
   position: fixed;
   bottom: calc(56px + env(safe-area-inset-bottom) + 10px);
-  left: 12px;
+  right: 12px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -494,12 +516,15 @@ img { display: block; max-width: 100%; height: auto; }
     <!-- Explanation section -->
     <div id="pwa-exp-section">
       <div class="pwa-exp-divider">Explanation</div>
-      <div id="pwa-explanation"><span class="pwa-msg">Loading…</span></div>
       <div id="pwa-ai-actions">
         <button id="pwa-ai-btn">&#10024; Explain with AI</button>
       </div>
+      <div id="pwa-explanation"><span class="pwa-msg">Loading…</span></div>
     </div>
   </div>
+
+  <!-- Toast notification -->
+  <div id="pwa-toast"></div>
 
   <!-- Floating action buttons (revision + understood) -->
   <div id="pwa-fab">
@@ -650,7 +675,8 @@ async function render() {
     const qi = document.getElementById('pwa-qimg'); qi.src = ''; qi.hidden = true;
     document.getElementById('pwa-opts').innerHTML = '';
     document.getElementById('pwa-explanation').innerHTML = '<span class="pwa-msg">No questions match these filters.</span>';
-    document.getElementById('pwa-ai-actions').innerHTML = '';
+    const aiBtn0 = document.getElementById('pwa-ai-btn');
+    if (aiBtn0) aiBtn0.style.display = 'none';
     document.getElementById('pwa-prev').disabled = true;
     document.getElementById('pwa-next').disabled = true;
     return;
@@ -698,11 +724,14 @@ async function render() {
   document.getElementById('pwa-prev').disabled = qbankIndex <= 0;
   document.getElementById('pwa-next').disabled = qbankIndex >= qbankFiltered.length - 1;
 
-  // Reset AI button
+  // Reset AI button (restore if hidden by empty-state)
   const aiBtn = document.getElementById('pwa-ai-btn');
-  aiBtn.disabled = false;
-  const hasCached = !!getAiCache(qimg);
-  aiBtn.innerHTML = hasCached ? '&#10024; Regenerate' : '&#10024; Explain with AI';
+  if (aiBtn) {
+    aiBtn.style.display = '';
+    aiBtn.disabled = false;
+    const hasCached = !!getAiCache(qimg);
+    aiBtn.innerHTML = hasCached ? '&#10024; Regenerate' : '&#10024; Explain with AI';
+  }
 
   // Explanation — from cache or metadata.json
   await loadExplanation(qimg);
@@ -733,6 +762,16 @@ async function loadExplanation(questionImage) {
 
 function noExplanationMsg() {
   return '<em style="color:#888;font-size:13px">No explanation yet. Tap ✨ Explain with AI to generate one.</em>';
+}
+
+/* ── Toast ─────────────────────────────────────────────────────────────── */
+let _toastTid = null;
+function showToast(msg) {
+  const t = document.getElementById('pwa-toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(_toastTid);
+  _toastTid = setTimeout(() => t.classList.remove('show'), 2200);
 }
 
 function updateHeaderProgress() {
@@ -793,7 +832,7 @@ async function handleAiExplain() {
   aiBtn.textContent = '⏳ Generating…';
   expEl.innerHTML = '<div class="pwa-ai-loading"><span class="pwa-ai-spinner"></span>Generating AI explanation — this may take 10–20 s…</div>';
 
-  // Scroll explanation into view immediately so user sees progress
+  // Scroll so the explanation section (button + loading msg) is at top
   const contentEl = document.getElementById('pwa-content');
   contentEl.scrollTo({ top: expSection.offsetTop - 8, behavior: 'smooth' });
 
@@ -808,8 +847,7 @@ async function handleAiExplain() {
     });
     expEl.innerHTML = html;
     aiBtn.innerHTML = '&#10024; Regenerate';
-
-    // Scroll so new content starts at top of view
+    // Scroll so explanation content starts at the top (button stays visible just above)
     contentEl.scrollTo({ top: expSection.offsetTop - 8, behavior: 'smooth' });
   } catch (err) {
     expEl.innerHTML = `<div class="pwa-ai-error"><strong>AI error:</strong> ${esc(err.message || 'Generation failed.')}</div>`;
@@ -915,6 +953,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!item) return;
     toggleRevision(item.questionImage);
     updateFabState();
+    const revImgs = new Set(getRevisionList().map(r => r.q?.questionImage).filter(Boolean));
+    showToast(revImgs.has(item.questionImage) ? '🔖 Marked for future revision' : '🔖 Removed from revision');
   });
 
   /* FAB: understood */
@@ -924,6 +964,8 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleUnderstood(item.questionImage);
     updateFabState();
     updateHeaderProgress();
+    const understood = getUnderstoodSet();
+    showToast(understood.has(item.questionImage) ? '✓ Marked as understood' : '↩ Removed from understood');
   });
 
   /* AI explain button */

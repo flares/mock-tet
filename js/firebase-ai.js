@@ -41,6 +41,8 @@ For #4) memory hooks, use better visual html styling rather than simple raw para
 
 Ensure you are using the correct HTML formatting and inline styling for visually clean view. Your output will be copied as is into the explanation section, so ensure you have all styling in place.
 
+Give html output in a mobile-friendly manner. Note that the html you output will be displayed as-is without any processing, so curate your response accurately for mobile viewing following other principles mentioned below. Use compact layouts, avoid wide tables (prefer stacked rows or definition lists on mobile), keep font sizes readable (min 13px), use padding generously, avoid fixed widths, and prefer flex column layouts over multi-column grids.
+
 <div class="tet-explanation" data-subject="{SUBJECT_AREA}">
   <section class="answer">
     <h3>Correct answer: {LETTER}</h3>
