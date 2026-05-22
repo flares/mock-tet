@@ -106,13 +106,8 @@ function renderRevision() {
       }
 
       const qimg = escHtml(q.questionImage || '');
-      const qdata = qimg ? escHtml(JSON.stringify({
-        opts:    q.optionImages   || [],
-        correct: q.correctAnswer  || '',
-        optsInQ: q.optionsInQuestion ? 1 : 0,
-      })) : '';
       const explainBtn = qimg
-        ? `<button class="btn btn--explain btn--xs" data-qimg="${qimg}" data-qdata="${qdata}">&#128218; Explain</button>`
+        ? `<button class="btn btn--explain btn--xs" data-qimg="${qimg}">&#128218; Explain</button>`
         : '';
 
       const actionCell = isPending
@@ -178,12 +173,13 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('revision-container').addEventListener('click', e => {
     const btn = e.target.closest('.btn--explain');
     if (!btn || !btn.dataset.qimg) return;
-    let qd = {};
-    try { qd = JSON.parse(btn.dataset.qdata || '{}'); } catch (_) {}
+    const entry = getRevisionList().find(r => r.q && r.q.questionImage === btn.dataset.qimg);
+    if (!entry) return;
     ExplanationModal.openFull(btn.dataset.qimg, {
-      optionImages:    qd.opts    || [],
-      correctAnswer:   qd.correct || '',
-      optionsInQuestion: !!qd.optsInQ,
+      optionImages:      entry.q.optionImages   || [],
+      correctAnswer:     entry.q.correctAnswer  || '',
+      optionsInQuestion: !!entry.q.optionsInQuestion,
+      revisionEntry:     entry,
     });
   });
 

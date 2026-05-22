@@ -212,72 +212,49 @@
 /* ── Fullcard explanation dialog (revision / result pages) ── */
 #explanation-dialog.expdlg--card {
   width: min(1120px, 96vw);
-  max-height: 92vh;
+  height: min(820px, 90vh);
+  max-height: 90vh;
   padding: 0;
+  overflow: hidden;
+  display: flex;
+}
+
+/* Wrapper is a flex column — body stretches, footer stays put */
+.expdlg-wrap {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
   overflow: hidden;
 }
 
-.expdlg-card {
-  display: grid;
-  grid-template-columns: 2fr 3fr;
-  max-height: 92vh;
-  position: relative;
+/* The qbank card body fills the remaining height */
+.expdlg-wrap .qbank-card__body {
+  flex: 1;
+  min-height: 0;
 }
 
-.expdlg-card__close {
+/* Floating close button top-right */
+.expdlg-close {
   position: absolute;
-  top: 10px;
-  right: 12px;
-  z-index: 10;
-  background: #fff;
+  top: 8px;
+  right: 10px;
+  z-index: 100;
+  background: rgba(255,255,255,0.92);
   border: 1.5px solid #ccc;
   border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  font-size: 20px;
-  line-height: 1;
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #555;
   padding: 0;
+  line-height: 1;
 }
-.expdlg-card__close:hover { background: #f5f5f5; color: #111; }
-
-.expdlg-card__left {
-  overflow-y: auto;
-  max-height: 92vh;
-  border-right: 1px solid #e0e8f5;
-  padding: 16px;
-  background: #f8fafd;
-}
-
-.expdlg-card__right {
-  overflow-y: auto;
-  max-height: 92vh;
-  padding: 16px 20px;
-  display: flex;
-  flex-direction: column;
-}
-
-.expdlg-body { flex: 1; }
-
-.expdlg-actions {
-  display: flex;
-  gap: 8px;
-  margin-top: 12px;
-  padding-top: 10px;
-  border-top: 1px solid #e0e8f5;
-  flex-shrink: 0;
-}
-
-/* Read Aloud inside fullcard dialog — light context override */
-.expdlg-read-aloud {
-  border-color: #6a9fd8 !important;
-  background: #eef4fb !important;
-  color: #1a3a5c !important;
-}
+.expdlg-close:hover { background: #f5f5f5; color: #111; }
 
 /* ── tet-explanation HTML fragment styles (authored by skill subagents) ── */
 .tet-explanation { font-size: 14px; line-height: 1.6; color: #222; }

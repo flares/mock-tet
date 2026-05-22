@@ -2,33 +2,41 @@
  * explanation.js
  *
  * Public API:
- *   ExplanationModal.open(questionImage)          — simple dialog (exam page)
- *   ExplanationModal.openFull(questionImage, q)   — 2-panel card (result/revision)
+ *   ExplanationModal.open(questionImage)               — simple dialog (exam page)
+ *   ExplanationModal.openFull(questionImage, opts)     — qbank-style card dialog
  *   ExplanationModal.stopSpeech()
- *   ExplanationModal.getAiCache(questionImage)    — read AI explanation from localStorage
- *   ExplanationModal.setAiCache(questionImage, html) — persist AI explanation
+ *   ExplanationModal.getAiCache(questionImage)         — read AI html from localStorage
+ *   ExplanationModal.setAiCache(questionImage, html)   — persist AI html to localStorage
  */
 (function (global) {
 
-  // ── AI explanation localStorage cache ──────────────────────────────────────
-  const AI_CACHE_PREFIX = 'ai_exp_persist:';
+  // ── AI explanation localStorage cache ─────────────────────────────────────
+  const AI_CACHE_PREFIX   = 'ai_exp_persist:';
+  const UNDERSTOOD_KEY    = 'tet_understood_questions';
+  const REVISION_KEY      = 'tet_revision_questions';
 
-  function cacheKey(questionImage) {
+  function aiCacheKey(questionImage) {
     const parts = questionImage.split('/');
     return AI_CACHE_PREFIX + parts[parts.length - 2];
   }
-
   function getAiCache(questionImage) {
     if (!questionImage) return null;
-    try { return localStorage.getItem(cacheKey(questionImage)) || null; } catch (_) { return null; }
+    try { return localStorage.getItem(aiCacheKey(questionImage)) || null; } catch { return null; }
   }
-
   function setAiCache(questionImage, html) {
     if (!questionImage || !html) return;
-    try { localStorage.setItem(cacheKey(questionImage), html); } catch (_) {}
+    try { localStorage.setItem(aiCacheKey(questionImage), html); } catch {}
   }
 
-  // ── Speech helpers ──────────────────────────────────────────────────────────
+  // ── Understood / Revision helpers ─────────────────────────────────────────
+  function getUnderstoodSet() {
+    try { return new Set(JSON.parse(localStorage.getItem(UNDERSTOOD_KEY)) || []); } catch { return new Set(); }
+  }
+  function getRevisionList() {
+    try { return JSON.parse(localStorage.getItem(REVISION_KEY)) || []; } catch { return []; }
+  }
+
+  // ── Speech helpers ─────────────────────────────────────────────────────────
   const tts = {
     supported: typeof window !== 'undefined' && 'speechSynthesis' in window,
     speaking: false,
@@ -58,7 +66,7 @@
     },
   };
 
-  // ── Shared helpers ─────────────────────────────────────────────────────────
+  // ── Shared ─────────────────────────────────────────────────────────────────
   function esc(str) {
     return String(str || '')
       .replace(/&/g, '&amp;').replace(/</g, '&lt;')
@@ -71,7 +79,7 @@
     return i < 0 ? null : questionImage.substring(0, i) + '/metadata.json';
   }
 
-  // ── Simple modal (exam.html) ───────────────────────────────────────────────
+  // ── Simple modal — exam.html ───────────────────────────────────────────────
   let dialog      = null;
   let bodyEl      = null;
   let confEl      = null;
@@ -142,15 +150,23 @@
     } catch (_) { bodyEl.innerHTML = ''; }
   }
 
-  // ── Fullcard modal (result / revision pages) ───────────────────────────────
-  async function openFull(questionImage, { optionImages = [], correctAnswer, optionsInQuestion = false } = {}) {
+  // ── Fullcard modal — result.html / revision.html ───────────────────────────
+  // Uses the exact same CSS classes as the Question Bank card body.
+  // opts: { optionImages, correctAnswer, optionsInQuestion, revisionEntry }
+  // revisionEntry: { examId, examTitle, q: questionObject } — for the revision toggle
+  async function openFull(questionImage, {
+    optionImages = [],
+    correctAnswer,
+    optionsInQuestion = false,
+    revisionEntry = null,
+  } = {}) {
     let dlg = document.getElementById('explanation-dialog');
     if (!dlg) return;
     tts.stop();
 
     dlg.classList.add('expdlg--card');
 
-    // Left panel: question image + options
+    // Build options HTML (same rendering as qbank left panel)
     const optsHtml = !optionsInQuestion
       ? (optionImages || []).slice(0, 4).map((src, i) => {
           const k   = String(i + 1);
@@ -159,42 +175,93 @@
         }).join('')
       : '';
 
-    const ttsOk = tts.supported;
+    // Initial button states from localStorage
+    const isUnderstood = getUnderstoodSet().has(questionImage);
+    const isRevision   = getRevisionList().some(r => r.q && r.q.questionImage === questionImage);
+    const ttsOk        = tts.supported;
+
     dlg.innerHTML = `
-      <div class="expdlg-card">
-        <button class="expdlg-card__close" aria-label="Close">&#215;</button>
-        <div class="expdlg-card__left">
-          <img src="${esc(questionImage)}" alt="Question" class="qbank-question-img">
-          <div class="rev-opts-stack">${optsHtml}</div>
-        </div>
-        <div class="expdlg-card__right">
-          <div class="expdlg-body" id="expdlg-body"><em style="color:#888">Loading explanation…</em></div>
-          <div class="expdlg-actions">
-            ${ttsOk ? `<button class="btn--read-aloud expdlg-read-aloud" id="expdlg-ra">&#128266; Read Aloud</button>` : ''}
+      <div class="expdlg-wrap">
+        <button class="expdlg-close" aria-label="Close">&#215;</button>
+
+        <div class="qbank-card__body">
+
+          <div class="qbank-card__left">
+            <img src="${esc(questionImage)}" alt="Question" class="qbank-question-img">
+            <div class="rev-opts-stack">${optsHtml}</div>
           </div>
+
+          <div class="qbank-card__right">
+            <div class="qbank-explanation" id="expdlg-body">
+              <em style="color:#888">Loading explanation…</em>
+            </div>
+            <div class="qbank-right-actions">
+              ${ttsOk ? `<button class="btn--read-aloud qbank-header-read-aloud" id="expdlg-ra">&#128266; Read Aloud</button>` : ''}
+            </div>
+          </div>
+
+        </div>
+
+        <div class="qbank-card__footer" style="justify-content:center">
+          <button class="btn btn--revision btn--sm ${isRevision ? 'btn--revision--marked' : ''}" id="expdlg-rev">
+            ${isRevision ? '&#10003; Marked for Revision' : 'Mark for Revision'}
+          </button>
+          <button class="btn btn--understood btn--sm ${isUnderstood ? 'btn--understood--marked' : ''}" id="expdlg-und">
+            ${isUnderstood ? '&#10003; Understood' : 'Understood'}
+          </button>
         </div>
       </div>`;
 
     dlg.showModal();
 
-    // Close button + backdrop
-    dlg.querySelector('.expdlg-card__close').addEventListener('click', () => { tts.stop(); dlg.close(); });
+    // ── Close ──
+    dlg.querySelector('.expdlg-close').addEventListener('click', () => { tts.stop(); dlg.close(); });
     dlg.addEventListener('click', e => { if (e.target === dlg) { tts.stop(); dlg.close(); } });
 
-    // Read Aloud
+    // ── Read Aloud ──
     const raBtn = dlg.querySelector('#expdlg-ra');
     if (raBtn) {
       raBtn.addEventListener('click', () => {
         if (tts.speaking) { tts.stop(); raBtn.innerHTML = '&#128266; Read Aloud'; return; }
-        const exBody = document.getElementById('expdlg-body');
-        const text = (exBody?.innerText || '').trim();
+        const text = (document.getElementById('expdlg-body')?.innerText || '').trim();
         if (!text) return;
         raBtn.innerHTML = '&#9209; Stop';
         tts.start(text, () => { raBtn.innerHTML = '&#128266; Read Aloud'; });
       });
     }
 
-    // Load explanation — prefer localStorage AI cache, then metadata.json
+    // ── Understood toggle ──
+    dlg.querySelector('#expdlg-und').addEventListener('click', function () {
+      const set = getUnderstoodSet();
+      if (set.has(questionImage)) {
+        set.delete(questionImage);
+        this.innerHTML = 'Understood';
+        this.classList.remove('btn--understood--marked');
+      } else {
+        set.add(questionImage);
+        this.innerHTML = '&#10003; Understood';
+        this.classList.add('btn--understood--marked');
+      }
+      localStorage.setItem(UNDERSTOOD_KEY, JSON.stringify(Array.from(set)));
+    });
+
+    // ── Revision toggle ──
+    dlg.querySelector('#expdlg-rev').addEventListener('click', function () {
+      let list = getRevisionList();
+      const idx = list.findIndex(r => r.q && r.q.questionImage === questionImage);
+      if (idx >= 0) {
+        list.splice(idx, 1);
+        this.innerHTML = 'Mark for Revision';
+        this.classList.remove('btn--revision--marked');
+      } else {
+        list.push(revisionEntry || { q: { questionImage } });
+        this.innerHTML = '&#10003; Marked for Revision';
+        this.classList.add('btn--revision--marked');
+      }
+      localStorage.setItem(REVISION_KEY, JSON.stringify(list));
+    });
+
+    // ── Load explanation — AI cache → metadata.json ──
     const exBody = document.getElementById('expdlg-body');
     const aiCached = getAiCache(questionImage);
     if (aiCached) { exBody.innerHTML = aiCached; return; }
@@ -203,20 +270,14 @@
     if (!path) { exBody.innerHTML = '<em style="color:#888">No explanation available.</em>'; return; }
     try {
       const resp = await fetch(path);
-      if (!resp.ok) throw new Error('not found');
+      if (!resp.ok) throw new Error();
       const data = await resp.json();
-      const html = data?.explanation?.html_text;
-      exBody.innerHTML = html || '<em style="color:#888">No explanation available yet.</em>';
+      exBody.innerHTML = data?.explanation?.html_text
+        || '<em style="color:#888">No explanation available yet.</em>';
     } catch (_) {
       exBody.innerHTML = '<em style="color:#888">Could not load explanation.</em>';
     }
   }
 
-  global.ExplanationModal = {
-    open,
-    openFull,
-    stopSpeech: () => { tts.stop(); resetReadBtn(); },
-    getAiCache,
-    setAiCache,
-  };
+  global.ExplanationModal = { open, openFull, stopSpeech: () => { tts.stop(); resetReadBtn(); }, getAiCache, setAiCache };
 })(window);
