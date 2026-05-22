@@ -159,14 +159,13 @@ async function renderQuestionBank() {
   // Stop any in-progress speech when navigating to a new question
   if (typeof ExplanationModal !== 'undefined') ExplanationModal.stopSpeech();
   if (window.speechSynthesis) window.speechSynthesis.cancel();
+  const raBtn = document.getElementById('qbank-read-aloud');
+  if (raBtn) { raBtn.innerHTML = '&#128266; Read Aloud'; raBtn.title = 'Read explanation aloud'; }
 
   // Right panel: inline explanation + action buttons
-  const ttsSupported = 'speechSynthesis' in window;
   rightEl.innerHTML = `
     <div class="qbank-explanation" id="qbank-explanation-body">Loading explanation&hellip;</div>
     <div class="qbank-right-actions">
-      ${ttsSupported ? `<button class="btn--read-aloud" id="qbank-read-aloud" title="Read explanation aloud">&#128266; Read Aloud</button>` : ''}
-      <button class="btn btn--explain btn--xs" data-qimg="${qimg}">&#128218; Open Full Explanation</button>
       <button class="btn btn--ai-explain btn--xs" id="qbank-ai-explain"
         data-qimg="${qimg}"
         data-correct="${escHtml(item.correctAnswer || '')}"
@@ -246,14 +245,24 @@ document.addEventListener('DOMContentLoaded', () => {
     renderQuestionBank();
   });
 
-  // ── Inline Read Aloud for qbank right panel ──────────────────────────
-  document.getElementById('qbank-card-right').addEventListener('click', e => {
-    const btn = e.target.closest('#qbank-read-aloud');
-    if (!btn || !window.speechSynthesis) return;
+  // ── Read Aloud (header button — static in HTML, not re-rendered) ─────
+  function pickIndianVoice() {
+    const voices = window.speechSynthesis.getVoices();
+    // Prefer en-IN female, then any en-IN, then any English with India in the name
+    return voices.find(v => v.lang === 'en-IN' && /female|woman|heera|priya|raveena/i.test(v.name))
+        || voices.find(v => v.lang === 'en-IN')
+        || voices.find(v => /en[-_]IN/i.test(v.lang))
+        || voices.find(v => /india/i.test(v.name))
+        || null;
+  }
+
+  document.getElementById('qbank-read-aloud').addEventListener('click', function () {
+    if (!window.speechSynthesis) return;
+    const btn = this;
 
     if (window.speechSynthesis.speaking) {
       window.speechSynthesis.cancel();
-      btn.textContent = '🔊 Read Aloud';
+      btn.innerHTML = '&#128266; Read Aloud';
       btn.title = 'Read explanation aloud';
       return;
     }
@@ -262,12 +271,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const text = bodyEl ? (bodyEl.innerText || bodyEl.textContent || '').trim() : '';
     if (!text) return;
 
-    btn.textContent = '⏹ Stop';
+    btn.innerHTML = '&#9209; Stop';
     btn.title = 'Stop reading';
 
     const utt = new SpeechSynthesisUtterance(text);
-    utt.lang = 'en-IN';
-    const done = () => { btn.textContent = '🔊 Read Aloud'; btn.title = 'Read explanation aloud'; };
+    utt.lang  = 'en-IN';
+    utt.pitch = 0.85;   // slightly lower — mature/senior tone
+    utt.rate  = 0.88;   // slightly slower — unhurried, clear
+    // Voices list may not be ready on first call; re-query inside the handler
+    const voice = pickIndianVoice();
+    if (voice) utt.voice = voice;
+
+    const done = () => { btn.innerHTML = '&#128266; Read Aloud'; btn.title = 'Read explanation aloud'; };
     utt.onend   = done;
     utt.onerror = done;
     window.speechSynthesis.speak(utt);

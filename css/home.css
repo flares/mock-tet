@@ -916,7 +916,17 @@
 }
 
 /* Spacer balances the grid so subject buttons stay truly centred */
-.qbank-header-spacer { justify-self: end; }
+.qbank-header-spacer {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+}
+
+.qbank-header-read-aloud {
+  font-size: 12px;
+  padding: 5px 12px;
+  white-space: nowrap;
+}
 
 /* Row 2: small status filter chips */
 .qbank-status-row { gap: 6px; }
@@ -997,7 +1007,6 @@
 }
 .qbank-nav-btn:hover { background: #eef2f8; }
 
-/* Read Aloud button override for the light qbank right panel */
 .qbank-right-actions {
   display: flex;
   align-items: center;
@@ -1006,16 +1015,6 @@
   padding-top: 10px;
   border-top: 1px solid #e0e8f5;
   flex-wrap: wrap;
-}
-
-.qbank-right-actions .btn--read-aloud {
-  border-color: #6a9fd8;
-  background: #eef4fb;
-  color: #1a3a5c;
-}
-.qbank-right-actions .btn--read-aloud:hover {
-  background: #dceaf8;
-  border-color: #1a3a5c;
 }
 
 /* ── Explain with AI button ─────────────────────────────────────────────── */
