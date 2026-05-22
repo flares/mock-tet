@@ -167,6 +167,12 @@ async function renderQuestionBank() {
     <div class="qbank-right-actions">
       ${ttsSupported ? `<button class="btn--read-aloud" id="qbank-read-aloud" title="Read explanation aloud">&#128266; Read Aloud</button>` : ''}
       <button class="btn btn--explain btn--xs" data-qimg="${qimg}">&#128218; Open Full Explanation</button>
+      <button class="btn btn--ai-explain btn--xs" id="qbank-ai-explain"
+        data-qimg="${qimg}"
+        data-correct="${escHtml(item.correctAnswer || '')}"
+        data-subject="${escHtml((item.sectionId || '').toLowerCase())}"
+        data-opts-in-q="${item.optionsInQuestion ? '1' : '0'}"
+        title="Generate AI explanation for this question">&#10024; Explain with AI</button>
     </div>`;
 
   // Footer action buttons
@@ -272,6 +278,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const explainBtn = e.target.closest('.btn--explain');
     if (explainBtn && explainBtn.dataset.qimg) { ExplanationModal.open(explainBtn.dataset.qimg); return; }
 
+    const aiBtn = e.target.closest('.btn--ai-explain');
+    if (aiBtn) { handleAiExplain(aiBtn); return; }
+
     const understoodBtn = e.target.closest('[data-qbank-understood]');
     if (understoodBtn) { toggleUnderstood(understoodBtn.dataset.qbankUnderstood); renderQuestionBank(); return; }
 
@@ -284,6 +293,46 @@ document.addEventListener('DOMContentLoaded', () => {
       renderQuestionBank();
       return;
     }
+  }
+
+  async function handleAiExplain(btn) {
+    if (btn.disabled) return;
+
+    const item = qbankFiltered[qbankIndex];
+    if (!item) return;
+
+    if (!window.AiExplainer) {
+      showAiError('AI module is still loading — please try again in a moment.');
+      return;
+    }
+
+    const bodyEl = document.getElementById('qbank-explanation-body');
+    btn.disabled = true;
+    btn.textContent = '⏳ Generating…';
+    if (bodyEl) bodyEl.innerHTML = '<div class="qbank-ai-loading"><span class="qbank-ai-spinner"></span>Generating AI explanation — this may take 10–20 seconds…</div>';
+
+    try {
+      const html = await window.AiExplainer.explain({
+        questionImage:    item.questionImage,
+        optionImages:     item.optionImages || [],
+        optionsInQuestion: !!item.optionsInQuestion,
+        correctAnswer:    item.correctAnswer,
+        sectionId:        item.sectionId,
+      });
+      if (bodyEl) bodyEl.innerHTML = html;
+      btn.textContent = '✨ Regenerate';
+    } catch (err) {
+      console.error('[AiExplainer]', err);
+      showAiError(err.message || 'AI explanation failed.');
+      btn.textContent = '✨ Explain with AI';
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  function showAiError(msg) {
+    const bodyEl = document.getElementById('qbank-explanation-body');
+    if (bodyEl) bodyEl.innerHTML = `<div class="qbank-ai-error"><strong>AI error:</strong> ${escHtml(msg)}</div>`;
   }
 
   document.getElementById('qbank-card-left').addEventListener('click', handleCardClick);

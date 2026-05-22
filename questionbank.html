@@ -82,5 +82,8 @@
 
   <script src="js/explanation.js"></script>
   <script src="js/questionbank.js"></script>
+  <!-- Firebase AI — load config first (gitignored), then the AI module -->
+  <script src="js/firebase-config.js" onerror="console.warn('Firebase config not found — AI explanations disabled. See js/firebase-config.example.js.')"></script>
+  <script type="module" src="js/firebase-ai.js"></script>
 </body>
 </html>

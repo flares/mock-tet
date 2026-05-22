@@ -1017,3 +1017,46 @@
   background: #dceaf8;
   border-color: #1a3a5c;
 }
+
+/* ── Explain with AI button ─────────────────────────────────────────────── */
+.btn--ai-explain {
+  background: #fff;
+  color: #e65100;
+  border: 1.5px solid #e65100;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s;
+}
+.btn--ai-explain:hover:not(:disabled) { background: #fff3e0; }
+.btn--ai-explain:disabled { opacity: 0.6; cursor: default; }
+
+/* ── AI loading / error states ──────────────────────────────────────────── */
+.qbank-ai-loading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #555;
+  font-size: 13px;
+  padding: 16px 0;
+}
+.qbank-ai-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #e0e0e0;
+  border-top-color: #e65100;
+  border-radius: 50%;
+  animation: ai-spin 0.8s linear infinite;
+  flex-shrink: 0;
+}
+@keyframes ai-spin { to { transform: rotate(360deg); } }
+
+.qbank-ai-error {
+  color: #b71c1c;
+  background: #fff5f5;
+  border: 1px solid #ffcdd2;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 13px;
+  margin-top: 8px;
+}
