@@ -301,9 +301,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const item = qbankFiltered[qbankIndex];
     if (!item) return;
 
+    // Wait up to 10 s for the ES module to finish loading
     if (!window.AiExplainer) {
-      showAiError('AI module is still loading — please try again in a moment.');
-      return;
+      btn.disabled = true;
+      btn.textContent = '⏳ Loading AI…';
+      let waited = 0;
+      while (!window.AiExplainer && waited < 10000) {
+        await new Promise(r => setTimeout(r, 250));
+        waited += 250;
+      }
+      btn.disabled = false;
+      if (!window.AiExplainer) {
+        btn.textContent = '✨ Explain with AI';
+        showAiError('Firebase AI module failed to load. Open the browser console (F12) for details — the CDN import or firebase-config.js may have an error.');
+        return;
+      }
     }
 
     const bodyEl = document.getElementById('qbank-explanation-body');
