@@ -209,6 +209,76 @@
   padding: 30px;
 }
 
+/* ── Fullcard explanation dialog (revision / result pages) ── */
+#explanation-dialog.expdlg--card {
+  width: min(1120px, 96vw);
+  max-height: 92vh;
+  padding: 0;
+  overflow: hidden;
+}
+
+.expdlg-card {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  max-height: 92vh;
+  position: relative;
+}
+
+.expdlg-card__close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  z-index: 10;
+  background: #fff;
+  border: 1.5px solid #ccc;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #555;
+  padding: 0;
+}
+.expdlg-card__close:hover { background: #f5f5f5; color: #111; }
+
+.expdlg-card__left {
+  overflow-y: auto;
+  max-height: 92vh;
+  border-right: 1px solid #e0e8f5;
+  padding: 16px;
+  background: #f8fafd;
+}
+
+.expdlg-card__right {
+  overflow-y: auto;
+  max-height: 92vh;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.expdlg-body { flex: 1; }
+
+.expdlg-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid #e0e8f5;
+  flex-shrink: 0;
+}
+
+/* Read Aloud inside fullcard dialog — light context override */
+.expdlg-read-aloud {
+  border-color: #6a9fd8 !important;
+  background: #eef4fb !important;
+  color: #1a3a5c !important;
+}
+
 /* ── tet-explanation HTML fragment styles (authored by skill subagents) ── */
 .tet-explanation { font-size: 14px; line-height: 1.6; color: #222; }
 .tet-explanation section { margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid #eef1f6; }

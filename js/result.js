@@ -93,7 +93,13 @@ document.addEventListener('DOMContentLoaded', () => {
         ? `<span class="answer-badge answer-badge--discrepancy" title="Official discrepancy — full marks to all">⚠️ Discrepancy</span>`
         : `<span class="answer-badge answer-badge--correct">${d.question.correctAnswer}</span>`;
       const explainBtn = d.question.questionImage
-        ? `<button class="btn btn--explain btn--xs" data-qimg="${escHtml(d.question.questionImage)}">&#128218; Explain</button>`
+        ? `<button class="btn btn--explain btn--xs"
+              data-qimg="${escHtml(d.question.questionImage)}"
+              data-qdata="${escHtml(JSON.stringify({
+                opts:    d.question.optionImages   || [],
+                correct: d.question.correctAnswer  || '',
+                optsInQ: d.question.optionsInQuestion ? 1 : 0,
+              }))}">&#128218; Explain</button>`
         : '<span style="color:#bbb">—</span>';
 
       let questionContent;
@@ -133,7 +139,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   reviewBody.addEventListener('click', e => {
     const btn = e.target.closest('.btn--explain');
-    if (btn && btn.dataset.qimg) ExplanationModal.open(btn.dataset.qimg);
+    if (!btn || !btn.dataset.qimg) return;
+    let qd = {};
+    try { qd = JSON.parse(btn.dataset.qdata || '{}'); } catch (_) {}
+    ExplanationModal.openFull(btn.dataset.qimg, {
+      optionImages:    qd.opts    || [],
+      correctAnswer:   qd.correct || '',
+      optionsInQuestion: !!qd.optsInQ,
+    });
   });
 
   renderReview('all');

@@ -25,56 +25,75 @@ const SUBJECT_LABELS = {
   science:     "Science",
 };
 
-const SYSTEM_INSTRUCTION = `You are a TET (Teacher Eligibility Test, India) tutor. Generate a bilingual (English + Telugu) study explanation for a past-paper question.
+const SYSTEM_INSTRUCTION = `
+You are an expert tutor for the Telangana TET (Teacher Eligibility Test), fluent in both English and Telugu, with deep command of Child Development, Pedagogy, and Telugu, English , Maths  and Science.
+Purpose is a senior teacher who has been teaching only English for the last 20 years is now preparing for this test. So, please be as respectful as possible, but as helpful as possible to make them prepare for the upcoming test.
 
-OUTPUT RULE — CRITICAL: Return ONLY the raw HTML fragment. No markdown. No code fences. No explanatory text before or after. The response must start with the literal characters <div and end with </div>.
+OUTPUT RULE — CRITICAL: Return ONLY the raw HTML fragment. No markdown. No code fences. No explanatory text before or after. The response must start with the literal characters <div> and end with </div>.
+Output your response in clean Markdown HTML. Do not wrap symbols in LaTeX delimiters like $ or $$. Use standard Unicode characters for symbols (e.g., use 'ε' instead of standard math blocks)
+The question and options are bilingual, but respond only in one language and use words of other language if reuqired, but dont duplicate your output in both languages.
 
-Use exactly these classes and section ids so existing CSS can style them. Add the literal class "correct" to the <li> matching the correct option only.
+Give a 1) clear short explanation and 2) a detailed long explanation for helping with the preparation. Add 3) possible related questions, 4) memory hooks if required. 
+For #1) Try not to make this a paragraph by being crisp and explanatory of why this option better suits or how you can eliminate other options.
+For #2) Long explanation - ensure you have visually better html rather than long paragraphs. Prefer showing stuff visually over words where possible or required.
+For #3) possible related quesions, also give answers and strucutre them with better html styling.
+For #4) memory hooks, use better visual html styling rather than simple raw paragraphs
+
+Ensure you are using the correct HTML formatting and inline styling for visually clean view. Your output will be copied as is into the explanation section, so ensure you have all styling in place.
 
 <div class="tet-explanation" data-subject="{SUBJECT_AREA}">
-  <section class="question">
-    <h3>Question / ప్రశ్న</h3>
-    <p class="en">{English question text}</p>
-    <p class="te">{Telugu question text}</p>
-  </section>
-  <section class="options">
-    <ol type="A">
-      <li class="option"><span class="en">{A English}</span><span class="te">{A Telugu}</span></li>
-      <li class="option"><span class="en">{B English}</span><span class="te">{B Telugu}</span></li>
-      <li class="option"><span class="en">{C English}</span><span class="te">{C Telugu}</span></li>
-      <li class="option"><span class="en">{D English}</span><span class="te">{D Telugu}</span></li>
-    </ol>
-  </section>
   <section class="answer">
     <h3>Correct answer: {LETTER}</h3>
     <p class="en">{correct option English}</p>
-    <p class="te">{correct option Telugu}</p>
+  </section>
+  {HERE add all your other section as appropriate - }
+</div>
+`;
+
+const OLD_SYTEM_INSTRUCION=`
+You are an expert tutor for the Telangana TET (Teacher Eligibility Test), fluent in both English and Telugu, with deep command of Child Development, Pedagogy, and Telugu, English , Maths  and Science.
+Purpose is a senior teacher who has been teaching only English for the last 20 years is now preparing for this test. So, please be as respectful as possible, but as helpful as possible to make them prepare for the upcoming test.
+
+OUTPUT RULE — CRITICAL: Return ONLY the raw HTML fragment. No markdown. No code fences. No explanatory text before or after. The response must start with the literal characters <div> and end with </div>.
+Output your response in clean Markdown/plain text. Do not wrap symbols in LaTeX delimiters like $ or $$. Use standard Unicode characters for symbols (e.g., use 'ε' instead of standard math blocks)
+
+You will be giving a short explanation and a long explanation or preparation helper. 
+
+Determine the Long explanation depending on the subject as below. 
+* For Child Development, Pedagogy - explain the concept and surrounding concepts, extensions to remember.
+* For Telugu, English - explain the nuances, a few more extensions. If it is a concept like a sandhi etc, explain that in detail
+* For Math - explain the formula usage if any, how to tackle this problem on exam hall in the easiest way.
+* For science - explain the concept in detail and other surrounding points.
+
+Dont give too many paragraphs, use better html styling to make the concept visually clean and clear. Feel free to add any uml diagrams or memory visualization helpful stuff in this section. 
+
+Give a list of potential corollary questions that can comeup based on TET syllabus and their solutions too.
+
+Sample HTML style : (we have existing CSS can style for below classes and section ids - feel free to structure your data more if required for better visual appeal )
+
+<div class="tet-explanation" data-subject="{SUBJECT_AREA}">
+  <section class="answer">
+    <h3>Correct answer: {LETTER}</h3>
+    <p class="en">{correct option English}</p>
   </section>
   <section class="short-explanation">
-    <h3>Why this is right</h3>
+    <h3>Why</h3>
     <p>{3–5 sentences in plain language}</p>
-  </section>
-  <section class="why-others-wrong">
-    <h3>Why the others are wrong</h3>
-    <p>{one short paragraph or one line per distractor}</p>
+    <p>{one short paragraph or one line per distractor if required and sensible or else leave it empty}</p>
   </section>
   <section class="concept-notes">
     <h3>Concept notes</h3>
-    <p>{150–200 words: underlying theory, key theorist, important terms, related distinctions. Bilingual — every term appears in English with a Telugu gloss.}</p>
+    <p{ Long explanation : How to remember this, and what other things can come up in the exam surrounding this to remember that could be helpful.}</p>
   </section>
   <section class="corollary-questions">
     <h3>Likely spin-off TET questions</h3>
-    <ol>
-      <li>{spin-off Q1}</li>
-      <li>{spin-off Q2}</li>
-      <li>{spin-off Q3}</li>
-    </ol>
+    {structure your html output correctly to give a few corollary questions and their answers.}
   </section>
   <section class="memory-hook">
     <h3>Memory hook</h3>
     <p>{one crisp mnemonic or contrast sentence}</p>
   </section>
-</div>`;
+</div>`
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -136,12 +155,15 @@ function track(eventName, params) {
 
 // ── Core ────────────────────────────────────────────────────────────────────
 
-async function explain({ questionImage, optionImages = [], optionsInQuestion = false, correctAnswer, sectionId }) {
+async function explain({ questionImage, optionImages = [], optionsInQuestion = false, correctAnswer, sectionId, forceRegenerate = false }) {
   const cacheKey = sessionKey(questionImage);
-  const cached = sessionStorage.getItem(cacheKey);
-  if (cached) {
-    track("ai_explain_cache_hit", { subject: sectionId });
-    return cached;
+
+  // Check localStorage first (persists across sessions), then sessionStorage
+  if (!forceRegenerate) {
+    const lsPersisted = typeof ExplanationModal !== "undefined" && ExplanationModal.getAiCache(questionImage);
+    if (lsPersisted) { track("ai_explain_cache_hit", { subject: sectionId }); return lsPersisted; }
+    const ssCached = sessionStorage.getItem(cacheKey);
+    if (ssCached)   { track("ai_explain_cache_hit", { subject: sectionId }); return ssCached; }
   }
 
   if (!initServices()) {
@@ -168,8 +190,8 @@ async function explain({ questionImage, optionImages = [], optionsInQuestion = f
   }
   parts.push({
     text: letter
-      ? `Verified correct answer: option ${letter}. Do not second-guess this. Generate the bilingual HTML explanation now. data-subject="${subjectArea}".`
-      : `Correct answer unknown — deduce if possible. Generate the bilingual HTML now. data-subject="${subjectArea}".`,
+      ? `Verified correct answer: option ${letter}. Do not second-guess this. Generate the HTML explanation now. data-subject="${subjectArea}".`
+      : `Correct answer unknown — deduce if possible. Generate the HTML now. data-subject="${subjectArea}".`,
   });
 
   const result = await model.generateContent({ contents: [{ role: "user", parts }] });
@@ -178,7 +200,9 @@ async function explain({ questionImage, optionImages = [], optionsInQuestion = f
 
   if (!html.startsWith("<")) throw new Error("Unexpected response format from AI.");
 
+  // Persist to both caches
   sessionStorage.setItem(cacheKey, html);
+  if (typeof ExplanationModal !== "undefined") ExplanationModal.setAiCache(questionImage, html);
   track("ai_explain_success", { subject: sectionId });
   return html;
 }

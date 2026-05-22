@@ -641,6 +641,18 @@
   color: #388e3c;
 }
 
+.rev-revised-details > summary {
+  cursor: pointer;
+  list-style: none;
+  margin-bottom: 10px;
+}
+.rev-revised-details > summary::before {
+  content: '▶ ';
+  font-size: 11px;
+  opacity: 0.6;
+}
+.rev-revised-details[open] > summary::before { content: '▼ '; }
+
 .rev-count {
   display: inline-flex;
   align-items: center;
@@ -923,9 +935,17 @@
 }
 
 .qbank-header-read-aloud {
+  /* Override the dark-bg defaults from btn--read-aloud */
+  border-color: #6a9fd8;
+  background: #eef4fb;
+  color: #1a3a5c;
   font-size: 12px;
   padding: 5px 12px;
-  white-space: nowrap;
+}
+.qbank-header-read-aloud:hover {
+  background: #dceaf8;
+  border-color: #1a3a5c;
+  color: #1a3a5c;
 }
 
 /* Row 2: small status filter chips */

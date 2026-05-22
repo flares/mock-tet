@@ -106,8 +106,13 @@ function renderRevision() {
       }
 
       const qimg = escHtml(q.questionImage || '');
+      const qdata = qimg ? escHtml(JSON.stringify({
+        opts:    q.optionImages   || [],
+        correct: q.correctAnswer  || '',
+        optsInQ: q.optionsInQuestion ? 1 : 0,
+      })) : '';
       const explainBtn = qimg
-        ? `<button class="btn btn--explain btn--xs" data-qimg="${qimg}">&#128218; Explain</button>`
+        ? `<button class="btn btn--explain btn--xs" data-qimg="${qimg}" data-qdata="${qdata}">&#128218; Explain</button>`
         : '';
 
       const actionCell = isPending
@@ -141,7 +146,13 @@ function renderRevision() {
       html += `<div class="rev-section-heading">To Review <span class="rev-count">${pending.length}</span></div>${makeTable(pending, true)}`;
     }
     if (revised.length) {
-      html += `<div class="rev-section-heading rev-section-heading--revised" style="margin-top:28px">Revised <span class="rev-count rev-count--revised">${revised.length}</span></div>${makeTable(revised, false)}`;
+      html += `
+        <details class="rev-revised-details" style="margin-top:28px">
+          <summary class="rev-section-heading rev-section-heading--revised">
+            Revised <span class="rev-count rev-count--revised">${revised.length}</span>
+          </summary>
+          ${makeTable(revised, false)}
+        </details>`;
     }
 
     container.innerHTML = html;
@@ -166,7 +177,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('revision-container').addEventListener('click', e => {
     const btn = e.target.closest('.btn--explain');
-    if (btn && btn.dataset.qimg) ExplanationModal.open(btn.dataset.qimg);
+    if (!btn || !btn.dataset.qimg) return;
+    let qd = {};
+    try { qd = JSON.parse(btn.dataset.qdata || '{}'); } catch (_) {}
+    ExplanationModal.openFull(btn.dataset.qimg, {
+      optionImages:    qd.opts    || [],
+      correctAnswer:   qd.correct || '',
+      optionsInQuestion: !!qd.optsInQ,
+    });
   });
 
   document.getElementById('btn-clear-revision').addEventListener('click', () => {

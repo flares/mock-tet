@@ -192,6 +192,13 @@ async function renderQuestionBank() {
 async function loadQbankExplanation(questionImage) {
   const target = document.getElementById('qbank-explanation-body');
   if (!target) return;
+
+  // Check localStorage AI cache first
+  if (typeof ExplanationModal !== 'undefined') {
+    const aiCached = ExplanationModal.getAiCache(questionImage);
+    if (aiCached) { target.innerHTML = aiCached; return; }
+  }
+
   const lastSlash = questionImage.lastIndexOf('/');
   if (lastSlash < 0) { target.innerHTML = '<em style="color:#888">No explanation available yet.</em>'; return; }
   const path = questionImage.substring(0, lastSlash) + '/metadata.json';
@@ -339,12 +346,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (bodyEl) bodyEl.innerHTML = '<div class="qbank-ai-loading"><span class="qbank-ai-spinner"></span>Generating AI explanation — this may take 10–20 seconds…</div>';
 
     try {
+      const isRegenerate = btn.textContent.trim().includes('Regenerate');
       const html = await window.AiExplainer.explain({
         questionImage:    item.questionImage,
         optionImages:     item.optionImages || [],
         optionsInQuestion: !!item.optionsInQuestion,
         correctAnswer:    item.correctAnswer,
         sectionId:        item.sectionId,
+        forceRegenerate:  isRegenerate,
       });
       if (bodyEl) bodyEl.innerHTML = html;
       btn.textContent = '✨ Regenerate';
