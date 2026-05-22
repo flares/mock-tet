@@ -1,8 +1,7 @@
-// Firebase project config — copy this file to js/firebase-config.js (gitignored)
-// and fill in your real values. NEVER commit firebase-config.js to git.
+// Firebase + Gemini config — copy to js/firebase-config.js (gitignored). NEVER commit that file.
 //
-// No separate Gemini API key needed — Firebase AI uses your project config.
-// Setup: Firebase console → Build → AI → enable Gemini Developer API.
+// geminiApiKey: free key from https://aistudio.google.com/apikey (no billing needed)
+// Everything else: Firebase console → Project settings → Your apps → SDK setup
 //
 window.FIREBASE_CONFIG = {
   apiKey:            "YOUR_FIREBASE_API_KEY",
@@ -12,4 +11,5 @@ window.FIREBASE_CONFIG = {
   messagingSenderId: "000000000000",
   appId:             "1:000000000000:web:0000000000000000000000",
   measurementId:     "G-XXXXXXXXXX",
+  geminiApiKey:      "YOUR_GEMINI_API_KEY",
 };

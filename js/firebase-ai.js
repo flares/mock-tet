@@ -1,21 +1,21 @@
 /**
- * firebase-ai.js — Firebase AI Logic (Gemini Developer API) + Analytics.
+ * firebase-ai.js — Gemini AI via @google/generative-ai + Firebase Analytics.
  * Loaded as <script type="module"> in questionbank.html.
  * Exposes window.AiExplainer for use by non-module scripts.
  *
- * No separate Gemini API key needed — Firebase project config is sufficient.
- * Requires: window.FIREBASE_CONFIG set in js/firebase-config.js (gitignored).
- * Firebase console: Build → AI → enable Gemini Developer API (already done).
+ * Requires in js/firebase-config.js (gitignored):
+ *   geminiApiKey  — from https://aistudio.google.com/apikey (free, no billing)
+ *   measurementId — already in your Firebase config (for Analytics)
  */
 
-import { initializeApp }                              from "https://esm.run/firebase/app";
-import { getAI, getGenerativeModel, GoogleAIBackend } from "https://esm.run/firebase/ai";
-import { getAnalytics, logEvent }                     from "https://esm.run/firebase/analytics";
+import { GoogleGenerativeAI }        from "https://esm.run/@google/generative-ai";
+import { initializeApp }              from "https://esm.run/firebase/app";
+import { getAnalytics, logEvent }     from "https://esm.run/firebase/analytics";
 
 // ── Constants ───────────────────────────────────────────────────────────────
 
 const SESSION_PREFIX = "ai_exp:";
-const MODEL_NAME     = "gemini-2.0-flash";
+const MODEL_NAME     = "gemini-2.5-flash";
 
 const SUBJECT_LABELS = {
   cdp:         "Child Development & Pedagogy",
@@ -106,19 +106,19 @@ function correctLetter(correctAnswer) {
 let model     = null;
 let analytics = null;
 
-function initFirebase() {
+function initServices() {
   if (model) return true;
   const config = window.FIREBASE_CONFIG;
-  if (!config || config.apiKey === "YOUR_FIREBASE_API_KEY") return false;
+  if (!config || !config.geminiApiKey || config.geminiApiKey === "YOUR_GEMINI_API_KEY") return false;
   try {
-    const app  = initializeApp(config);
-    const ai   = getAI(app, { backend: new GoogleAIBackend() });
-    model      = getGenerativeModel(ai, {
+    const genAI = new GoogleGenerativeAI(config.geminiApiKey);
+    model = genAI.getGenerativeModel({
       model: MODEL_NAME,
       systemInstruction: SYSTEM_INSTRUCTION,
       generationConfig: { temperature: 0.3 },
     });
     if (config.measurementId) {
+      const app = initializeApp(config);
       analytics = getAnalytics(app);
     }
     return true;
@@ -144,8 +144,8 @@ async function explain({ questionImage, optionImages = [], optionsInQuestion = f
     return cached;
   }
 
-  if (!initFirebase()) {
-    throw new Error("Firebase config not found or placeholder values detected — check js/firebase-config.js.");
+  if (!initServices()) {
+    throw new Error("Gemini API key missing — add geminiApiKey to js/firebase-config.js. Get a free key at https://aistudio.google.com/apikey");
   }
 
   const letter      = correctLetter(correctAnswer);
@@ -169,7 +169,7 @@ async function explain({ questionImage, optionImages = [], optionsInQuestion = f
   parts.push({
     text: letter
       ? `Verified correct answer: option ${letter}. Do not second-guess this. Generate the bilingual HTML explanation now. data-subject="${subjectArea}".`
-      : `Correct answer unknown — deduce if possible. Generate the bilingual HTML explanation now. data-subject="${subjectArea}".`,
+      : `Correct answer unknown — deduce if possible. Generate the bilingual HTML now. data-subject="${subjectArea}".`,
   });
 
   const result = await model.generateContent({ contents: [{ role: "user", parts }] });
@@ -183,4 +183,4 @@ async function explain({ questionImage, optionImages = [], optionsInQuestion = f
   return html;
 }
 
-window.AiExplainer = { explain, isConfigured: () => initFirebase() };
+window.AiExplainer = { explain, isConfigured: () => initServices() };
