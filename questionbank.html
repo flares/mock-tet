@@ -24,27 +24,35 @@
   <main class="qbank-main">
     <div class="qbank-card">
 
-      <!-- Card header: subject + status filters -->
+      <!-- Card header -->
       <div class="qbank-card__header">
+
+        <!-- Row 1: Progress (top-left) | Subject buttons (true centre) | spacer -->
         <div class="qbank-card__header-top">
-          <div class="exam-filters" id="qbank-subject-filters" style="margin-bottom:0; flex-wrap:wrap">
-            <button class="filter-chip active" data-subject="all">All</button>
-            <button class="filter-chip" data-subject="cdp">CDP</button>
-            <button class="filter-chip" data-subject="telugu">Telugu</button>
-            <button class="filter-chip" data-subject="english">English</button>
-            <button class="filter-chip" data-subject="mathematics">Math</button>
-            <button class="filter-chip" data-subject="science">Science</button>
+          <div class="qbank-header-progress" id="qbank-header-progress">
+            <!-- JS fills: big count + small "understood" line -->
           </div>
-          <div class="qbank-header-progress" id="qbank-header-progress"></div>
+          <div class="qbank-subject-filters" id="qbank-subject-filters">
+            <button class="qbank-subj-btn active" data-subject="all">All</button>
+            <button class="qbank-subj-btn" data-subject="cdp">CDP</button>
+            <button class="qbank-subj-btn" data-subject="telugu">Telugu</button>
+            <button class="qbank-subj-btn" data-subject="english">English</button>
+            <button class="qbank-subj-btn" data-subject="mathematics">Math</button>
+            <button class="qbank-subj-btn" data-subject="science">Science</button>
+          </div>
+          <div class="qbank-header-spacer"></div>
         </div>
-        <div class="exam-filters" id="qbank-status-filters" style="margin-bottom:0">
-          <button class="filter-chip active" data-status="all">All</button>
-          <button class="filter-chip" data-status="yet-to-read">Yet to Read</button>
-          <button class="filter-chip" data-status="understood">Understood</button>
+
+        <!-- Row 2: Small status filters (left-aligned) -->
+        <div class="exam-filters qbank-status-row" id="qbank-status-filters" style="margin-bottom:0">
+          <button class="filter-chip filter-chip--sm active" data-status="yet-to-read">Yet to Read</button>
+          <button class="filter-chip filter-chip--sm" data-status="all">All</button>
+          <button class="filter-chip filter-chip--sm" data-status="understood">Understood</button>
         </div>
+
       </div>
 
-      <!-- Card body: 2:3 split (left=question fixed, right=explanation scrollable) -->
+      <!-- Card body: 2:3 split (left=question scrollable, right=explanation scrollable) -->
       <div class="qbank-card__body">
         <div class="qbank-card__left" id="qbank-card-left">
           <p class="loading-msg">Loading question bank&hellip;</p>

@@ -15,29 +15,13 @@ function escHtml(str) {
     .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
-function applySubjectChipColors() {
-  document.querySelectorAll('.filter-chip').forEach(chip => {
-    const key = (chip.dataset.subject || '').toLowerCase();
-    const normalized = key === 'math' ? 'mathematics' : key;
-    const meta = SUBJECT_META[normalized];
-    if (!meta) return;
-    chip.style.borderColor = meta.color;
-    if (chip.classList.contains('active')) {
-      chip.style.color = '#fff';
-      chip.style.background = meta.color;
-    } else {
-      chip.style.color = meta.color;
-      chip.style.background = meta.bg;
-    }
-  });
-}
 
-let qbankCache      = null;
-let qbankFiltered   = [];
+let qbankCache         = null;
+let qbankFiltered      = [];
 let qbankSubjectFilter = 'all';
-let qbankStatusFilter  = 'all';
-let qbankIndex      = 0;
-let manifest        = null;
+let qbankStatusFilter  = 'yet-to-read';   // default: show un-read questions
+let qbankIndex         = 0;
+let manifest           = null;
 
 function getUnderstoodSet() {
   try { return new Set(JSON.parse(localStorage.getItem(UNDERSTOOD_KEY)) || []); } catch { return new Set(); }
@@ -107,7 +91,10 @@ function updateProgress(filtered, understood) {
   const el = document.getElementById('qbank-header-progress');
   if (!el) return;
   const doneCount = filtered.filter(q => understood.has(q.questionImage)).length;
-  el.textContent = `${qbankIndex + 1} / ${filtered.length} · ${doneCount} understood`;
+  const current = filtered.length > 0 ? qbankIndex + 1 : 0;
+  el.innerHTML = `
+    <div class="qbank-progress-count">${current} <span class="qbank-progress-total">/ ${filtered.length}</span></div>
+    <div class="qbank-progress-sub">${doneCount} understood</div>`;
 }
 
 async function renderQuestionBank() {
@@ -169,10 +156,16 @@ async function renderQuestionBank() {
     <img src="${qimg}" alt="Question" class="qbank-question-img" loading="lazy">
     <div class="rev-opts-stack">${opts}</div>`;
 
-  // Right panel: inline explanation + open-dialog button
+  // Stop any in-progress speech when navigating to a new question
+  if (typeof ExplanationModal !== 'undefined') ExplanationModal.stopSpeech();
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
+
+  // Right panel: inline explanation + action buttons
+  const ttsSupported = 'speechSynthesis' in window;
   rightEl.innerHTML = `
     <div class="qbank-explanation" id="qbank-explanation-body">Loading explanation&hellip;</div>
-    <div style="margin-top:12px; padding-top:10px; border-top:1px solid #e0e8f5">
+    <div class="qbank-right-actions">
+      ${ttsSupported ? `<button class="btn--read-aloud" id="qbank-read-aloud" title="Read explanation aloud">&#128266; Read Aloud</button>` : ''}
       <button class="btn btn--explain btn--xs" data-qimg="${qimg}">&#128218; Open Full Explanation</button>
     </div>`;
 
@@ -209,22 +202,24 @@ async function loadQbankExplanation(questionImage) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  applySubjectChipColors();
   renderQuestionBank();
 
-  // Subject filter chips
-  document.querySelectorAll('#qbank-subject-filters .filter-chip').forEach(btn => {
+  // Subject filter buttons (large rectangular — class qbank-subj-btn)
+  document.querySelectorAll('#qbank-subject-filters .qbank-subj-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       qbankSubjectFilter = btn.dataset.subject;
+      qbankStatusFilter  = 'yet-to-read';   // always fall back to unread when subject changes
       qbankIndex = 0;
-      document.querySelectorAll('#qbank-subject-filters .filter-chip').forEach(b =>
+      document.querySelectorAll('#qbank-subject-filters .qbank-subj-btn').forEach(b =>
         b.classList.toggle('active', b.dataset.subject === qbankSubjectFilter));
-      applySubjectChipColors();
+      // Sync status chip highlight
+      document.querySelectorAll('#qbank-status-filters .filter-chip').forEach(b =>
+        b.classList.toggle('active', b.dataset.status === qbankStatusFilter));
       renderQuestionBank();
     });
   });
 
-  // Status filter chips
+  // Status filter chips (small pills)
   document.querySelectorAll('#qbank-status-filters .filter-chip').forEach(btn => {
     btn.addEventListener('click', () => {
       qbankStatusFilter = btn.dataset.status;
@@ -243,6 +238,33 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('qbank-next').addEventListener('click', () => {
     qbankIndex = Math.min(qbankFiltered.length - 1, qbankIndex + 1);
     renderQuestionBank();
+  });
+
+  // ── Inline Read Aloud for qbank right panel ──────────────────────────
+  document.getElementById('qbank-card-right').addEventListener('click', e => {
+    const btn = e.target.closest('#qbank-read-aloud');
+    if (!btn || !window.speechSynthesis) return;
+
+    if (window.speechSynthesis.speaking) {
+      window.speechSynthesis.cancel();
+      btn.textContent = '🔊 Read Aloud';
+      btn.title = 'Read explanation aloud';
+      return;
+    }
+
+    const bodyEl = document.getElementById('qbank-explanation-body');
+    const text = bodyEl ? (bodyEl.innerText || bodyEl.textContent || '').trim() : '';
+    if (!text) return;
+
+    btn.textContent = '⏹ Stop';
+    btn.title = 'Stop reading';
+
+    const utt = new SpeechSynthesisUtterance(text);
+    utt.lang = 'en-IN';
+    const done = () => { btn.textContent = '🔊 Read Aloud'; btn.title = 'Read explanation aloud'; };
+    utt.onend   = done;
+    utt.onerror = done;
+    window.speechSynthesis.speak(utt);
   });
 
   // Delegated clicks on dynamic card areas
