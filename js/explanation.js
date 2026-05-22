@@ -125,11 +125,20 @@
   }
 
   // ── Fullcard modal — result.html / revision.html ──────────────────────────
+  // AbortController so every open cleanly replaces all listeners — no stacking.
+  let _fullAbort = null;
+
   async function openFull(questionImage, {
     optionImages = [], correctAnswer, optionsInQuestion = false, revisionEntry = null,
   } = {}) {
-    let dlg = document.getElementById('explanation-dialog');
+    const dlg = document.getElementById('explanation-dialog');
     if (!dlg) return;
+
+    // Cancel any listeners from a previous open
+    if (_fullAbort) { _fullAbort.abort(); }
+    _fullAbort = new AbortController();
+    const { signal } = _fullAbort;
+
     tts.stop();
     dlg.classList.add('expdlg--card');
 
@@ -142,15 +151,16 @@
         }).join('')
       : '';
 
-    // Initial states
     const isUnderstood = getUnderstoodSet().has(questionImage);
     const ttsOk = tts.supported;
-    // Check if AI is already cached to label button correctly
     const hasAiCache = !!getAiCache(questionImage);
 
     dlg.innerHTML = `
       <div class="expdlg-wrap">
-        <button class="expdlg-close" aria-label="Close">&#215;</button>
+
+        <div class="expdlg-topbar">
+          <button class="expdlg-close" aria-label="Close">&#215;</button>
+        </div>
 
         <div class="qbank-card__body">
 
@@ -180,9 +190,15 @@
 
     dlg.showModal();
 
-    // ── Close — use { once: true } so listeners don't stack across opens ──
-    dlg.querySelector('.expdlg-close').addEventListener('click', () => { tts.stop(); dlg.close(); }, { once: true });
-    dlg.addEventListener('click', e => { if (e.target === dlg) { tts.stop(); dlg.close(); } }, { once: true });
+    // ── Close helpers ──
+    function closeDlg() {
+      tts.stop();
+      if (_fullAbort) { _fullAbort.abort(); _fullAbort = null; }
+      dlg.close();
+    }
+
+    dlg.querySelector('.expdlg-close').addEventListener('click', closeDlg, { signal });
+    dlg.addEventListener('click', e => { if (e.target === dlg) closeDlg(); }, { signal });
 
     // ── Read Aloud ──
     const raBtn = dlg.querySelector('#expdlg-ra');
@@ -193,7 +209,7 @@
         if (!text) return;
         raBtn.innerHTML = '&#9209; Stop';
         tts.start(text, () => { raBtn.innerHTML = '&#128266; Read Aloud'; });
-      });
+      }, { signal });
     }
 
     // ── Explain with AI ──
@@ -214,13 +230,14 @@
           this.disabled = false;
           if (!window.AiExplainer) {
             this.textContent = '✨ Explain with AI';
-            document.getElementById('expdlg-body').innerHTML =
-              '<div class="qbank-ai-error"><strong>AI error:</strong> Module failed to load — check browser console.</div>';
+            const b = document.getElementById('expdlg-body');
+            if (b) b.innerHTML = '<div class="qbank-ai-error"><strong>AI error:</strong> Module failed to load — check browser console.</div>';
             return;
           }
         }
 
         const exBody = document.getElementById('expdlg-body');
+        if (!exBody) return;
         const isRegen = this.textContent.includes('Regenerate');
         this.disabled = true;
         this.textContent = '⏳ Generating…';
@@ -239,7 +256,7 @@
         } finally {
           this.disabled = false;
         }
-      });
+      }, { signal });
     }
 
     // ── Understood — marks understood AND removes from revision list ──
@@ -253,12 +270,11 @@
         set.add(questionImage);
         this.innerHTML = '&#10003; Understood';
         this.classList.add('btn--understood--marked');
-        // Auto-remove from revision list
         const filtered = getRevisionList().filter(r => !(r.q && r.q.questionImage === questionImage));
         localStorage.setItem(REVISION_KEY, JSON.stringify(filtered));
       }
       localStorage.setItem(UNDERSTOOD_KEY, JSON.stringify(Array.from(set)));
-    });
+    }, { signal });
 
     // ── Load explanation — AI cache → metadata.json ──
     const exBody = document.getElementById('expdlg-body');
