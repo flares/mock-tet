@@ -193,6 +193,7 @@
     // ── Close helpers ──
     function closeDlg() {
       tts.stop();
+      dlg.classList.remove('expdlg--card');
       if (_fullAbort) { _fullAbort.abort(); _fullAbort = null; }
       dlg.close();
     }

@@ -210,7 +210,8 @@
 }
 
 /* ── Fullcard explanation dialog (revision / result pages) ── */
-#explanation-dialog.expdlg--card {
+/* Must include [open] — otherwise display:flex overrides the UA's dialog:not([open]){display:none} */
+#explanation-dialog[open].expdlg--card {
   width: min(1120px, 96vw);
   height: min(820px, 90vh);
   max-height: 90vh;
