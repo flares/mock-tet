@@ -1,0 +1,19 @@
+{
+  "name": "Question Bank — Mock TET",
+  "short_name": "QB TET",
+  "description": "CTET/TET Question Bank — study on the go, offline-capable",
+  "start_url": "./qb_pwa.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#1a3a5c",
+  "theme_color": "#1a3a5c",
+  "icons": [
+    {
+      "src": "assets/pwa-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

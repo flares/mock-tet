@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#1a3a5c">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="QB TET">
+  <link rel="apple-touch-icon" href="assets/pwa-icon.svg">
+  <link rel="manifest" href="qb_pwa_manifest.json">
+  <title>Question Bank</title>
+<style>
+/* ── Reset & base ─────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; background: #1a3a5c; }
+
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+img { display: block; max-width: 100%; height: auto; }
+
+/* ── App shell ────────────────────────────────────────────────────────── */
+#pwa-app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+  background: #eef1f5;
+  overflow: hidden;
+  /* Safe areas for notched phones */
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* ── Header ───────────────────────────────────────────────────────────── */
+#pwa-header {
+  flex-shrink: 0;
+  background: #1a3a5c;
+  color: #fff;
+  padding: 10px 14px 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  position: relative;
+  z-index: 20;
+}
+
+.pwa-hrow1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+/* Progress — left */
+#pwa-progress {
+  min-width: 64px;
+  font-size: 13px;
+  color: #b8d0ee;
+  line-height: 1.3;
+}
+#pwa-progress strong {
+  display: block;
+  font-size: 20px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+
+/* Subject dropdown — centre */
+.pwa-subject-wrap {
+  position: relative;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+#pwa-subject-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.2px;
+  background: none;
+  border-bottom: 1.5px solid rgba(255,255,255,0.3);
+  transition: border-color 0.15s;
+  cursor: pointer;
+}
+#pwa-subject-btn:hover, #pwa-subject-btn:focus-visible {
+  border-color: rgba(255,255,255,0.8);
+  outline: none;
+}
+
+.pwa-chevron {
+  width: 14px; height: 14px;
+  fill: none;
+  stroke: rgba(255,255,255,0.7);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+.pwa-chevron--open { transform: rotate(180deg); }
+
+/* Dropdown panel */
+#pwa-subject-dd {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 150px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.22);
+  overflow: hidden;
+  z-index: 50;
+  animation: ddIn 0.15s ease;
+}
+@keyframes ddIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(-6px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+#pwa-subject-dd[hidden] { display: none; }
+
+.pwa-dd-item {
+  display: block;
+  width: 100%;
+  padding: 11px 18px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a3a5c;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+.pwa-dd-item:hover { background: #eef2f8; }
+.pwa-dd-item.active {
+  background: #1a3a5c;
+  color: #fff;
+}
+.pwa-dd-item + .pwa-dd-item { border-top: 1px solid #edf0f6; }
+
+/* Read aloud — right */
+#pwa-read-aloud {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  font-size: 17px;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+#pwa-read-aloud:hover { background: rgba(255,255,255,0.22); }
+#pwa-read-aloud.speaking { background: rgba(240,165,0,0.35); }
+
+/* Status filter chips row */
+#pwa-status-row {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 2px;
+}
+#pwa-status-row::-webkit-scrollbar { display: none; }
+
+.pwa-chip {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 12px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  background: rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.8);
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: background 0.13s, color 0.13s;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.pwa-chip:hover { background: rgba(255,255,255,0.22); }
+.pwa-chip.active {
+  background: #f0a500;
+  color: #1a1a1a;
+  border-color: #f0a500;
+  font-weight: 700;
+}
+
+/* ── Content area ─────────────────────────────────────────────────────── */
+#pwa-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 14px 14px 88px; /* bottom clears FAB + footer */
+  scroll-behavior: smooth;
+}
+
+/* Question source label */
+#pwa-qnum {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #1565c0;
+  margin-bottom: 8px;
+}
+
+/* Question image */
+.pwa-qimg {
+  width: 100%;
+  border: 1px solid #d0d8e8;
+  border-radius: 6px;
+  background: #fff;
+  margin-bottom: 10px;
+}
+
+/* Options */
+.pwa-opt {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 7px 10px;
+  background: #fff;
+  border: 1.5px solid #d8e3f0;
+  border-radius: 7px;
+  margin-bottom: 7px;
+}
+.pwa-opt--correct {
+  border-color: #2e7d32;
+  background: #f1f8f1;
+}
+.pwa-opt-num {
+  flex-shrink: 0;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: #e8eef6;
+  color: #1a3a5c;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 2px;
+}
+.pwa-opt--correct .pwa-opt-num {
+  background: #2e7d32;
+  color: #fff;
+}
+.pwa-opt img {
+  flex: 1;
+  min-width: 0;
+  border-radius: 3px;
+}
+
+/* Divider before explanation */
+.pwa-exp-divider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 14px 0 12px;
+  color: #8a9bbf;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+.pwa-exp-divider::before,
+.pwa-exp-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #d8e3f0;
+}
+
+/* Explanation body */
+#pwa-explanation {
+  background: #fff;
+  border: 1px solid #d8e3f0;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #222;
+  min-height: 48px;
+}
+
+/* AI action bar */
+#pwa-ai-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 14px;
+  padding-bottom: 4px;
+}
+
+#pwa-ai-btn {
+  padding: 10px 24px;
+  background: linear-gradient(135deg, #1565c0, #6a1b9a);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 24px;
+  box-shadow: 0 3px 10px rgba(21,101,192,0.35);
+  transition: opacity 0.15s, transform 0.1s;
+  border: none;
+}
+#pwa-ai-btn:hover { opacity: 0.92; }
+#pwa-ai-btn:active { transform: scale(0.97); }
+#pwa-ai-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+/* AI loading spinner */
+.pwa-ai-loading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0;
+  color: #555;
+  font-size: 13px;
+}
+.pwa-ai-spinner {
+  width: 18px; height: 18px;
+  border: 2px solid #c8d4e8;
+  border-top-color: #1565c0;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.pwa-ai-error {
+  background: #fff8f8;
+  border: 1px solid #ffcdd2;
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-size: 13px;
+  color: #c62828;
+}
+
+/* Loading / empty states */
+.pwa-msg {
+  padding: 24px 0;
+  text-align: center;
+  color: #8a9bbf;
+  font-size: 14px;
+}
+
+/* ── FAB — floating revision + understood ─────────────────────────────── */
+#pwa-fab {
+  position: fixed;
+  bottom: calc(56px + env(safe-area-inset-bottom) + 10px);
+  left: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 30;
+}
+
+.pwa-fab-btn {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1.5px solid #c8d4e8;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+  font-size: 20px;
+  display: flex; align-items: center; justify-content: center;
+  transition: box-shadow 0.15s, border-color 0.15s, background 0.15s;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.pwa-fab-btn:active { transform: scale(0.93); }
+
+#pwa-fab-revision { color: #6a1b9a; }
+#pwa-fab-revision.marked {
+  background: #f3e5f5;
+  border-color: #6a1b9a;
+  box-shadow: 0 3px 12px rgba(106,27,154,0.3);
+}
+
+#pwa-fab-understood { color: #2e7d32; }
+#pwa-fab-understood.marked {
+  background: #e8f5e9;
+  border-color: #2e7d32;
+  box-shadow: 0 3px 12px rgba(46,125,50,0.3);
+}
+
+/* ── Footer ───────────────────────────────────────────────────────────── */
+#pwa-footer {
+  flex-shrink: 0;
+  height: 56px;
+  background: #fff;
+  border-top: 1px solid #d0dcea;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.pwa-foot-btn {
+  flex: 1;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  color: #1a3a5c;
+  background: none;
+  border: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.12s;
+  cursor: pointer;
+}
+.pwa-foot-btn:active { background: #eef2f8; }
+.pwa-foot-btn:disabled { color: #c0ccd8; cursor: default; }
+.pwa-foot-btn:disabled:active { background: none; }
+
+/* Dropdown backdrop */
+#pwa-dd-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+}
+#pwa-dd-backdrop.visible { display: block; }
+
+/* ── Explanation content styles ────────────────────────────────────────── */
+/* Styles that AI-generated HTML relies on */
+#pwa-explanation h3 { font-size: 15px; margin-bottom: 6px; color: #1a3a5c; }
+#pwa-explanation h4 { font-size: 13px; margin: 10px 0 5px; color: #333; }
+#pwa-explanation p  { margin-bottom: 8px; }
+#pwa-explanation ul, #pwa-explanation ol { padding-left: 18px; margin-bottom: 8px; }
+#pwa-explanation li { margin-bottom: 4px; }
+#pwa-explanation table { border-collapse: collapse; width: 100%; margin-bottom: 10px; font-size: 13px; }
+#pwa-explanation th, #pwa-explanation td { border: 1px solid #d0d8e8; padding: 6px 8px; text-align: left; }
+#pwa-explanation th { background: #eef2f8; font-weight: 700; }
+#pwa-explanation .answer { background: #e8f5e9; border-radius: 6px; padding: 10px 12px; margin-bottom: 10px; }
+#pwa-explanation section { margin-bottom: 12px; }
+</style>
+</head>
+<body>
+<div id="pwa-app">
+
+  <!-- Header -->
+  <header id="pwa-header">
+    <div class="pwa-hrow1">
+
+      <!-- Progress -->
+      <div id="pwa-progress"><strong>—</strong><span id="pwa-progress-sub"></span></div>
+
+      <!-- Subject dropdown (subtle, centred) -->
+      <div class="pwa-subject-wrap">
+        <button id="pwa-subject-btn" aria-haspopup="listbox" aria-expanded="false">
+          <span id="pwa-subject-label">All</span>
+          <svg class="pwa-chevron" viewBox="0 0 14 14" aria-hidden="true">
+            <polyline points="2,4 7,10 12,4"/>
+          </svg>
+        </button>
+        <div id="pwa-subject-dd" hidden role="listbox">
+          <button class="pwa-dd-item active" data-subject="all">All Subjects</button>
+          <button class="pwa-dd-item" data-subject="cdp">CDP</button>
+          <button class="pwa-dd-item" data-subject="telugu">Telugu</button>
+          <button class="pwa-dd-item" data-subject="english">English</button>
+          <button class="pwa-dd-item" data-subject="mathematics">Mathematics</button>
+          <button class="pwa-dd-item" data-subject="science">Science</button>
+        </div>
+      </div>
+
+      <!-- Read aloud -->
+      <button id="pwa-read-aloud" aria-label="Read explanation aloud">&#128266;</button>
+
+    </div>
+
+    <!-- Status chips -->
+    <div id="pwa-status-row" role="group" aria-label="Status filter">
+      <button class="pwa-chip active" data-status="yet-to-read">Yet to Read</button>
+      <button class="pwa-chip" data-status="all">All</button>
+      <button class="pwa-chip" data-status="understood">Understood</button>
+      <button class="pwa-chip" data-status="explained">Explained</button>
+    </div>
+  </header>
+
+  <!-- Dropdown backdrop (closes dropdown on outside tap) -->
+  <div id="pwa-dd-backdrop"></div>
+
+  <!-- Scrollable content -->
+  <div id="pwa-content">
+    <div id="pwa-qnum"></div>
+    <img id="pwa-qimg" class="pwa-qimg" alt="Question" loading="lazy">
+    <div id="pwa-opts"></div>
+
+    <!-- Explanation section -->
+    <div id="pwa-exp-section">
+      <div class="pwa-exp-divider">Explanation</div>
+      <div id="pwa-explanation"><span class="pwa-msg">Loading…</span></div>
+      <div id="pwa-ai-actions">
+        <button id="pwa-ai-btn">&#10024; Explain with AI</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating action buttons (revision + understood) -->
+  <div id="pwa-fab">
+    <button id="pwa-fab-revision" class="pwa-fab-btn" title="Mark for Revision">&#128278;</button>
+    <button id="pwa-fab-understood" class="pwa-fab-btn" title="Mark as Understood">&#10003;</button>
+  </div>
+
+  <!-- Footer nav -->
+  <footer id="pwa-footer">
+    <button class="pwa-foot-btn" id="pwa-prev" aria-label="Previous question">&#8592;</button>
+    <button class="pwa-foot-btn" id="pwa-random" aria-label="Random question">&#128256;</button>
+    <button class="pwa-foot-btn" id="pwa-next" aria-label="Next question">&#8594;</button>
+  </footer>
+
+</div><!-- #pwa-app -->
+
+<script src="js/explanation.js"></script>
+<script src="js/firebase-config.js" onerror="console.warn('Firebase config not found — AI explanations disabled.')"></script>
+<script type="module" src="js/firebase-ai.js"></script>
+<script>
+/* ── Constants ──────────────────────────────────────────────────────────── */
+const SUBJECT_META = {
+  all:         { label: 'All' },
+  cdp:         { label: 'CDP' },
+  telugu:      { label: 'Telugu' },
+  english:     { label: 'English' },
+  mathematics: { label: 'Math' },
+  science:     { label: 'Science' },
+};
+
+const SUBJECT_DISPLAY = {
+  all: 'All', cdp: 'CDP', telugu: 'Telugu',
+  english: 'English', mathematics: 'Math', science: 'Science',
+};
+
+const UNDERSTOOD_KEY = 'tet_understood_questions';
+const REVISION_KEY   = 'tet_revision_questions';
+const AI_CACHE_PFX   = 'ai_exp_persist:';
+
+/* ── State ─────────────────────────────────────────────────────────────── */
+let qbankCache         = null;
+let qbankFiltered      = [];
+let qbankSubjectFilter = 'all';
+let qbankStatusFilter  = 'yet-to-read';
+let qbankIndex         = 0;
+let manifestData       = null;
+
+/* ── Storage helpers ────────────────────────────────────────────────────── */
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function getUnderstoodSet() {
+  try { return new Set(JSON.parse(localStorage.getItem(UNDERSTOOD_KEY))||[]); } catch { return new Set(); }
+}
+function getRevisionList() {
+  try { return JSON.parse(localStorage.getItem(REVISION_KEY))||[]; } catch { return []; }
+}
+function aiCacheKey(q) { const p=q.split('/'); return AI_CACHE_PFX+p[p.length-2]; }
+function getAiCache(q) { try { return localStorage.getItem(aiCacheKey(q))||null; } catch { return null; } }
+
+function toggleUnderstood(qimg) {
+  const s = getUnderstoodSet();
+  if (s.has(qimg)) s.delete(qimg); else s.add(qimg);
+  localStorage.setItem(UNDERSTOOD_KEY, JSON.stringify([...s]));
+}
+function toggleRevision(qimg) {
+  if (!qbankCache) return;
+  const item = qbankCache.find(x => x.questionImage === qimg);
+  if (!item) return;
+  const list = getRevisionList();
+  const idx = list.findIndex(r => r.q && r.q.questionImage === qimg);
+  if (idx >= 0) list.splice(idx, 1);
+  else list.push({ examId: item.examId, examTitle: item.examTitle, q: item.q });
+  localStorage.setItem(REVISION_KEY, JSON.stringify(list));
+}
+
+/* ── Data loading ───────────────────────────────────────────────────────── */
+async function loadQuestionBank() {
+  if (qbankCache) return qbankCache;
+  if (!manifestData) {
+    const r = await fetch('exams/manifest.json');
+    manifestData = await r.json();
+  }
+  const realExams = (manifestData.exams||[]).filter(e => e.style === 'Real Paper');
+  const results = await Promise.all(realExams.map(async exam => {
+    try {
+      const r = await fetch(`exams/${exam.id}.json`);
+      if (!r.ok) return null;
+      return { exam, data: await r.json() };
+    } catch { return null; }
+  }));
+  const dedupe = new Map();
+  for (const entry of results) {
+    if (!entry) continue;
+    const { exam, data } = entry;
+    for (const q of data.questions || []) {
+      if (!q.questionImage || dedupe.has(q.questionImage)) continue;
+      dedupe.set(q.questionImage, {
+        questionImage:    q.questionImage,
+        optionImages:     q.optionImages || [],
+        optionsInQuestion: !!q.optionsInQuestion,
+        questionType:     q.questionType,
+        correctAnswer:    q.correctAnswer,
+        sectionId:        q.sectionId,
+        examId:           data.id,
+        examTitle:        data.title || exam.title,
+        globalIndex:      q.globalIndex,
+        q,
+      });
+    }
+  }
+  qbankCache = [...dedupe.values()];
+  return qbankCache;
+}
+
+/* ── Filter helper ──────────────────────────────────────────────────────── */
+function buildFiltered(all) {
+  const understood   = getUnderstoodSet();
+  const subjMatch    = q => qbankSubjectFilter === 'all' || (q.sectionId||'').toLowerCase() === qbankSubjectFilter;
+  const statusMatch  = q => {
+    if (qbankStatusFilter === 'all')         return true;
+    if (qbankStatusFilter === 'understood')  return understood.has(q.questionImage);
+    if (qbankStatusFilter === 'explained')   return !!getAiCache(q.questionImage);
+    return !understood.has(q.questionImage);
+  };
+  return all.filter(q => subjMatch(q) && statusMatch(q));
+}
+
+/* ── Render ─────────────────────────────────────────────────────────────── */
+async function render() {
+  const contentEl = document.getElementById('pwa-content');
+
+  let all;
+  try {
+    all = await loadQuestionBank();
+  } catch (err) {
+    contentEl.innerHTML = `<p class="pwa-msg">Could not load question bank: ${esc(err.message)}</p>`;
+    return;
+  }
+
+  qbankFiltered = buildFiltered(all);
+
+  updateHeaderProgress();
+  updateFabState();
+
+  if (!qbankFiltered.length) {
+    document.getElementById('pwa-qnum').textContent = '';
+    const qi = document.getElementById('pwa-qimg'); qi.src = ''; qi.hidden = true;
+    document.getElementById('pwa-opts').innerHTML = '';
+    document.getElementById('pwa-explanation').innerHTML = '<span class="pwa-msg">No questions match these filters.</span>';
+    document.getElementById('pwa-ai-actions').innerHTML = '';
+    document.getElementById('pwa-prev').disabled = true;
+    document.getElementById('pwa-next').disabled = true;
+    return;
+  }
+
+  if (qbankIndex >= qbankFiltered.length) qbankIndex = qbankFiltered.length - 1;
+  if (qbankIndex < 0) qbankIndex = 0;
+
+  const item  = qbankFiltered[qbankIndex];
+  const qimg  = item.questionImage;
+  const qNum  = item.globalIndex != null ? item.globalIndex + 1 : '?';
+  const secLabel = (item.sectionId || '').toUpperCase();
+
+  // Source label
+  document.getElementById('pwa-qnum').textContent =
+    `${item.examTitle || item.examId || ''} · ${secLabel} · Q${qNum}`;
+
+  // Question image
+  const imgEl = document.getElementById('pwa-qimg');
+  imgEl.src = qimg;
+  imgEl.hidden = false;
+
+  // Options
+  const optsEl = document.getElementById('pwa-opts');
+  if (item.optionsInQuestion || !item.optionImages.length) {
+    optsEl.innerHTML = '';
+  } else {
+    optsEl.innerHTML = item.optionImages.map((src, i) => {
+      const k   = String(i + 1);
+      const cls = k === String(item.correctAnswer) ? 'pwa-opt pwa-opt--correct' : 'pwa-opt';
+      return `<div class="${cls}">
+        <span class="pwa-opt-num">${k}</span>
+        <img src="${esc(src)}" alt="Option ${k}" loading="lazy">
+      </div>`;
+    }).join('');
+  }
+
+  // Stop any in-progress speech
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
+  const raBtn = document.getElementById('pwa-read-aloud');
+  raBtn.innerHTML = '&#128266;';
+  raBtn.classList.remove('speaking');
+
+  // Nav button state
+  document.getElementById('pwa-prev').disabled = qbankIndex <= 0;
+  document.getElementById('pwa-next').disabled = qbankIndex >= qbankFiltered.length - 1;
+
+  // Reset AI button
+  const aiBtn = document.getElementById('pwa-ai-btn');
+  aiBtn.disabled = false;
+  const hasCached = !!getAiCache(qimg);
+  aiBtn.innerHTML = hasCached ? '&#10024; Regenerate' : '&#10024; Explain with AI';
+
+  // Explanation — from cache or metadata.json
+  await loadExplanation(qimg);
+}
+
+async function loadExplanation(questionImage) {
+  const expEl = document.getElementById('pwa-explanation');
+
+  const aiCached = getAiCache(questionImage);
+  if (aiCached) { expEl.innerHTML = aiCached; return; }
+
+  expEl.innerHTML = '<span class="pwa-msg">Loading explanation…</span>';
+
+  const i = questionImage.lastIndexOf('/');
+  if (i < 0) { expEl.innerHTML = noExplanationMsg(); return; }
+  const path = questionImage.substring(0, i) + '/metadata.json';
+
+  try {
+    const resp = await fetch(path);
+    if (!resp.ok) throw new Error();
+    const data = await resp.json();
+    const html = data?.explanation?.html_text;
+    expEl.innerHTML = html || noExplanationMsg();
+  } catch {
+    expEl.innerHTML = noExplanationMsg();
+  }
+}
+
+function noExplanationMsg() {
+  return '<em style="color:#888;font-size:13px">No explanation yet. Tap ✨ Explain with AI to generate one.</em>';
+}
+
+function updateHeaderProgress() {
+  const total   = qbankFiltered.length;
+  const current = total > 0 ? qbankIndex + 1 : 0;
+  const understood   = getUnderstoodSet();
+  const undCount = qbankFiltered.filter(q => understood.has(q.questionImage)).length;
+  const expCount = qbankFiltered.filter(q => !!getAiCache(q.questionImage)).length;
+
+  document.getElementById('pwa-progress').innerHTML =
+    `<strong>${current}<span style="font-size:14px;font-weight:600;color:#8ab2d4"> / ${total}</span></strong>
+     <span id="pwa-progress-sub" style="font-size:10px;color:#8ab2d4;display:block;margin-top:1px">${undCount}&#10003; &middot; ${expCount}&#10024;</span>`;
+}
+
+function updateFabState() {
+  if (!qbankFiltered.length) return;
+  const item = qbankFiltered[qbankIndex];
+  if (!item) return;
+  const understood = getUnderstoodSet();
+  const revImgs    = new Set(getRevisionList().map(r => r.q?.questionImage).filter(Boolean));
+  const revBtn = document.getElementById('pwa-fab-revision');
+  const undBtn = document.getElementById('pwa-fab-understood');
+  revBtn.classList.toggle('marked', revImgs.has(item.questionImage));
+  undBtn.classList.toggle('marked', understood.has(item.questionImage));
+}
+
+/* ── AI explain ─────────────────────────────────────────────────────────── */
+async function handleAiExplain() {
+  const aiBtn = document.getElementById('pwa-ai-btn');
+  if (aiBtn.disabled) return;
+
+  const item = qbankFiltered[qbankIndex];
+  if (!item) return;
+
+  // Wait up to 10 s for Firebase AI module
+  if (!window.AiExplainer) {
+    aiBtn.disabled = true;
+    aiBtn.textContent = '⏳ Loading AI…';
+    let waited = 0;
+    while (!window.AiExplainer && waited < 10000) {
+      await new Promise(r => setTimeout(r, 250));
+      waited += 250;
+    }
+    aiBtn.disabled = false;
+    if (!window.AiExplainer) {
+      aiBtn.innerHTML = '&#10024; Explain with AI';
+      document.getElementById('pwa-explanation').innerHTML =
+        '<div class="pwa-ai-error"><strong>AI error:</strong> Module failed to load — check console.</div>';
+      return;
+    }
+  }
+
+  const expEl = document.getElementById('pwa-explanation');
+  const expSection = document.getElementById('pwa-exp-section');
+  const isRegen = aiBtn.textContent.includes('Regenerate');
+
+  aiBtn.disabled = true;
+  aiBtn.textContent = '⏳ Generating…';
+  expEl.innerHTML = '<div class="pwa-ai-loading"><span class="pwa-ai-spinner"></span>Generating AI explanation — this may take 10–20 s…</div>';
+
+  // Scroll explanation into view immediately so user sees progress
+  const contentEl = document.getElementById('pwa-content');
+  contentEl.scrollTo({ top: expSection.offsetTop - 8, behavior: 'smooth' });
+
+  try {
+    const html = await window.AiExplainer.explain({
+      questionImage:     item.questionImage,
+      optionImages:      item.optionImages || [],
+      optionsInQuestion: !!item.optionsInQuestion,
+      correctAnswer:     item.correctAnswer,
+      sectionId:         item.sectionId,
+      forceRegenerate:   isRegen,
+    });
+    expEl.innerHTML = html;
+    aiBtn.innerHTML = '&#10024; Regenerate';
+
+    // Scroll so new content starts at top of view
+    contentEl.scrollTo({ top: expSection.offsetTop - 8, behavior: 'smooth' });
+  } catch (err) {
+    expEl.innerHTML = `<div class="pwa-ai-error"><strong>AI error:</strong> ${esc(err.message || 'Generation failed.')}</div>`;
+    aiBtn.innerHTML = '&#10024; Explain with AI';
+  } finally {
+    aiBtn.disabled = false;
+  }
+}
+
+/* ── Speech ─────────────────────────────────────────────────────────────── */
+function pickIndianVoice() {
+  const voices = window.speechSynthesis?.getVoices() || [];
+  return voices.find(v => v.lang === 'en-IN' && /female|woman|heera|priya|raveena/i.test(v.name))
+      || voices.find(v => v.lang === 'en-IN')
+      || null;
+}
+
+/* ── Subject dropdown helpers ───────────────────────────────────────────── */
+function openSubjectDropdown() {
+  const dd      = document.getElementById('pwa-subject-dd');
+  const chevron = document.querySelector('.pwa-chevron');
+  const backdrop= document.getElementById('pwa-dd-backdrop');
+  dd.hidden = false;
+  chevron.classList.add('pwa-chevron--open');
+  backdrop.classList.add('visible');
+  document.getElementById('pwa-subject-btn').setAttribute('aria-expanded', 'true');
+}
+function closeSubjectDropdown() {
+  const dd      = document.getElementById('pwa-subject-dd');
+  const chevron = document.querySelector('.pwa-chevron');
+  const backdrop= document.getElementById('pwa-dd-backdrop');
+  dd.hidden = true;
+  chevron.classList.remove('pwa-chevron--open');
+  backdrop.classList.remove('visible');
+  document.getElementById('pwa-subject-btn').setAttribute('aria-expanded', 'false');
+}
+function toggleSubjectDropdown() {
+  document.getElementById('pwa-subject-dd').hidden ? openSubjectDropdown() : closeSubjectDropdown();
+}
+
+/* ── Bootstrap ──────────────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+
+  // Initial loading message
+  document.getElementById('pwa-explanation').innerHTML =
+    '<span class="pwa-msg">Loading question bank…</span>';
+  render();
+
+  /* Subject dropdown */
+  document.getElementById('pwa-subject-btn').addEventListener('click', e => {
+    e.stopPropagation();
+    toggleSubjectDropdown();
+  });
+  document.getElementById('pwa-dd-backdrop').addEventListener('click', closeSubjectDropdown);
+
+  document.getElementById('pwa-subject-dd').addEventListener('click', e => {
+    const item = e.target.closest('.pwa-dd-item');
+    if (!item) return;
+    qbankSubjectFilter = item.dataset.subject;
+    qbankStatusFilter  = 'yet-to-read';
+    qbankIndex         = 0;
+    // Update label
+    document.getElementById('pwa-subject-label').textContent =
+      SUBJECT_DISPLAY[qbankSubjectFilter] || 'All';
+    // Update active item
+    document.querySelectorAll('.pwa-dd-item').forEach(b =>
+      b.classList.toggle('active', b.dataset.subject === qbankSubjectFilter));
+    // Sync status chips
+    document.querySelectorAll('.pwa-chip').forEach(b =>
+      b.classList.toggle('active', b.dataset.status === qbankStatusFilter));
+    closeSubjectDropdown();
+    render();
+  });
+
+  /* Status chips */
+  document.getElementById('pwa-status-row').addEventListener('click', e => {
+    const chip = e.target.closest('.pwa-chip');
+    if (!chip) return;
+    qbankStatusFilter = chip.dataset.status;
+    qbankIndex        = 0;
+    document.querySelectorAll('.pwa-chip').forEach(b =>
+      b.classList.toggle('active', b.dataset.status === qbankStatusFilter));
+    render();
+  });
+
+  /* Nav buttons */
+  document.getElementById('pwa-prev').addEventListener('click', () => {
+    if (qbankIndex > 0) { qbankIndex--; render(); }
+  });
+  document.getElementById('pwa-next').addEventListener('click', () => {
+    if (qbankIndex < qbankFiltered.length - 1) { qbankIndex++; render(); }
+  });
+  document.getElementById('pwa-random').addEventListener('click', () => {
+    if (qbankFiltered.length > 0) {
+      qbankIndex = Math.floor(Math.random() * qbankFiltered.length);
+      render();
+    }
+  });
+
+  /* FAB: revision */
+  document.getElementById('pwa-fab-revision').addEventListener('click', () => {
+    const item = qbankFiltered[qbankIndex];
+    if (!item) return;
+    toggleRevision(item.questionImage);
+    updateFabState();
+  });
+
+  /* FAB: understood */
+  document.getElementById('pwa-fab-understood').addEventListener('click', () => {
+    const item = qbankFiltered[qbankIndex];
+    if (!item) return;
+    toggleUnderstood(item.questionImage);
+    updateFabState();
+    updateHeaderProgress();
+  });
+
+  /* AI explain button */
+  document.getElementById('pwa-ai-btn').addEventListener('click', handleAiExplain);
+
+  /* Read aloud */
+  document.getElementById('pwa-read-aloud').addEventListener('click', function () {
+    if (!window.speechSynthesis) return;
+    if (window.speechSynthesis.speaking) {
+      window.speechSynthesis.cancel();
+      this.innerHTML = '&#128266;';
+      this.classList.remove('speaking');
+      return;
+    }
+    const expEl = document.getElementById('pwa-explanation');
+    const text  = (expEl?.innerText || '').trim();
+    if (!text) return;
+
+    this.innerHTML = '&#9209;';
+    this.classList.add('speaking');
+    const btn = this;
+
+    const utt    = new SpeechSynthesisUtterance(text);
+    utt.lang     = 'en-IN';
+    utt.pitch    = 0.85;
+    utt.rate     = 0.88;
+    const voice  = pickIndianVoice();
+    if (voice) utt.voice = voice;
+    const done = () => { btn.innerHTML = '&#128266;'; btn.classList.remove('speaking'); };
+    utt.onend   = done;
+    utt.onerror = done;
+    window.speechSynthesis.speak(utt);
+  });
+
+  /* ── Service Worker registration ── */
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./qb_pwa_sw.js', { scope: './' })
+      .then(() => console.log('[QB PWA] Service worker registered'))
+      .catch(err => console.warn('[QB PWA] SW registration failed:', err));
+  }
+});
+</script>
+</body>
+</html>
