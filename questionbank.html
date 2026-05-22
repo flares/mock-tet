@@ -40,7 +40,9 @@
             <button class="qbank-subj-btn" data-subject="mathematics">Math</button>
             <button class="qbank-subj-btn" data-subject="science">Science</button>
           </div>
-          <div class="qbank-header-spacer"></div>
+          <div class="qbank-header-spacer">
+            <button class="btn--read-aloud qbank-header-read-aloud" id="qbank-read-aloud" title="Read explanation aloud">&#128266; Read Aloud</button>
+          </div>
         </div>
 
         <!-- Row 2: Small status filters (left-aligned) -->
@@ -48,6 +50,7 @@
           <button class="filter-chip filter-chip--sm active" data-status="yet-to-read">Yet to Read</button>
           <button class="filter-chip filter-chip--sm" data-status="all">All</button>
           <button class="filter-chip filter-chip--sm" data-status="understood">Understood</button>
+          <button class="filter-chip filter-chip--sm" data-status="explained">Explained</button>
         </div>
 
       </div>
@@ -82,5 +85,8 @@
 
   <script src="js/explanation.js"></script>
   <script src="js/questionbank.js"></script>
+  <!-- Firebase AI — load config first (gitignored), then the AI module -->
+  <script src="js/firebase-config.js" onerror="console.warn('Firebase config not found — AI explanations disabled. See js/firebase-config.example.js.')"></script>
+  <script type="module" src="js/firebase-ai.js"></script>
 </body>
 </html>

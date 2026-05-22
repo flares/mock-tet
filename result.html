@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/common.css">
   <link rel="stylesheet" href="css/result.css">
+  <link rel="stylesheet" href="css/home.css">
 </head>
 <body class="result-body">
 
@@ -118,6 +119,8 @@
     <div class="explanation-dialog__body"></div>
   </dialog>
 
+  <script src="js/firebase-config.js" onerror="console.warn('Firebase config not found — AI features disabled')"></script>
+  <script type="module" src="js/firebase-ai.js"></script>
   <script src="js/state.js"></script>
   <script src="js/explanation.js"></script>
   <script src="js/result.js"></script>

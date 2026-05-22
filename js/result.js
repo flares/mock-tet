@@ -133,7 +133,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   reviewBody.addEventListener('click', e => {
     const btn = e.target.closest('.btn--explain');
-    if (btn && btn.dataset.qimg) ExplanationModal.open(btn.dataset.qimg);
+    if (!btn || !btn.dataset.qimg) return;
+    const detail = score.details.find(d => d.question.questionImage === btn.dataset.qimg);
+    if (!detail) return;
+    ExplanationModal.openFull(btn.dataset.qimg, {
+      optionImages:      detail.question.optionImages   || [],
+      correctAnswer:     detail.question.correctAnswer  || '',
+      optionsInQuestion: !!detail.question.optionsInQuestion,
+      revisionEntry:     { examId, examTitle: examData.title, q: detail.question },
+    });
   });
 
   renderReview('all');

@@ -90,11 +90,12 @@ async function loadQuestionBank() {
 function updateProgress(filtered, understood) {
   const el = document.getElementById('qbank-header-progress');
   if (!el) return;
-  const doneCount = filtered.filter(q => understood.has(q.questionImage)).length;
+  const understoodCount = filtered.filter(q => understood.has(q.questionImage)).length;
+  const explainedCount  = filtered.filter(q => !!ExplanationModal.getAiCache(q.questionImage)).length;
   const current = filtered.length > 0 ? qbankIndex + 1 : 0;
   el.innerHTML = `
     <div class="qbank-progress-count">${current} <span class="qbank-progress-total">/ ${filtered.length}</span></div>
-    <div class="qbank-progress-sub">${doneCount} understood</div>`;
+    <div class="qbank-progress-sub">${understoodCount} understood &middot; ${explainedCount} explained</div>`;
 }
 
 async function renderQuestionBank() {
@@ -119,8 +120,10 @@ async function renderQuestionBank() {
     qbankSubjectFilter === 'all' || (q.sectionId || '').toLowerCase() === qbankSubjectFilter;
   const statusMatches = q => {
     if (qbankStatusFilter === 'all') return true;
-    const isUnderstood = understood.has(q.questionImage);
-    return qbankStatusFilter === 'understood' ? isUnderstood : !isUnderstood;
+    if (qbankStatusFilter === 'understood') return understood.has(q.questionImage);
+    if (qbankStatusFilter === 'explained')  return !!ExplanationModal.getAiCache(q.questionImage);
+    // yet-to-read: not understood
+    return !understood.has(q.questionImage);
   };
 
   const filtered = all.filter(q => subjectMatches(q) && statusMatches(q));
@@ -159,14 +162,19 @@ async function renderQuestionBank() {
   // Stop any in-progress speech when navigating to a new question
   if (typeof ExplanationModal !== 'undefined') ExplanationModal.stopSpeech();
   if (window.speechSynthesis) window.speechSynthesis.cancel();
+  const raBtn = document.getElementById('qbank-read-aloud');
+  if (raBtn) { raBtn.innerHTML = '&#128266; Read Aloud'; raBtn.title = 'Read explanation aloud'; }
 
   // Right panel: inline explanation + action buttons
-  const ttsSupported = 'speechSynthesis' in window;
   rightEl.innerHTML = `
     <div class="qbank-explanation" id="qbank-explanation-body">Loading explanation&hellip;</div>
     <div class="qbank-right-actions">
-      ${ttsSupported ? `<button class="btn--read-aloud" id="qbank-read-aloud" title="Read explanation aloud">&#128266; Read Aloud</button>` : ''}
-      <button class="btn btn--explain btn--xs" data-qimg="${qimg}">&#128218; Open Full Explanation</button>
+      <button class="btn btn--ai-explain btn--xs" id="qbank-ai-explain"
+        data-qimg="${qimg}"
+        data-correct="${escHtml(item.correctAnswer || '')}"
+        data-subject="${escHtml((item.sectionId || '').toLowerCase())}"
+        data-opts-in-q="${item.optionsInQuestion ? '1' : '0'}"
+        title="Generate AI explanation for this question">&#10024; Explain with AI</button>
     </div>`;
 
   // Footer action buttons
@@ -187,6 +195,13 @@ async function renderQuestionBank() {
 async function loadQbankExplanation(questionImage) {
   const target = document.getElementById('qbank-explanation-body');
   if (!target) return;
+
+  // Check localStorage AI cache first
+  if (typeof ExplanationModal !== 'undefined') {
+    const aiCached = ExplanationModal.getAiCache(questionImage);
+    if (aiCached) { target.innerHTML = aiCached; return; }
+  }
+
   const lastSlash = questionImage.lastIndexOf('/');
   if (lastSlash < 0) { target.innerHTML = '<em style="color:#888">No explanation available yet.</em>'; return; }
   const path = questionImage.substring(0, lastSlash) + '/metadata.json';
@@ -240,14 +255,24 @@ document.addEventListener('DOMContentLoaded', () => {
     renderQuestionBank();
   });
 
-  // ── Inline Read Aloud for qbank right panel ──────────────────────────
-  document.getElementById('qbank-card-right').addEventListener('click', e => {
-    const btn = e.target.closest('#qbank-read-aloud');
-    if (!btn || !window.speechSynthesis) return;
+  // ── Read Aloud (header button — static in HTML, not re-rendered) ─────
+  function pickIndianVoice() {
+    const voices = window.speechSynthesis.getVoices();
+    // Prefer en-IN female, then any en-IN, then any English with India in the name
+    return voices.find(v => v.lang === 'en-IN' && /female|woman|heera|priya|raveena/i.test(v.name))
+        || voices.find(v => v.lang === 'en-IN')
+        || voices.find(v => /en[-_]IN/i.test(v.lang))
+        || voices.find(v => /india/i.test(v.name))
+        || null;
+  }
+
+  document.getElementById('qbank-read-aloud').addEventListener('click', function () {
+    if (!window.speechSynthesis) return;
+    const btn = this;
 
     if (window.speechSynthesis.speaking) {
       window.speechSynthesis.cancel();
-      btn.textContent = '🔊 Read Aloud';
+      btn.innerHTML = '&#128266; Read Aloud';
       btn.title = 'Read explanation aloud';
       return;
     }
@@ -256,12 +281,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const text = bodyEl ? (bodyEl.innerText || bodyEl.textContent || '').trim() : '';
     if (!text) return;
 
-    btn.textContent = '⏹ Stop';
+    btn.innerHTML = '&#9209; Stop';
     btn.title = 'Stop reading';
 
     const utt = new SpeechSynthesisUtterance(text);
-    utt.lang = 'en-IN';
-    const done = () => { btn.textContent = '🔊 Read Aloud'; btn.title = 'Read explanation aloud'; };
+    utt.lang  = 'en-IN';
+    utt.pitch = 0.85;   // slightly lower — mature/senior tone
+    utt.rate  = 0.88;   // slightly slower — unhurried, clear
+    // Voices list may not be ready on first call; re-query inside the handler
+    const voice = pickIndianVoice();
+    if (voice) utt.voice = voice;
+
+    const done = () => { btn.innerHTML = '&#128266; Read Aloud'; btn.title = 'Read explanation aloud'; };
     utt.onend   = done;
     utt.onerror = done;
     window.speechSynthesis.speak(utt);
@@ -271,6 +302,9 @@ document.addEventListener('DOMContentLoaded', () => {
   function handleCardClick(e) {
     const explainBtn = e.target.closest('.btn--explain');
     if (explainBtn && explainBtn.dataset.qimg) { ExplanationModal.open(explainBtn.dataset.qimg); return; }
+
+    const aiBtn = e.target.closest('.btn--ai-explain');
+    if (aiBtn) { handleAiExplain(aiBtn); return; }
 
     const understoodBtn = e.target.closest('[data-qbank-understood]');
     if (understoodBtn) { toggleUnderstood(understoodBtn.dataset.qbankUnderstood); renderQuestionBank(); return; }
@@ -284,6 +318,60 @@ document.addEventListener('DOMContentLoaded', () => {
       renderQuestionBank();
       return;
     }
+  }
+
+  async function handleAiExplain(btn) {
+    if (btn.disabled) return;
+
+    const item = qbankFiltered[qbankIndex];
+    if (!item) return;
+
+    // Wait up to 10 s for the ES module to finish loading
+    if (!window.AiExplainer) {
+      btn.disabled = true;
+      btn.textContent = '⏳ Loading AI…';
+      let waited = 0;
+      while (!window.AiExplainer && waited < 10000) {
+        await new Promise(r => setTimeout(r, 250));
+        waited += 250;
+      }
+      btn.disabled = false;
+      if (!window.AiExplainer) {
+        btn.textContent = '✨ Explain with AI';
+        showAiError('Firebase AI module failed to load. Open the browser console (F12) for details — the CDN import or firebase-config.js may have an error.');
+        return;
+      }
+    }
+
+    const bodyEl = document.getElementById('qbank-explanation-body');
+    btn.disabled = true;
+    btn.textContent = '⏳ Generating…';
+    if (bodyEl) bodyEl.innerHTML = '<div class="qbank-ai-loading"><span class="qbank-ai-spinner"></span>Generating AI explanation — this may take 10–20 seconds…</div>';
+
+    try {
+      const isRegenerate = btn.textContent.trim().includes('Regenerate');
+      const html = await window.AiExplainer.explain({
+        questionImage:    item.questionImage,
+        optionImages:     item.optionImages || [],
+        optionsInQuestion: !!item.optionsInQuestion,
+        correctAnswer:    item.correctAnswer,
+        sectionId:        item.sectionId,
+        forceRegenerate:  isRegenerate,
+      });
+      if (bodyEl) bodyEl.innerHTML = html;
+      btn.textContent = '✨ Regenerate';
+    } catch (err) {
+      console.error('[AiExplainer]', err);
+      showAiError(err.message || 'AI explanation failed.');
+      btn.textContent = '✨ Explain with AI';
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  function showAiError(msg) {
+    const bodyEl = document.getElementById('qbank-explanation-body');
+    if (bodyEl) bodyEl.innerHTML = `<div class="qbank-ai-error"><strong>AI error:</strong> ${escHtml(msg)}</div>`;
   }
 
   document.getElementById('qbank-card-left').addEventListener('click', handleCardClick);

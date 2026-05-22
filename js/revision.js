@@ -141,7 +141,13 @@ function renderRevision() {
       html += `<div class="rev-section-heading">To Review <span class="rev-count">${pending.length}</span></div>${makeTable(pending, true)}`;
     }
     if (revised.length) {
-      html += `<div class="rev-section-heading rev-section-heading--revised" style="margin-top:28px">Revised <span class="rev-count rev-count--revised">${revised.length}</span></div>${makeTable(revised, false)}`;
+      html += `
+        <details class="rev-revised-details" style="margin-top:28px">
+          <summary class="rev-section-heading rev-section-heading--revised">
+            Revised <span class="rev-count rev-count--revised">${revised.length}</span>
+          </summary>
+          ${makeTable(revised, false)}
+        </details>`;
     }
 
     container.innerHTML = html;
@@ -166,7 +172,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('revision-container').addEventListener('click', e => {
     const btn = e.target.closest('.btn--explain');
-    if (btn && btn.dataset.qimg) ExplanationModal.open(btn.dataset.qimg);
+    if (!btn || !btn.dataset.qimg) return;
+    const entry = getRevisionList().find(r => r.q && r.q.questionImage === btn.dataset.qimg);
+    if (!entry) return;
+    ExplanationModal.openFull(btn.dataset.qimg, {
+      optionImages:      entry.q.optionImages   || [],
+      correctAnswer:     entry.q.correctAnswer  || '',
+      optionsInQuestion: !!entry.q.optionsInQuestion,
+      revisionEntry:     entry,
+    });
   });
 
   document.getElementById('btn-clear-revision').addEventListener('click', () => {
