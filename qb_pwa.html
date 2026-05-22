@@ -2,122 +2,171 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#1a3a5c">
   <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="QB TET">
+  <meta name="apple-mobile-web-app-title" content="TET Suite">
   <link rel="apple-touch-icon" href="assets/pwa-icon.svg">
   <link rel="manifest" href="qb_pwa_manifest.json">
-  <title>Question Bank</title>
+  <title>TET Suite</title>
 <style>
-/* ── Reset & base ─────────────────────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; background: #1a3a5c; }
+/* ── Reset / base ─────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;             /* kills double-tap zoom */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+/* Allow text selection inside the explanation (so users can copy) */
+#pwa-explanation, #pwa-explanation * { -webkit-user-select: text; user-select: text; }
 
-button { font-family: inherit; cursor: pointer; border: none; background: none; }
+html, body {
+  position: fixed;                        /* lock viewport — no page scroll */
+  inset: 0;
+  overflow: hidden;
+  overscroll-behavior: none;              /* kill rubber-band */
+  background: #0e2540;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display',
+               'Segoe UI', system-ui, Roboto, sans-serif;
+  font-size: 14px;
+  color: #1a1a1a;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: inherit;
+}
 img { display: block; max-width: 100%; height: auto; }
 
 /* ── App shell ────────────────────────────────────────────────────────── */
 #pwa-app {
+  position: fixed;
+  inset: 0;
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  height: 100dvh;
-  background: #eef1f5;
+  background: #f4f6fb;
   overflow: hidden;
-  /* Safe areas for notched phones */
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* ── Header ───────────────────────────────────────────────────────────── */
+/* ── Header — solid navy, status-bar safe area baked in ────────────────── */
 #pwa-header {
   flex-shrink: 0;
-  background: #1a3a5c;
+  background: linear-gradient(180deg, #1a3a5c 0%, #234d7a 100%);
   color: #fff;
-  padding: 10px 14px 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-  position: relative;
+  padding: calc(env(safe-area-inset-top) + 10px) 14px 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.18);
   z-index: 20;
+  position: relative;
 }
 
 .pwa-hrow1 {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
   gap: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  min-height: 32px;
 }
 
-/* Progress — left */
-#pwa-progress {
-  min-width: 64px;
-  font-size: 13px;
-  color: #b8d0ee;
-  line-height: 1.3;
-}
-#pwa-progress strong {
-  display: block;
-  font-size: 20px;
+/* Brand — top left */
+#pwa-brand {
+  font-size: 16px;
   font-weight: 800;
+  letter-spacing: 0.2px;
   color: #fff;
-  letter-spacing: -0.5px;
-  line-height: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-self: start;
+}
+#pwa-brand .pwa-brand-dot {
+  width: 7px; height: 7px;
+  background: #f0a500;
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(240,165,0,0.6);
 }
 
 /* Subject dropdown — centre */
 .pwa-subject-wrap {
   position: relative;
-  flex: 1;
-  display: flex;
-  justify-content: center;
+  justify-self: center;
 }
-
 #pwa-subject-btn {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  padding: 4px 0;
-  font-size: 15px;
-  font-weight: 700;
-  color: #fff;
-  letter-spacing: 0.2px;
+  padding: 5px 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.95);
   background: none;
-  border-bottom: 1.5px solid rgba(255,255,255,0.3);
+  border-bottom: 1.5px solid rgba(255,255,255,0.35);
   transition: border-color 0.15s;
-  cursor: pointer;
 }
-#pwa-subject-btn:hover, #pwa-subject-btn:focus-visible {
-  border-color: rgba(255,255,255,0.8);
-  outline: none;
+#pwa-subject-btn:active {
+  border-color: rgba(255,255,255,0.9);
 }
-
 .pwa-chevron {
-  width: 14px; height: 14px;
+  width: 12px; height: 12px;
   fill: none;
-  stroke: rgba(255,255,255,0.7);
-  stroke-width: 2;
+  stroke: rgba(255,255,255,0.85);
+  stroke-width: 2.2;
   stroke-linecap: round;
   stroke-linejoin: round;
-  transition: transform 0.2s;
-  flex-shrink: 0;
+  transition: transform 0.2s ease;
 }
 .pwa-chevron--open { transform: rotate(180deg); }
+
+/* Counter — top right */
+#pwa-progress {
+  justify-self: end;
+  text-align: right;
+  line-height: 1.1;
+  color: #fff;
+}
+#pwa-progress-count {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  display: block;
+}
+#pwa-progress-count .pwa-progress-total {
+  font-weight: 500;
+  color: rgba(255,255,255,0.6);
+}
+#pwa-progress-sub {
+  font-size: 9.5px;
+  color: rgba(255,255,255,0.55);
+  display: block;
+  margin-top: 1px;
+  letter-spacing: 0.3px;
+}
 
 /* Dropdown panel */
 #pwa-subject-dd {
   position: absolute;
-  top: calc(100% + 6px);
+  top: calc(100% + 8px);
   left: 50%;
   transform: translateX(-50%);
-  min-width: 150px;
+  min-width: 170px;
   background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.22);
+  border-radius: 12px;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.25);
   overflow: hidden;
-  z-index: 50;
-  animation: ddIn 0.15s ease;
+  z-index: 60;
+  animation: ddIn 0.16s ease;
 }
 @keyframes ddIn {
   from { opacity: 0; transform: translateX(-50%) translateY(-6px); }
@@ -128,69 +177,56 @@ img { display: block; max-width: 100%; height: auto; }
 .pwa-dd-item {
   display: block;
   width: 100%;
-  padding: 11px 18px;
+  padding: 12px 18px;
   text-align: left;
   font-size: 14px;
   font-weight: 600;
   color: #1a3a5c;
   background: none;
-  border: none;
-  cursor: pointer;
   transition: background 0.1s;
 }
-.pwa-dd-item:hover { background: #eef2f8; }
+.pwa-dd-item:active { background: #eef2f8; }
 .pwa-dd-item.active {
   background: #1a3a5c;
   color: #fff;
 }
 .pwa-dd-item + .pwa-dd-item { border-top: 1px solid #edf0f6; }
 
-/* Read aloud — right */
-#pwa-read-aloud {
-  width: 36px; height: 36px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.12);
-  font-size: 17px;
-  display: flex; align-items: center; justify-content: center;
-  transition: background 0.15s;
-  flex-shrink: 0;
-}
-#pwa-read-aloud:hover { background: rgba(255,255,255,0.22); }
-#pwa-read-aloud.speaking { background: rgba(240,165,0,0.35); }
-
 /* Status filter chips row */
 #pwa-status-row {
   display: flex;
   gap: 6px;
   overflow-x: auto;
+  overflow-y: hidden;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
-  padding-bottom: 2px;
+  padding: 2px 0;
+  margin: 0 -2px;
 }
 #pwa-status-row::-webkit-scrollbar { display: none; }
 
 .pwa-chip {
   display: inline-flex;
   align-items: center;
-  height: 24px;
-  padding: 0 12px;
-  border-radius: 12px;
-  font-size: 11px;
+  height: 26px;
+  padding: 0 13px;
+  border-radius: 14px;
+  font-size: 11.5px;
   font-weight: 600;
   white-space: nowrap;
-  background: rgba(255,255,255,0.14);
-  color: rgba(255,255,255,0.8);
-  border: 1px solid rgba(255,255,255,0.2);
-  transition: background 0.13s, color 0.13s;
-  cursor: pointer;
+  background: rgba(255,255,255,0.10);
+  color: rgba(255,255,255,0.85);
+  border: 1px solid rgba(255,255,255,0.18);
+  transition: background 0.13s, color 0.13s, border-color 0.13s;
   flex-shrink: 0;
 }
-.pwa-chip:hover { background: rgba(255,255,255,0.22); }
+.pwa-chip:active { background: rgba(255,255,255,0.22); }
 .pwa-chip.active {
   background: #f0a500;
   color: #1a1a1a;
   border-color: #f0a500;
   font-weight: 700;
+  box-shadow: 0 1px 4px rgba(240,165,0,0.4);
 }
 
 /* ── Content area ─────────────────────────────────────────────────────── */
@@ -198,9 +234,12 @@ img { display: block; max-width: 100%; height: auto; }
   flex: 1;
   min-height: 0;
   overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
-  padding: 14px 14px 88px; /* bottom clears FAB + footer */
+  padding: 12px 14px 92px;                /* bottom clears FAB + footer */
   scroll-behavior: smooth;
+  background: #f4f6fb;
 }
 
 /* Question source label */
@@ -208,31 +247,44 @@ img { display: block; max-width: 100%; height: auto; }
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.6px;
   color: #1565c0;
   margin-bottom: 8px;
+  padding: 0 2px;
 }
 
-/* Question image */
+/* Question image — sits in a soft white card */
+.pwa-qimg-wrap {
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 1px 3px rgba(10,30,60,0.06);
+  margin-bottom: 12px;
+}
 .pwa-qimg {
   width: 100%;
-  border: 1px solid #d0d8e8;
-  border-radius: 6px;
-  background: #fff;
-  margin-bottom: 10px;
+  border-radius: 4px;
 }
 
 /* Options */
+.pwa-opts-wrap {
+  background: #fff;
+  border-radius: 10px;
+  padding: 8px;
+  box-shadow: 0 1px 3px rgba(10,30,60,0.06);
+  margin-bottom: 14px;
+}
 .pwa-opt {
   display: flex;
   align-items: flex-start;
-  gap: 6px;
-  padding: 6px 8px;
+  gap: 7px;
+  padding: 7px 9px;
   background: #fafbff;
   border: 1.5px solid #dde4f0;
-  border-radius: 5px;
+  border-radius: 7px;
   margin-bottom: 6px;
 }
+.pwa-opt:last-child { margin-bottom: 0; }
 .pwa-opt--correct {
   border-color: #388e3c;
   background: #e8f5e9;
@@ -245,11 +297,8 @@ img { display: block; max-width: 100%; height: auto; }
   color: #666;
   padding-top: 3px;
 }
-.pwa-opt--correct .pwa-opt-num {
-  color: #2e7d32;
-}
+.pwa-opt--correct .pwa-opt-num { color: #2e7d32; }
 .pwa-opt img {
-  /* natural size, shrink to fit container but never upscale */
   max-width: 100%;
   width: auto;
   height: auto;
@@ -261,69 +310,74 @@ img { display: block; max-width: 100%; height: auto; }
 .pwa-exp-divider {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin: 14px 0 12px;
-  color: #8a9bbf;
-  font-size: 11px;
+  gap: 10px;
+  margin: 8px 2px 10px;
+  color: #6a7a98;
+  font-size: 10.5px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.6px;
+  letter-spacing: 0.8px;
 }
 .pwa-exp-divider::before,
 .pwa-exp-divider::after {
   content: '';
   flex: 1;
   height: 1px;
-  background: #d8e3f0;
+  background: linear-gradient(90deg, transparent, #c5d2e3, transparent);
 }
 
-/* Explanation body */
+/* AI action bar — always-visible button above explanation */
+#pwa-ai-actions {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+#pwa-ai-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 22px;
+  background: #fff;
+  color: #e65100;
+  font-size: 13.5px;
+  font-weight: 700;
+  border-radius: 22px;
+  border: 1.5px solid #e65100;
+  box-shadow: 0 2px 6px rgba(230,81,0,0.18);
+  transition: background 0.15s, color 0.15s, transform 0.1s;
+  min-height: 40px;
+}
+#pwa-ai-btn:active:not(:disabled) { background: #fff3e0; transform: scale(0.97); }
+#pwa-ai-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* Explanation body — card */
 #pwa-explanation {
   background: #fff;
-  border: 1px solid #d8e3f0;
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 14px;
   font-size: 14px;
   line-height: 1.6;
   color: #222;
   min-height: 48px;
+  box-shadow: 0 1px 3px rgba(10,30,60,0.06);
+  overflow-x: auto;                       /* contain wide AI tables */
+  word-wrap: break-word;
 }
-
-/* AI action bar — sits above explanation body */
-#pwa-ai-actions {
-  display: flex;
-  justify-content: flex-start;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-#pwa-ai-btn {
-  padding: 9px 22px;
-  background: #fff;
-  color: #e65100;
-  font-size: 14px;
-  font-weight: 700;
-  border-radius: 6px;
-  border: 1.5px solid #e65100;
-  transition: background 0.15s, color 0.15s;
-}
-#pwa-ai-btn:hover:not(:disabled) { background: #fff3e0; }
-#pwa-ai-btn:active:not(:disabled) { background: #ffe0c2; }
-#pwa-ai-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
 /* AI loading spinner */
 .pwa-ai-loading {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 12px 0;
+  padding: 8px 0;
   color: #555;
   font-size: 13px;
 }
 .pwa-ai-spinner {
   width: 18px; height: 18px;
-  border: 2px solid #c8d4e8;
-  border-top-color: #1565c0;
+  border: 2px solid #ffe0c2;
+  border-top-color: #e65100;
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
   flex-shrink: 0;
@@ -341,22 +395,23 @@ img { display: block; max-width: 100%; height: auto; }
 
 /* Loading / empty states */
 .pwa-msg {
-  padding: 24px 0;
+  display: block;
+  padding: 20px 0;
   text-align: center;
   color: #8a9bbf;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 /* ── Toast ────────────────────────────────────────────────────────────── */
 #pwa-toast {
   position: fixed;
-  bottom: calc(56px + env(safe-area-inset-bottom) + 16px);
+  bottom: calc(64px + env(safe-area-inset-bottom) + 14px);
   left: 50%;
-  transform: translateX(-50%) translateY(12px);
-  background: rgba(20,30,48,0.92);
+  transform: translateX(-50%) translateY(14px);
+  background: rgba(20,30,48,0.94);
   color: #fff;
-  padding: 8px 20px;
-  border-radius: 20px;
+  padding: 9px 20px;
+  border-radius: 22px;
   font-size: 13px;
   font-weight: 600;
   pointer-events: none;
@@ -364,80 +419,100 @@ img { display: block; max-width: 100%; height: auto; }
   transition: opacity 0.22s, transform 0.22s;
   z-index: 200;
   white-space: nowrap;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 #pwa-toast.show {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
 }
 
-/* ── FAB — floating revision + understood ─────────────────────────────── */
+/* ── FAB — right side, above footer ───────────────────────────────────── */
 #pwa-fab {
   position: fixed;
-  bottom: calc(56px + env(safe-area-inset-bottom) + 10px);
+  bottom: calc(64px + env(safe-area-inset-bottom) + 12px);
   right: 12px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
   z-index: 30;
 }
 
 .pwa-fab-btn {
-  width: 44px; height: 44px;
+  width: 46px; height: 46px;
   border-radius: 50%;
   background: #fff;
-  border: 1.5px solid #c8d4e8;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-  font-size: 20px;
-  display: flex; align-items: center; justify-content: center;
-  transition: box-shadow 0.15s, border-color 0.15s, background 0.15s;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-}
-.pwa-fab-btn:active { transform: scale(0.93); }
-
-#pwa-fab-revision { color: #6a1b9a; }
-#pwa-fab-revision.marked {
-  background: #f3e5f5;
-  border-color: #6a1b9a;
-  box-shadow: 0 3px 12px rgba(106,27,154,0.3);
-}
-
-#pwa-fab-understood { color: #2e7d32; }
-#pwa-fab-understood.marked {
-  background: #e8f5e9;
-  border-color: #2e7d32;
-  box-shadow: 0 3px 12px rgba(46,125,50,0.3);
-}
-
-/* ── Footer ───────────────────────────────────────────────────────────── */
-#pwa-footer {
-  flex-shrink: 0;
-  height: 56px;
-  background: #fff;
-  border-top: 1px solid #d0dcea;
+  border: 1.5px solid #d8e0ec;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.16);
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
+  transition: transform 0.12s, background 0.15s, border-color 0.15s, box-shadow 0.15s;
+}
+.pwa-fab-btn:active { transform: scale(0.92); }
+
+.pwa-fab-btn svg {
+  width: 22px; height: 22px;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: fill 0.15s, stroke 0.15s;
+}
+
+#pwa-fab-revision svg { stroke: #6a1b9a; }
+#pwa-fab-revision.marked {
+  background: #6a1b9a;
+  border-color: #6a1b9a;
+  box-shadow: 0 4px 14px rgba(106,27,154,0.4);
+}
+#pwa-fab-revision.marked svg { stroke: #fff; fill: #fff; }
+
+#pwa-fab-understood svg { stroke: #2e7d32; }
+#pwa-fab-understood.marked {
+  background: #2e7d32;
+  border-color: #2e7d32;
+  box-shadow: 0 4px 14px rgba(46,125,50,0.4);
+}
+#pwa-fab-understood.marked svg { stroke: #fff; }
+
+/* ── Footer — true edge-to-edge bottom bar ────────────────────────────── */
+#pwa-footer {
+  flex-shrink: 0;
+  background: #fff;
+  border-top: 1px solid #dfe5ee;
+  padding-bottom: env(safe-area-inset-bottom);   /* bg extends to home-indicator */
+  display: flex;
+  align-items: stretch;
+  box-shadow: 0 -2px 10px rgba(10,30,60,0.06);
 }
 
 .pwa-foot-btn {
   flex: 1;
-  height: 56px;
+  height: 64px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
   color: #1a3a5c;
   background: none;
-  border: none;
-  -webkit-tap-highlight-color: transparent;
-  transition: background 0.12s;
-  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
 }
 .pwa-foot-btn:active { background: #eef2f8; }
-.pwa-foot-btn:disabled { color: #c0ccd8; cursor: default; }
+.pwa-foot-btn:disabled { color: #c0ccd8; }
 .pwa-foot-btn:disabled:active { background: none; }
+
+.pwa-foot-btn svg {
+  width: 26px; height: 26px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Random button — a touch larger / accent */
+#pwa-random svg { width: 24px; height: 24px; color: #f0a500; }
 
 /* Dropdown backdrop */
 #pwa-dd-backdrop {
@@ -448,18 +523,18 @@ img { display: block; max-width: 100%; height: auto; }
 }
 #pwa-dd-backdrop.visible { display: block; }
 
-/* ── Explanation content styles ────────────────────────────────────────── */
-/* Styles that AI-generated HTML relies on */
-#pwa-explanation h3 { font-size: 15px; margin-bottom: 6px; color: #1a3a5c; }
+/* ── Explanation content styles (AI / metadata HTML) ──────────────────── */
+#pwa-explanation h3 { font-size: 14.5px; margin-bottom: 6px; color: #1a3a5c; line-height: 1.35; }
 #pwa-explanation h4 { font-size: 13px; margin: 10px 0 5px; color: #333; }
 #pwa-explanation p  { margin-bottom: 8px; }
 #pwa-explanation ul, #pwa-explanation ol { padding-left: 18px; margin-bottom: 8px; }
 #pwa-explanation li { margin-bottom: 4px; }
-#pwa-explanation table { border-collapse: collapse; width: 100%; margin-bottom: 10px; font-size: 13px; }
+#pwa-explanation table { border-collapse: collapse; width: 100%; margin-bottom: 10px; font-size: 12.5px; }
 #pwa-explanation th, #pwa-explanation td { border: 1px solid #d0d8e8; padding: 6px 8px; text-align: left; }
 #pwa-explanation th { background: #eef2f8; font-weight: 700; }
 #pwa-explanation .answer { background: #e8f5e9; border-radius: 6px; padding: 10px 12px; margin-bottom: 10px; }
 #pwa-explanation section { margin-bottom: 12px; }
+#pwa-explanation img { max-width: 100%; height: auto; }
 </style>
 </head>
 <body>
@@ -469,10 +544,10 @@ img { display: block; max-width: 100%; height: auto; }
   <header id="pwa-header">
     <div class="pwa-hrow1">
 
-      <!-- Progress -->
-      <div id="pwa-progress"><strong>—</strong><span id="pwa-progress-sub"></span></div>
+      <!-- Brand — top left -->
+      <div id="pwa-brand"><span class="pwa-brand-dot"></span>TET Suite</div>
 
-      <!-- Subject dropdown (subtle, centred) -->
+      <!-- Subject dropdown — centre -->
       <div class="pwa-subject-wrap">
         <button id="pwa-subject-btn" aria-haspopup="listbox" aria-expanded="false">
           <span id="pwa-subject-label">All</span>
@@ -490,8 +565,11 @@ img { display: block; max-width: 100%; height: auto; }
         </div>
       </div>
 
-      <!-- Read aloud -->
-      <button id="pwa-read-aloud" aria-label="Read explanation aloud">&#128266;</button>
+      <!-- Counter — top right -->
+      <div id="pwa-progress">
+        <span id="pwa-progress-count">—</span>
+        <span id="pwa-progress-sub"></span>
+      </div>
 
     </div>
 
@@ -510,8 +588,14 @@ img { display: block; max-width: 100%; height: auto; }
   <!-- Scrollable content -->
   <div id="pwa-content">
     <div id="pwa-qnum"></div>
-    <img id="pwa-qimg" class="pwa-qimg" alt="Question" loading="lazy">
-    <div id="pwa-opts"></div>
+
+    <div class="pwa-qimg-wrap">
+      <img id="pwa-qimg" class="pwa-qimg" alt="Question" loading="lazy">
+    </div>
+
+    <div class="pwa-opts-wrap" id="pwa-opts-wrap">
+      <div id="pwa-opts"></div>
+    </div>
 
     <!-- Explanation section -->
     <div id="pwa-exp-section">
@@ -523,20 +607,40 @@ img { display: block; max-width: 100%; height: auto; }
     </div>
   </div>
 
-  <!-- Toast notification -->
+  <!-- Toast -->
   <div id="pwa-toast"></div>
 
-  <!-- Floating action buttons (revision + understood) -->
+  <!-- Floating action buttons (right side) -->
   <div id="pwa-fab">
-    <button id="pwa-fab-revision" class="pwa-fab-btn" title="Mark for Revision">&#128278;</button>
-    <button id="pwa-fab-understood" class="pwa-fab-btn" title="Mark as Understood">&#10003;</button>
+    <button id="pwa-fab-revision" class="pwa-fab-btn" aria-label="Mark for Revision">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+      </svg>
+    </button>
+    <button id="pwa-fab-understood" class="pwa-fab-btn" aria-label="Mark as Understood">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+    </button>
   </div>
 
   <!-- Footer nav -->
   <footer id="pwa-footer">
-    <button class="pwa-foot-btn" id="pwa-prev" aria-label="Previous question">&#8592;</button>
-    <button class="pwa-foot-btn" id="pwa-random" aria-label="Random question">&#128256;</button>
-    <button class="pwa-foot-btn" id="pwa-next" aria-label="Next question">&#8594;</button>
+    <button class="pwa-foot-btn" id="pwa-prev" aria-label="Previous question">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="pwa-foot-btn" id="pwa-random" aria-label="Random question">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <polyline points="16 3 21 3 21 8"/>
+        <line x1="4"  y1="20" x2="21" y2="3"/>
+        <polyline points="21 16 21 21 16 21"/>
+        <line x1="15" y1="15" x2="21" y2="21"/>
+        <line x1="4"  y1="4"  x2="9"  y2="9"/>
+      </svg>
+    </button>
+    <button class="pwa-foot-btn" id="pwa-next" aria-label="Next question">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
   </footer>
 
 </div><!-- #pwa-app -->
@@ -546,15 +650,6 @@ img { display: block; max-width: 100%; height: auto; }
 <script type="module" src="js/firebase-ai.js"></script>
 <script>
 /* ── Constants ──────────────────────────────────────────────────────────── */
-const SUBJECT_META = {
-  all:         { label: 'All' },
-  cdp:         { label: 'CDP' },
-  telugu:      { label: 'Telugu' },
-  english:     { label: 'English' },
-  mathematics: { label: 'Math' },
-  science:     { label: 'Science' },
-};
-
 const SUBJECT_DISPLAY = {
   all: 'All', cdp: 'CDP', telugu: 'Telugu',
   english: 'English', mathematics: 'Math', science: 'Science',
@@ -640,14 +735,14 @@ async function loadQuestionBank() {
   return qbankCache;
 }
 
-/* ── Filter helper ──────────────────────────────────────────────────────── */
+/* ── Filter ────────────────────────────────────────────────────────────── */
 function buildFiltered(all) {
-  const understood   = getUnderstoodSet();
-  const subjMatch    = q => qbankSubjectFilter === 'all' || (q.sectionId||'').toLowerCase() === qbankSubjectFilter;
-  const statusMatch  = q => {
-    if (qbankStatusFilter === 'all')         return true;
-    if (qbankStatusFilter === 'understood')  return understood.has(q.questionImage);
-    if (qbankStatusFilter === 'explained')   return !!getAiCache(q.questionImage);
+  const understood = getUnderstoodSet();
+  const subjMatch  = q => qbankSubjectFilter === 'all' || (q.sectionId||'').toLowerCase() === qbankSubjectFilter;
+  const statusMatch = q => {
+    if (qbankStatusFilter === 'all')        return true;
+    if (qbankStatusFilter === 'understood') return understood.has(q.questionImage);
+    if (qbankStatusFilter === 'explained')  return !!getAiCache(q.questionImage);
     return !understood.has(q.questionImage);
   };
   return all.filter(q => subjMatch(q) && statusMatch(q));
@@ -701,9 +796,12 @@ async function render() {
 
   // Options
   const optsEl = document.getElementById('pwa-opts');
+  const optsWrap = document.getElementById('pwa-opts-wrap');
   if (item.optionsInQuestion || !item.optionImages.length) {
     optsEl.innerHTML = '';
+    optsWrap.style.display = 'none';
   } else {
+    optsWrap.style.display = '';
     optsEl.innerHTML = item.optionImages.map((src, i) => {
       const k   = String(i + 1);
       const cls = k === String(item.correctAnswer) ? 'pwa-opt pwa-opt--correct' : 'pwa-opt';
@@ -714,17 +812,11 @@ async function render() {
     }).join('');
   }
 
-  // Stop any in-progress speech
-  if (window.speechSynthesis) window.speechSynthesis.cancel();
-  const raBtn = document.getElementById('pwa-read-aloud');
-  raBtn.innerHTML = '&#128266;';
-  raBtn.classList.remove('speaking');
-
   // Nav button state
   document.getElementById('pwa-prev').disabled = qbankIndex <= 0;
   document.getElementById('pwa-next').disabled = qbankIndex >= qbankFiltered.length - 1;
 
-  // Reset AI button (restore if hidden by empty-state)
+  // Reset AI button
   const aiBtn = document.getElementById('pwa-ai-btn');
   if (aiBtn) {
     aiBtn.style.display = '';
@@ -733,7 +825,10 @@ async function render() {
     aiBtn.innerHTML = hasCached ? '&#10024; Regenerate' : '&#10024; Explain with AI';
   }
 
-  // Explanation — from cache or metadata.json
+  // Scroll to top whenever question changes
+  contentEl.scrollTo({ top: 0, behavior: 'auto' });
+
+  // Explanation
   await loadExplanation(qimg);
 }
 
@@ -764,6 +859,29 @@ function noExplanationMsg() {
   return '<em style="color:#888;font-size:13px">No explanation yet. Tap ✨ Explain with AI to generate one.</em>';
 }
 
+function updateHeaderProgress() {
+  const total   = qbankFiltered.length;
+  const current = total > 0 ? qbankIndex + 1 : 0;
+  const understood = getUnderstoodSet();
+  const undCount = qbankFiltered.filter(q => understood.has(q.questionImage)).length;
+  const expCount = qbankFiltered.filter(q => !!getAiCache(q.questionImage)).length;
+
+  document.getElementById('pwa-progress-count').innerHTML =
+    `${current}<span class="pwa-progress-total"> / ${total}</span>`;
+  document.getElementById('pwa-progress-sub').innerHTML =
+    `${undCount}&#10003; · ${expCount}&#10024;`;
+}
+
+function updateFabState() {
+  if (!qbankFiltered.length) return;
+  const item = qbankFiltered[qbankIndex];
+  if (!item) return;
+  const understood = getUnderstoodSet();
+  const revImgs    = new Set(getRevisionList().map(r => r.q?.questionImage).filter(Boolean));
+  document.getElementById('pwa-fab-revision').classList.toggle('marked', revImgs.has(item.questionImage));
+  document.getElementById('pwa-fab-understood').classList.toggle('marked', understood.has(item.questionImage));
+}
+
 /* ── Toast ─────────────────────────────────────────────────────────────── */
 let _toastTid = null;
 function showToast(msg) {
@@ -774,39 +892,15 @@ function showToast(msg) {
   _toastTid = setTimeout(() => t.classList.remove('show'), 2200);
 }
 
-function updateHeaderProgress() {
-  const total   = qbankFiltered.length;
-  const current = total > 0 ? qbankIndex + 1 : 0;
-  const understood   = getUnderstoodSet();
-  const undCount = qbankFiltered.filter(q => understood.has(q.questionImage)).length;
-  const expCount = qbankFiltered.filter(q => !!getAiCache(q.questionImage)).length;
-
-  document.getElementById('pwa-progress').innerHTML =
-    `<strong>${current}<span style="font-size:14px;font-weight:600;color:#8ab2d4"> / ${total}</span></strong>
-     <span id="pwa-progress-sub" style="font-size:10px;color:#8ab2d4;display:block;margin-top:1px">${undCount}&#10003; &middot; ${expCount}&#10024;</span>`;
-}
-
-function updateFabState() {
-  if (!qbankFiltered.length) return;
-  const item = qbankFiltered[qbankIndex];
-  if (!item) return;
-  const understood = getUnderstoodSet();
-  const revImgs    = new Set(getRevisionList().map(r => r.q?.questionImage).filter(Boolean));
-  const revBtn = document.getElementById('pwa-fab-revision');
-  const undBtn = document.getElementById('pwa-fab-understood');
-  revBtn.classList.toggle('marked', revImgs.has(item.questionImage));
-  undBtn.classList.toggle('marked', understood.has(item.questionImage));
-}
-
 /* ── AI explain ─────────────────────────────────────────────────────────── */
 async function handleAiExplain() {
   const aiBtn = document.getElementById('pwa-ai-btn');
-  if (aiBtn.disabled) return;
+  if (!aiBtn || aiBtn.disabled) return;
 
   const item = qbankFiltered[qbankIndex];
   if (!item) return;
 
-  // Wait up to 10 s for Firebase AI module
+  // Wait up to 10s for Firebase AI module
   if (!window.AiExplainer) {
     aiBtn.disabled = true;
     aiBtn.textContent = '⏳ Loading AI…';
@@ -824,15 +918,14 @@ async function handleAiExplain() {
     }
   }
 
-  const expEl = document.getElementById('pwa-explanation');
-  const expSection = document.getElementById('pwa-exp-section');
-  const isRegen = aiBtn.textContent.includes('Regenerate');
+  const expEl     = document.getElementById('pwa-explanation');
+  const expSection= document.getElementById('pwa-exp-section');
+  const isRegen   = aiBtn.textContent.includes('Regenerate');
 
-  aiBtn.disabled = true;
+  aiBtn.disabled  = true;
   aiBtn.textContent = '⏳ Generating…';
   expEl.innerHTML = '<div class="pwa-ai-loading"><span class="pwa-ai-spinner"></span>Generating AI explanation — this may take 10–20 s…</div>';
 
-  // Scroll so the explanation section (button + loading msg) is at top
   const contentEl = document.getElementById('pwa-content');
   contentEl.scrollTo({ top: expSection.offsetTop - 8, behavior: 'smooth' });
 
@@ -848,7 +941,6 @@ async function handleAiExplain() {
     });
     expEl.innerHTML = html;
     aiBtn.innerHTML = '&#10024; Regenerate';
-    // Scroll so explanation content starts at the top (button stays visible just above)
     contentEl.scrollTo({ top: expSection.offsetTop - 8, behavior: 'smooth' });
   } catch (err) {
     expEl.innerHTML = `<div class="pwa-ai-error"><strong>AI error:</strong> ${esc(err.message || 'Generation failed.')}</div>`;
@@ -858,31 +950,17 @@ async function handleAiExplain() {
   }
 }
 
-/* ── Speech ─────────────────────────────────────────────────────────────── */
-function pickIndianVoice() {
-  const voices = window.speechSynthesis?.getVoices() || [];
-  return voices.find(v => v.lang === 'en-IN' && /female|woman|heera|priya|raveena/i.test(v.name))
-      || voices.find(v => v.lang === 'en-IN')
-      || null;
-}
-
 /* ── Subject dropdown helpers ───────────────────────────────────────────── */
 function openSubjectDropdown() {
-  const dd      = document.getElementById('pwa-subject-dd');
-  const chevron = document.querySelector('.pwa-chevron');
-  const backdrop= document.getElementById('pwa-dd-backdrop');
-  dd.hidden = false;
-  chevron.classList.add('pwa-chevron--open');
-  backdrop.classList.add('visible');
+  document.getElementById('pwa-subject-dd').hidden = false;
+  document.querySelector('.pwa-chevron').classList.add('pwa-chevron--open');
+  document.getElementById('pwa-dd-backdrop').classList.add('visible');
   document.getElementById('pwa-subject-btn').setAttribute('aria-expanded', 'true');
 }
 function closeSubjectDropdown() {
-  const dd      = document.getElementById('pwa-subject-dd');
-  const chevron = document.querySelector('.pwa-chevron');
-  const backdrop= document.getElementById('pwa-dd-backdrop');
-  dd.hidden = true;
-  chevron.classList.remove('pwa-chevron--open');
-  backdrop.classList.remove('visible');
+  document.getElementById('pwa-subject-dd').hidden = true;
+  document.querySelector('.pwa-chevron').classList.remove('pwa-chevron--open');
+  document.getElementById('pwa-dd-backdrop').classList.remove('visible');
   document.getElementById('pwa-subject-btn').setAttribute('aria-expanded', 'false');
 }
 function toggleSubjectDropdown() {
@@ -892,7 +970,6 @@ function toggleSubjectDropdown() {
 /* ── Bootstrap ──────────────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
 
-  // Initial loading message
   document.getElementById('pwa-explanation').innerHTML =
     '<span class="pwa-msg">Loading question bank…</span>';
   render();
@@ -910,13 +987,10 @@ document.addEventListener('DOMContentLoaded', () => {
     qbankSubjectFilter = item.dataset.subject;
     qbankStatusFilter  = 'yet-to-read';
     qbankIndex         = 0;
-    // Update label
     document.getElementById('pwa-subject-label').textContent =
       SUBJECT_DISPLAY[qbankSubjectFilter] || 'All';
-    // Update active item
     document.querySelectorAll('.pwa-dd-item').forEach(b =>
       b.classList.toggle('active', b.dataset.subject === qbankSubjectFilter));
-    // Sync status chips
     document.querySelectorAll('.pwa-chip').forEach(b =>
       b.classList.toggle('active', b.dataset.status === qbankStatusFilter));
     closeSubjectDropdown();
@@ -969,42 +1043,22 @@ document.addEventListener('DOMContentLoaded', () => {
     showToast(understood.has(item.questionImage) ? '✓ Marked as understood' : '↩ Removed from understood');
   });
 
-  /* AI explain button */
+  /* AI explain */
   document.getElementById('pwa-ai-btn').addEventListener('click', handleAiExplain);
 
-  /* Read aloud */
-  document.getElementById('pwa-read-aloud').addEventListener('click', function () {
-    if (!window.speechSynthesis) return;
-    if (window.speechSynthesis.speaking) {
-      window.speechSynthesis.cancel();
-      this.innerHTML = '&#128266;';
-      this.classList.remove('speaking');
-      return;
-    }
-    const expEl = document.getElementById('pwa-explanation');
-    const text  = (expEl?.innerText || '').trim();
-    if (!text) return;
+  /* Block iOS pinch-to-zoom (defence in depth) */
+  document.addEventListener('gesturestart', e => e.preventDefault());
+  /* Block iOS double-tap zoom (defence in depth) */
+  let _lastTap = 0;
+  document.addEventListener('touchend', e => {
+    const now = Date.now();
+    if (now - _lastTap < 350) e.preventDefault();
+    _lastTap = now;
+  }, { passive: false });
 
-    this.innerHTML = '&#9209;';
-    this.classList.add('speaking');
-    const btn = this;
-
-    const utt    = new SpeechSynthesisUtterance(text);
-    utt.lang     = 'en-IN';
-    utt.pitch    = 0.85;
-    utt.rate     = 0.88;
-    const voice  = pickIndianVoice();
-    if (voice) utt.voice = voice;
-    const done = () => { btn.innerHTML = '&#128266;'; btn.classList.remove('speaking'); };
-    utt.onend   = done;
-    utt.onerror = done;
-    window.speechSynthesis.speak(utt);
-  });
-
-  /* ── Service Worker registration ── */
+  /* Service Worker */
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./qb_pwa_sw.js', { scope: './' })
-      .then(() => console.log('[QB PWA] Service worker registered'))
       .catch(err => console.warn('[QB PWA] SW registration failed:', err));
   }
 });

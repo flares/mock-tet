@@ -1,6 +1,6 @@
 {
-  "name": "Question Bank — Mock TET",
-  "short_name": "QB TET",
+  "name": "TET Suite — Question Bank",
+  "short_name": "TET Suite",
   "description": "CTET/TET Question Bank — study on the go, offline-capable",
   "start_url": "./qb_pwa.html",
   "scope": "./",
