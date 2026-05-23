@@ -8,7 +8,6 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="TET Suite">
-  <!-- 180×180 PNG for iOS Add to Home Screen (SVG not reliable on older iOS) -->
   <link rel="apple-touch-icon" sizes="180x180" href="assets/pwa-icon-180.png">
   <link rel="apple-touch-icon" href="assets/pwa-icon.svg">
   <link rel="manifest" href="qb_pwa_manifest.json">
@@ -17,53 +16,46 @@
 /* ── Reset / base ─────────────────────────────────────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+  margin: 0; padding: 0;
   -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;             /* kills double-tap zoom */
+  touch-action: manipulation;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   user-select: none;
 }
-/* Allow text selection inside the explanation (so users can copy) */
 #pwa-explanation, #pwa-explanation * { -webkit-user-select: text; user-select: text; }
 
 html, body {
-  position: fixed;                        /* lock viewport — no page scroll */
+  position: fixed;
   inset: 0;
   overflow: hidden;
-  overscroll-behavior: none;              /* kill rubber-band */
+  overscroll-behavior: none;
   background: #0e2540;
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display',
                'Segoe UI', system-ui, Roboto, sans-serif;
   font-size: 14px;
   color: #1a1a1a;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 button {
-  font-family: inherit;
-  font-size: inherit;
-  border: none;
-  background: none;
-  cursor: pointer;
-  color: inherit;
+  font-family: inherit; font-size: inherit;
+  border: none; background: none; cursor: pointer; color: inherit;
 }
 img { display: block; max-width: 100%; height: auto; }
 
-/* ── App shell ────────────────────────────────────────────────────────── */
+/* ── App shell ─────────────────────────────────────────────────────────── */
 #pwa-app {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  height: 100dvh;                         /* dvh tracks iOS dynamic viewport correctly */
+  top: 0; left: 0; right: 0;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   background: #f4f6fb;
   overflow: hidden;
 }
 
-/* ── Header — solid navy, status-bar safe area baked in ────────────────── */
+/* ── Header ────────────────────────────────────────────────────────────── */
 #pwa-header {
   flex-shrink: 0;
   background: linear-gradient(180deg, #1a3a5c 0%, #234d7a 100%);
@@ -83,7 +75,7 @@ img { display: block; max-width: 100%; height: auto; }
   min-height: 38px;
 }
 
-/* Brand — stacked wordmark top left */
+/* Brand — stacked TET / Suite */
 #pwa-brand {
   color: #fff;
   display: flex;
@@ -93,116 +85,67 @@ img { display: block; max-width: 100%; height: auto; }
   line-height: 1;
 }
 .pwa-brand-tet {
-  font-size: 22px;
-  font-weight: 900;
-  letter-spacing: 1px;
-  line-height: 1;
+  font-size: 22px; font-weight: 900; letter-spacing: 1px; line-height: 1;
 }
 .pwa-brand-suite {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 2.5px;
-  color: #f0a500;
-  margin-top: 2px;
-  text-transform: uppercase;
+  font-size: 10px; font-weight: 600; letter-spacing: 2.5px;
+  color: #f0a500; margin-top: 2px; text-transform: uppercase;
 }
 
 /* Subject dropdown — centre */
-.pwa-subject-wrap {
-  position: relative;
-  justify-self: center;
-}
+.pwa-subject-wrap { position: relative; justify-self: center; }
 #pwa-subject-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 5px 4px;
-  font-size: 14px;
-  font-weight: 600;
-  color: rgba(255,255,255,0.95);
-  background: none;
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 5px 4px; font-size: 14px; font-weight: 600;
+  color: rgba(255,255,255,0.95); background: none;
   border-bottom: 1.5px solid rgba(255,255,255,0.35);
   transition: border-color 0.15s;
 }
-#pwa-subject-btn:active {
-  border-color: rgba(255,255,255,0.9);
-}
+#pwa-subject-btn:active { border-color: rgba(255,255,255,0.9); }
 .pwa-chevron {
-  width: 12px; height: 12px;
-  fill: none;
-  stroke: rgba(255,255,255,0.85);
-  stroke-width: 2.2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+  width: 12px; height: 12px; fill: none;
+  stroke: rgba(255,255,255,0.85); stroke-width: 2.2;
+  stroke-linecap: round; stroke-linejoin: round;
   transition: transform 0.2s ease;
 }
 .pwa-chevron--open { transform: rotate(180deg); }
 
 /* Counter — top right */
-#pwa-progress {
-  justify-self: end;
-  text-align: right;
-  line-height: 1.1;
-  color: #fff;
-}
-#pwa-progress-count {
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 0.2px;
-  display: block;
-}
-#pwa-progress-count .pwa-progress-total {
-  font-weight: 500;
-  color: rgba(255,255,255,0.6);
-}
-#pwa-progress-sub {
-  font-size: 9.5px;
-  color: rgba(255,255,255,0.55);
-  display: block;
-  margin-top: 1px;
-  letter-spacing: 0.3px;
-}
+#pwa-progress { justify-self: end; text-align: right; line-height: 1.1; color: #fff; }
+#pwa-progress-count { font-size: 15px; font-weight: 700; letter-spacing: 0.2px; display: block; }
+#pwa-progress-count .pwa-progress-total { font-weight: 500; color: rgba(255,255,255,0.6); }
+#pwa-progress-sub { font-size: 9.5px; color: rgba(255,255,255,0.55); display: block; margin-top: 1px; }
 
 /* Dropdown panel */
 #pwa-subject-dd {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%);
-  min-width: 170px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 10px 28px rgba(0,0,0,0.25);
-  overflow: hidden;
-  z-index: 60;
-  animation: ddIn 0.16s ease;
+  position: absolute; top: calc(100% + 8px); left: 50%;
+  transform: translateX(-50%); min-width: 170px;
+  background: #fff; border-radius: 12px;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.25); overflow: hidden;
+  z-index: 60; animation: ddIn 0.16s ease;
 }
 @keyframes ddIn {
   from { opacity: 0; transform: translateX(-50%) translateY(-6px); }
   to   { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 #pwa-subject-dd[hidden] { display: none; }
-
 .pwa-dd-item {
-  display: block;
-  width: 100%;
-  padding: 12px 18px;
-  text-align: left;
-  font-size: 14px;
-  font-weight: 600;
-  color: #1a3a5c;
-  background: none;
+  display: block; width: 100%; padding: 12px 18px; text-align: left;
+  font-size: 14px; font-weight: 600; color: #1a3a5c; background: none;
   transition: background 0.1s;
 }
 .pwa-dd-item:active { background: #eef2f8; }
-.pwa-dd-item.active {
-  background: #1a3a5c;
-  color: #fff;
-}
+.pwa-dd-item.active { background: #1a3a5c; color: #fff; }
 .pwa-dd-item + .pwa-dd-item { border-top: 1px solid #edf0f6; }
 
-/* Status filter chips row */
+/* ── Filter row — chips left, Explained button pinned right ──────────── */
 #pwa-status-row {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+#pwa-chips-scroll {
+  flex: 1;
   display: flex;
   gap: 6px;
   overflow-x: auto;
@@ -210,35 +153,51 @@ img { display: block; max-width: 100%; height: auto; }
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
   padding: 2px 0;
-  margin: 0 -2px;
 }
-#pwa-status-row::-webkit-scrollbar { display: none; }
+#pwa-chips-scroll::-webkit-scrollbar { display: none; }
 
 .pwa-chip {
-  display: inline-flex;
-  align-items: center;
-  height: 26px;
-  padding: 0 13px;
-  border-radius: 14px;
-  font-size: 11.5px;
-  font-weight: 600;
-  white-space: nowrap;
-  background: rgba(255,255,255,0.10);
-  color: rgba(255,255,255,0.85);
-  border: 1px solid rgba(255,255,255,0.18);
-  transition: background 0.13s, color 0.13s, border-color 0.13s;
-  flex-shrink: 0;
+  display: inline-flex; align-items: center; height: 26px;
+  padding: 0 13px; border-radius: 14px; font-size: 11.5px; font-weight: 600;
+  white-space: nowrap; background: rgba(255,255,255,0.10);
+  color: rgba(255,255,255,0.85); border: 1px solid rgba(255,255,255,0.18);
+  transition: background 0.13s, color 0.13s, border-color 0.13s; flex-shrink: 0;
 }
 .pwa-chip:active { background: rgba(255,255,255,0.22); }
 .pwa-chip.active {
-  background: #f0a500;
-  color: #1a1a1a;
-  border-color: #f0a500;
-  font-weight: 700;
-  box-shadow: 0 1px 4px rgba(240,165,0,0.4);
+  background: #f0a500; color: #1a1a1a; border-color: #f0a500;
+  font-weight: 700; box-shadow: 0 1px 4px rgba(240,165,0,0.4);
 }
 
-/* ── Content area ─────────────────────────────────────────────────────── */
+/* Explained — pinned to right edge, visually separated */
+#pwa-chip-explained {
+  flex-shrink: 0;
+  margin-left: 8px;
+  padding: 0 10px;
+  height: 26px;
+  display: inline-flex; align-items: center; gap: 4px;
+  border-radius: 14px; font-size: 11px; font-weight: 600;
+  white-space: nowrap;
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.7);
+  border: 1px solid rgba(255,255,255,0.15);
+  transition: background 0.13s, color 0.13s;
+}
+#pwa-chip-explained:active { background: rgba(255,255,255,0.2); }
+#pwa-chip-explained.active {
+  background: #f0a500; color: #1a1a1a; border-color: #f0a500;
+  font-weight: 700;
+}
+#pwa-chip-explained .exp-count {
+  background: rgba(255,255,255,0.25);
+  border-radius: 8px; padding: 0 5px;
+  font-size: 10px; font-weight: 700;
+}
+#pwa-chip-explained.active .exp-count {
+  background: rgba(26,58,92,0.2);
+}
+
+/* ── Content — full height behind floating nav ─────────────────────────── */
 #pwa-content {
   flex: 1;
   min-height: 0;
@@ -246,295 +205,168 @@ img { display: block; max-width: 100%; height: auto; }
   overflow-x: hidden;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
-  padding: 12px 14px 92px;                /* bottom clears FAB + footer */
+  /* bottom padding = floating nav height (60px) + gap (12px) + safe area + extra */
+  padding: 12px 14px calc(60px + 12px + env(safe-area-inset-bottom) + 20px);
   scroll-behavior: smooth;
   background: #f4f6fb;
 }
 
 /* Question source label */
 #pwa-qnum {
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
-  color: #1565c0;
-  margin-bottom: 8px;
-  padding: 0 2px;
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.6px; color: #1565c0; margin-bottom: 8px; padding: 0 2px;
 }
 
-/* Question image — sits in a soft white card */
+/* Question image card */
 .pwa-qimg-wrap {
-  background: #fff;
-  border-radius: 10px;
-  padding: 10px;
-  box-shadow: 0 1px 3px rgba(10,30,60,0.06);
-  margin-bottom: 12px;
+  background: #fff; border-radius: 10px; padding: 10px;
+  box-shadow: 0 1px 3px rgba(10,30,60,0.06); margin-bottom: 12px;
 }
-.pwa-qimg {
-  width: 100%;
-  border-radius: 4px;
-}
+.pwa-qimg { width: 100%; border-radius: 4px; }
 
 /* Options */
 .pwa-opts-wrap {
-  background: #fff;
-  border-radius: 10px;
-  padding: 8px;
-  box-shadow: 0 1px 3px rgba(10,30,60,0.06);
-  margin-bottom: 14px;
+  background: #fff; border-radius: 10px; padding: 8px;
+  box-shadow: 0 1px 3px rgba(10,30,60,0.06); margin-bottom: 14px;
 }
 .pwa-opt {
-  display: flex;
-  align-items: flex-start;
-  gap: 7px;
-  padding: 7px 9px;
-  background: #fafbff;
-  border: 1.5px solid #dde4f0;
-  border-radius: 7px;
-  margin-bottom: 6px;
+  display: flex; align-items: flex-start; gap: 7px;
+  padding: 7px 9px; background: #fafbff; border: 1.5px solid #dde4f0;
+  border-radius: 7px; margin-bottom: 6px;
 }
 .pwa-opt:last-child { margin-bottom: 0; }
-.pwa-opt--correct {
-  border-color: #388e3c;
-  background: #e8f5e9;
-}
+.pwa-opt--correct { border-color: #388e3c; background: #e8f5e9; }
 .pwa-opt-num {
-  flex-shrink: 0;
-  min-width: 18px;
-  font-size: 12px;
-  font-weight: 700;
-  color: #666;
-  padding-top: 3px;
+  flex-shrink: 0; min-width: 18px; font-size: 12px; font-weight: 700;
+  color: #666; padding-top: 3px;
 }
 .pwa-opt--correct .pwa-opt-num { color: #2e7d32; }
-.pwa-opt img {
-  max-width: 100%;
-  width: auto;
-  height: auto;
-  display: block;
-  border-radius: 3px;
-}
+.pwa-opt img { max-width: 100%; width: auto; height: auto; display: block; border-radius: 3px; }
 
-/* Divider before explanation */
+/* Explanation divider */
 .pwa-exp-divider {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 8px 2px 10px;
-  color: #6a7a98;
-  font-size: 10.5px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
+  display: flex; align-items: center; gap: 10px;
+  margin: 8px 2px 10px; color: #6a7a98; font-size: 10.5px;
+  font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px;
 }
-.pwa-exp-divider::before,
-.pwa-exp-divider::after {
-  content: '';
-  flex: 1;
-  height: 1px;
+.pwa-exp-divider::before, .pwa-exp-divider::after {
+  content: ''; flex: 1; height: 1px;
   background: linear-gradient(90deg, transparent, #c5d2e3, transparent);
 }
 
-/* AI action bar — always-visible button above explanation */
-#pwa-ai-actions {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 12px;
-}
-
+/* AI explain button */
+#pwa-ai-actions { display: flex; justify-content: center; margin-bottom: 12px; }
 #pwa-ai-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 22px;
-  background: #fff;
-  color: #e65100;
-  font-size: 13.5px;
-  font-weight: 700;
-  border-radius: 22px;
-  border: 1.5px solid #e65100;
-  box-shadow: 0 2px 6px rgba(230,81,0,0.18);
-  transition: background 0.15s, color 0.15s, transform 0.1s;
-  min-height: 40px;
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 10px 22px; background: #fff; color: #e65100;
+  font-size: 13.5px; font-weight: 700; border-radius: 22px;
+  border: 1.5px solid #e65100; box-shadow: 0 2px 6px rgba(230,81,0,0.18);
+  transition: background 0.15s, transform 0.1s; min-height: 40px;
 }
 #pwa-ai-btn:active:not(:disabled) { background: #fff3e0; transform: scale(0.97); }
 #pwa-ai-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
-/* Explanation body — card */
+/* Explanation card */
 #pwa-explanation {
-  background: #fff;
-  border-radius: 10px;
-  padding: 14px;
-  font-size: 14px;
-  line-height: 1.6;
-  color: #222;
-  min-height: 48px;
-  box-shadow: 0 1px 3px rgba(10,30,60,0.06);
-  overflow-x: auto;                       /* contain wide AI tables */
-  word-wrap: break-word;
+  background: #fff; border-radius: 10px; padding: 14px;
+  font-size: 14px; line-height: 1.6; color: #222; min-height: 48px;
+  box-shadow: 0 1px 3px rgba(10,30,60,0.06); overflow-x: auto; word-wrap: break-word;
 }
 
-/* AI loading spinner */
-.pwa-ai-loading {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 0;
-  color: #555;
-  font-size: 13px;
-}
+/* AI loading */
+.pwa-ai-loading { display: flex; align-items: center; gap: 10px; padding: 8px 0; color: #555; font-size: 13px; }
 .pwa-ai-spinner {
-  width: 18px; height: 18px;
-  border: 2px solid #ffe0c2;
-  border-top-color: #e65100;
-  border-radius: 50%;
-  animation: spin 0.7s linear infinite;
-  flex-shrink: 0;
+  width: 18px; height: 18px; border: 2px solid #ffe0c2;
+  border-top-color: #e65100; border-radius: 50%;
+  animation: spin 0.7s linear infinite; flex-shrink: 0;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
-
 .pwa-ai-error {
-  background: #fff8f8;
-  border: 1px solid #ffcdd2;
-  border-radius: 6px;
-  padding: 10px 12px;
-  font-size: 13px;
-  color: #c62828;
+  background: #fff8f8; border: 1px solid #ffcdd2;
+  border-radius: 6px; padding: 10px 12px; font-size: 13px; color: #c62828;
 }
 
-/* Loading / empty states */
-.pwa-msg {
-  display: block;
-  padding: 20px 0;
-  text-align: center;
-  color: #8a9bbf;
-  font-size: 13px;
-}
+/* Empty / loading states */
+.pwa-msg { display: block; padding: 20px 0; text-align: center; color: #8a9bbf; font-size: 13px; }
 
-/* ── Toast ────────────────────────────────────────────────────────────── */
+/* ── Toast ─────────────────────────────────────────────────────────────── */
 #pwa-toast {
   position: fixed;
-  bottom: calc(64px + env(safe-area-inset-bottom) + 14px);
-  left: 50%;
-  transform: translateX(-50%) translateY(14px);
-  background: rgba(20,30,48,0.94);
-  color: #fff;
-  padding: 9px 20px;
-  border-radius: 22px;
-  font-size: 13px;
-  font-weight: 600;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.22s, transform 0.22s;
-  z-index: 200;
-  white-space: nowrap;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.3);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  bottom: calc(60px + 12px + env(safe-area-inset-bottom) + 18px);
+  left: 50%; transform: translateX(-50%) translateY(14px);
+  background: rgba(20,30,48,0.94); color: #fff;
+  padding: 9px 20px; border-radius: 22px; font-size: 13px; font-weight: 600;
+  pointer-events: none; opacity: 0; transition: opacity 0.22s, transform 0.22s;
+  z-index: 200; white-space: nowrap; box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
 }
-#pwa-toast.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
+#pwa-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-/* ── FAB — right side, above footer ───────────────────────────────────── */
+/* ── FABs — right side, above floating nav ─────────────────────────────── */
 #pwa-fab {
   position: fixed;
-  bottom: calc(64px + env(safe-area-inset-bottom) + 12px);
-  right: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  z-index: 30;
+  bottom: calc(60px + 12px + env(safe-area-inset-bottom) + 14px);
+  right: 16px;
+  display: flex; flex-direction: column; gap: 10px; z-index: 30;
 }
-
 .pwa-fab-btn {
-  width: 46px; height: 46px;
-  border-radius: 50%;
-  background: #fff;
-  border: 1.5px solid #d8e0ec;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.16);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 46px; height: 46px; border-radius: 50%; background: #fff;
+  border: 1.5px solid #d8e0ec; box-shadow: 0 4px 12px rgba(0,0,0,0.16);
+  display: flex; align-items: center; justify-content: center;
   transition: transform 0.12s, background 0.15s, border-color 0.15s, box-shadow 0.15s;
 }
 .pwa-fab-btn:active { transform: scale(0.92); }
-
 .pwa-fab-btn svg {
-  width: 22px; height: 22px;
-  fill: none;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+  width: 22px; height: 22px; fill: none; stroke-width: 2;
+  stroke-linecap: round; stroke-linejoin: round;
   transition: fill 0.15s, stroke 0.15s;
 }
-
 #pwa-fab-revision svg { stroke: #6a1b9a; }
-#pwa-fab-revision.marked {
-  background: #6a1b9a;
-  border-color: #6a1b9a;
-  box-shadow: 0 4px 14px rgba(106,27,154,0.4);
-}
+#pwa-fab-revision.marked { background: #6a1b9a; border-color: #6a1b9a; box-shadow: 0 4px 14px rgba(106,27,154,0.4); }
 #pwa-fab-revision.marked svg { stroke: #fff; fill: #fff; }
-
 #pwa-fab-understood svg { stroke: #2e7d32; }
-#pwa-fab-understood.marked {
-  background: #2e7d32;
-  border-color: #2e7d32;
-  box-shadow: 0 4px 14px rgba(46,125,50,0.4);
-}
+#pwa-fab-understood.marked { background: #2e7d32; border-color: #2e7d32; box-shadow: 0 4px 14px rgba(46,125,50,0.4); }
 #pwa-fab-understood.marked svg { stroke: #fff; }
+.pwa-fab-hidden { display: none !important; }
 
-/* ── Footer — edge-to-edge bottom bar, buttons fill safe area ──────────── */
+/* ── Floating nav pill ─────────────────────────────────────────────────── */
 #pwa-footer {
-  flex-shrink: 0;
-  background: #fff;
-  border-top: 1px solid #dfe5ee;
+  position: fixed;
+  bottom: calc(12px + env(safe-area-inset-bottom));
+  left: 20px; right: 20px;
+  height: 60px;
+  background: rgba(255,255,255,0.97);
+  border-radius: 20px;
+  box-shadow: 0 4px 28px rgba(10,30,60,0.18), 0 1px 6px rgba(10,30,60,0.10);
   display: flex;
   align-items: stretch;
-  box-shadow: 0 -2px 10px rgba(10,30,60,0.06);
+  z-index: 30;
+  overflow: hidden;
 }
-
-/* Buttons extend into safe-area-inset-bottom so there's no dead zone */
 .pwa-foot-btn {
   flex: 1;
-  /* icon area 64px; padding pushes button taller to cover home indicator */
-  padding-top: 20px;
-  padding-bottom: calc(20px + env(safe-area-inset-bottom));
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  color: #1a3a5c;
-  background: none;
+  display: flex; align-items: center; justify-content: center;
+  color: #1a3a5c; background: none;
   transition: background 0.12s, color 0.12s;
 }
 .pwa-foot-btn:active { background: #eef2f8; }
 .pwa-foot-btn:disabled { color: #c0ccd8; }
 .pwa-foot-btn:disabled:active { background: none; }
-
 .pwa-foot-btn svg {
-  width: 26px; height: 26px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+  width: 26px; height: 26px; fill: none; stroke: currentColor;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
 }
-
-/* Random button — accent colour */
-#pwa-random svg { width: 24px; height: 24px; color: #f0a500; }
+/* Dividers between nav buttons */
+.pwa-foot-btn + .pwa-foot-btn {
+  border-left: 1px solid #e8edf5;
+}
+#pwa-random svg { width: 22px; height: 22px; stroke: #f0a500; }
 
 /* Dropdown backdrop */
-#pwa-dd-backdrop {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 40;
-}
+#pwa-dd-backdrop { display: none; position: fixed; inset: 0; z-index: 40; }
 #pwa-dd-backdrop.visible { display: block; }
 
-/* ── Explanation content styles (AI / metadata HTML) ──────────────────── */
+/* ── Explanation content ─────────────────────────────────────────────── */
 #pwa-explanation h3 { font-size: 14.5px; margin-bottom: 6px; color: #1a3a5c; line-height: 1.35; }
 #pwa-explanation h4 { font-size: 13px; margin: 10px 0 5px; color: #333; }
 #pwa-explanation p  { margin-bottom: 8px; }
@@ -555,7 +387,7 @@ img { display: block; max-width: 100%; height: auto; }
   <header id="pwa-header">
     <div class="pwa-hrow1">
 
-      <!-- Brand — stacked TET / Suite wordmark -->
+      <!-- Brand -->
       <div id="pwa-brand">
         <span class="pwa-brand-tet">TET</span>
         <span class="pwa-brand-suite">Suite</span>
@@ -579,26 +411,31 @@ img { display: block; max-width: 100%; height: auto; }
         </div>
       </div>
 
-      <!-- Counter — top right -->
+      <!-- Counter -->
       <div id="pwa-progress">
         <span id="pwa-progress-count">—</span>
         <span id="pwa-progress-sub"></span>
       </div>
-
     </div>
 
-    <!-- Status chips — "Yet to Read" removed; "All" is the default -->
+    <!-- Filter chips (left) + Explained badge (pinned right) -->
     <div id="pwa-status-row" role="group" aria-label="Status filter">
-      <button class="pwa-chip active" data-status="all">All</button>
-      <button class="pwa-chip" data-status="understood">Understood</button>
-      <button class="pwa-chip" data-status="explained">Explained</button>
+      <div id="pwa-chips-scroll">
+        <button class="pwa-chip active" data-status="all">All</button>
+        <button class="pwa-chip" data-status="review">Review</button>
+        <button class="pwa-chip" data-status="understood">Understood</button>
+      </div>
+      <!-- Explained pinned to right edge — shows local-cache count, not a primary filter -->
+      <button id="pwa-chip-explained" title="Questions with AI explanations cached">
+        ✨ <span class="exp-count" id="pwa-exp-count">0</span>
+      </button>
     </div>
   </header>
 
-  <!-- Dropdown backdrop (closes dropdown on outside tap) -->
+  <!-- Dropdown backdrop -->
   <div id="pwa-dd-backdrop"></div>
 
-  <!-- Scrollable content -->
+  <!-- Scrollable content — goes edge-to-edge, padding clears floating nav -->
   <div id="pwa-content">
     <div id="pwa-qnum"></div>
 
@@ -610,7 +447,7 @@ img { display: block; max-width: 100%; height: auto; }
       <div id="pwa-opts"></div>
     </div>
 
-    <!-- Explanation section -->
+    <!-- Explanation -->
     <div id="pwa-exp-section">
       <div class="pwa-exp-divider">Explanation</div>
       <div id="pwa-ai-actions">
@@ -623,7 +460,7 @@ img { display: block; max-width: 100%; height: auto; }
   <!-- Toast -->
   <div id="pwa-toast"></div>
 
-  <!-- Floating action buttons (right side) -->
+  <!-- FABs — right side -->
   <div id="pwa-fab">
     <button id="pwa-fab-revision" class="pwa-fab-btn" aria-label="Mark for Revision">
       <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -637,7 +474,7 @@ img { display: block; max-width: 100%; height: auto; }
     </button>
   </div>
 
-  <!-- Footer nav — buttons extend into home-indicator safe area -->
+  <!-- Floating nav pill -->
   <footer id="pwa-footer">
     <button class="pwa-foot-btn" id="pwa-prev" aria-label="Previous question">
       <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
@@ -645,10 +482,10 @@ img { display: block; max-width: 100%; height: auto; }
     <button class="pwa-foot-btn" id="pwa-random" aria-label="Random question">
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <polyline points="16 3 21 3 21 8"/>
-        <line x1="4"  y1="20" x2="21" y2="3"/>
+        <line x1="4" y1="20" x2="21" y2="3"/>
         <polyline points="21 16 21 21 16 21"/>
         <line x1="15" y1="15" x2="21" y2="21"/>
-        <line x1="4"  y1="4"  x2="9"  y2="9"/>
+        <line x1="4" y1="4" x2="9" y2="9"/>
       </svg>
     </button>
     <button class="pwa-foot-btn" id="pwa-next" aria-label="Next question">
@@ -668,11 +505,11 @@ const SUBJECT_DISPLAY = {
   english: 'English', mathematics: 'Math', science: 'Science',
 };
 
-const UNDERSTOOD_KEY  = 'tet_understood_questions';
-const REVISION_KEY    = 'tet_revision_questions';
-const AI_CACHE_PFX    = 'ai_exp_persist:';
-const QB_INDEX_URL    = 'exams/qb_index.json';
-const QB_CACHE_KEY    = 'qb_index_cache_v1';
+const UNDERSTOOD_KEY = 'tet_understood_questions';
+const REVISION_KEY   = 'tet_revision_questions';
+const AI_CACHE_PFX   = 'ai_exp_persist:';
+const QB_INDEX_URL   = 'exams/qb_index.json';
+const QB_CACHE_KEY   = 'qb_index_cache_v1';
 
 /* ── State ─────────────────────────────────────────────────────────────── */
 let qbankCache         = null;
@@ -685,29 +522,53 @@ let qbankIndex         = 0;
 function esc(s) {
   return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
+
 function getUnderstoodSet() {
   try { return new Set(JSON.parse(localStorage.getItem(UNDERSTOOD_KEY))||[]); } catch { return new Set(); }
 }
+function saveUnderstoodSet(set) {
+  localStorage.setItem(UNDERSTOOD_KEY, JSON.stringify([...set]));
+}
+
 function getRevisionList() {
   try { return JSON.parse(localStorage.getItem(REVISION_KEY))||[]; } catch { return []; }
 }
-function aiCacheKey(q) { const p=q.split('/'); return AI_CACHE_PFX+p[p.length-2]; }
+function getRevisionSet() {
+  return new Set(getRevisionList().map(r => r.q?.questionImage).filter(Boolean));
+}
+function saveRevisionList(list) {
+  localStorage.setItem(REVISION_KEY, JSON.stringify(list));
+}
+
+function aiCacheKey(q) { const p = q.split('/'); return AI_CACHE_PFX + p[p.length-2]; }
 function getAiCache(q) { try { return localStorage.getItem(aiCacheKey(q))||null; } catch { return null; } }
 
-function toggleUnderstood(qimg) {
-  const s = getUnderstoodSet();
-  if (s.has(qimg)) s.delete(qimg); else s.add(qimg);
-  localStorage.setItem(UNDERSTOOD_KEY, JSON.stringify([...s]));
-}
+/* ── Revision / Understood actions ─────────────────────────────────────── */
 function toggleRevision(qimg) {
   if (!qbankCache) return;
   const item = qbankCache.find(x => x.questionImage === qimg);
   if (!item) return;
   const list = getRevisionList();
-  const idx = list.findIndex(r => r.q && r.q.questionImage === qimg);
+  const idx = list.findIndex(r => r.q?.questionImage === qimg);
   if (idx >= 0) list.splice(idx, 1);
   else list.push({ examId: item.examId, examTitle: item.examTitle, q: item });
-  localStorage.setItem(REVISION_KEY, JSON.stringify(list));
+  saveRevisionList(list);
+}
+
+function markUnderstood(qimg) {
+  const s = getUnderstoodSet();
+  s.add(qimg);
+  saveUnderstoodSet(s);
+}
+function unmarkUnderstood(qimg) {
+  const s = getUnderstoodSet();
+  s.delete(qimg);
+  saveUnderstoodSet(s);
+}
+function toggleUnderstood(qimg) {
+  const s = getUnderstoodSet();
+  if (s.has(qimg)) s.delete(qimg); else s.add(qimg);
+  saveUnderstoodSet(s);
 }
 
 /* ── Data loading — single-file index with localStorage warm cache ─────── */
@@ -716,48 +577,37 @@ async function loadQuestionBank() {
 
   // Warm start: serve from localStorage immediately, revalidate in background
   let cached = null;
-  try {
-    const raw = localStorage.getItem(QB_CACHE_KEY);
-    if (raw) cached = JSON.parse(raw);
-  } catch {}
+  try { const raw = localStorage.getItem(QB_CACHE_KEY); if (raw) cached = JSON.parse(raw); } catch {}
   if (cached?.data?.length) {
     qbankCache = cached.data;
-    _revalidateIndex(cached.etag);   // silent background check
+    _revalidateIndex(cached.etag);
     return qbankCache;
   }
 
   // Cold start: try pre-built index, fall back to per-exam walk
-  try {
-    return await _fetchAndCacheIndex();
-  } catch {
-    return _loadViaManifest();
-  }
+  try { return await _fetchAndCacheIndex(); }
+  catch { return _loadViaManifest(); }
 }
 
 async function _fetchAndCacheIndex(etag) {
   const headers = {};
   if (etag) headers['If-None-Match'] = etag;
   const resp = await fetch(QB_INDEX_URL, { headers });
-  if (resp.status === 304) return qbankCache;  // not modified
+  if (resp.status === 304) return qbankCache;
   if (!resp.ok) throw new Error(`index ${resp.status}`);
   const data = await resp.json();
   const newEtag = resp.headers.get('etag') || '';
-  try {
-    localStorage.setItem(QB_CACHE_KEY, JSON.stringify({ v: 1, etag: newEtag, data }));
-  } catch {}
+  try { localStorage.setItem(QB_CACHE_KEY, JSON.stringify({ v: 1, etag: newEtag, data })); } catch {}
   qbankCache = data;
   return data;
 }
 
-async function _revalidateIndex(etag) {
-  try { await _fetchAndCacheIndex(etag); } catch {}
-}
+async function _revalidateIndex(etag) { try { await _fetchAndCacheIndex(etag); } catch {} }
 
-/* Fallback: original manifest + per-exam-JSON walk (used if index missing) */
 async function _loadViaManifest() {
   const r = await fetch('exams/manifest.json');
-  const manifestData = await r.json();
-  const realExams = (manifestData.exams||[]).filter(e => e.style === 'Real Paper');
+  const manifest = await r.json();
+  const realExams = (manifest.exams||[]).filter(e => e.style === 'Real Paper');
   const results = await Promise.all(realExams.map(async exam => {
     try {
       const r2 = await fetch(`exams/${exam.id}.json`);
@@ -772,15 +622,11 @@ async function _loadViaManifest() {
     for (const q of data.questions || []) {
       if (!q.questionImage || dedupe.has(q.questionImage)) continue;
       dedupe.set(q.questionImage, {
-        questionImage:    q.questionImage,
-        optionImages:     q.optionImages || [],
-        optionsInQuestion: !!q.optionsInQuestion,
-        questionType:     q.questionType,
-        correctAnswer:    q.correctAnswer,
-        sectionId:        q.sectionId,
-        examId:           data.id,
-        examTitle:        data.title || exam.title,
-        globalIndex:      q.globalIndex,
+        questionImage: q.questionImage, optionImages: q.optionImages || [],
+        optionsInQuestion: !!q.optionsInQuestion, questionType: q.questionType,
+        correctAnswer: q.correctAnswer, sectionId: q.sectionId,
+        examId: data.id, examTitle: data.title || exam.title,
+        globalIndex: q.globalIndex,
       });
     }
   }
@@ -791,13 +637,21 @@ async function _loadViaManifest() {
 /* ── Filter ────────────────────────────────────────────────────────────── */
 function buildFiltered(all) {
   const understood = getUnderstoodSet();
-  const subjMatch  = q => qbankSubjectFilter === 'all' || (q.sectionId||'').toLowerCase() === qbankSubjectFilter;
+  const revSet     = getRevisionSet();
+
+  const subjMatch = q =>
+    qbankSubjectFilter === 'all' || (q.sectionId||'').toLowerCase() === qbankSubjectFilter;
+
   const statusMatch = q => {
-    if (qbankStatusFilter === 'all')        return true;
-    if (qbankStatusFilter === 'understood') return understood.has(q.questionImage);
-    if (qbankStatusFilter === 'explained')  return !!getAiCache(q.questionImage);
-    return !understood.has(q.questionImage); // yet-to-read fallback (chip hidden but logic kept)
+    switch (qbankStatusFilter) {
+      case 'all':        return true;
+      case 'review':     return revSet.has(q.questionImage);
+      case 'understood': return understood.has(q.questionImage);
+      case 'explained':  return !!getAiCache(q.questionImage);
+      default:           return true;
+    }
   };
+
   return all.filter(q => subjMatch(q) && statusMatch(q));
 }
 
@@ -806,23 +660,23 @@ async function render() {
   const contentEl = document.getElementById('pwa-content');
 
   let all;
-  try {
-    all = await loadQuestionBank();
-  } catch (err) {
+  try { all = await loadQuestionBank(); }
+  catch (err) {
     contentEl.innerHTML = `<p class="pwa-msg">Could not load question bank: ${esc(err.message)}</p>`;
     return;
   }
 
   qbankFiltered = buildFiltered(all);
-
   updateHeaderProgress();
+  updateFabVisibility();
   updateFabState();
 
   if (!qbankFiltered.length) {
     document.getElementById('pwa-qnum').textContent = '';
     const qi = document.getElementById('pwa-qimg'); qi.src = ''; qi.hidden = true;
     document.getElementById('pwa-opts').innerHTML = '';
-    document.getElementById('pwa-explanation').innerHTML = '<span class="pwa-msg">No questions match these filters.</span>';
+    document.getElementById('pwa-explanation').innerHTML =
+      '<span class="pwa-msg">No questions match these filters.</span>';
     const aiBtn0 = document.getElementById('pwa-ai-btn');
     if (aiBtn0) aiBtn0.style.display = 'none';
     document.getElementById('pwa-prev').disabled = true;
@@ -833,43 +687,32 @@ async function render() {
   if (qbankIndex >= qbankFiltered.length) qbankIndex = qbankFiltered.length - 1;
   if (qbankIndex < 0) qbankIndex = 0;
 
-  const item  = qbankFiltered[qbankIndex];
-  const qimg  = item.questionImage;
-  const qNum  = item.globalIndex != null ? item.globalIndex + 1 : '?';
-  const secLabel = (item.sectionId || '').toUpperCase();
+  const item = qbankFiltered[qbankIndex];
+  const qimg = item.questionImage;
+  const qNum = item.globalIndex != null ? item.globalIndex + 1 : '?';
 
-  // Source label
   document.getElementById('pwa-qnum').textContent =
-    `${item.examTitle || item.examId || ''} · ${secLabel} · Q${qNum}`;
+    `${item.examTitle || item.examId || ''} · ${(item.sectionId||'').toUpperCase()} · Q${qNum}`;
 
-  // Question image
   const imgEl = document.getElementById('pwa-qimg');
-  imgEl.src = qimg;
-  imgEl.hidden = false;
+  imgEl.src = qimg; imgEl.hidden = false;
 
-  // Options
   const optsEl = document.getElementById('pwa-opts');
   const optsWrap = document.getElementById('pwa-opts-wrap');
   if (item.optionsInQuestion || !item.optionImages.length) {
-    optsEl.innerHTML = '';
-    optsWrap.style.display = 'none';
+    optsEl.innerHTML = ''; optsWrap.style.display = 'none';
   } else {
     optsWrap.style.display = '';
     optsEl.innerHTML = item.optionImages.map((src, i) => {
-      const k   = String(i + 1);
+      const k = String(i + 1);
       const cls = k === String(item.correctAnswer) ? 'pwa-opt pwa-opt--correct' : 'pwa-opt';
-      return `<div class="${cls}">
-        <span class="pwa-opt-num">${k}</span>
-        <img src="${esc(src)}" alt="Option ${k}" loading="lazy">
-      </div>`;
+      return `<div class="${cls}"><span class="pwa-opt-num">${k}</span><img src="${esc(src)}" alt="Option ${k}" loading="lazy"></div>`;
     }).join('');
   }
 
-  // Nav button state
   document.getElementById('pwa-prev').disabled = qbankIndex <= 0;
   document.getElementById('pwa-next').disabled = qbankIndex >= qbankFiltered.length - 1;
 
-  // Reset AI button
   const aiBtn = document.getElementById('pwa-ai-btn');
   if (aiBtn) {
     aiBtn.style.display = '';
@@ -877,43 +720,30 @@ async function render() {
     aiBtn.innerHTML = getAiCache(qimg) ? '&#10024; Regenerate' : '&#10024; Explain with AI';
   }
 
-  // Scroll to top whenever question changes
   contentEl.scrollTo({ top: 0, behavior: 'auto' });
-
-  // Prefetch adjacent questions' images for instant nav
   _prefetch(qbankFiltered[qbankIndex + 1]);
   _prefetch(qbankFiltered[qbankIndex - 1]);
 
-  // Explanation
   await loadExplanation(qimg);
 }
 
 function _prefetch(item) {
-  if (!item?.questionImage) return;
-  new Image().src = item.questionImage;
+  if (item?.questionImage) new Image().src = item.questionImage;
 }
 
 async function loadExplanation(questionImage) {
   const expEl = document.getElementById('pwa-explanation');
-
   const aiCached = getAiCache(questionImage);
   if (aiCached) { expEl.innerHTML = aiCached; return; }
-
   expEl.innerHTML = '<span class="pwa-msg">Loading explanation…</span>';
-
   const i = questionImage.lastIndexOf('/');
   if (i < 0) { expEl.innerHTML = noExplanationMsg(); return; }
-  const path = questionImage.substring(0, i) + '/metadata.json';
-
   try {
-    const resp = await fetch(path);
+    const resp = await fetch(questionImage.substring(0, i) + '/metadata.json');
     if (!resp.ok) throw new Error();
     const data = await resp.json();
-    const html = data?.explanation?.html_text;
-    expEl.innerHTML = html || noExplanationMsg();
-  } catch {
-    expEl.innerHTML = noExplanationMsg();
-  }
+    expEl.innerHTML = data?.explanation?.html_text || noExplanationMsg();
+  } catch { expEl.innerHTML = noExplanationMsg(); }
 }
 
 function noExplanationMsg() {
@@ -924,13 +754,33 @@ function updateHeaderProgress() {
   const total   = qbankFiltered.length;
   const current = total > 0 ? qbankIndex + 1 : 0;
   const understood = getUnderstoodSet();
-  const undCount = qbankFiltered.filter(q => understood.has(q.questionImage)).length;
-  const expCount = qbankFiltered.filter(q => !!getAiCache(q.questionImage)).length;
+  const revSet     = getRevisionSet();
+  const expCount   = qbankFiltered.filter(q => !!getAiCache(q.questionImage)).length;
 
   document.getElementById('pwa-progress-count').innerHTML =
     `${current}<span class="pwa-progress-total"> / ${total}</span>`;
+
+  // Sub-line: understood ✓ · review 🔖 counts within current filter
+  const undCount = qbankFiltered.filter(q => understood.has(q.questionImage)).length;
+  const revCount = qbankFiltered.filter(q => revSet.has(q.questionImage)).length;
   document.getElementById('pwa-progress-sub').innerHTML =
-    `${undCount}&#10003; · ${expCount}&#10024;`;
+    `${undCount}&#10003; · ${revCount}&#128278;`;
+
+  // Update explained badge count (global, not filtered)
+  const totalExp = qbankCache
+    ? qbankCache.filter(q => !!getAiCache(q.questionImage)).length
+    : expCount;
+  document.getElementById('pwa-exp-count').textContent = totalExp;
+}
+
+/* FAB visibility depends on active filter */
+function updateFabVisibility() {
+  const revFab = document.getElementById('pwa-fab-revision');
+  const undFab = document.getElementById('pwa-fab-understood');
+  // In Review or Understood filters, the revision FAB is irrelevant
+  const showRevision = qbankStatusFilter === 'all' || qbankStatusFilter === 'explained';
+  revFab.classList.toggle('pwa-fab-hidden', !showRevision);
+  undFab.classList.remove('pwa-fab-hidden');
 }
 
 function updateFabState() {
@@ -938,8 +788,8 @@ function updateFabState() {
   const item = qbankFiltered[qbankIndex];
   if (!item) return;
   const understood = getUnderstoodSet();
-  const revImgs    = new Set(getRevisionList().map(r => r.q?.questionImage).filter(Boolean));
-  document.getElementById('pwa-fab-revision').classList.toggle('marked', revImgs.has(item.questionImage));
+  const revSet     = getRevisionSet();
+  document.getElementById('pwa-fab-revision').classList.toggle('marked', revSet.has(item.questionImage));
   document.getElementById('pwa-fab-understood').classList.toggle('marked', understood.has(item.questionImage));
 }
 
@@ -947,8 +797,7 @@ function updateFabState() {
 let _toastTid = null;
 function showToast(msg) {
   const t = document.getElementById('pwa-toast');
-  t.textContent = msg;
-  t.classList.add('show');
+  t.textContent = msg; t.classList.add('show');
   clearTimeout(_toastTid);
   _toastTid = setTimeout(() => t.classList.remove('show'), 2200);
 }
@@ -957,24 +806,20 @@ function showToast(msg) {
 async function handleAiExplain() {
   const aiBtn = document.getElementById('pwa-ai-btn');
   if (!aiBtn || aiBtn.disabled) return;
-
   const item = qbankFiltered[qbankIndex];
   if (!item) return;
 
-  // Wait up to 10s for Firebase AI module
   if (!window.AiExplainer) {
-    aiBtn.disabled = true;
-    aiBtn.textContent = '⏳ Loading AI…';
+    aiBtn.disabled = true; aiBtn.textContent = '⏳ Loading AI…';
     let waited = 0;
     while (!window.AiExplainer && waited < 10000) {
-      await new Promise(r => setTimeout(r, 250));
-      waited += 250;
+      await new Promise(r => setTimeout(r, 250)); waited += 250;
     }
     aiBtn.disabled = false;
     if (!window.AiExplainer) {
       aiBtn.innerHTML = '&#10024; Explain with AI';
       document.getElementById('pwa-explanation').innerHTML =
-        '<div class="pwa-ai-error"><strong>AI error:</strong> Module failed to load — check console.</div>';
+        '<div class="pwa-ai-error"><strong>AI error:</strong> Module failed to load.</div>';
       return;
     }
   }
@@ -982,36 +827,27 @@ async function handleAiExplain() {
   const expEl      = document.getElementById('pwa-explanation');
   const expSection = document.getElementById('pwa-exp-section');
   const isRegen    = aiBtn.textContent.includes('Regenerate');
-
-  aiBtn.disabled    = true;
-  aiBtn.textContent = '⏳ Generating…';
-  expEl.innerHTML   = '<div class="pwa-ai-loading"><span class="pwa-ai-spinner"></span>Generating AI explanation — this may take 10–20 s…</div>';
-
-  const contentEl = document.getElementById('pwa-content');
-  contentEl.scrollTo({ top: expSection.offsetTop - 8, behavior: 'smooth' });
+  aiBtn.disabled = true; aiBtn.textContent = '⏳ Generating…';
+  expEl.innerHTML = '<div class="pwa-ai-loading"><span class="pwa-ai-spinner"></span>Generating AI explanation…</div>';
+  document.getElementById('pwa-content').scrollTo({ top: expSection.offsetTop - 8, behavior: 'smooth' });
 
   try {
     const html = await window.AiExplainer.explain({
-      questionImage:     item.questionImage,
-      optionImages:      item.optionImages || [],
-      optionsInQuestion: !!item.optionsInQuestion,
-      correctAnswer:     item.correctAnswer,
-      sectionId:         item.sectionId,
-      forceRegenerate:   isRegen,
-      mobile:            true,
+      questionImage: item.questionImage, optionImages: item.optionImages || [],
+      optionsInQuestion: !!item.optionsInQuestion, correctAnswer: item.correctAnswer,
+      sectionId: item.sectionId, forceRegenerate: isRegen, mobile: true,
     });
     expEl.innerHTML = html;
     aiBtn.innerHTML = '&#10024; Regenerate';
-    contentEl.scrollTo({ top: expSection.offsetTop - 8, behavior: 'smooth' });
+    document.getElementById('pwa-content').scrollTo({ top: expSection.offsetTop - 8, behavior: 'smooth' });
+    updateHeaderProgress(); // refresh explained count
   } catch (err) {
     expEl.innerHTML = `<div class="pwa-ai-error"><strong>AI error:</strong> ${esc(err.message || 'Generation failed.')}</div>`;
     aiBtn.innerHTML = '&#10024; Explain with AI';
-  } finally {
-    aiBtn.disabled = false;
-  }
+  } finally { aiBtn.disabled = false; }
 }
 
-/* ── Subject dropdown helpers ───────────────────────────────────────────── */
+/* ── Subject dropdown ───────────────────────────────────────────────────── */
 function openSubjectDropdown() {
   document.getElementById('pwa-subject-dd').hidden = false;
   document.querySelector('.pwa-chevron').classList.add('pwa-chevron--open');
@@ -1024,9 +860,6 @@ function closeSubjectDropdown() {
   document.getElementById('pwa-dd-backdrop').classList.remove('visible');
   document.getElementById('pwa-subject-btn').setAttribute('aria-expanded', 'false');
 }
-function toggleSubjectDropdown() {
-  document.getElementById('pwa-subject-dd').hidden ? openSubjectDropdown() : closeSubjectDropdown();
-}
 
 /* ── Bootstrap ──────────────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
@@ -1038,34 +871,52 @@ document.addEventListener('DOMContentLoaded', () => {
   /* Subject dropdown */
   document.getElementById('pwa-subject-btn').addEventListener('click', e => {
     e.stopPropagation();
-    toggleSubjectDropdown();
+    document.getElementById('pwa-subject-dd').hidden
+      ? openSubjectDropdown() : closeSubjectDropdown();
   });
   document.getElementById('pwa-dd-backdrop').addEventListener('click', closeSubjectDropdown);
 
   document.getElementById('pwa-subject-dd').addEventListener('click', e => {
-    const item = e.target.closest('.pwa-dd-item');
-    if (!item) return;
-    qbankSubjectFilter = item.dataset.subject;
-    qbankStatusFilter  = 'all';            // reset to All (not yet-to-read) so filter always shows results
+    const btn = e.target.closest('.pwa-dd-item');
+    if (!btn) return;
+    const newSubject = btn.dataset.subject;
+    if (newSubject === qbankSubjectFilter) { closeSubjectDropdown(); return; }
+    qbankSubjectFilter = newSubject;
+    qbankStatusFilter  = 'all';   // reset status to All so questions always show
     qbankIndex         = 0;
+    // Update dropdown UI
     document.getElementById('pwa-subject-label').textContent =
       SUBJECT_DISPLAY[qbankSubjectFilter] || 'All Subjects';
     document.querySelectorAll('.pwa-dd-item').forEach(b =>
       b.classList.toggle('active', b.dataset.subject === qbankSubjectFilter));
-    document.querySelectorAll('.pwa-chip').forEach(b =>
-      b.classList.toggle('active', b.dataset.status === qbankStatusFilter));
+    // Sync filter chip highlight to All
+    document.querySelectorAll('#pwa-chips-scroll .pwa-chip').forEach(b =>
+      b.classList.toggle('active', b.dataset.status === 'all'));
+    document.getElementById('pwa-chip-explained').classList.remove('active');
     closeSubjectDropdown();
     render();
   });
 
-  /* Status chips */
-  document.getElementById('pwa-status-row').addEventListener('click', e => {
+  /* Status filter chips */
+  document.getElementById('pwa-chips-scroll').addEventListener('click', e => {
     const chip = e.target.closest('.pwa-chip');
     if (!chip) return;
     qbankStatusFilter = chip.dataset.status;
     qbankIndex        = 0;
-    document.querySelectorAll('.pwa-chip').forEach(b =>
+    document.querySelectorAll('#pwa-chips-scroll .pwa-chip').forEach(b =>
       b.classList.toggle('active', b.dataset.status === qbankStatusFilter));
+    document.getElementById('pwa-chip-explained').classList.remove('active');
+    render();
+  });
+
+  /* Explained button (right-edge toggle) */
+  document.getElementById('pwa-chip-explained').addEventListener('click', () => {
+    const isActive = qbankStatusFilter === 'explained';
+    qbankStatusFilter = isActive ? 'all' : 'explained';
+    qbankIndex = 0;
+    document.querySelectorAll('#pwa-chips-scroll .pwa-chip').forEach(b =>
+      b.classList.toggle('active', b.dataset.status === qbankStatusFilter));
+    document.getElementById('pwa-chip-explained').classList.toggle('active', !isActive);
     render();
   });
 
@@ -1083,33 +934,57 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  /* FAB: revision */
+  /* FAB: revision — only available in All/Explained filters */
   document.getElementById('pwa-fab-revision').addEventListener('click', () => {
     const item = qbankFiltered[qbankIndex];
     if (!item) return;
     toggleRevision(item.questionImage);
     updateFabState();
-    const revImgs = new Set(getRevisionList().map(r => r.q?.questionImage).filter(Boolean));
-    showToast(revImgs.has(item.questionImage) ? '🔖 Marked for future revision' : '🔖 Removed from revision');
+    const inRevision = getRevisionSet().has(item.questionImage);
+    showToast(inRevision ? '🔖 Added to Review' : '🔖 Removed from Review');
+    updateHeaderProgress();
   });
 
-  /* FAB: understood */
+  /* FAB: understood — behaviour differs by filter */
   document.getElementById('pwa-fab-understood').addEventListener('click', () => {
     const item = qbankFiltered[qbankIndex];
     if (!item) return;
-    toggleUnderstood(item.questionImage);
-    updateFabState();
-    updateHeaderProgress();
-    const understood = getUnderstoodSet();
-    showToast(understood.has(item.questionImage) ? '✓ Marked as understood' : '↩ Removed from understood');
+    const qimg = item.questionImage;
+
+    if (qbankStatusFilter === 'review') {
+      // In Review: marking understood removes from revision AND marks understood
+      markUnderstood(qimg);
+      // Remove from revision list
+      const list = getRevisionList().filter(r => r.q?.questionImage !== qimg);
+      saveRevisionList(list);
+      showToast('✓ Understood — moved out of Review');
+      // Question disappears from Review filter — advance or re-render
+      qbankIndex = Math.min(qbankIndex, qbankFiltered.length - 2);
+      render();
+    } else if (qbankStatusFilter === 'understood') {
+      // In Understood: toggle (unmark)
+      const s = getUnderstoodSet();
+      if (s.has(qimg)) {
+        s.delete(qimg); saveUnderstoodSet(s);
+        showToast('↩ Removed from Understood');
+        qbankIndex = Math.min(qbankIndex, qbankFiltered.length - 2);
+        render();
+      }
+    } else {
+      // In All / Explained: simple toggle
+      toggleUnderstood(qimg);
+      updateFabState();
+      updateHeaderProgress();
+      const understood = getUnderstoodSet();
+      showToast(understood.has(qimg) ? '✓ Marked as Understood' : '↩ Removed from Understood');
+    }
   });
 
   /* AI explain */
   document.getElementById('pwa-ai-btn').addEventListener('click', handleAiExplain);
 
-  /* Block iOS pinch-to-zoom (defence in depth) */
+  /* iOS zoom prevention */
   document.addEventListener('gesturestart', e => e.preventDefault());
-  /* Block iOS double-tap zoom (defence in depth) */
   let _lastTap = 0;
   document.addEventListener('touchend', e => {
     const now = Date.now();
