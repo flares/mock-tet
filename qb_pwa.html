@@ -195,6 +195,8 @@ img { display: block; max-width: 100%; height: auto; }
 .pwa-opt--correct .pwa-opt-num { color: #2e7d32; }
 .pwa-opt--wrong   .pwa-opt-num { color: #c62828; }
 .pwa-opts--revealed .pwa-opt { cursor: default; }
+.pwa-opts--inert .pwa-opt { cursor: default; }
+.pwa-opts--inert .pwa-opt:active { background: #fafbff; }
 .pwa-opt img { max-width: 100%; width: auto; height: auto; display: block; border-radius: 3px; }
 
 /* Explanation section */
@@ -417,6 +419,11 @@ const REVISION_KEY   = 'tet_revision_questions';
 const AI_CACHE_PFX   = 'ai_exp_persist:';
 const QB_INDEX_URL   = 'exams/qb_index.json';
 const QB_CACHE_KEY   = 'qb_index_cache_v1';
+
+// Click-to-reveal correct/wrong feedback. Currently disabled because the
+// correctAnswer values in metadata.json are unreliable — flip this to true
+// once the metadata is corrected.
+const SHOW_ANSWER_REVEAL = false;
 
 /* ── State ──────────────────────────────────────────────────────────────── */
 let qbankCache         = null;
@@ -641,10 +648,10 @@ function renderCurrent() {
     optsEl.innerHTML = ''; optsWrap.style.display = 'none';
   } else {
     optsWrap.style.display = '';
-    // Render options with NO correct/wrong marker — user must click to reveal.
-    // If they already revealed this question earlier in the session, restore that state.
-    const prior = optionChoices.get(qimg);
-    optsEl.className = 'pwa-opts' + (prior ? ' pwa-opts--revealed' : '');
+    // While SHOW_ANSWER_REVEAL is off, options always render neutrally and
+    // tapping them does nothing — metadata.correctAnswer is currently unreliable.
+    const prior = SHOW_ANSWER_REVEAL ? optionChoices.get(qimg) : null;
+    optsEl.className = 'pwa-opts' + (prior ? ' pwa-opts--revealed' : ' pwa-opts--inert');
     optsEl.innerHTML = item.optionImages.map((src, i) => {
       const k = i + 1;
       let cls = 'pwa-opt';
@@ -674,6 +681,7 @@ function renderCurrent() {
 
 // Reveals the correct answer on first option click. Idempotent if already revealed.
 function revealOption(pickedIdx) {
+  if (!SHOW_ANSWER_REVEAL) return;     // disabled while metadata correctAnswer is unreliable
   const item = qbankFiltered[qbankIndex];
   if (!item) return;
   const qimg = item.questionImage;
