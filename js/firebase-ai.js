@@ -115,11 +115,6 @@ function sessionKey(questionImage) {
   return SESSION_PREFIX + parts[parts.length - 2];
 }
 
-function correctLetter(correctAnswer) {
-  const n = parseInt(correctAnswer, 10);
-  return !isNaN(n) && n >= 1 && n <= 4 ? "ABCD"[n - 1] : null;
-}
-
 // ── Init ────────────────────────────────────────────────────────────────────
 
 let model     = null;
@@ -172,7 +167,6 @@ async function explain({ questionImage, optionImages = [], optionsInQuestion = f
     throw new Error("Gemini API key missing — add geminiApiKey to js/firebase-config.js. Get a free key at https://aistudio.google.com/apikey");
   }
 
-  const letter      = correctLetter(correctAnswer);
   const subjectArea = SUBJECT_LABELS[(sectionId || "").toLowerCase()] || sectionId || "General";
 
   track("ai_explain_requested", { subject: sectionId });
@@ -190,10 +184,11 @@ async function explain({ questionImage, optionImages = [], optionsInQuestion = f
   } else {
     parts.push({ text: "Question image (options are inside):" }, imageParts[0]);
   }
+  // Ask the AI to deduce the correct answer itself — the metadata.correctAnswer
+  // values are currently unreliable, so we no longer pass them as a "verified"
+  // hint that the model is told not to second-guess.
   parts.push({
-    text: letter
-      ? `Verified correct answer: option ${letter}. Do not second-guess this. Generate the HTML explanation now. data-subject="${subjectArea}".`
-      : `Correct answer unknown — deduce if possible. Generate the HTML now. data-subject="${subjectArea}".`,
+    text: `Determine the correct option yourself and explain it. Generate the HTML now. data-subject="${subjectArea}".`,
   });
 
   if (mobile) parts.push({ text: MOBILE_ADDENDUM });
