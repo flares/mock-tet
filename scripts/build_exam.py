@@ -21,6 +21,7 @@ import json
 import re
 import sys
 from pathlib import Path
+import importlib.util as _ilu
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 EXAMS_DIR = REPO_ROOT / "exams"
@@ -278,6 +279,10 @@ def main() -> None:
     update_manifest(exam, meta)
 
     print(f"built {out_path.relative_to(REPO_ROOT)} ({exam['totalQuestions']} questions, {exam['duration']} min) → manifest updated")
+
+    # Keep the question-bank index in sync
+    _spec = _ilu.spec_from_file_location("build_qb_index", Path(__file__).parent / "build_qb_index.py")
+    _mod = _ilu.module_from_spec(_spec); _spec.loader.exec_module(_mod); _mod.build()
 
 
 if __name__ == "__main__":

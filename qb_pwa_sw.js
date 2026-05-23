@@ -1,4 +1,4 @@
-const CACHE = 'qb-pwa-v2';
+const CACHE = 'qb-pwa-v3';
 
 const SHELL = [
   './qb_pwa.html',
@@ -6,6 +6,8 @@ const SHELL = [
   './css/reset.css',
   './js/explanation.js',
   './exams/manifest.json',
+  './exams/qb_index.json',
+  './assets/pwa-icon-180.png',
 ];
 
 self.addEventListener('install', e => {

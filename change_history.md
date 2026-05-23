@@ -1,5 +1,7 @@
 # Change History
 
+- 2026-05-23 | major | QB PWA enhancements: fast cold start via pre-built exams/qb_index.json (one fetch instead of 17) + localStorage warm cache; stacked TET/Suite brand in header; redesigned PWA icon (stacked wordmark + Q badge); iOS bottom gap fixed with 100dvh + safe-area padding on footer buttons; removed "Yet to Read" filter chip (default is All); subject dropdown now correctly resets to "All" filter (not "Yet to Read") and shows "All Subjects"; adjacent question image prefetch for instant nav; 180×180 PNG icon for iOS apple-touch-icon; service worker bumped to v3.
+
 - 2026-05-21 17:55 IST | major | Added mandatory change-logging policy and implemented UI/behavior updates for exams, explanation modal centering, and question bank redesign.
 - 2026-05-21 | major | Split tabs into separate pages (revision.html, questionbank.html, syllabus.html); question bank card fills viewport with scrollable right panel; subject filters moved to header as large rounded buttons; revision table redesigned with stacked options and side-by-side action buttons; instructions page now asks for Strict or Practice mode; nav simplified to Exams/Revision/Question Bank/Syllabus.
 - 2026-05-21 | minor | Question Bank: revert site-header to standard (no filter hijack); filters live inside the card header; card has 20px margins on all sides; 2:3 left-right split; JS updates only card panels not full card.
