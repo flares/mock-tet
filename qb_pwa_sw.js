@@ -1,4 +1,4 @@
-const CACHE = 'qb-pwa-v3';
+const CACHE = 'qb-pwa-v4';
 
 const SHELL = [
   './qb_pwa.html',

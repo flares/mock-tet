@@ -187,9 +187,14 @@ img { display: block; max-width: 100%; height: auto; }
   background: #fafbff; border: 1.5px solid #dde4f0; border-radius: 7px; margin-bottom: 6px;
 }
 .pwa-opt:last-child { margin-bottom: 0; }
-.pwa-opt--correct { border-color: #388e3c; background: #e8f5e9; }
+.pwa-opt { cursor: pointer; transition: background 0.12s, border-color 0.12s; }
+.pwa-opt:active { background: #eef2f8; }
+.pwa-opt--correct { border-color: #388e3c; background: #e8f5e9; cursor: default; }
+.pwa-opt--wrong   { border-color: #d32f2f; background: #ffebee; cursor: default; }
 .pwa-opt-num { flex-shrink: 0; min-width: 18px; font-size: 12px; font-weight: 700; color: #666; padding-top: 3px; }
 .pwa-opt--correct .pwa-opt-num { color: #2e7d32; }
+.pwa-opt--wrong   .pwa-opt-num { color: #c62828; }
+.pwa-opts--revealed .pwa-opt { cursor: default; }
 .pwa-opt img { max-width: 100%; width: auto; height: auto; display: block; border-radius: 3px; }
 
 /* Explanation section */
@@ -419,6 +424,9 @@ let qbankFiltered      = [];
 let qbankSubjectFilter = 'all';
 let qbankStatusFilter  = 'to-read';   // default: unread questions
 let qbankIndex         = 0;
+// Per-question reveal state for the click-to-reveal option behaviour.
+// Map<questionImage, { picked: 1-based index }>
+const optionChoices    = new Map();
 
 /* ── Storage ────────────────────────────────────────────────────────────── */
 function esc(s) {
@@ -583,10 +591,14 @@ function hideEmptyState() {
   document.getElementById('pwa-fab').hidden         = false;
 }
 
-/* ── Render ─────────────────────────────────────────────────────────────── */
-async function render() {
-  const contentEl = document.getElementById('pwa-content');
-
+/* ── Filter pipeline ──────────────────────────────────────────────────────
+   applyFilters() rebuilds qbankFiltered + resets index, then renders.
+   Called ONLY on filter changes (subject, status, explained) and initial load.
+   Navigation buttons call renderCurrent() so the filtered set stays frozen
+   while the user works through it — otherwise marking Q1 understood would
+   silently drop it from the list and Next would skip Q2 (jumps to Q3).
+   ───────────────────────────────────────────────────────────────────────── */
+async function applyFilters() {
   let all;
   try { all = await loadQuestionBank(); }
   catch (err) {
@@ -595,14 +607,15 @@ async function render() {
       `<p class="pwa-msg">Could not load question bank: ${esc(err.message)}</p>`;
     return;
   }
-
   qbankFiltered = buildFiltered(all);
+  qbankIndex    = 0;
+  renderCurrent();
+}
+
+function renderCurrent() {
   updateHeaderProgress();
 
-  if (!qbankFiltered.length) {
-    showEmptyState();
-    return;
-  }
+  if (!qbankFiltered.length) { showEmptyState(); return; }
 
   hideEmptyState();
   updateFabVisibility();
@@ -628,10 +641,18 @@ async function render() {
     optsEl.innerHTML = ''; optsWrap.style.display = 'none';
   } else {
     optsWrap.style.display = '';
+    // Render options with NO correct/wrong marker — user must click to reveal.
+    // If they already revealed this question earlier in the session, restore that state.
+    const prior = optionChoices.get(qimg);
+    optsEl.className = 'pwa-opts' + (prior ? ' pwa-opts--revealed' : '');
     optsEl.innerHTML = item.optionImages.map((src, i) => {
-      const k = String(i + 1);
-      const cls = k === String(item.correctAnswer) ? 'pwa-opt pwa-opt--correct' : 'pwa-opt';
-      return `<div class="${cls}"><span class="pwa-opt-num">${k}</span><img src="${esc(src)}" alt="Option ${k}" loading="lazy"></div>`;
+      const k = i + 1;
+      let cls = 'pwa-opt';
+      if (prior) {
+        if (k === Number(item.correctAnswer)) cls += ' pwa-opt--correct';
+        else if (k === prior.picked)          cls += ' pwa-opt--wrong';
+      }
+      return `<div class="${cls}" data-opt="${k}"><span class="pwa-opt-num">${k}</span><img src="${esc(src)}" alt="Option ${k}" loading="lazy"></div>`;
     }).join('');
   }
 
@@ -644,11 +665,29 @@ async function render() {
     aiBtn.innerHTML = getAiCache(qimg) ? '&#10024; Regenerate' : '&#10024; Explain with AI';
   }
 
-  contentEl.scrollTo({ top: 0, behavior: 'auto' });
+  document.getElementById('pwa-content').scrollTo({ top: 0, behavior: 'auto' });
   _prefetch(qbankFiltered[qbankIndex + 1]);
   _prefetch(qbankFiltered[qbankIndex - 1]);
 
-  await loadExplanation(qimg);
+  loadExplanation(qimg);
+}
+
+// Reveals the correct answer on first option click. Idempotent if already revealed.
+function revealOption(pickedIdx) {
+  const item = qbankFiltered[qbankIndex];
+  if (!item) return;
+  const qimg = item.questionImage;
+  if (optionChoices.has(qimg)) return;          // already revealed
+  optionChoices.set(qimg, { picked: pickedIdx });
+
+  const optsEl = document.getElementById('pwa-opts');
+  const correct = Number(item.correctAnswer);
+  optsEl.classList.add('pwa-opts--revealed');
+  optsEl.querySelectorAll('.pwa-opt').forEach(el => {
+    const k = Number(el.dataset.opt);
+    if (k === correct)         el.classList.add('pwa-opt--correct');
+    else if (k === pickedIdx)  el.classList.add('pwa-opt--wrong');
+  });
 }
 
 function _prefetch(item) { if (item?.questionImage) new Image().src = item.questionImage; }
@@ -790,7 +829,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('pwa-explanation').innerHTML =
     '<span class="pwa-msg">Loading question bank…</span>';
-  render();
+  applyFilters();
 
   /* Subject dropdown toggle */
   document.getElementById('pwa-subject-btn').addEventListener('click', e => {
@@ -805,13 +844,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!btn) return;
     const newSubject = btn.dataset.subject;
     qbankSubjectFilter = newSubject;
-    qbankIndex = 0;
     document.getElementById('pwa-subject-label').textContent =
       SUBJECT_DISPLAY[newSubject] || 'All Subjects';
     document.querySelectorAll('.pwa-dd-item').forEach(b =>
       b.classList.toggle('active', b.dataset.subject === newSubject));
     closeSubjectDropdown();
-    render();
+    applyFilters();
   });
 
   /* Status chips */
@@ -819,31 +857,38 @@ document.addEventListener('DOMContentLoaded', () => {
     const chip = e.target.closest('.pwa-chip');
     if (!chip) return;
     qbankStatusFilter = chip.dataset.status;
-    qbankIndex = 0;
     syncChipHighlight();
-    render();
+    applyFilters();
   });
 
   /* Explained badge toggle */
   document.getElementById('pwa-chip-explained').addEventListener('click', () => {
     qbankStatusFilter = qbankStatusFilter === 'explained' ? 'to-read' : 'explained';
-    qbankIndex = 0;
     syncChipHighlight();
-    render();
+    applyFilters();
   });
 
-  /* Nav buttons */
+  /* Nav buttons — renderCurrent() only, no filter rebuild */
   document.getElementById('pwa-prev').addEventListener('click', () => {
-    if (qbankIndex > 0) { qbankIndex--; render(); }
+    if (qbankIndex > 0) { qbankIndex--; renderCurrent(); }
   });
   document.getElementById('pwa-next').addEventListener('click', () => {
-    if (qbankIndex < qbankFiltered.length - 1) { qbankIndex++; render(); }
+    if (qbankIndex < qbankFiltered.length - 1) { qbankIndex++; renderCurrent(); }
   });
   document.getElementById('pwa-random').addEventListener('click', () => {
     if (qbankFiltered.length > 0) {
       qbankIndex = Math.floor(Math.random() * qbankFiltered.length);
-      render();
+      renderCurrent();
     }
+  });
+
+  /* Option click — reveal correct/wrong on first tap */
+  document.getElementById('pwa-opts').addEventListener('click', e => {
+    const optEl = e.target.closest('.pwa-opt');
+    if (!optEl) return;
+    const picked = Number(optEl.dataset.opt);
+    if (!picked) return;
+    revealOption(picked);
   });
 
   /* FAB: revision bookmark (available in To Read / Explained) */
@@ -864,23 +909,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const qimg = item.questionImage;
 
     if (qbankStatusFilter === 'in-review') {
-      // Mark understood + remove from revision list in one action
+      // Mark understood + remove from revision list. Drop the question from the
+      // current filtered view (it no longer matches In Review), keeping qbankIndex
+      // pointed at the next question in the list.
       const s = getUnderstoodSet(); s.add(qimg); saveUnderstoodSet(s);
       saveRevisionList(getRevisionList().filter(r => r.q?.questionImage !== qimg));
+      qbankFiltered.splice(qbankIndex, 1);
       showToast('✓ Understood — moved out of In Review');
-      qbankIndex = Math.min(qbankIndex, Math.max(0, qbankFiltered.length - 2));
-      render();
+      renderCurrent();
     } else if (qbankStatusFilter === 'understood') {
-      // Toggle off (unmark)
+      // Toggle off (unmark) — drop from current filtered view.
       const s = getUnderstoodSet();
       if (s.has(qimg)) {
         s.delete(qimg); saveUnderstoodSet(s);
+        qbankFiltered.splice(qbankIndex, 1);
         showToast('↩ Removed from Understood');
-        qbankIndex = Math.min(qbankIndex, Math.max(0, qbankFiltered.length - 2));
-        render();
+        renderCurrent();
       }
     } else {
-      // To Read / Explained: simple toggle
+      // To Read / Explained: simple toggle. Keep the question in the visible
+      // list so Next still goes to the immediately-following question
+      // instead of skipping the one just removed.
       toggleUnderstood(qimg);
       updateFabState();
       updateHeaderProgress();
