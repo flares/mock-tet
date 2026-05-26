@@ -1,5 +1,7 @@
 # Change History
 
+- 2026-05-26 | minor | QB PWA: Add "Talk with Teacher" button — appears only once an explanation is loaded; uses Web Speech API with en-IN male voice (Rishi/fallback), elder pace (rate 0.87, pitch 0.85); button toggles to "Stop Speaking" while active and resets on question navigation.
+
 - 2026-05-23 | minor | AI prompt: stop sending "Verified correct answer: X. Do not second-guess this" to Gemini — the metadata.correctAnswer values are unreliable, so we now ask the model to deduce the answer itself. Removed unused correctLetter() helper.
 - 2026-05-23 | minor | QB PWA: temporarily disable click-to-reveal correct/wrong feedback (SHOW_ANSWER_REVEAL = false) because metadata.correctAnswer values are unreliable; options now render neutrally and tap is inert. One-line flip to re-enable once metadata is corrected. SW cache bumped to v5.
 - 2026-05-23 | major | QB PWA bug fixes + UX: (a) Next no longer skips a question after marking Q1 understood/in-review — split render() into applyFilters() (rebuilds list, only on filter change) and renderCurrent() (nav-only); the filtered list now stays frozen while the user works through it. (b) Correct answer is no longer pre-highlighted; user must tap an option to reveal — correct shows green; if their tap was wrong, their choice shows red and the correct option shows green. Per-question reveal state persists in-memory for the session. SW cache bumped to v4. Merged origin/main into playground (resolved change_history.md + js/firebase-ai.js conflicts, keeping playground's superset).

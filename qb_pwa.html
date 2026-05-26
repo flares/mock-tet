@@ -207,7 +207,7 @@ img { display: block; max-width: 100%; height: auto; }
 .pwa-exp-divider::before, .pwa-exp-divider::after {
   content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, #c5d2e3, transparent);
 }
-#pwa-ai-actions { display: flex; justify-content: center; margin-bottom: 12px; }
+#pwa-ai-actions { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
 #pwa-ai-btn {
   display: inline-flex; align-items: center; gap: 6px; padding: 10px 22px;
   background: #fff; color: #e65100; font-size: 13.5px; font-weight: 700;
@@ -216,6 +216,15 @@ img { display: block; max-width: 100%; height: auto; }
 }
 #pwa-ai-btn:active:not(:disabled) { background: #fff3e0; transform: scale(0.97); }
 #pwa-ai-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+#pwa-talk-btn {
+  display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px;
+  background: #fff; color: #1a5276; font-size: 13.5px; font-weight: 700;
+  border-radius: 22px; border: 1.5px solid #1a5276;
+  box-shadow: 0 2px 6px rgba(26,82,118,0.18); transition: background 0.15s, transform 0.1s; min-height: 40px;
+}
+#pwa-talk-btn:active:not(:disabled) { background: #eaf4fc; transform: scale(0.97); }
+#pwa-talk-btn.pwa-talk-active { background: #1a5276; color: #fff; border-color: #1a5276; }
+#pwa-talk-btn[hidden] { display: none !important; }
 #pwa-explanation {
   background: #fff; border-radius: 10px; padding: 14px; font-size: 14px;
   line-height: 1.6; color: #222; min-height: 48px;
@@ -369,6 +378,7 @@ img { display: block; max-width: 100%; height: auto; }
       <div class="pwa-exp-divider">Explanation</div>
       <div id="pwa-ai-actions">
         <button id="pwa-ai-btn">&#10024; Explain with AI</button>
+        <button id="pwa-talk-btn" hidden>&#128483; Talk with Teacher</button>
       </div>
       <div id="pwa-explanation"><span class="pwa-msg">Loading…</span></div>
     </div>
@@ -427,6 +437,7 @@ const SHOW_ANSWER_REVEAL = false;
 
 /* ── State ──────────────────────────────────────────────────────────────── */
 let qbankCache         = null;
+let _ttsSpeaking       = false;
 let qbankFiltered      = [];
 let qbankSubjectFilter = 'all';
 let qbankStatusFilter  = 'to-read';   // default: unread questions
@@ -620,6 +631,7 @@ async function applyFilters() {
 }
 
 function renderCurrent() {
+  if (_ttsSpeaking) stopTTS();
   updateHeaderProgress();
 
   if (!qbankFiltered.length) { showEmptyState(); return; }
@@ -703,8 +715,9 @@ function _prefetch(item) { if (item?.questionImage) new Image().src = item.quest
 async function loadExplanation(questionImage) {
   const expEl = document.getElementById('pwa-explanation');
   const aiCached = getAiCache(questionImage);
-  if (aiCached) { expEl.innerHTML = aiCached; return; }
+  if (aiCached) { expEl.innerHTML = aiCached; updateTalkBtnVisibility(); return; }
   expEl.innerHTML = '<span class="pwa-msg">Loading explanation…</span>';
+  updateTalkBtnVisibility();
   const i = questionImage.lastIndexOf('/');
   if (i < 0) { expEl.innerHTML = noExplanationMsg(); return; }
   try {
@@ -713,6 +726,7 @@ async function loadExplanation(questionImage) {
     const data = await resp.json();
     expEl.innerHTML = data?.explanation?.html_text || noExplanationMsg();
   } catch { expEl.innerHTML = noExplanationMsg(); }
+  updateTalkBtnVisibility();
 }
 function noExplanationMsg() {
   return '<em style="color:#888;font-size:13px">No explanation yet. Tap ✨ Explain with AI to generate one.</em>';
@@ -803,12 +817,105 @@ async function handleAiExplain() {
     });
     expEl.innerHTML = html;
     aiBtn.innerHTML = '&#10024; Regenerate';
+    updateTalkBtnVisibility();
     document.getElementById('pwa-content').scrollTo({ top: expSection.offsetTop - 8, behavior: 'smooth' });
     updateHeaderProgress();
   } catch (err) {
     expEl.innerHTML = `<div class="pwa-ai-error"><strong>AI error:</strong> ${esc(err.message || 'Generation failed.')}</div>`;
     aiBtn.innerHTML = '&#10024; Explain with AI';
   } finally { aiBtn.disabled = false; }
+}
+
+/* ── Talk with Teacher (TTS) ────────────────────────────────────────────── */
+function updateTalkBtnVisibility() {
+  const btn = document.getElementById('pwa-talk-btn');
+  if (!btn) return;
+  const expEl = document.getElementById('pwa-explanation');
+  const hasExplanation = expEl &&
+    !expEl.querySelector('.pwa-msg') &&
+    !expEl.querySelector('.pwa-ai-loading') &&
+    !expEl.querySelector('.pwa-ai-error') &&
+    expEl.textContent.trim().length > 30;
+  btn.hidden = !hasExplanation;
+  if (!hasExplanation && _ttsSpeaking) stopTTS();
+}
+
+function stopTTS() {
+  speechSynthesis.cancel();
+  _ttsSpeaking = false;
+  const btn = document.getElementById('pwa-talk-btn');
+  if (btn) { btn.innerHTML = '&#128483; Talk with Teacher'; btn.classList.remove('pwa-talk-active'); }
+}
+
+function getTeacherVoice() {
+  const voices = speechSynthesis.getVoices();
+  // Prefer Indian English male (Rishi is Google's en-IN male voice)
+  const inMale = voices.filter(v => v.lang === 'en-IN' && /rishi|male/i.test(v.name));
+  if (inMale.length) return inMale[0];
+  // Any en-IN
+  const inAny = voices.filter(v => v.lang === 'en-IN');
+  if (inAny.length) return inAny[0];
+  // en-GB male as fallback
+  const gbMale = voices.filter(v => v.lang === 'en-GB' && /male/i.test(v.name));
+  if (gbMale.length) return gbMale[0];
+  // Any English
+  return voices.find(v => v.lang.startsWith('en')) || null;
+}
+
+function explanationToText() {
+  const expEl = document.getElementById('pwa-explanation');
+  if (!expEl) return '';
+  const clone = expEl.cloneNode(true);
+  // Insert pauses around block boundaries so the spoken text flows naturally
+  clone.querySelectorAll('h2,h3,h4,p,li,td,section,div').forEach(el => {
+    el.append(document.createTextNode('. '));
+  });
+  return (clone.innerText || clone.textContent || '').replace(/\s+/g, ' ').replace(/(\.\s*){2,}/g, '. ').trim();
+}
+
+async function handleTalkWithTeacher() {
+  const btn = document.getElementById('pwa-talk-btn');
+  if (!btn) return;
+  if (_ttsSpeaking) { stopTTS(); return; }
+
+  const item = qbankFiltered[qbankIndex];
+  if (!item) return;
+
+  const text = explanationToText();
+  if (!text) return;
+
+  const subj = SUBJECT_DISPLAY[qbankSubjectFilter] || (item.sectionId || 'General');
+  const intro = `Alright. Let me explain this question for you. This is from ${subj}. `;
+  const script = intro + text;
+
+  const utter = new SpeechSynthesisUtterance(script);
+
+  // Ensure voices are loaded
+  let voice = getTeacherVoice();
+  if (!voice && speechSynthesis.getVoices().length === 0) {
+    await new Promise(resolve => {
+      const handler = () => { speechSynthesis.removeEventListener('voiceschanged', handler); resolve(); };
+      speechSynthesis.addEventListener('voiceschanged', handler);
+      setTimeout(resolve, 1200);
+    });
+    voice = getTeacherVoice();
+  }
+
+  if (voice) utter.voice = voice;
+  utter.lang   = 'en-IN';
+  utter.rate   = 0.87;   // deliberate teaching pace
+  utter.pitch  = 0.85;   // deeper, elder male
+  utter.volume = 1;
+
+  _ttsSpeaking = true;
+  btn.innerHTML = '&#9646;&#9646; Stop Speaking';
+  btn.classList.add('pwa-talk-active');
+
+  utter.onend   = () => stopTTS();
+  utter.onerror = () => { stopTTS(); showToast('Voice playback not available on this device.'); };
+
+  speechSynthesis.cancel();
+  speechSynthesis.speak(utter);
 }
 
 /* ── Subject dropdown ───────────────────────────────────────────────────── */
@@ -947,6 +1054,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.getElementById('pwa-ai-btn').addEventListener('click', handleAiExplain);
+  document.getElementById('pwa-talk-btn').addEventListener('click', handleTalkWithTeacher);
 
   /* iOS zoom prevention */
   document.addEventListener('gesturestart', e => e.preventDefault());
