@@ -1,5 +1,7 @@
 # Change History
 
+- 2026-05-27 | v0.1.0 | major | PWA background auto-update: SW stale-while-revalidate for qb_index.json, Background Sync on reconnect, Periodic Background Sync (Android), "New questions available" banner, app-updated toast; CACHE_BUST constant for selective localStorage reset on special pushes
+
 - 2026-05-27 | v0.0.7 | minor | progress counter shows global done/3150 (understood ∪ in-review); To Read chip has no count; In Review and Understood chips show global count badges
 
 - 2026-05-27 22:15 | v0.0.6 | minor | categorize-questions.md: design notes for question classification (model choice, cost, rate limits, prompt design, TODO)

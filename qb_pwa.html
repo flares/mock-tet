@@ -256,6 +256,24 @@ img { display: block; max-width: 100%; height: auto; }
 .pwa-ai-error { background: #fff8f8; border: 1px solid #ffcdd2; border-radius: 6px; padding: 10px 12px; font-size: 13px; color: #c62828; }
 .pwa-msg { display: block; padding: 20px 0; text-align: center; color: #8a9bbf; font-size: 13px; }
 
+/* ── Update banner ──────────────────────────────────────────────────────── */
+#pwa-update-banner {
+  flex-shrink: 0; display: flex; align-items: center; gap: 8px;
+  background: #e8f5e9; color: #1b5e20;
+  padding: 7px 14px; font-size: 13px; font-weight: 600;
+  border-bottom: 1px solid #a5d6a7; z-index: 45;
+}
+#pwa-update-banner[hidden] { display: none; }
+#pwa-update-reload {
+  margin-left: auto; background: #2e7d32; color: #fff;
+  border-radius: 14px; padding: 4px 12px; font-size: 12px; font-weight: 700;
+  border: none; cursor: pointer;
+}
+#pwa-update-dismiss {
+  color: #388e3c; font-size: 16px; line-height: 1; padding: 2px 4px;
+  background: none; border: none; cursor: pointer; flex-shrink: 0;
+}
+
 /* ── Toast ──────────────────────────────────────────────────────────────── */
 #pwa-toast {
   position: fixed; bottom: calc(72px + env(safe-area-inset-bottom) + 18px);
@@ -415,6 +433,13 @@ img { display: block; max-width: 100%; height: auto; }
     </div>
   </header>
 
+  <!-- New-questions update banner (shown when SW detects qb_index.json changed in background) -->
+  <div id="pwa-update-banner" hidden aria-live="polite">
+    <span>New questions available</span>
+    <button id="pwa-update-reload">Reload</button>
+    <button id="pwa-update-dismiss" aria-label="Dismiss">&#10005;</button>
+  </div>
+
   <!-- Backdrop (z-index 40 — below header so taps on dropdown items aren't swallowed) -->
   <div id="pwa-dd-backdrop"></div>
 
@@ -502,7 +527,8 @@ const SUBJECT_DISPLAY = {
   all: 'All Subjects', cdp: 'CDP', telugu: 'Telugu',
   english: 'English', mathematics: 'Math', science: 'Science',
 };
-const APP_VERSION    = '0.0.7';
+const APP_VERSION    = '0.1.0';
+const CACHE_BUST     = '1';   // increment on special pushes to wipe stale localStorage
 const UNDERSTOOD_KEY = 'tet_understood_questions';
 const REVISION_KEY   = 'tet_revision_questions';
 const AI_CACHE_PFX   = 'ai_exp_persist:';
@@ -1080,6 +1106,17 @@ function syncChipHighlight() {
 /* ── Bootstrap ──────────────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
 
+  // On special pushes, increment CACHE_BUST to wipe stale localStorage keys.
+  // User progress (understood / revision) is intentionally preserved.
+  const BUST_LS_KEY = 'cache_bust_v';
+  if (localStorage.getItem(BUST_LS_KEY) !== CACHE_BUST) {
+    localStorage.removeItem(QB_CACHE_KEY);
+    Object.keys(localStorage)
+      .filter(k => k.startsWith(AI_CACHE_PFX) || k.startsWith('r2_exp:'))
+      .forEach(k => localStorage.removeItem(k));
+    localStorage.setItem(BUST_LS_KEY, CACHE_BUST);
+  }
+
   cleanConflictingStates();
 
   document.getElementById('pwa-explanation').innerHTML =
@@ -1247,8 +1284,47 @@ document.addEventListener('DOMContentLoaded', () => {
     _lastTap = now;
   }, { passive: false });
 
+  // Update banner handlers
+  document.getElementById('pwa-update-reload').addEventListener('click', () => window.location.reload());
+  document.getElementById('pwa-update-dismiss').addEventListener('click', () => {
+    document.getElementById('pwa-update-banner').setAttribute('hidden', '');
+  });
+
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./qb_pwa_sw.js', { scope: './' })
+      .then(async reg => {
+        // Show toast when a new SW silently takes control (skipWaiting already set in SW)
+        let prevController = navigator.serviceWorker.controller;
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+          if (prevController !== null) showToast('App updated');
+          prevController = navigator.serviceWorker.controller;
+        });
+
+        // Listen for SW postMessage: new qb_index.json content detected during background revalidation
+        navigator.serviceWorker.addEventListener('message', e => {
+          if (e.data?.type === 'QB_INDEX_UPDATED') {
+            document.getElementById('pwa-update-banner').removeAttribute('hidden');
+          }
+        });
+
+        // Background Sync: re-validate qb_index.json whenever connectivity resumes
+        if ('sync' in reg) {
+          window.addEventListener('online', () => {
+            reg.sync.register('qb-index-sync').catch(() => {});
+          });
+        }
+
+        // Periodic Background Sync: daily refresh on Android Chrome.
+        // iOS PWA does not support periodicSync; the online-event sync above covers that gap.
+        if ('periodicSync' in reg) {
+          try {
+            const perm = await navigator.permissions.query({ name: 'periodic-background-sync' });
+            if (perm.state === 'granted') {
+              await reg.periodicSync.register('qb-index-daily', { minInterval: 24 * 60 * 60 * 1000 });
+            }
+          } catch {}
+        }
+      })
       .catch(err => console.warn('[QB PWA] SW registration failed:', err));
   }
 });
