@@ -112,7 +112,7 @@ img { display: block; max-width: 100%; height: auto; }
 #pwa-chips-scroll::-webkit-scrollbar { display: none; }
 
 .pwa-chip {
-  display: inline-flex; align-items: center; height: 26px; padding: 0 13px;
+  display: inline-flex; align-items: center; gap: 3px; height: 26px; padding: 0 10px;
   border-radius: 14px; font-size: 11.5px; font-weight: 600; white-space: nowrap;
   background: rgba(255,255,255,0.10); color: rgba(255,255,255,0.85);
   border: 1px solid rgba(255,255,255,0.18);
@@ -139,6 +139,20 @@ img { display: block; max-width: 100%; height: auto; }
   padding: 0 5px; font-size: 10px; font-weight: 700; min-width: 16px; text-align: center;
 }
 #pwa-chip-explained.active .exp-count { background: rgba(26,58,92,0.2); }
+
+.chip-icon {
+  width: 14px; height: 14px; fill: none; stroke: currentColor;
+  stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round;
+  display: block; flex-shrink: 0;
+}
+.chip-count {
+  display: inline-block; min-width: 16px; height: 16px; line-height: 16px;
+  background: rgba(255,255,255,0.22); color: inherit;
+  border-radius: 8px; font-size: 10px; font-weight: 700;
+  text-align: center; padding: 0 4px; margin-left: 3px; vertical-align: middle;
+}
+.chip-count:empty { display: none; }
+.pwa-chip.active .chip-count { background: rgba(26,58,92,0.2); }
 
 /* ── Content area — fills screen, padding clears floating nav ───────────── */
 #pwa-content {
@@ -386,8 +400,14 @@ img { display: block; max-width: 100%; height: auto; }
     <div id="pwa-status-row" role="group" aria-label="Status filter">
       <div id="pwa-chips-scroll">
         <button class="pwa-chip active" data-status="to-read">To Read</button>
-        <button class="pwa-chip" data-status="in-review">In Review</button>
-        <button class="pwa-chip" data-status="understood">Understood</button>
+        <button class="pwa-chip" data-status="in-review" aria-label="In Review">
+          <svg class="chip-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+          <span class="chip-count" id="chip-count-review"></span>
+        </button>
+        <button class="pwa-chip" data-status="understood" aria-label="Understood">
+          <svg class="chip-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          <span class="chip-count" id="chip-count-understood"></span>
+        </button>
       </div>
       <button id="pwa-chip-explained" title="Questions with AI explanations in R2">
         ✨ <span class="exp-count" id="pwa-exp-count">0</span>
@@ -494,7 +514,7 @@ const SUBJECT_DISPLAY = {
   all: 'All Subjects', cdp: 'CDP', telugu: 'Telugu',
   english: 'English', mathematics: 'Math', science: 'Science',
 };
-const APP_VERSION    = '0.0.6';
+const APP_VERSION    = '0.0.7';
 const UNDERSTOOD_KEY = 'tet_understood_questions';
 const REVISION_KEY   = 'tet_revision_questions';
 const AI_CACHE_PFX   = 'ai_exp_persist:';
@@ -562,14 +582,32 @@ function toggleRevision(qimg) {
   if (!item) return;
   const list = getRevisionList();
   const idx = list.findIndex(r => r.q?.questionImage === qimg);
-  if (idx >= 0) list.splice(idx, 1);
-  else list.push({ examId: item.examId, examTitle: item.examTitle, q: item });
+  if (idx >= 0) {
+    list.splice(idx, 1);
+  } else {
+    list.push({ examId: item.examId, examTitle: item.examTitle, q: item });
+    // Mutual exclusivity: remove from understood when added to review
+    const und = getUnderstoodSet(); und.delete(qimg); saveUnderstoodSet(und);
+  }
   saveRevisionList(list);
 }
 function toggleUnderstood(qimg) {
   const s = getUnderstoodSet();
-  if (s.has(qimg)) s.delete(qimg); else s.add(qimg);
+  if (s.has(qimg)) {
+    s.delete(qimg);
+  } else {
+    s.add(qimg);
+    // Mutual exclusivity: remove from review when added to understood
+    saveRevisionList(getRevisionList().filter(r => r.q?.questionImage !== qimg));
+  }
   saveUnderstoodSet(s);
+}
+
+function cleanConflictingStates() {
+  const understood = getUnderstoodSet();
+  const list = getRevisionList();
+  const cleaned = list.filter(r => !understood.has(r.q?.questionImage));
+  if (cleaned.length !== list.length) saveRevisionList(cleaned);
 }
 
 /* ── Data loading ───────────────────────────────────────────────────────── */
@@ -916,21 +954,33 @@ function noExplanationMsg() {
 
 /* ── Header progress ────────────────────────────────────────────────────── */
 function updateHeaderProgress() {
-  const total   = qbankFiltered.length;
-  const current = total > 0 ? qbankIndex + 1 : 0;
   const understood = getUnderstoodSet();
   const revSet     = getRevisionSet();
 
-  document.getElementById('pwa-progress-count').innerHTML =
-    `${current}<span class="pwa-progress-total"> / ${total}</span>`;
+  // Scope to the active subject filter
+  const all = qbankCache || [];
+  const scoped = qbankSubjectFilter === 'all'
+    ? all
+    : all.filter(q => (q.sectionId || '').toLowerCase() === qbankSubjectFilter);
 
-  const undCount = qbankFiltered.filter(q => understood.has(q.questionImage)).length;
-  const revCount = qbankFiltered.filter(q => revSet.has(q.questionImage)).length;
-  document.getElementById('pwa-progress-sub').innerHTML =
-    `${undCount}&#10003;&nbsp;·&nbsp;${revCount}&#128278;`;
+  const scopedTotal = scoped.length;
+  const scopedDone  = scoped.filter(q => understood.has(q.questionImage) || revSet.has(q.questionImage)).length;
+  document.getElementById('pwa-progress-count').innerHTML =
+    `${scopedDone}<span class="pwa-progress-total"> / ${scopedTotal || 3150}</span>`;
+
+  // Sub-line hidden (counts shown on chips instead)
+  document.getElementById('pwa-progress-sub').textContent = '';
+
+  // Chip counts — scoped to active subject
+  const revEl = document.getElementById('chip-count-review');
+  const undEl = document.getElementById('chip-count-understood');
+  const scopedRev = scoped.filter(q => revSet.has(q.questionImage)).length;
+  const scopedUnd = scoped.filter(q => understood.has(q.questionImage)).length;
+  if (revEl) revEl.textContent = scopedRev || '';
+  if (undEl) undEl.textContent = scopedUnd || '';
 
   // Explained badge — R2 global count when fetched, else local cache count
-  const totalExp = r2ExplainedCount ?? (qbankCache || []).filter(q => !!getAiCache(q.questionImage)).length;
+  const totalExp = r2ExplainedCount ?? all.filter(q => !!getAiCache(q.questionImage)).length;
   document.getElementById('pwa-exp-count').textContent = totalExp;
 }
 
@@ -1041,6 +1091,8 @@ function syncChipHighlight() {
 
 /* ── Bootstrap ──────────────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
+
+  cleanConflictingStates();
 
   document.getElementById('pwa-explanation').innerHTML =
     '<span class="pwa-msg">Loading question bank…</span>';

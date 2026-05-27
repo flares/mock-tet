@@ -1,5 +1,7 @@
 # Change History
 
+- 2026-05-27 | v0.0.7 | minor | progress counter shows global done/3150 (understood ∪ in-review); To Read chip has no count; In Review and Understood chips show global count badges
+
 - 2026-05-27 22:15 | v0.0.6 | minor | categorize-questions.md: design notes for question classification (model choice, cost, rate limits, prompt design, TODO)
 - 2026-05-27 22:00 | v0.0.6 | minor | scripts/classify_topics.py: Gemini 2.5 Flash Lite batch classifier for all 3150 questions; resumable, async, rate-limit aware
 - 2026-05-27 21:00 | v0.0.6 | minor | assets/syllabus_topics.json: 5-6 topics per subject (human + LLM versions) for question classification
