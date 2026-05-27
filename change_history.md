@@ -1,5 +1,6 @@
 # Change History
 
+- 2026-05-27 21:00 | v0.0.6 | minor | assets/syllabus_topics.json: 5-6 topics per subject (human + LLM versions) for question classification
 - 2026-05-27 20:15 | v0.0.6 | major | QB PWA: history-aware back/forward nav — random pushes to navHistory, back walks history, forward walks then falls to sequential next, filter change resets history; CLAUDE.md versioning + change_history rules
 - 2026-05-27 | v0.0.5 | minor | QB PWA: version 0.0.5 — tap TET Suite brand to show version toast; SW cache bumped to v6; fix addToIndex race condition and _indexSet null guard
 - 2026-05-27 | major | R2: add questions-with-explanations.json index doc; worker GET/POST /index routes; r2-explanations.js fetchIndex+addToIndex; QB PWA ✨ counter now shows R2 global count instead of local cache count
