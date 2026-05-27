@@ -1,0 +1,204 @@
+{
+  "CDP": {
+    "topics": [
+      "Child Development",
+      "Learning Theories",
+      "Motivation, Memory & Transfer",
+      "Teaching Methods & Inclusive Education",
+      "Assessment & Evaluation"
+    ],
+    "llm_topics": [
+      {
+        "id": "cdp_child_development",
+        "label": "Child Development",
+        "description": "Growth, maturation, development principles and their implications; biological/psychological/sociological factors; dimensions: physical & motor, cognitive, emotional, social, moral, language across infancy/childhood/adolescence; theorists: Piaget (cognitive stages), Kohlberg (moral development), Erikson (psychosocial stages), Chomsky (language acquisition), Carl Rogers (humanistic); individual differences in attitudes, aptitude, intelligence; personality development, self-concept, adjustment, defense mechanisms, mental health; research methods: observation, case study, interview, questionnaire, longitudinal, cross-sectional"
+      },
+      {
+        "id": "cdp_learning_theories",
+        "label": "Learning Theories",
+        "description": "Behaviourism: Skinner (operant conditioning, reinforcement), Pavlov (classical conditioning), Thorndike (connectionism, laws of learning); Constructivism: Piaget (schema, assimilation, accommodation), Vygotsky (ZPD, scaffolding); Gestalt: Kohler (insight learning), Koffka; Observational/Social learning: Bandura (modelling, self-efficacy); nature of learning (input-process-outcome), cognitive/affective/performance dimensions, personal and environmental factors of learning"
+      },
+      {
+        "id": "cdp_motivation_memory_transfer",
+        "label": "Motivation, Memory & Transfer",
+        "description": "Intrinsic vs extrinsic motivation, role of motivation in sustaining learning; types of memory, forgetting curves, interference, decay, retention strategies; transfer of learning: positive, negative, zero transfer, conditions for transfer"
+      },
+      {
+        "id": "cdp_teaching_methods_inclusion",
+        "label": "Teaching Methods & Inclusive Education",
+        "description": "Enquiry-based, project-based, activity-based, cooperative, collaborative learning; teacher-centric/subject-centric/learner-centric paradigms; Bruner's theory of instruction; lesson planning (pre-active, interactive, post-active phases); CWSN, inclusive education, heterogeneous classrooms; classroom management, guidance & counselling, child rights, child abuse and legal implications; NCF 2005, RTE 2009, learning resources"
+      },
+      {
+        "id": "cdp_assessment_evaluation",
+        "label": "Assessment & Evaluation",
+        "description": "Assessment FOR learning vs OF learning; CCE (Continuous & Comprehensive Evaluation); formative vs summative assessment; school-based assessment tools: observation, rating scales, questionnaires, anecdotal records, portfolios; scholastic and co-scholastic components"
+      }
+    ]
+  },
+
+  "Telugu": {
+    "topics": [
+      "Reading Comprehension",
+      "Telangana Literature & Culture",
+      "Vocabulary & Idioms",
+      "Grammar",
+      "Pedagogy"
+    ],
+    "llm_topics": [
+      {
+        "id": "telugu_comprehension",
+        "label": "Reading Comprehension",
+        "description": "Understanding unseen prose and poetry passages, identifying main ideas, inference, tone, central theme; padyam and gadyam based questions"
+      },
+      {
+        "id": "telugu_literature_culture",
+        "label": "Telangana Literature & Culture",
+        "description": "Telangana and other Telugu poets and authors (from 2015 textbooks), literary forms (prakriyalu), centuries/periods (shatakalu), arts and artists (kalakarulu), festivals (vedukalu), folk songs and games (paatalu/kridalu); ancient and modern Telangana literature"
+      },
+      {
+        "id": "telugu_vocabulary_idioms",
+        "label": "Vocabulary & Idioms",
+        "description": "Samethalu (proverbs), jaatiyaalu (idioms), padupa kathalu, Telangana-specific vocabulary, word meanings, nanaarthalu (multiple meanings), paryaya padaalu (synonyms), vyutpatyarthalu (etymological meanings), prakriti vikritulu (Sanskrit-Telugu word pairs), antonyms"
+      },
+      {
+        "id": "telugu_grammar",
+        "label": "Grammar",
+        "description": "Dirgha/samyukta/samslesha aksharas, sentence structure, varga yuktas, parushas, saralaas, parts of speech (bhasha bhagaalu), gender (lingaalu), number (vachanalu), tenses (kaalalu), case endings (vibhaktulu), avyayas, punctuation (virama chinhalu), Telugu and Sanskrit sandhis, samasas, verbs (samapaka/asamapaka kriyalu), sentence types (assertive, interrogative, exclamatory, negative, permissive, prohibitive), direct/indirect speech (pratyaksha/paroksha), voice (kartari/karmani), chandas, alankaras, semantic change (artha viparinamam)"
+      },
+      {
+        "id": "telugu_pedagogy",
+        "label": "Pedagogy",
+        "description": "Language teaching objectives and methods; nature and role of mother tongue; language skills (listening, speaking, reading, writing) and classroom practice; lesson planning and textbooks; teaching of literary forms; TLM; CCE, formative and summative evaluation in Telugu language teaching"
+      }
+    ]
+  },
+
+  "English": {
+    "topics": [
+      "Grammar",
+      "Vocabulary & Idioms",
+      "Reading Comprehension",
+      "Direct/Indirect Speech & Question Forms",
+      "Writing & Composition",
+      "Pedagogy"
+    ],
+    "llm_topics": [
+      {
+        "id": "english_grammar",
+        "label": "Grammar",
+        "description": "Parts of speech (nouns, pronouns, adjectives, verbs, adverbs, prepositions, conjunctions, interjections), tenses (all 12 forms), active and passive voice, degrees of comparison, types of clauses (noun/adjective/adverb), simple/compound/complex sentences, coordinating and subordinating conjunctions, auxiliary vs main verbs, types of adverbs, articles (a/an/the), prepositions of time/place/direction"
+      },
+      {
+        "id": "english_vocabulary_idioms",
+        "label": "Vocabulary & Idioms",
+        "description": "Synonyms, antonyms, correct spellings, meaning of idiomatic expressions, one-word substitution, contextual word meaning"
+      },
+      {
+        "id": "english_comprehension",
+        "label": "Reading Comprehension",
+        "description": "Understanding unseen passages, inference, main idea, tone, author's purpose, answering factual and inferential questions from a given text"
+      },
+      {
+        "id": "english_speech_questions",
+        "label": "Direct/Indirect Speech & Question Forms",
+        "description": "Rules of reported speech (statements, questions, commands, exclamations), question formation, question tags (affirmative/negative), embedded questions, interrogative sentences"
+      },
+      {
+        "id": "english_writing_composition",
+        "label": "Writing & Composition",
+        "description": "Letter writing (formal/informal), précis writing, sentence correction, error identification within sentences, sequencing jumbled sentences, synthesis of sentences, use of phrases"
+      },
+      {
+        "id": "english_pedagogy",
+        "label": "Pedagogy",
+        "description": "Nature and history of English as a second language, problems in teaching/learning English, objectives of teaching English, phonetics and transcription, LSRW skills (Listening/Speaking/Reading/Writing), communicative competence, methods and techniques (grammar-translation, communicative approach, remedial teaching), teaching structures and vocabulary, TLM, lesson planning, curriculum and textbooks, CCE evaluation in English language teaching"
+      }
+    ]
+  },
+
+  "Mathematics": {
+    "topics": [
+      "Number System & Arithmetic",
+      "Algebra & Sets",
+      "Geometry",
+      "Coordinate Geometry, Mensuration & Trigonometry",
+      "Statistics, Data Handling & Probability",
+      "Pedagogy"
+    ],
+    "llm_topics": [
+      {
+        "id": "math_number_arithmetic",
+        "label": "Number System & Arithmetic",
+        "description": "Prime/composite numbers, divisibility tests, whole numbers, integers, fractions, decimals, LCM/GCD, rational/irrational/real numbers, laws of exponents, squares/cubes and their roots, number patterns and puzzles, Euclid's division lemma, logarithms; ratio and proportion, simple and compound interest, time-distance, time-work, profit-loss, discount, tax"
+      },
+      {
+        "id": "math_algebra_sets",
+        "label": "Algebra & Sets",
+        "description": "Concept of sets, set language, empty/finite/infinite sets, subsets, set operations (union, intersection, complement, difference), Venn diagrams, cardinal number; algebraic expressions, exponents and powers, factorisation, special products and expansions, linear equations and graphs, polynomials, quadratic equations and applications, arithmetic progressions (nth term, sum of n terms), geometric progressions (nth term)"
+      },
+      {
+        "id": "math_geometry",
+        "label": "Geometry",
+        "description": "History of geometry, Euclid's geometry, lines and angles, triangles (similarity, congruence, Pythagoras theorem), properties of circles (chords, tangents, arcs), quadrilaterals and polygons, construction of triangles/circles/quadrilaterals, concurrent lines in triangles (centroid, circumcentre, incentre, orthocentre), symmetry"
+      },
+      {
+        "id": "math_coordinate_mensuration_trigonometry",
+        "label": "Coordinate Geometry, Mensuration & Trigonometry",
+        "description": "Cartesian system, plotting points, linear equations in two variables, slope of a line, distance formula, section formula, area of triangle using coordinates, centroid, collinearity; perimeter and area of 2D shapes (square, rectangle, triangle, circle, ring, quadrilaterals); surface area and volume of cube, cuboid, cylinder, cone, sphere, hemisphere, combinations and conversions of solids; trigonometric ratios, standard angle values (0°/30°/45°/60°/90°), trigonometric identities, complementary angles, angles of elevation and depression, applications"
+      },
+      {
+        "id": "math_statistics_probability",
+        "label": "Statistics, Data Handling & Probability",
+        "description": "Collection and classification of data, frequency distribution tables, tally marks, bar graphs, pictographs, pie charts; mean, median, mode for ungrouped and grouped data; cumulative frequency and ogive curves; concept of probability, simple problems on single and complementary events"
+      },
+      {
+        "id": "math_pedagogy",
+        "label": "Pedagogy",
+        "description": "Nature, definition and aims of mathematics; values of mathematics teaching; methods of teaching (inductive, deductive, heuristic, problem-solving, project); TLM in mathematics; lesson planning; CCE (formative and summative assessment); SAT design, administration and analysis; diagnostic and remedial teaching; mathematics teacher and resource utilization; curriculum and textbooks"
+      }
+    ]
+  },
+
+  "Science": {
+    "topics": [
+      "Physics",
+      "Chemistry",
+      "Cell Biology & Classification",
+      "Plant & Animal Sciences",
+      "Environment, Ecology & Recent Trends",
+      "Pedagogy"
+    ],
+    "llm_topics": [
+      {
+        "id": "science_physics",
+        "label": "Physics",
+        "description": "Kinematics: speed, velocity, acceleration, types of motion; Newton's laws of motion, force, types of force, resultant force, friction, gravitation, centre of gravity, stability, work and energy, types of energy, conservation of energy; light: reflection (laws, plane/spherical mirrors, periscope, kaleidoscope), refraction (Snell's law, total internal reflection, prisms, lenses, human eye, defects of vision, rainbow, dispersion); sound: production, propagation, properties, audible range, echo, ultrasonic sound, human ear, musical instruments, sound pollution; heat: temperature, thermal equilibrium, thermometers, specific heat, methods of mixtures, evaporation, condensation, boiling/melting points; magnetism: natural/artificial magnets, properties, magnetic induction, magnetic field, lines of force; electricity: circuits, primary cells, conductors/insulators, charge, field, potential, EMF, Ohm's law, resistance, series/parallel, heating effects, magnetic effects, solenoid, Fleming's left hand rule, electric motor, electromagnetic induction, generator, electrolysis, electroplating, Faraday's laws; fluid mechanics: atmospheric pressure, Archimedes' principle, Pascal's law, Bernoulli's principle, hydrometer, barometer, surface tension, laws of floatation, specific gravity; our universe: solar system, solar/lunar eclipses, constellations, zodiac, space travel, satellites, stars, comets, earth"
+      },
+      {
+        "id": "science_chemistry",
+        "label": "Chemistry",
+        "description": "States of matter, properties of matter, substances and mixtures, methods of separation (filtration, distillation, chromatography etc.), fibres (types), plastics (types, environmental impact); acids, bases and salts, neutralisation; metals and non-metals (physical and chemical properties); coal, petroleum, combustion, fuels, calorific value, types of combustion; physical vs chemical change; laws of chemical combination, types of chemical reactions, chemical calculations; atoms and molecules, Dalton's atomic theory, atomicity, atomic mass, valency, molecular mass, mole concept, molar mass; Thomson model, Rutherford model, Bohr's model of atom, atomic number, isotopes, quantum numbers, electronic configuration; Dobereiner triads, Newlands' octaves, Mendeleev's periodic table, modern periodic table, trends in groups and periods; chemical bond: ionic bond, covalent bond, shapes of molecules, electron valency theory, properties of ionic/covalent substances; extraction of metals, reactivity series, steps of metallurgy"
+      },
+      {
+        "id": "science_cell_classification",
+        "label": "Cell Biology & Classification",
+        "description": "Characteristics of living organisms; classification of plants and animals (major groups and distinguishing features); cell concept, cell theory, differences between plant and animal cell, cell organelles (nucleus, mitochondria, chloroplast, ribosome, etc.), cell divisions (mitosis and meiosis); animal tissues (epithelial, connective, muscular, nervous) and plant tissues (meristematic, permanent)"
+      },
+      {
+        "id": "science_plants_animals",
+        "label": "Plant & Animal Sciences",
+        "description": "Types of plants; parts of a plant and their functions; seed dispersal; plant reproduction (asexual, sexual, vegetative propagation); photosynthesis, respiration, excretion in plants; economic importance of plants, agriculture, crop diseases and pest control; fibres from plants; animal movement and organ systems in humans: digestive, respiratory, circulatory, excretory, nervous, endocrine, skeletal, reproductive systems; sense organs; nutrition and deficiency diseases; first aid, HIV/AIDS; animal behaviour; economic importance of animals, animal husbandry, pisciculture, sericulture; bacteria, viruses, fungi, protozoa — characteristics, useful and harmful microbes, microbial diseases in plants and animals"
+      },
+      {
+        "id": "science_environment_recent_trends",
+        "label": "Environment, Ecology & Recent Trends",
+        "description": "Biotic and abiotic factors; natural resources (air, water, soil); biodiversity; different ecosystems; air pollution, water pollution, soil pollution; carbon cycle, nitrogen cycle, oxygen cycle; water: hardness, harnessing, water pressure, states of water; hybridisation, genetic engineering, gene banks, gene therapy, tissue culture"
+      },
+      {
+        "id": "science_pedagogy",
+        "label": "Pedagogy",
+        "description": "Nature, structure and history of science; aims, values and instructional objectives; academic standards in science; methods of teaching science (experimental, project, problem-solving, observation); TLM and science laboratory; science curriculum, NCF 2005, SCF 2011; science textbooks; CCE, formative and summative assessment; SAT design, administration and analysis; diagnostic and remedial teaching; changing role of the science teacher"
+      }
+    ]
+  }
+}

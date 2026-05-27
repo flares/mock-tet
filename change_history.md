@@ -1,5 +1,28 @@
 # Change History
 
+- 2026-05-27 | v0.0.7 | minor | progress counter shows global done/3150 (understood ∪ in-review); To Read chip has no count; In Review and Understood chips show global count badges
+
+- 2026-05-27 22:15 | v0.0.6 | minor | categorize-questions.md: design notes for question classification (model choice, cost, rate limits, prompt design, TODO)
+- 2026-05-27 22:00 | v0.0.6 | minor | scripts/classify_topics.py: Gemini 2.5 Flash Lite batch classifier for all 3150 questions; resumable, async, rate-limit aware
+- 2026-05-27 21:00 | v0.0.6 | minor | assets/syllabus_topics.json: 5-6 topics per subject (human + LLM versions) for question classification
+- 2026-05-27 20:15 | v0.0.6 | major | QB PWA: history-aware back/forward nav — random pushes to navHistory, back walks history, forward walks then falls to sequential next, filter change resets history; CLAUDE.md versioning + change_history rules
+- 2026-05-27 | v0.0.5 | minor | QB PWA: version 0.0.5 — tap TET Suite brand to show version toast; SW cache bumped to v6; fix addToIndex race condition and _indexSet null guard
+- 2026-05-27 | major | R2: add questions-with-explanations.json index doc; worker GET/POST /index routes; r2-explanations.js fetchIndex+addToIndex; QB PWA ✨ counter now shows R2 global count instead of local cache count
+- 2026-05-27 | minor | QB PWA: font knob range 40-60px (default 48); remove min-width:100% so narrow questions don't stretch to fill container
+- 2026-05-27 | major | QB PWA: uniform image scaling — per-paper measured line heights, all question/option images rendered at consistent CSS font size; overflow-x scroll for large images; floating font-size calibration knob (bottom-left, persists to localStorage)
+
+- 2026-05-27 | major | scripts/build_real_exams.py: new script to regenerate all real-paper exam JSONs from questions.json; CLAUDE.md updated with mandatory regeneration step and sanity-check command
+- 2026-05-27 | major | exams: regenerate all 21 real-paper exam JSONs + qb_index from questions.json — fixed 549 wrong correctAnswer values in pre-existing JSONs (old build source had errors; questions.json is authoritative)
+- 2026-05-27 | minor | QB PWA: thumbs-up repositioned above revision/understood FABs; colour changed to steel blue; scroll-hide header removed (didn't solve full-screen viewing)
+- 2026-05-27 | minor | QB PWA: rate buttons restyled to match FAB theme (circular, same size/shadow); header auto-hides on scroll-down, reappears on scroll-up, resets on question change
+- 2026-05-27 | minor | QB PWA: remove Talk with Teacher button + all TTS code; move Explain/Regenerate button below explanation; rating bar repositioned as fixed right-edge floating tab
+- 2026-05-27 | major | R2 explanation persistence: Cloudflare Worker (worker/src/index.js) + R2 proxy API (GET/POST/PATCH/DELETE); js/r2-explanations.js client module; qb_pwa.html: R2 fetch on load, save-to-R2 after generation, like/dislike rating bar; schema v1.0 with likes/dislikes counts per explanation
+- 2026-05-27 | minor | QB PWA: re-enable click-to-reveal answer feedback — set SHOW_ANSWER_REVEAL=true, removed dead guard in revealOption(), cleaned up stale comments; answer key is now reliable via questions.json
+- 2026-05-27 | minor | CLAUDE.md: rewrite with accurate file map, question_bank structure, build pipeline docs, and PWA-first framing
+- 2026-05-27 | minor | build_qb_index.py: fix filter bug — was checking e.get("style") but manifest field is "type"; was silently excluding all new exams that lacked the legacy "style" field
+- 2026-05-27 | major | exams: generate 4 new real-paper JSONs for 2026-Jan-03/04 Shift1/2 from questions.json; rebuild qb_index.json — 2550 → 3150 questions
+- 2026-05-27 | major | question_bank: synced 3,602 new files from source — 600 new Jan 2026 shift question folders (CDP, English, Mathematics, Science, Telugu) plus updated index.csv and questions.json; removed find_candidates.py
+
 - 2026-05-26 | minor | QB PWA: Add "Talk with Teacher" button — appears only once an explanation is loaded; uses Web Speech API with en-IN male voice (Rishi/fallback), elder pace (rate 0.87, pitch 0.85); button toggles to "Stop Speaking" while active and resets on question navigation.
 
 - 2026-05-23 | minor | AI prompt: stop sending "Verified correct answer: X. Do not second-guess this" to Gemini — the metadata.correctAnswer values are unreliable, so we now ask the model to deduce the answer itself. Removed unused correctLetter() helper.

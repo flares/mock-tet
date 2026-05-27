@@ -26,7 +26,7 @@ def build() -> None:
     with MANIFEST_PATH.open(encoding="utf-8") as fh:
         manifest = json.load(fh)
 
-    real_exams = [e for e in manifest.get("exams", []) if e.get("style") == "Real Paper"]
+    real_exams = [e for e in manifest.get("exams", []) if e.get("type") == "Real Paper"]
     seen: set[str] = set()
     out: list[dict] = []
 

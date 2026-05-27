@@ -58,7 +58,7 @@ img { display: block; max-width: 100%; height: auto; }
 }
 
 /* Brand */
-#pwa-brand { color: #fff; display: flex; flex-direction: column; align-items: flex-start; justify-self: start; }
+#pwa-brand { background: none; border: none; padding: 0; color: #fff; display: flex; flex-direction: column; align-items: flex-start; justify-self: start; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .pwa-brand-tet { font-size: 22px; font-weight: 900; letter-spacing: 1px; line-height: 1; }
 .pwa-brand-suite { font-size: 10px; font-weight: 600; letter-spacing: 2.5px; color: #f0a500; margin-top: 2px; text-transform: uppercase; }
 
@@ -112,7 +112,7 @@ img { display: block; max-width: 100%; height: auto; }
 #pwa-chips-scroll::-webkit-scrollbar { display: none; }
 
 .pwa-chip {
-  display: inline-flex; align-items: center; height: 26px; padding: 0 13px;
+  display: inline-flex; align-items: center; gap: 3px; height: 26px; padding: 0 10px;
   border-radius: 14px; font-size: 11.5px; font-weight: 600; white-space: nowrap;
   background: rgba(255,255,255,0.10); color: rgba(255,255,255,0.85);
   border: 1px solid rgba(255,255,255,0.18);
@@ -139,6 +139,20 @@ img { display: block; max-width: 100%; height: auto; }
   padding: 0 5px; font-size: 10px; font-weight: 700; min-width: 16px; text-align: center;
 }
 #pwa-chip-explained.active .exp-count { background: rgba(26,58,92,0.2); }
+
+.chip-icon {
+  width: 14px; height: 14px; fill: none; stroke: currentColor;
+  stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round;
+  display: block; flex-shrink: 0;
+}
+.chip-count {
+  display: inline-block; min-width: 16px; height: 16px; line-height: 16px;
+  background: rgba(255,255,255,0.22); color: inherit;
+  border-radius: 8px; font-size: 10px; font-weight: 700;
+  text-align: center; padding: 0 4px; margin-left: 3px; vertical-align: middle;
+}
+.chip-count:empty { display: none; }
+.pwa-chip.active .chip-count { background: rgba(26,58,92,0.2); }
 
 /* ── Content area — fills screen, padding clears floating nav ───────────── */
 #pwa-content {
@@ -174,8 +188,9 @@ img { display: block; max-width: 100%; height: auto; }
 .pwa-qimg-wrap {
   background: #fff; border-radius: 10px; padding: 10px;
   box-shadow: 0 1px 3px rgba(10,30,60,0.06); margin-bottom: 12px;
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
 }
-.pwa-qimg { width: 100%; border-radius: 4px; }
+.pwa-qimg { width: auto; max-width: none; height: auto; border-radius: 4px; display: block; }
 
 /* Options */
 .pwa-opts-wrap {
@@ -185,6 +200,7 @@ img { display: block; max-width: 100%; height: auto; }
 .pwa-opt {
   display: flex; align-items: flex-start; gap: 7px; padding: 7px 9px;
   background: #fafbff; border: 1.5px solid #dde4f0; border-radius: 7px; margin-bottom: 6px;
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
 }
 .pwa-opt:last-child { margin-bottom: 0; }
 .pwa-opt { cursor: pointer; transition: background 0.12s, border-color 0.12s; }
@@ -197,7 +213,7 @@ img { display: block; max-width: 100%; height: auto; }
 .pwa-opts--revealed .pwa-opt { cursor: default; }
 .pwa-opts--inert .pwa-opt { cursor: default; }
 .pwa-opts--inert .pwa-opt:active { background: #fafbff; }
-.pwa-opt img { max-width: 100%; width: auto; height: auto; display: block; border-radius: 3px; }
+.pwa-opt img { max-width: none; width: auto; height: auto; display: block; border-radius: 3px; }
 
 /* Explanation section */
 .pwa-exp-divider {
@@ -207,7 +223,7 @@ img { display: block; max-width: 100%; height: auto; }
 .pwa-exp-divider::before, .pwa-exp-divider::after {
   content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, #c5d2e3, transparent);
 }
-#pwa-ai-actions { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+#pwa-ai-actions { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 14px; margin-bottom: 12px; }
 #pwa-ai-btn {
   display: inline-flex; align-items: center; gap: 6px; padding: 10px 22px;
   background: #fff; color: #e65100; font-size: 13.5px; font-weight: 700;
@@ -216,15 +232,16 @@ img { display: block; max-width: 100%; height: auto; }
 }
 #pwa-ai-btn:active:not(:disabled) { background: #fff3e0; transform: scale(0.97); }
 #pwa-ai-btn:disabled { opacity: 0.6; cursor: not-allowed; }
-#pwa-talk-btn {
-  display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px;
-  background: #fff; color: #1a5276; font-size: 13.5px; font-weight: 700;
-  border-radius: 22px; border: 1.5px solid #1a5276;
-  box-shadow: 0 2px 6px rgba(26,82,118,0.18); transition: background 0.15s, transform 0.1s; min-height: 40px;
+#pwa-fab-like svg { stroke: #1565c0; }
+#pwa-fab-like.marked { background: #1565c0; border-color: #1565c0; box-shadow: 0 4px 14px rgba(21,101,192,0.4); }
+#pwa-fab-like.marked svg { stroke: #fff; }
+.pwa-fab-badge {
+  position: absolute; top: -4px; right: -4px;
+  background: #1565c0; color: #fff; font-size: 9px; font-weight: 700;
+  min-width: 16px; height: 16px; border-radius: 8px; padding: 0 3px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1.5px solid #fff;
 }
-#pwa-talk-btn:active:not(:disabled) { background: #eaf4fc; transform: scale(0.97); }
-#pwa-talk-btn.pwa-talk-active { background: #1a5276; color: #fff; border-color: #1a5276; }
-#pwa-talk-btn[hidden] { display: none !important; }
 #pwa-explanation {
   background: #fff; border-radius: 10px; padding: 14px; font-size: 14px;
   line-height: 1.6; color: #222; min-height: 48px;
@@ -260,6 +277,7 @@ img { display: block; max-width: 100%; height: auto; }
   width: 46px; height: 46px; border-radius: 50%; background: #fff;
   border: 1.5px solid #d8e0ec; box-shadow: 0 4px 12px rgba(0,0,0,0.16);
   display: flex; align-items: center; justify-content: center;
+  position: relative;
   transition: transform 0.12s, background 0.15s, border-color 0.15s, box-shadow 0.15s;
 }
 .pwa-fab-btn:active { transform: scale(0.92); }
@@ -307,6 +325,43 @@ img { display: block; max-width: 100%; height: auto; }
 #pwa-explanation .answer { background: #e8f5e9; border-radius: 6px; padding: 10px 12px; margin-bottom: 10px; }
 #pwa-explanation section { margin-bottom: 12px; }
 #pwa-explanation img { max-width: 100%; height: auto; }
+
+/* ── Font-size knob ─────────────────────────────────────────────────────── */
+#font-knob {
+  position: fixed;
+  bottom: calc(80px + env(safe-area-inset-bottom));
+  left: 14px;
+  z-index: 35;
+  background: rgba(255,255,255,0.95);
+  border: 1.5px solid #d8e0ec;
+  border-radius: 14px;
+  box-shadow: 0 2px 10px rgba(10,30,60,0.15);
+  padding: 6px 10px 5px;
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  min-width: 72px;
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  user-select: none;
+}
+#font-knob-label {
+  font-size: 10px; font-weight: 600; color: #5a6e8e;
+  white-space: nowrap; letter-spacing: 0.3px;
+}
+#font-knob-val { color: #1565c0; }
+#font-knob-slider {
+  -webkit-appearance: none; appearance: none;
+  width: 60px; height: 4px;
+  background: #c5d2e3; border-radius: 2px; outline: none; cursor: pointer;
+}
+#font-knob-slider::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 16px; height: 16px; border-radius: 50%;
+  background: #1565c0; border: 2px solid #fff;
+  box-shadow: 0 1px 4px rgba(21,101,192,0.4);
+}
+#font-knob-slider::-moz-range-thumb {
+  width: 16px; height: 16px; border-radius: 50%;
+  background: #1565c0; border: 2px solid #fff; cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -315,10 +370,10 @@ img { display: block; max-width: 100%; height: auto; }
   <!-- Header (z-index 50 — above backdrop so dropdown items are tappable) -->
   <header id="pwa-header">
     <div class="pwa-hrow1">
-      <div id="pwa-brand">
+      <button id="pwa-brand">
         <span class="pwa-brand-tet">TET</span>
         <span class="pwa-brand-suite">Suite</span>
-      </div>
+      </button>
 
       <div class="pwa-subject-wrap">
         <button id="pwa-subject-btn" aria-haspopup="listbox" aria-expanded="false">
@@ -345,10 +400,16 @@ img { display: block; max-width: 100%; height: auto; }
     <div id="pwa-status-row" role="group" aria-label="Status filter">
       <div id="pwa-chips-scroll">
         <button class="pwa-chip active" data-status="to-read">To Read</button>
-        <button class="pwa-chip" data-status="in-review">In Review</button>
-        <button class="pwa-chip" data-status="understood">Understood</button>
+        <button class="pwa-chip" data-status="in-review" aria-label="In Review">
+          <svg class="chip-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+          <span class="chip-count" id="chip-count-review"></span>
+        </button>
+        <button class="pwa-chip" data-status="understood" aria-label="Understood">
+          <svg class="chip-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          <span class="chip-count" id="chip-count-understood"></span>
+        </button>
       </div>
-      <button id="pwa-chip-explained" title="Questions with AI explanations cached locally">
+      <button id="pwa-chip-explained" title="Questions with AI explanations in R2">
         ✨ <span class="exp-count" id="pwa-exp-count">0</span>
       </button>
     </div>
@@ -376,18 +437,27 @@ img { display: block; max-width: 100%; height: auto; }
     </div>
     <div id="pwa-exp-section">
       <div class="pwa-exp-divider">Explanation</div>
+      <div id="pwa-explanation"><span class="pwa-msg">Loading…</span></div>
       <div id="pwa-ai-actions">
         <button id="pwa-ai-btn">&#10024; Explain with AI</button>
-        <button id="pwa-talk-btn" hidden>&#128483; Talk with Teacher</button>
       </div>
-      <div id="pwa-explanation"><span class="pwa-msg">Loading…</span></div>
     </div>
   </div>
 
   <div id="pwa-toast"></div>
 
+  <!-- Font-size calibration knob (testing) -->
+  <div id="font-knob">
+    <span id="font-knob-label">Aa <strong id="font-knob-val">48</strong>px</span>
+    <input type="range" id="font-knob-slider" min="40" max="60" step="1" value="20">
+  </div>
+
   <!-- FABs -->
   <div id="pwa-fab">
+    <button id="pwa-fab-like" class="pwa-fab-btn pwa-fab-hidden" aria-label="Helpful explanation">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
+      <span class="pwa-fab-badge" hidden>0</span>
+    </button>
     <button id="pwa-fab-revision" class="pwa-fab-btn" aria-label="Mark for Review">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
     </button>
@@ -417,31 +487,60 @@ img { display: block; max-width: 100%; height: auto; }
 
 <script src="js/explanation.js"></script>
 <script src="js/firebase-config.js" onerror="console.warn('Firebase config not found.')"></script>
+<script src="js/r2-explanations.js"></script>
 <script type="module" src="js/firebase-ai.js"></script>
 <script>
+/* ── Per-paper measured line heights (px) ───────────────────────────────── */
+// Average pixel height of a single text line in question images, measured per paper.
+// Used to compute a uniform scale so all papers render text at the same CSS size.
+const PAPER_LINE_HEIGHTS = {};
+const PAPER_LINE_HEIGHT_DEFAULT = 47;
+const LS_FONT_SIZE_KEY = 'qb_target_line_height_px';
+
 /* ── Constants ──────────────────────────────────────────────────────────── */
 const SUBJECT_DISPLAY = {
   all: 'All Subjects', cdp: 'CDP', telugu: 'Telugu',
   english: 'English', mathematics: 'Math', science: 'Science',
 };
+const APP_VERSION    = '0.0.7';
 const UNDERSTOOD_KEY = 'tet_understood_questions';
 const REVISION_KEY   = 'tet_revision_questions';
 const AI_CACHE_PFX   = 'ai_exp_persist:';
 const QB_INDEX_URL   = 'exams/qb_index.json';
 const QB_CACHE_KEY   = 'qb_index_cache_v1';
 
-// Click-to-reveal correct/wrong feedback. Currently disabled because the
-// correctAnswer values in metadata.json are unreliable — flip this to true
-// once the metadata is corrected.
-const SHOW_ANSWER_REVEAL = false;
+// R2 explanation state for the current question (null when no R2 explanation loaded)
+let _r2CurrentExp = null;
+// Count of questions with explanations in R2 (null until fetched)
+let r2ExplainedCount = null;
+
+const SHOW_ANSWER_REVEAL = true;
 
 /* ── State ──────────────────────────────────────────────────────────────── */
 let qbankCache         = null;
-let _ttsSpeaking       = false;
 let qbankFiltered      = [];
 let qbankSubjectFilter = 'all';
 let qbankStatusFilter  = 'to-read';   // default: unread questions
 let qbankIndex         = 0;
+
+// Navigation history — tracks visited qbankFiltered indices so back/forward works
+// across random jumps. Reset on filter changes.
+let navHistory = [0];
+let navPos     = 0;
+
+function navPush(idx) {
+  navHistory.splice(navPos + 1);   // discard any forward history when branching
+  navHistory.push(idx);
+  navPos     = navHistory.length - 1;
+  qbankIndex = idx;
+}
+
+function navReset() {
+  qbankIndex = 0;
+  navHistory = qbankFiltered.length > 0 ? [0] : [];
+  navPos     = qbankFiltered.length > 0 ? 0 : -1;
+}
+
 // Per-question reveal state for the click-to-reveal option behaviour.
 // Map<questionImage, { picked: 1-based index }>
 const optionChoices    = new Map();
@@ -471,14 +570,32 @@ function toggleRevision(qimg) {
   if (!item) return;
   const list = getRevisionList();
   const idx = list.findIndex(r => r.q?.questionImage === qimg);
-  if (idx >= 0) list.splice(idx, 1);
-  else list.push({ examId: item.examId, examTitle: item.examTitle, q: item });
+  if (idx >= 0) {
+    list.splice(idx, 1);
+  } else {
+    list.push({ examId: item.examId, examTitle: item.examTitle, q: item });
+    // Mutual exclusivity: remove from understood when added to review
+    const und = getUnderstoodSet(); und.delete(qimg); saveUnderstoodSet(und);
+  }
   saveRevisionList(list);
 }
 function toggleUnderstood(qimg) {
   const s = getUnderstoodSet();
-  if (s.has(qimg)) s.delete(qimg); else s.add(qimg);
+  if (s.has(qimg)) {
+    s.delete(qimg);
+  } else {
+    s.add(qimg);
+    // Mutual exclusivity: remove from review when added to understood
+    saveRevisionList(getRevisionList().filter(r => r.q?.questionImage !== qimg));
+  }
   saveUnderstoodSet(s);
+}
+
+function cleanConflictingStates() {
+  const understood = getUnderstoodSet();
+  const list = getRevisionList();
+  const cleaned = list.filter(r => !understood.has(r.q?.questionImage));
+  if (cleaned.length !== list.length) saveRevisionList(cleaned);
 }
 
 /* ── Data loading ───────────────────────────────────────────────────────── */
@@ -600,6 +717,37 @@ function showEmptyState() {
   document.getElementById('pwa-fab').hidden           = true;
 }
 
+/* ── Image scaling ──────────────────────────────────────────────────────── */
+let targetLineHeightPx = Math.max(40, Math.min(60, parseInt(localStorage.getItem(LS_FONT_SIZE_KEY) || '48', 10)));
+
+function paperIdFromPath(imgPath) {
+  // "question_bank/CDP/2024-May-20-Shift1_Q001_.../question.png" → "2024-May-20-Shift1"
+  const folder = (imgPath || '').split('/')[2] || '';
+  return folder.split('_Q')[0];
+}
+
+function getScale(paperId) {
+  const lineH = PAPER_LINE_HEIGHTS[paperId] || PAPER_LINE_HEIGHT_DEFAULT;
+  return targetLineHeightPx / lineH;
+}
+
+function applyImgScale(img, scale) {
+  const apply = () => {
+    img.style.width  = (img.naturalWidth * scale) + 'px';
+    img.style.height = 'auto';
+  };
+  if (img.complete && img.naturalWidth > 0) apply();
+  else img.addEventListener('load', apply, { once: true });
+}
+
+function applyScaleToCurrentQuestion() {
+  const item = qbankFiltered[qbankIndex];
+  if (!item) return;
+  const scale = getScale(paperIdFromPath(item.questionImage));
+  applyImgScale(document.getElementById('pwa-qimg'), scale);
+  document.querySelectorAll('#pwa-opts img').forEach(img => applyImgScale(img, scale));
+}
+
 function hideEmptyState() {
   document.getElementById('pwa-empty-state').classList.remove('visible');
   document.getElementById('pwa-qnum').hidden       = false;
@@ -626,12 +774,11 @@ async function applyFilters() {
     return;
   }
   qbankFiltered = buildFiltered(all);
-  qbankIndex    = 0;
+  navReset();
   renderCurrent();
 }
 
 function renderCurrent() {
-  if (_ttsSpeaking) stopTTS();
   updateHeaderProgress();
 
   if (!qbankFiltered.length) { showEmptyState(); return; }
@@ -660,9 +807,7 @@ function renderCurrent() {
     optsEl.innerHTML = ''; optsWrap.style.display = 'none';
   } else {
     optsWrap.style.display = '';
-    // While SHOW_ANSWER_REVEAL is off, options always render neutrally and
-    // tapping them does nothing — metadata.correctAnswer is currently unreliable.
-    const prior = SHOW_ANSWER_REVEAL ? optionChoices.get(qimg) : null;
+    const prior = optionChoices.get(qimg);
     optsEl.className = 'pwa-opts' + (prior ? ' pwa-opts--revealed' : ' pwa-opts--inert');
     optsEl.innerHTML = item.optionImages.map((src, i) => {
       const k = i + 1;
@@ -684,6 +829,8 @@ function renderCurrent() {
     aiBtn.innerHTML = getAiCache(qimg) ? '&#10024; Regenerate' : '&#10024; Explain with AI';
   }
 
+  applyScaleToCurrentQuestion();
+
   document.getElementById('pwa-content').scrollTo({ top: 0, behavior: 'auto' });
   _prefetch(qbankFiltered[qbankIndex + 1]);
   _prefetch(qbankFiltered[qbankIndex - 1]);
@@ -693,7 +840,6 @@ function renderCurrent() {
 
 // Reveals the correct answer on first option click. Idempotent if already revealed.
 function revealOption(pickedIdx) {
-  if (!SHOW_ANSWER_REVEAL) return;     // disabled while metadata correctAnswer is unreliable
   const item = qbankFiltered[qbankIndex];
   if (!item) return;
   const qimg = item.questionImage;
@@ -712,12 +858,75 @@ function revealOption(pickedIdx) {
 
 function _prefetch(item) { if (item?.questionImage) new Image().src = item.questionImage; }
 
+/* ── R2 rating bar ──────────────────────────────────────────────────────── */
+function showRatingBar(exp, questionImage) {
+  _r2CurrentExp = { exp, questionImage };
+  const btn   = document.getElementById('pwa-fab-like');
+  const badge = btn.querySelector('.pwa-fab-badge');
+  const vote  = window.R2Explanations?.getUserVote(questionImage, exp.id) || null;
+  btn.classList.toggle('marked', vote === 'liked');
+  const count = exp.likes || 0;
+  badge.textContent = count;
+  badge.hidden = count === 0;
+  btn.classList.remove('pwa-fab-hidden');
+}
+
+function hideRatingBar() {
+  _r2CurrentExp = null;
+  const btn = document.getElementById('pwa-fab-like');
+  btn.classList.add('pwa-fab-hidden');
+  btn.classList.remove('marked');
+}
+
+async function handleRate() {
+  if (!_r2CurrentExp || !window.R2Explanations?.isConfigured()) return;
+  const { exp, questionImage } = _r2CurrentExp;
+  const currentVote = window.R2Explanations.getUserVote(questionImage, exp.id);
+  const r2Action = currentVote === 'liked' ? 'unlike' : 'like';
+  const newVote  = currentVote === 'liked' ? null : 'liked';
+  const updated  = await window.R2Explanations.rate(questionImage, exp.id, r2Action);
+  if (updated) {
+    window.R2Explanations.setUserVote(questionImage, exp.id, newVote);
+    showRatingBar({ ...exp, ...updated }, questionImage);
+  }
+}
+
 async function loadExplanation(questionImage) {
   const expEl = document.getElementById('pwa-explanation');
+  hideRatingBar();
+
+  // 1. localStorage (instant)
   const aiCached = getAiCache(questionImage);
-  if (aiCached) { expEl.innerHTML = aiCached; updateTalkBtnVisibility(); return; }
+  if (aiCached) {
+    expEl.innerHTML = aiCached;
+    // Fetch R2 state in background to populate rating bar
+    if (window.R2Explanations?.isConfigured()) {
+      window.R2Explanations.fetch(questionImage).then(doc => {
+        const best = window.R2Explanations.bestExplanation(doc?.explanations);
+        if (best) showRatingBar(best, questionImage);
+      });
+    }
+    return;
+  }
+
   expEl.innerHTML = '<span class="pwa-msg">Loading explanation…</span>';
-  updateTalkBtnVisibility();
+
+  // 2. R2 (100–150ms, best-rated explanation)
+  if (window.R2Explanations?.isConfigured()) {
+    try {
+      const doc  = await window.R2Explanations.fetch(questionImage);
+      const best = window.R2Explanations.bestExplanation(doc?.explanations);
+      if (best) {
+        ExplanationModal.setAiCache(questionImage, best.html);
+        expEl.innerHTML = best.html;
+        showRatingBar(best, questionImage);
+        document.getElementById('pwa-ai-btn').innerHTML = '&#10024; Regenerate';
+        return;
+      }
+    } catch {}
+  }
+
+  // 3. metadata.json fallback (legacy)
   const i = questionImage.lastIndexOf('/');
   if (i < 0) { expEl.innerHTML = noExplanationMsg(); return; }
   try {
@@ -726,7 +935,6 @@ async function loadExplanation(questionImage) {
     const data = await resp.json();
     expEl.innerHTML = data?.explanation?.html_text || noExplanationMsg();
   } catch { expEl.innerHTML = noExplanationMsg(); }
-  updateTalkBtnVisibility();
 }
 function noExplanationMsg() {
   return '<em style="color:#888;font-size:13px">No explanation yet. Tap ✨ Explain with AI to generate one.</em>';
@@ -734,21 +942,33 @@ function noExplanationMsg() {
 
 /* ── Header progress ────────────────────────────────────────────────────── */
 function updateHeaderProgress() {
-  const total   = qbankFiltered.length;
-  const current = total > 0 ? qbankIndex + 1 : 0;
   const understood = getUnderstoodSet();
   const revSet     = getRevisionSet();
 
+  // Scope to the active subject filter
+  const all = qbankCache || [];
+  const scoped = qbankSubjectFilter === 'all'
+    ? all
+    : all.filter(q => (q.sectionId || '').toLowerCase() === qbankSubjectFilter);
+
+  const scopedTotal = scoped.length;
+  const scopedDone  = scoped.filter(q => understood.has(q.questionImage) || revSet.has(q.questionImage)).length;
   document.getElementById('pwa-progress-count').innerHTML =
-    `${current}<span class="pwa-progress-total"> / ${total}</span>`;
+    `${scopedDone}<span class="pwa-progress-total"> / ${scopedTotal || 3150}</span>`;
 
-  const undCount = qbankFiltered.filter(q => understood.has(q.questionImage)).length;
-  const revCount = qbankFiltered.filter(q => revSet.has(q.questionImage)).length;
-  document.getElementById('pwa-progress-sub').innerHTML =
-    `${undCount}&#10003;&nbsp;·&nbsp;${revCount}&#128278;`;
+  // Sub-line hidden (counts shown on chips instead)
+  document.getElementById('pwa-progress-sub').textContent = '';
 
-  // Explained badge — shows count across ALL questions, not just filtered
-  const totalExp = (qbankCache || []).filter(q => !!getAiCache(q.questionImage)).length;
+  // Chip counts — scoped to active subject
+  const revEl = document.getElementById('chip-count-review');
+  const undEl = document.getElementById('chip-count-understood');
+  const scopedRev = scoped.filter(q => revSet.has(q.questionImage)).length;
+  const scopedUnd = scoped.filter(q => understood.has(q.questionImage)).length;
+  if (revEl) revEl.textContent = scopedRev || '';
+  if (undEl) undEl.textContent = scopedUnd || '';
+
+  // Explained badge — R2 global count when fetched, else local cache count
+  const totalExp = r2ExplainedCount ?? all.filter(q => !!getAiCache(q.questionImage)).length;
   document.getElementById('pwa-exp-count').textContent = totalExp;
 }
 
@@ -817,105 +1037,23 @@ async function handleAiExplain() {
     });
     expEl.innerHTML = html;
     aiBtn.innerHTML = '&#10024; Regenerate';
-    updateTalkBtnVisibility();
     document.getElementById('pwa-content').scrollTo({ top: expSection.offsetTop - 8, behavior: 'smooth' });
     updateHeaderProgress();
+    // Save to R2 async — non-blocking, best-effort
+    if (window.R2Explanations?.isConfigured()) {
+      window.R2Explanations.save(item.questionImage, html).then(exp => {
+        if (exp) {
+          showRatingBar(exp, item.questionImage);
+          window.R2Explanations.addToIndex(item.questionImage).then(count => {
+            if (count !== null) { r2ExplainedCount = count; updateHeaderProgress(); }
+          });
+        }
+      });
+    }
   } catch (err) {
     expEl.innerHTML = `<div class="pwa-ai-error"><strong>AI error:</strong> ${esc(err.message || 'Generation failed.')}</div>`;
     aiBtn.innerHTML = '&#10024; Explain with AI';
   } finally { aiBtn.disabled = false; }
-}
-
-/* ── Talk with Teacher (TTS) ────────────────────────────────────────────── */
-function updateTalkBtnVisibility() {
-  const btn = document.getElementById('pwa-talk-btn');
-  if (!btn) return;
-  const expEl = document.getElementById('pwa-explanation');
-  const hasExplanation = expEl &&
-    !expEl.querySelector('.pwa-msg') &&
-    !expEl.querySelector('.pwa-ai-loading') &&
-    !expEl.querySelector('.pwa-ai-error') &&
-    expEl.textContent.trim().length > 30;
-  btn.hidden = !hasExplanation;
-  if (!hasExplanation && _ttsSpeaking) stopTTS();
-}
-
-function stopTTS() {
-  speechSynthesis.cancel();
-  _ttsSpeaking = false;
-  const btn = document.getElementById('pwa-talk-btn');
-  if (btn) { btn.innerHTML = '&#128483; Talk with Teacher'; btn.classList.remove('pwa-talk-active'); }
-}
-
-function getTeacherVoice() {
-  const voices = speechSynthesis.getVoices();
-  // Prefer Indian English male (Rishi is Google's en-IN male voice)
-  const inMale = voices.filter(v => v.lang === 'en-IN' && /rishi|male/i.test(v.name));
-  if (inMale.length) return inMale[0];
-  // Any en-IN
-  const inAny = voices.filter(v => v.lang === 'en-IN');
-  if (inAny.length) return inAny[0];
-  // en-GB male as fallback
-  const gbMale = voices.filter(v => v.lang === 'en-GB' && /male/i.test(v.name));
-  if (gbMale.length) return gbMale[0];
-  // Any English
-  return voices.find(v => v.lang.startsWith('en')) || null;
-}
-
-function explanationToText() {
-  const expEl = document.getElementById('pwa-explanation');
-  if (!expEl) return '';
-  const clone = expEl.cloneNode(true);
-  // Insert pauses around block boundaries so the spoken text flows naturally
-  clone.querySelectorAll('h2,h3,h4,p,li,td,section,div').forEach(el => {
-    el.append(document.createTextNode('. '));
-  });
-  return (clone.innerText || clone.textContent || '').replace(/\s+/g, ' ').replace(/(\.\s*){2,}/g, '. ').trim();
-}
-
-async function handleTalkWithTeacher() {
-  const btn = document.getElementById('pwa-talk-btn');
-  if (!btn) return;
-  if (_ttsSpeaking) { stopTTS(); return; }
-
-  const item = qbankFiltered[qbankIndex];
-  if (!item) return;
-
-  const text = explanationToText();
-  if (!text) return;
-
-  const subj = SUBJECT_DISPLAY[qbankSubjectFilter] || (item.sectionId || 'General');
-  const intro = `Alright. Let me explain this question for you. This is from ${subj}. `;
-  const script = intro + text;
-
-  const utter = new SpeechSynthesisUtterance(script);
-
-  // Ensure voices are loaded
-  let voice = getTeacherVoice();
-  if (!voice && speechSynthesis.getVoices().length === 0) {
-    await new Promise(resolve => {
-      const handler = () => { speechSynthesis.removeEventListener('voiceschanged', handler); resolve(); };
-      speechSynthesis.addEventListener('voiceschanged', handler);
-      setTimeout(resolve, 1200);
-    });
-    voice = getTeacherVoice();
-  }
-
-  if (voice) utter.voice = voice;
-  utter.lang   = 'en-IN';
-  utter.rate   = 0.87;   // deliberate teaching pace
-  utter.pitch  = 0.85;   // deeper, elder male
-  utter.volume = 1;
-
-  _ttsSpeaking = true;
-  btn.innerHTML = '&#9646;&#9646; Stop Speaking';
-  btn.classList.add('pwa-talk-active');
-
-  utter.onend   = () => stopTTS();
-  utter.onerror = () => { stopTTS(); showToast('Voice playback not available on this device.'); };
-
-  speechSynthesis.cancel();
-  speechSynthesis.speak(utter);
 }
 
 /* ── Subject dropdown ───────────────────────────────────────────────────── */
@@ -942,9 +1080,22 @@ function syncChipHighlight() {
 /* ── Bootstrap ──────────────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
 
+  cleanConflictingStates();
+
   document.getElementById('pwa-explanation').innerHTML =
     '<span class="pwa-msg">Loading question bank…</span>';
   applyFilters();
+
+  /* Fetch R2 explanation index to populate the ✨ counter — public endpoint, no auth needed */
+  if (window.R2Explanations) {
+    window.R2Explanations.fetchIndex().then(({ count }) => {
+      r2ExplainedCount = count;
+      document.getElementById('pwa-exp-count').textContent = count;
+    });
+  }
+
+  /* Brand tap — show version */
+  document.getElementById('pwa-brand').addEventListener('click', () => showToast(`TET Suite v${APP_VERSION}`));
 
   /* Subject dropdown toggle */
   document.getElementById('pwa-subject-btn').addEventListener('click', e => {
@@ -983,16 +1134,34 @@ document.addEventListener('DOMContentLoaded', () => {
     applyFilters();
   });
 
-  /* Nav buttons — renderCurrent() only, no filter rebuild */
+  /* Nav buttons — history-aware back / forward / random */
   document.getElementById('pwa-prev').addEventListener('click', () => {
-    if (qbankIndex > 0) { qbankIndex--; renderCurrent(); }
+    if (navPos > 0) {
+      // Walk back through history
+      navPos--;
+      qbankIndex = navHistory[navPos];
+      renderCurrent();
+    } else if (qbankIndex > 0) {
+      // Prepend sequential prev to history
+      navPush(qbankIndex - 1);
+      renderCurrent();
+    }
   });
   document.getElementById('pwa-next').addEventListener('click', () => {
-    if (qbankIndex < qbankFiltered.length - 1) { qbankIndex++; renderCurrent(); }
+    if (navPos < navHistory.length - 1) {
+      // Walk forward through history
+      navPos++;
+      qbankIndex = navHistory[navPos];
+      renderCurrent();
+    } else if (qbankIndex < qbankFiltered.length - 1) {
+      // Past end of history — go to sequential next and push it
+      navPush(qbankIndex + 1);
+      renderCurrent();
+    }
   });
   document.getElementById('pwa-random').addEventListener('click', () => {
     if (qbankFiltered.length > 0) {
-      qbankIndex = Math.floor(Math.random() * qbankFiltered.length);
+      navPush(Math.floor(Math.random() * qbankFiltered.length));
       renderCurrent();
     }
   });
@@ -1054,7 +1223,20 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.getElementById('pwa-ai-btn').addEventListener('click', handleAiExplain);
-  document.getElementById('pwa-talk-btn').addEventListener('click', handleTalkWithTeacher);
+  document.getElementById('pwa-fab-like').addEventListener('click', handleRate);
+
+  /* Font-size knob */
+  const knobSlider = document.getElementById('font-knob-slider');
+  const knobVal    = document.getElementById('font-knob-val');
+  knobSlider.value = targetLineHeightPx;
+  knobVal.textContent = targetLineHeightPx;
+  knobSlider.addEventListener('input', () => {
+    targetLineHeightPx = parseInt(knobSlider.value, 10);
+    knobVal.textContent = targetLineHeightPx;
+    localStorage.setItem(LS_FONT_SIZE_KEY, targetLineHeightPx);
+    applyScaleToCurrentQuestion();
+  });
+
 
   /* iOS zoom prevention */
   document.addEventListener('gesturestart', e => e.preventDefault());

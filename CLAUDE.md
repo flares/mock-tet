@@ -2,32 +2,39 @@
 
 ## What this project is
 
-A pixel-faithful replica of the NTA/CTET Computer-Based Test (CBT) interface built as a pure static site for GitHub Pages. The goal is to help candidates practise the **computer interface** of the exam — navigation, timers, question palette, submit flow — not just the questions.
+A static site on GitHub Pages that serves two distinct purposes:
 
-Target audience: Candidates preparing for **CTET Paper 2 (Classes VI–VIII)**, specifically the **Mathematics & Science** stream, with extended syllabus coverage of classes IX–X.
+1. **QB PWA** (`qb_pwa.html`) — the **primary focus**. An installable mobile PWA (iOS + Android) that lets CTET candidates browse all 3,150+ real-exam questions one at a time, with AI explanation, mark-understood / mark-for-revision tracking, subject filtering, and offline support.
+
+2. **Mock Test interface** (`exam.html`) — a pixel-faithful replica of the NTA CBT interface for practising the exam UI (navigation, timers, palette, submit flow). Secondary priority — functional but not the active development focus.
+
+Target audience: CTET Paper 2 (Classes VI–VIII), Mathematics & Science stream.
 
 ---
 
 ## Automated behaviour — read before every task
 
-## Change logging rule (mandatory)
+### Change logging rule (mandatory)
 
-For every code or content change made in this repository, append an entry to `change_history.md` with:
-- Date/time
-- Complexity (`major` or `minor`)
-- One-line summary of the change
+For every code or content change, prepend an entry to the **top** of `change_history.md` (newest first):
+```
+- YYYY-MM-DD HH:MM | vX.X.X | major|minor | one-line summary
+```
+Every commit must include a `change_history.md` update.
 
-Every commit must include a corresponding `change_history.md` update.
+### Version rule (mandatory)
 
-**When the user asks to create a new mock test** (any phrasing like "create a test", "make a new exam", "new mock test", "mini test for X"), **automatically invoke the `/create-mock-test` skill** — it contains the complete syllabus, JSON schema, and generation instructions. Do not ask the user for the syllabus; it is already documented in the skill.
+`APP_VERSION` is defined as a JS constant at the top of the `<script>` block in `qb_pwa.html`. **Increment it on every commit** using semver-light:
+- `minor` change → bump patch (0.0.5 → 0.0.6)
+- `major` change → bump minor (0.0.5 → 0.1.0)
 
-**The JSON file is always the source of truth** for:
-- `duration` — drives the exam countdown timer
-- `sections` — determines which tabs appear and what questions load
-- `totalMarks` / `marksPerQuestion` — drives scoring on result page
-- `negativeMarking` — affects scoring calculation
+The current version is `0.0.5`. After this session the next commit starts from whatever version was last set.
 
-Never hardcode values in HTML/JS that contradict what's in the JSON.
+### Auto-skill triggers
+
+**When the user asks to create a new mock test** (any phrasing like "create a test", "make a new exam", "new mock test", "mini test for X"), **automatically invoke the `/create-mock-test` skill** — it contains the complete syllabus, JSON schema, and generation instructions. Do not ask the user for the syllabus.
+
+**The exam JSON file is always the source of truth** for `duration`, `sections`, `totalMarks`, `marksPerQuestion`, `negativeMarking`. Never hardcode values in HTML/JS that contradict the JSON.
 
 ---
 
@@ -35,8 +42,8 @@ Never hardcode values in HTML/JS that contradict what's in the JSON.
 
 - Pure static HTML + CSS + vanilla JS (no framework, no build step)
 - GitHub Pages — `index.html` at repo root, all paths relative
-- `fetch()` for JSON loading — requires a local HTTP server for dev (not `file://`)
-- `sessionStorage` for active exam session; `localStorage` for saved results
+- `fetch()` for JSON — **requires a local HTTP server** (`python3 -m http.server 8080`), not `file://`
+- `sessionStorage` for active exam session; `localStorage` for saved results and QB progress
 
 ---
 
@@ -47,9 +54,17 @@ index.html              Home — exam card selector
 instructions.html       Pre-exam instructions + checkbox gate
 exam.html               Full CBT interface
 result.html             Score + section breakdown + question review
+questionbank.html       Desktop question bank browser (legacy; PWA is the mobile version)
+revision.html           Revision / flashcard view
+syllabus.html           Syllabus reference page
 
+css/reset.css           Base reset
 css/variables.css       All CSS custom properties (colours, spacing, layout)
 css/exam.css            Full CBT layout (grid, palette, status colours, timer)
+css/home.css            Home page styles
+css/instructions.css    Instructions page styles
+css/result.css          Result page styles
+css/common.css          Shared styles
 
 js/state.js             ExamState singleton — all session logic lives here
 js/timer.js             ExamTimer — drift-resistant countdown
@@ -59,41 +74,282 @@ js/exam.js              Main CBT controller — wires everything together
 js/home.js              Loads manifest.json, renders exam cards
 js/instructions.js      Checkbox gate, fresh session init
 js/result.js            Reads localStorage result, renders review
+js/questionbank.js      Desktop question bank logic
+js/revision.js          Revision page logic
+js/explanation.js       AI explanation panel (shared by QB pages)
+js/firebase-ai.js       Firebase/Gemini AI integration
+js/firebase-config.js   Firebase credentials (gitignored — use .example as template)
 
-exams/manifest.json     Index of all available exam papers
-exams/*.json            Individual exam papers (one file per test)
-exams/qb_index.json     Pre-built flat question index (all real-paper Qs, deduped) — used by the PWA for fast cold start; regenerated by scripts/build_qb_index.py (also called at end of build_exam.py)
+assets/pwa-icon.svg     PWA icon (SVG)
+assets/pwa-icon-180.png PWA icon (180×180 PNG for iOS)
+assets/syllabus/        Syllabus reference images
 
-qb_pwa.html             Mobile PWA — installable question-bank browser for iOS + Android
+qb_pwa.html             ★ PRIMARY — Mobile PWA question-bank browser
 qb_pwa_manifest.json    Web App Manifest for the PWA
-qb_pwa_sw.js            Service Worker — cache-first images, network-first JSON, SW shell
-assets/pwa-icon.svg     PWA icon (SVG, scalable — stacked TET/Suite wordmark on navy)
-assets/pwa-icon-180.png PWA icon (180×180 PNG for iOS apple-touch-icon)
+qb_pwa_sw.js            Service Worker — cache-first images, network-first JSON
 
-scripts/build_exam.py   Assemble exam JSON from raw section files
-scripts/build_qb_index.py  Flatten all Real Paper exam JSONs into exams/qb_index.json
+exams/manifest.json     Index of all available exam papers (read by home.js and build scripts)
+exams/qb_index.json     ★ Flat question index for PWA cold start — generated by build_qb_index.py
+exams/real-*.json       Real CTET exam papers (21 papers, 150 Qs each = 3150 Qs total)
+exams/paper2-*.json     Assembled mock tests (from _raw text files)
+exams/_raw/             Raw text source for mock tests (input to build_exam.py)
 
-.claude/commands/create-mock-test.md   Skill for generating new exam JSONs
+question_bank/          ★ Master source of truth for all real-paper questions
+question_bank/CDP/      30 Qs × 21 papers = 630 question folders
+question_bank/English/  30 Qs × 21 papers = 630 question folders
+question_bank/Mathematics/ 30 Qs × 21 papers = 630 question folders
+question_bank/Science/  30 Qs × 21 papers = 630 question folders
+question_bank/Telugu/   30 Qs × 21 papers = 630 question folders
+question_bank/questions.json  ★ Structured index of all questions (keyed by subject)
+question_bank/index.csv       Flat CSV index (Windows absolute paths — not used by web app)
+
+scripts/build_real_exams.py  ★ Regenerate ALL real-paper exam JSONs from questions.json → run after every coworker sync
+scripts/build_qb_index.py   Flatten real-paper exam JSONs → exams/qb_index.json (called by build_real_exams.py)
+scripts/build_exam.py        Assemble mock-test JSON from _raw text files → exams/<id>.json
+
+worker/wrangler.toml        Cloudflare Worker config — binds to R2 bucket tet-questionbank-explanations
+worker/src/index.js         Worker code — explanation GET/POST/PATCH/DELETE API
+worker/package.json         wrangler as dev dependency (npm install + npx wrangler deploy to redeploy)
+
+js/r2-explanations.js       R2 client module — fetch/save/rate, localStorage cache, exposes window.R2Explanations
+
+.claude/commands/create-mock-test.md   Skill for generating new mock test JSONs
 ```
 
 ---
 
-## PWA — Question Bank mobile app
+## question_bank — structure and data pipeline
 
-`qb_pwa.html` is an installable standalone PWA targeting **iOS and Android**.
-It surfaces the full question bank (2500+ questions from all real exam papers)
-one question per screen with AI-explain, mark-understood / mark-for-revision
-FABs, and offline capability via the service worker.
+### Folder layout
 
-Key behaviours:
-- **Cold start**: fetches `exams/qb_index.json` (one HTTP request) instead of
-  17 individual exam JSONs. Falls back to per-exam walk if the index is absent.
-- **Warm start**: serves the merged question array from `localStorage` key
-  `qb_index_cache_v1` and revalidates silently in the background.
-- **Images**: only the current question's `<img src>` is set; adjacent
-  questions are prefetched once the current render completes.
-- **`exams/qb_index.json`** must be regenerated whenever a new exam is added
-  (`python3 scripts/build_qb_index.py`). `build_exam.py` does this automatically.
+Each question lives in its own folder:
+```
+question_bank/<Subject>/<paper_id>_Q<NNN>_<q_id>/
+    question.png      Question image (cropped from original exam PDF)
+    option1.png       Option A image
+    option2.png       Option B image
+    option3.png       Option C image
+    option4.png       Option D image
+    metadata.json     Question metadata (see schema below)
+```
+
+Subject folder names: `CDP`, `English`, `Mathematics`, `Science`, `Telugu`
+
+`metadata.json` schema:
+```json
+{
+  "q_num": 1,
+  "q_id": "8657994132",
+  "subject": "CDP",
+  "correct_answer": 2,       // 1-indexed (1=A, 2=B, 3=C, 4=D)
+  "paper_id": "2026-Jan-03-Shift1",
+  "year": "2026",
+  "month": "Jan",
+  "day": "03",
+  "shift": "1",
+  "date": "03 Jan 2026",
+  "is_comprehension": false
+}
+```
+
+### Root-level index files
+
+**`question_bank/questions.json`** — the structured master index, keyed by subject:
+```json
+{
+  "CDP": [ { "q_num": 1, "q_id": "...", "subject": "CDP", "paper": "2024-May-20-Shift1",
+             "correct_answer": 3, "options_in_question_image": false,
+             "question": "question_bank/CDP/.../question.png",
+             "options": ["question_bank/CDP/.../option1.png", ...] }, ... ],
+  "English": [...],
+  "Mathematics": [...],
+  "Science": [...],
+  "Telugu": [...]
+}
+```
+Image paths in this file are **relative to the repo root** — directly usable by the web app.
+
+**`question_bank/index.csv`** — flat CSV with one row per question. Image paths here are **Windows absolute paths** (sourced from the coworker's machine) and are **not usable** by the web app. Use `questions.json` instead.
+
+### Current coverage
+
+21 real CTET papers × 5 subjects × 30 questions = **3,150 questions total**
+
+Papers covered:
+- 2024 May: Shift1/2 on 20th, 21st, 22nd (6 papers)
+- 2025 Jan: 5-Shift2, 11-Shift2, 19-Shift1/2, 20-Shift1/2 (6 papers)
+- 2025 Jun: 18-Shift1/2, 19-Shift1/2, 24-Shift1 (5 papers)
+- 2026 Jan: 03-Shift1/2, 04-Shift1/2 (4 papers)
+
+---
+
+## Build pipeline — what to run and when
+
+### When new question_bank data arrives from the coworker
+
+The coworker provides updated data at:
+`C:\Users\ymano\Universe\coworker\TET Preparation\question_bank\`
+(WSL path: `/mnt/c/Users/ymano/Universe/coworker/TET Preparation/question_bank/`)
+
+**Step 1 — Sync the question_bank folder**
+```bash
+rsync -av --delete \
+  "/mnt/c/Users/ymano/Universe/coworker/TET Preparation/question_bank/" \
+  /home/yadman/mock-tet/question_bank/
+```
+This syncs images, metadata.json files, and updates `questions.json` and `index.csv`.
+
+**Step 2 — Regenerate ALL real-paper exam JSONs from `questions.json`**
+
+Always regenerate all of them — not just new papers. `questions.json` is the sole source of truth for `correctAnswer`. If the coworker corrects any answers in a future sync, the old exam JSONs will silently diverge unless regenerated. Run `scripts/build_real_exams.py` (see below):
+
+```bash
+python3 scripts/build_real_exams.py
+```
+
+This script reads every paper from `questions.json`, writes `exams/real-<paper_id>.json` for all of them, and updates `exams/manifest.json`. Section order is always: **CDP → Telugu → English → Mathematics → Science** (globalIndex 0–29, 30–59, 60–89, 90–119, 120–149).
+
+**Step 2b — Verify no answer mismatches (optional sanity check)**
+```bash
+python3 -c "
+import json, pathlib
+qb = json.load(open('question_bank/questions.json'))
+truth = {q['q_id']: q['correct_answer'] for qs in qb.values() for q in qs}
+bad = 0
+for p in pathlib.Path('exams').glob('real-*.json'):
+    for q in json.loads(p.read_text()).get('questions', []):
+        qid = q.get('questionImage','').split('/')[2].split('_')[-1]
+        if qid in truth and str(truth[qid]) != str(q.get('correctAnswer','')):
+            print(p.name, qid, 'expected', truth[qid], 'got', q['correctAnswer']); bad += 1
+print('Mismatches:', bad)
+"
+```
+
+**Step 3 — Rebuild the PWA question index**
+```bash
+python3 scripts/build_qb_index.py
+```
+Reads all `"type": "Real Paper"` entries from `exams/manifest.json`, dedupes on `questionImage`, writes `exams/qb_index.json`.
+
+> **Important**: `build_qb_index.py` filters on `e.get("type") == "Real Paper"` — make sure all real-paper manifest entries use the `type` field (not `style`).
+
+### When adding a new mock test (text-based, not image-based)
+
+Uses a separate pipeline that does NOT touch `question_bank/`:
+
+1. Create `exams/_raw/<exam-id>/meta.txt` and one `.txt` per section (cdp/english/telugu/math/science)
+2. Run `python3 scripts/build_exam.py <exam-id>`
+   - Reads `exams/_raw/<exam-id>/*.txt`
+   - Writes `exams/<exam-id>.json`
+   - Updates `exams/manifest.json`
+   - Automatically calls `build_qb_index.py` at the end (but only real papers get indexed)
+3. Or just use the `/create-mock-test` skill which handles the whole flow.
+
+### Local development server
+```bash
+python3 -m http.server 8080
+```
+Then open `http://localhost:8080/qb_pwa.html` for the PWA.
+Hard-refresh (`Ctrl+Shift+R`) or enable "Update on reload" in DevTools → Service Workers to pick up updated JSON files.
+
+---
+
+## PWA — QB app key behaviours
+
+`qb_pwa.html` is an installable standalone PWA targeting iOS and Android.
+
+- **Cold start**: fetches `exams/qb_index.json` (one request, ~1.75 MB) instead of 21 individual exam JSONs
+- **Warm start**: serves from `localStorage` key `qb_index_cache_v1`, revalidates in background
+- **Images**: only the current question's `<img src>` is set; adjacent questions are prefetched after render
+- **Offline**: service worker (`qb_pwa_sw.js`) — cache-first for images, network-first for JSON, SW shell cached on install
+
+---
+
+## R2 explanation persistence
+
+AI-generated explanations are saved to Cloudflare R2 bucket `tet-questionbank-explanations` via a Cloudflare Worker proxy.
+
+### Architecture
+
+```
+qb_pwa.html  →  js/r2-explanations.js  →  Cloudflare Worker  →  R2 bucket
+```
+
+- **Worker code**: `worker/src/index.js` — deployed separately from the static site
+- **Worker URL**: `https://tet-qb-worker.y-manojkrishna.workers.dev`
+- **Auth**: Bearer token stored as Cloudflare secret (`AUTH_TOKEN`) — never in git. Also in `js/firebase-config.js` as `workerAuthToken` (gitignored).
+- **Client module**: `js/r2-explanations.js` — exposes `window.R2Explanations`
+
+### R2 object key format
+
+```
+explanations/<Subject>/<question_folder>.json
+```
+e.g. `explanations/CDP/2026-Jan-03-Shift1_Q001_8657994132.json`
+
+Subject is the capitalised folder name: `CDP`, `English`, `Mathematics`, `Science`, `Telugu`.
+
+### Per-question JSON schema (schemaVersion 1.0)
+
+```json
+{
+  "schemaVersion": "1.0",
+  "questionId": "2026-Jan-03-Shift1_Q001_8657994132",
+  "subject": "CDP",
+  "explanations": [
+    {
+      "id": "<uuid>",
+      "html": "<div>...</div>",
+      "model": "gemini-2.5-flash",
+      "generatedAt": "2026-05-27T10:00:00Z",
+      "likes": 0,
+      "dislikes": 0
+    }
+  ]
+}
+```
+
+Multiple explanations per question are kept (one per "Regenerate"). Best explanation shown = highest net score (likes − dislikes), then most recent.
+
+### Worker API endpoints
+
+| Method | Path | Auth | Purpose |
+|---|---|---|---|
+| GET | `/explanations/:subject/:folder` | none | Fetch all explanations |
+| POST | `/explanations/:subject/:folder` | Bearer | Save new explanation |
+| PATCH | `/explanations/:subject/:folder/:expId` | Bearer | Update likes/dislikes (`action`: like/unlike/dislike/undislike) |
+| DELETE | `/explanations/:subject/:folder/:expId` | Bearer | Remove one explanation |
+
+### Deploying the Worker
+
+```bash
+cd worker
+npm install          # install wrangler locally
+npx wrangler login   # one-time browser auth
+npx wrangler secret put AUTH_TOKEN   # set the bearer token secret
+npx wrangler deploy  # deploy — prints the worker URL
+```
+
+**Re-deploy after any change to `worker/src/index.js`** — `git push` only updates the static site, not the Worker.
+
+### localStorage keys used by r2-explanations.js
+
+- `r2_exp:<folder>` — cached R2 doc (full explanations array) per question
+- `r2_vote:<folder>` — user's current vote `{expId, vote: 'liked'|null}` per question
+
+### firebase-config.js fields required
+
+```js
+workerUrl:       "https://tet-qb-worker.y-manojkrishna.workers.dev",
+workerAuthToken: "<same value set via wrangler secret put AUTH_TOKEN>",
+```
+
+### PWA explanation load order
+
+1. `localStorage` (`ai_exp_persist:<folder>`) — instant, set by `ExplanationModal.setAiCache`
+2. R2 via Worker (~100ms) — fetches best-rated explanation, populates localStorage
+3. `metadata.json` fallback — legacy, never has useful data in practice
+4. "No explanation yet" message
 
 ---
 
@@ -109,36 +365,28 @@ Key behaviours:
 
 ---
 
-## Exam JSON naming convention
+## Exam JSON naming conventions
 
-Pattern: `<paper>-<subjects>-<nn>.json`
+Real papers: `real-<YYYY>-<Mon>-<DD>-<ShiftN>.json`
+Mock tests: `paper2-<subjects>-<nn>.json`
 
 Examples:
-- `paper2-math-sci-01.json` — CTET Paper 2 full (Math+Science stream)
-- `paper2-mini-cdp-math-01.json` — Mini-test: CDP + Maths only
-- `paper2-mini-sci-01.json` — Mini-test: Science only
+- `real-2026-Jan-03-Shift1.json` — CTET Jan 2026 paper
+- `paper2-full-01.json` — Full 150Q mock test
+- `paper2-mini-telugu-01.json` — Mini-test: Telugu section only
 
 ---
 
-## Task backlog — future features
-
-These are planned but NOT currently implemented. Do not start any of these without explicit user instruction.
+## Task backlog — future features (do not start without instruction)
 
 ### 1. Result persistence with multiple attempts (Priority: High)
-- Store each attempt result in browser cookies (or localStorage) keyed by `examId + timestamp`
-- Show multiple attempt history on the exam card in `index.html` — e.g., "3 attempts: 82%, 91%, 88%"
-- Show trend (improving / declining) with a small sparkline or colour indicator
-- Allow viewing past result detail pages (store full `score.details` per attempt)
+- Store each attempt in localStorage keyed by `examId + timestamp`
+- Show attempt history and trend on exam cards in `index.html`
 
 ### 2. User login / authentication (Priority: Medium)
-- Add a lightweight auth layer (Firebase Auth or Supabase are good free-tier options)
-- Login with Google OAuth (single sign-on, no password management)
-- Associate all attempts and results with the logged-in user
-- Allow access to personal dashboard showing all exams taken, scores, time trends
+- Firebase Auth with Google OAuth
+- Associate attempts and results with logged-in user
 
 ### 3. Paid tests / monetisation (Priority: Low — after login)
-- Integrate Razorpay (India-native, supports UPI / cards / net banking)
-- Charge ₹10 per test access (or ₹49/month unlimited)
-- Gate `exam.html` behind a payment check: if exam is `paid: true` in manifest and user has no purchase record, redirect to payment
-- Webhook from Razorpay to update user's purchase record
-- Consider: first 1–2 tests free, paid for additional attempts or advanced papers
+- Razorpay integration (UPI / cards / net banking)
+- Gate paid exams behind purchase check in `exam.html`

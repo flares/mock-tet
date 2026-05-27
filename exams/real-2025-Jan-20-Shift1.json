@@ -1,1 +1,2309 @@
-{"id":"real-2025-Jan-20-Shift1","title":"20 Jan 2025 \u2014 Shift 1","type":"Real Paper","conductingBody":"CTET","duration":150,"totalMarks":150,"totalQuestions":150,"negativeMarking":false,"marksPerQuestion":1,"instructions":["This is a 150-question paper with 5 sections (30 questions each).","Each question carries 1 mark. There is no negative marking.","Questions are displayed as images from the original exam paper.","Use the question palette on the right to navigate between questions.","Mark questions for review using the 'Mark & Next' button.","You can change your answer at any time before submitting.","The timer will auto-submit when time expires."],"sections":[{"id":"cdp","name":"Child Development & Pedagogy","shortName":"CDP","questionCount":30,"startIndex":0},{"id":"telugu","name":"Telugu","shortName":"Telugu","questionCount":30,"startIndex":30},{"id":"english","name":"English","shortName":"English","questionCount":30,"startIndex":60},{"id":"mathematics","name":"Mathematics","shortName":"Math","questionCount":30,"startIndex":90},{"id":"science","name":"Science","shortName":"Science","questionCount":30,"startIndex":120}],"questions":[{"id":"q1","sectionId":"cdp","globalIndex":0,"questionType":"image","questionImage":"question_bank/CDP/2025-Jan-20-Shift1_Q001_7760486265/question.png","optionImages":["question_bank/CDP/2025-Jan-20-Shift1_Q001_7760486265/option1.png","question_bank/CDP/2025-Jan-20-Shift1_Q001_7760486265/option2.png","question_bank/CDP/2025-Jan-20-Shift1_Q001_7760486265/option3.png","question_bank/CDP/2025-Jan-20-Shift1_Q001_7760486265/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q2","sectionId":"cdp","globalIndex":1,"questionType":"image","questionImage":"question_bank/CDP/2025-Jan-20-Shift1_Q002_7760486266/question.png","optionImages":["question_bank/CDP/2025-Jan-20-Shift1_Q002_7760486266/option1.png","question_bank/CDP/2025-Jan-20-Shift1_Q002_7760486266/option2.png","question_bank/CDP/2025-Jan-20-Shift1_Q002_7760486266/option3.png","question_bank/CDP/2025-Jan-20-Shift1_Q002_7760486266/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q3","sectionId":"cdp","globalIndex":2,"questionType":"image","questionImage":"question_bank/CDP/2025-Jan-20-Shift1_Q003_7760486267/question.png","optionImages":["question_bank/CDP/2025-Jan-20-Shift1_Q003_7760486267/option1.png","question_bank/CDP/2025-Jan-20-Shift1_Q003_7760486267/option2.png","question_bank/CDP/2025-Jan-20-Shift1_Q003_7760486267/option3.png","question_bank/CDP/2025-Jan-20-Shift1_Q003_7760486267/option4.png"],"optionsInQuestion":false,"correctAnswer":"1"},{"id":"q4","sectionId":"cdp","globalIndex":3,"questionType":"image","questionImage":"question_bank/CDP/2025-Jan-20-Shift1_Q004_7760486268/question.png","optionImages":["question_bank/CDP/2025-Jan-20-Shift1_Q004_7760486268/option1.png","question_bank/CDP/2025-Jan-20-Shift1_Q004_7760486268/option2.png","question_bank/CDP/2025-Jan-20-Shift1_Q004_7760486268/option3.png","question_bank/CDP/2025-Jan-20-Shift1_Q004_7760486268/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q5","sectionId":"cdp","globalIndex":4,"questionType":"image","questionImage":"question_bank/CDP/2025-Jan-20-Shift1_Q005_7760486269/question.png","optionImages":["question_bank/CDP/2025-Jan-20-Shift1_Q005_7760486269/option1.png","question_bank/CDP/2025-Jan-20-Shift1_Q005_7760486269/option2.png","question_bank/CDP/2025-Jan-20-Shift1_Q005_7760486269/option3.png","question_bank/CDP/2025-Jan-20-Shift1_Q005_7760486269/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q6","sectionId":"cdp","globalIndex":5,"questionType":"image","questionImage":"question_bank/CDP/2025-Jan-20-Shift1_Q006_7760486270/question.png","optionImages":["question_bank/CDP/2025-Jan-20-Shift1_Q006_7760486270/option1.png","question_bank/CDP/2025-Jan-20-Shift1_Q006_7760486270/option2.png","question_bank/CDP/2025-Jan-20-Shift1_Q006_7760486270/option3.png","question_bank/CDP/2025-Jan-20-Shift1_Q006_7760486270/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q7","sectionId":"cdp","globalIndex":6,"questionType":"image","questionImage":"question_bank/CDP/2025-Jan-20-Shift1_Q007_7760486271/question.png","optionImages":["question_bank/CDP/2025-Jan-20-Shift1_Q007_7760486271/option1.png","question_bank/CDP/2025-Jan-20-Shift1_Q007_7760486271/option2.png","question_bank/CDP/2025-Jan-20-Shift1_Q007_7760486271/option3.png","question_bank/CDP/2025-Jan-20-Shift1_Q007_7760486271/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q8","sectionId":"cdp","globalIndex":7,"questionType":"image","questionImage":"question_bank/CDP/2025-Jan-20-Shift1_Q008_7760486272/question.png","optionImages":["question_bank/CDP/2025-Jan-20-Shift1_Q008_7760486272/option1.png","question_bank/CDP/2025-Jan-20-Shift1_Q008_7760486272/option2.png","question_bank/CDP/2025-Jan-20-Shift1_Q008_7760486272/option3.png","question_bank/CDP/2025-Jan-20-Shift1_Q008_7760486272/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q9","sectionId":"cdp","globalIndex":8,"questionType":"image","questionImage":"question_bank/CDP/2025-Jan-20-Shift1_Q009_7760486273/question.png","optionImages":["question_bank/CDP/2025-Jan-20-Shift1_Q009_7760486273/option1.png","question_bank/CDP/2025-Jan-20-Shift1_Q009_7760486273/option2.png","question_bank/CDP/2025-Jan-20-Shift1_Q009_7760486273/option3.png","question_bank/CDP/2025-Jan-20-Shift1_Q009_7760486273/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q10","sectionId":"cdp","globalIndex":9,"questionType":"image","questionImage":"question_bank/CDP/2025-Jan-20-Shift1_Q010_7760486274/question.png","optionImages":["question_bank/CDP/2025-Jan-20-Shift1_Q010_7760486274/option1.png","question_bank/CDP/2025-Jan-20-Shift1_Q010_7760486274/option2.png","question_bank/CDP/2025-Jan-20-Shift1_Q010_7760486274/option3.png","question_bank/CDP/2025-Jan-20-Shift1_Q010_7760486274/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q11","sectionId":"cdp","globalIndex":10,"questionType":"image","questionImage":"question_bank/CDP/2025-Jan-20-Shift1_Q011_7760486275/question.png","optionImages":["question_bank/CDP/2025-Jan-20-Shift1_Q011_7760486275/option1.png","question_bank/CDP/2025-Jan-20-Shift1_Q011_7760486275/option2.png","question_bank/CDP/2025-Jan-20-Shift1_Q011_7760486275/option3.png","question_bank/CDP/2025-Jan-20-Shift1_Q011_7760486275/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q12","sectionId":"cdp","globalIndex":11,"questionType":"image","questionImage":"question_bank/CDP/2025-Jan-20-Shift1_Q012_7760486276/question.png","optionImages":["question_bank/CDP/2025-Jan-20-Shift1_Q012_7760486276/option1.png","question_bank/CDP/2025-Jan-20-Shift1_Q012_7760486276/option2.png","question_bank/CDP/2025-Jan-20-Shift1_Q012_7760486276/option3.png","question_bank/CDP/2025-Jan-20-Shift1_Q012_7760486276/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q13","sectionId":"cdp","globalIndex":12,"questionType":"image","questionImage":"question_bank/CDP/2025-Jan-20-Shift1_Q013_7760486277/question.png","optionImages":["question_bank/CDP/2025-Jan-20-Shift1_Q013_7760486277/option1.png","question_bank/CDP/2025-Jan-20-Shift1_Q013_7760486277/option2.png","question_bank/CDP/2025-Jan-20-Shift1_Q013_7760486277/option3.png","question_bank/CDP/2025-Jan-20-Shift1_Q013_7760486277/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q14","sectionId":"cdp","globalIndex":13,"questionType":"image","questionImage":"question_bank/CDP/2025-Jan-20-Shift1_Q014_7760486278/question.png","optionImages":["question_bank/CDP/2025-Jan-20-Shift1_Q014_7760486278/option1.png","question_bank/CDP/2025-Jan-20-Shift1_Q014_7760486278/option2.png","question_bank/CDP/2025-Jan-20-Shift1_Q014_7760486278/option3.png","question_bank/CDP/2025-Jan-20-Shift1_Q014_7760486278/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q15","sectionId":"cdp","globalIndex":14,"questionType":"image","questionImage":"question_bank/CDP/2025-Jan-20-Shift1_Q015_7760486279/question.png","optionImages":["question_bank/CDP/2025-Jan-20-Shift1_Q015_7760486279/option1.png","question_bank/CDP/2025-Jan-20-Shift1_Q015_7760486279/option2.png","question_bank/CDP/2025-Jan-20-Shift1_Q015_7760486279/option3.png","question_bank/CDP/2025-Jan-20-Shift1_Q015_7760486279/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q16","sectionId":"cdp","globalIndex":15,"questionType":"image","questionImage":"question_bank/CDP/2025-Jan-20-Shift1_Q016_7760486280/question.png","optionImages":["question_bank/CDP/2025-Jan-20-Shift1_Q016_7760486280/option1.png","question_bank/CDP/2025-Jan-20-Shift1_Q016_7760486280/option2.png","question_bank/CDP/2025-Jan-20-Shift1_Q016_7760486280/option3.png","question_bank/CDP/2025-Jan-20-Shift1_Q016_7760486280/option4.png"],"optionsInQuestion":false,"correctAnswer":"1"},{"id":"q17","sectionId":"cdp","globalIndex":16,"questionType":"image","questionImage":"question_bank/CDP/2025-Jan-20-Shift1_Q017_7760486281/question.png","optionImages":["question_bank/CDP/2025-Jan-20-Shift1_Q017_7760486281/option1.png","question_bank/CDP/2025-Jan-20-Shift1_Q017_7760486281/option2.png","question_bank/CDP/2025-Jan-20-Shift1_Q017_7760486281/option3.png","question_bank/CDP/2025-Jan-20-Shift1_Q017_7760486281/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q18","sectionId":"cdp","globalIndex":17,"questionType":"image","questionImage":"question_bank/CDP/2025-Jan-20-Shift1_Q018_7760486282/question.png","optionImages":["question_bank/CDP/2025-Jan-20-Shift1_Q018_7760486282/option1.png","question_bank/CDP/2025-Jan-20-Shift1_Q018_7760486282/option2.png","question_bank/CDP/2025-Jan-20-Shift1_Q018_7760486282/option3.png","question_bank/CDP/2025-Jan-20-Shift1_Q018_7760486282/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q19","sectionId":"cdp","globalIndex":18,"questionType":"image","questionImage":"question_bank/CDP/2025-Jan-20-Shift1_Q019_7760486283/question.png","optionImages":["question_bank/CDP/2025-Jan-20-Shift1_Q019_7760486283/option1.png","question_bank/CDP/2025-Jan-20-Shift1_Q019_7760486283/option2.png","question_bank/CDP/2025-Jan-20-Shift1_Q019_7760486283/option3.png","question_bank/CDP/2025-Jan-20-Shift1_Q019_7760486283/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q20","sectionId":"cdp","globalIndex":19,"questionType":"image","questionImage":"question_bank/CDP/2025-Jan-20-Shift1_Q020_7760486284/question.png","optionImages":["question_bank/CDP/2025-Jan-20-Shift1_Q020_7760486284/option1.png","question_bank/CDP/2025-Jan-20-Shift1_Q020_7760486284/option2.png","question_bank/CDP/2025-Jan-20-Shift1_Q020_7760486284/option3.png","question_bank/CDP/2025-Jan-20-Shift1_Q020_7760486284/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q21","sectionId":"cdp","globalIndex":20,"questionType":"image","questionImage":"question_bank/CDP/2025-Jan-20-Shift1_Q021_7760486285/question.png","optionImages":["question_bank/CDP/2025-Jan-20-Shift1_Q021_7760486285/option1.png","question_bank/CDP/2025-Jan-20-Shift1_Q021_7760486285/option2.png","question_bank/CDP/2025-Jan-20-Shift1_Q021_7760486285/option3.png","question_bank/CDP/2025-Jan-20-Shift1_Q021_7760486285/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q22","sectionId":"cdp","globalIndex":21,"questionType":"image","questionImage":"question_bank/CDP/2025-Jan-20-Shift1_Q022_7760486286/question.png","optionImages":["question_bank/CDP/2025-Jan-20-Shift1_Q022_7760486286/option1.png","question_bank/CDP/2025-Jan-20-Shift1_Q022_7760486286/option2.png","question_bank/CDP/2025-Jan-20-Shift1_Q022_7760486286/option3.png","question_bank/CDP/2025-Jan-20-Shift1_Q022_7760486286/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q23","sectionId":"cdp","globalIndex":22,"questionType":"image","questionImage":"question_bank/CDP/2025-Jan-20-Shift1_Q023_7760486287/question.png","optionImages":["question_bank/CDP/2025-Jan-20-Shift1_Q023_7760486287/option1.png","question_bank/CDP/2025-Jan-20-Shift1_Q023_7760486287/option2.png","question_bank/CDP/2025-Jan-20-Shift1_Q023_7760486287/option3.png","question_bank/CDP/2025-Jan-20-Shift1_Q023_7760486287/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q24","sectionId":"cdp","globalIndex":23,"questionType":"image","questionImage":"question_bank/CDP/2025-Jan-20-Shift1_Q024_7760486288/question.png","optionImages":["question_bank/CDP/2025-Jan-20-Shift1_Q024_7760486288/option1.png","question_bank/CDP/2025-Jan-20-Shift1_Q024_7760486288/option2.png","question_bank/CDP/2025-Jan-20-Shift1_Q024_7760486288/option3.png","question_bank/CDP/2025-Jan-20-Shift1_Q024_7760486288/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q25","sectionId":"cdp","globalIndex":24,"questionType":"image","questionImage":"question_bank/CDP/2025-Jan-20-Shift1_Q025_7760486289/question.png","optionImages":["question_bank/CDP/2025-Jan-20-Shift1_Q025_7760486289/option1.png","question_bank/CDP/2025-Jan-20-Shift1_Q025_7760486289/option2.png","question_bank/CDP/2025-Jan-20-Shift1_Q025_7760486289/option3.png","question_bank/CDP/2025-Jan-20-Shift1_Q025_7760486289/option4.png"],"optionsInQuestion":false,"correctAnswer":"1"},{"id":"q26","sectionId":"cdp","globalIndex":25,"questionType":"image","questionImage":"question_bank/CDP/2025-Jan-20-Shift1_Q026_7760486290/question.png","optionImages":["question_bank/CDP/2025-Jan-20-Shift1_Q026_7760486290/option1.png","question_bank/CDP/2025-Jan-20-Shift1_Q026_7760486290/option2.png","question_bank/CDP/2025-Jan-20-Shift1_Q026_7760486290/option3.png","question_bank/CDP/2025-Jan-20-Shift1_Q026_7760486290/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q27","sectionId":"cdp","globalIndex":26,"questionType":"image","questionImage":"question_bank/CDP/2025-Jan-20-Shift1_Q027_7760486291/question.png","optionImages":["question_bank/CDP/2025-Jan-20-Shift1_Q027_7760486291/option1.png","question_bank/CDP/2025-Jan-20-Shift1_Q027_7760486291/option2.png","question_bank/CDP/2025-Jan-20-Shift1_Q027_7760486291/option3.png","question_bank/CDP/2025-Jan-20-Shift1_Q027_7760486291/option4.png"],"optionsInQuestion":false,"correctAnswer":"1"},{"id":"q28","sectionId":"cdp","globalIndex":27,"questionType":"image","questionImage":"question_bank/CDP/2025-Jan-20-Shift1_Q028_7760486292/question.png","optionImages":["question_bank/CDP/2025-Jan-20-Shift1_Q028_7760486292/option1.png","question_bank/CDP/2025-Jan-20-Shift1_Q028_7760486292/option2.png","question_bank/CDP/2025-Jan-20-Shift1_Q028_7760486292/option3.png","question_bank/CDP/2025-Jan-20-Shift1_Q028_7760486292/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q29","sectionId":"cdp","globalIndex":28,"questionType":"image","questionImage":"question_bank/CDP/2025-Jan-20-Shift1_Q029_7760486293/question.png","optionImages":["question_bank/CDP/2025-Jan-20-Shift1_Q029_7760486293/option1.png","question_bank/CDP/2025-Jan-20-Shift1_Q029_7760486293/option2.png","question_bank/CDP/2025-Jan-20-Shift1_Q029_7760486293/option3.png","question_bank/CDP/2025-Jan-20-Shift1_Q029_7760486293/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q30","sectionId":"cdp","globalIndex":29,"questionType":"image","questionImage":"question_bank/CDP/2025-Jan-20-Shift1_Q030_7760486294/question.png","optionImages":["question_bank/CDP/2025-Jan-20-Shift1_Q030_7760486294/option1.png","question_bank/CDP/2025-Jan-20-Shift1_Q030_7760486294/option2.png","question_bank/CDP/2025-Jan-20-Shift1_Q030_7760486294/option3.png","question_bank/CDP/2025-Jan-20-Shift1_Q030_7760486294/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q31","sectionId":"telugu","globalIndex":30,"questionType":"image","questionImage":"question_bank/Telugu/2025-Jan-20-Shift1_Q031_7760486296/question.png","optionImages":["question_bank/Telugu/2025-Jan-20-Shift1_Q031_7760486296/option1.png","question_bank/Telugu/2025-Jan-20-Shift1_Q031_7760486296/option2.png","question_bank/Telugu/2025-Jan-20-Shift1_Q031_7760486296/option3.png","question_bank/Telugu/2025-Jan-20-Shift1_Q031_7760486296/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q32","sectionId":"telugu","globalIndex":31,"questionType":"image","questionImage":"question_bank/Telugu/2025-Jan-20-Shift1_Q032_7760486297/question.png","optionImages":["question_bank/Telugu/2025-Jan-20-Shift1_Q032_7760486297/option1.png","question_bank/Telugu/2025-Jan-20-Shift1_Q032_7760486297/option2.png","question_bank/Telugu/2025-Jan-20-Shift1_Q032_7760486297/option3.png","question_bank/Telugu/2025-Jan-20-Shift1_Q032_7760486297/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q33","sectionId":"telugu","globalIndex":32,"questionType":"image","questionImage":"question_bank/Telugu/2025-Jan-20-Shift1_Q033_7760486298/question.png","optionImages":["question_bank/Telugu/2025-Jan-20-Shift1_Q033_7760486298/option1.png","question_bank/Telugu/2025-Jan-20-Shift1_Q033_7760486298/option2.png","question_bank/Telugu/2025-Jan-20-Shift1_Q033_7760486298/option3.png","question_bank/Telugu/2025-Jan-20-Shift1_Q033_7760486298/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q34","sectionId":"telugu","globalIndex":33,"questionType":"image","questionImage":"question_bank/Telugu/2025-Jan-20-Shift1_Q034_7760486299/question.png","optionImages":["question_bank/Telugu/2025-Jan-20-Shift1_Q034_7760486299/option1.png","question_bank/Telugu/2025-Jan-20-Shift1_Q034_7760486299/option2.png","question_bank/Telugu/2025-Jan-20-Shift1_Q034_7760486299/option3.png","question_bank/Telugu/2025-Jan-20-Shift1_Q034_7760486299/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q35","sectionId":"telugu","globalIndex":34,"questionType":"image","questionImage":"question_bank/Telugu/2025-Jan-20-Shift1_Q035_7760486301/question.png","optionImages":["question_bank/Telugu/2025-Jan-20-Shift1_Q035_7760486301/option1.png","question_bank/Telugu/2025-Jan-20-Shift1_Q035_7760486301/option2.png","question_bank/Telugu/2025-Jan-20-Shift1_Q035_7760486301/option3.png","question_bank/Telugu/2025-Jan-20-Shift1_Q035_7760486301/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q36","sectionId":"telugu","globalIndex":35,"questionType":"image","questionImage":"question_bank/Telugu/2025-Jan-20-Shift1_Q036_7760486302/question.png","optionImages":["question_bank/Telugu/2025-Jan-20-Shift1_Q036_7760486302/option1.png","question_bank/Telugu/2025-Jan-20-Shift1_Q036_7760486302/option2.png","question_bank/Telugu/2025-Jan-20-Shift1_Q036_7760486302/option3.png","question_bank/Telugu/2025-Jan-20-Shift1_Q036_7760486302/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q37","sectionId":"telugu","globalIndex":36,"questionType":"image","questionImage":"question_bank/Telugu/2025-Jan-20-Shift1_Q037_7760486303/question.png","optionImages":["question_bank/Telugu/2025-Jan-20-Shift1_Q037_7760486303/option1.png","question_bank/Telugu/2025-Jan-20-Shift1_Q037_7760486303/option2.png","question_bank/Telugu/2025-Jan-20-Shift1_Q037_7760486303/option3.png","question_bank/Telugu/2025-Jan-20-Shift1_Q037_7760486303/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q38","sectionId":"telugu","globalIndex":37,"questionType":"image","questionImage":"question_bank/Telugu/2025-Jan-20-Shift1_Q038_7760486304/question.png","optionImages":["question_bank/Telugu/2025-Jan-20-Shift1_Q038_7760486304/option1.png","question_bank/Telugu/2025-Jan-20-Shift1_Q038_7760486304/option2.png","question_bank/Telugu/2025-Jan-20-Shift1_Q038_7760486304/option3.png","question_bank/Telugu/2025-Jan-20-Shift1_Q038_7760486304/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q39","sectionId":"telugu","globalIndex":38,"questionType":"image","questionImage":"question_bank/Telugu/2025-Jan-20-Shift1_Q039_7760486305/question.png","optionImages":["question_bank/Telugu/2025-Jan-20-Shift1_Q039_7760486305/option1.png","question_bank/Telugu/2025-Jan-20-Shift1_Q039_7760486305/option2.png","question_bank/Telugu/2025-Jan-20-Shift1_Q039_7760486305/option3.png","question_bank/Telugu/2025-Jan-20-Shift1_Q039_7760486305/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q40","sectionId":"telugu","globalIndex":39,"questionType":"image","questionImage":"question_bank/Telugu/2025-Jan-20-Shift1_Q040_7760486306/question.png","optionImages":["question_bank/Telugu/2025-Jan-20-Shift1_Q040_7760486306/option1.png","question_bank/Telugu/2025-Jan-20-Shift1_Q040_7760486306/option2.png","question_bank/Telugu/2025-Jan-20-Shift1_Q040_7760486306/option3.png","question_bank/Telugu/2025-Jan-20-Shift1_Q040_7760486306/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q41","sectionId":"telugu","globalIndex":40,"questionType":"image","questionImage":"question_bank/Telugu/2025-Jan-20-Shift1_Q041_7760486307/question.png","optionImages":["question_bank/Telugu/2025-Jan-20-Shift1_Q041_7760486307/option1.png","question_bank/Telugu/2025-Jan-20-Shift1_Q041_7760486307/option2.png","question_bank/Telugu/2025-Jan-20-Shift1_Q041_7760486307/option3.png","question_bank/Telugu/2025-Jan-20-Shift1_Q041_7760486307/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q42","sectionId":"telugu","globalIndex":41,"questionType":"image","questionImage":"question_bank/Telugu/2025-Jan-20-Shift1_Q042_7760486308/question.png","optionImages":["question_bank/Telugu/2025-Jan-20-Shift1_Q042_7760486308/option1.png","question_bank/Telugu/2025-Jan-20-Shift1_Q042_7760486308/option2.png","question_bank/Telugu/2025-Jan-20-Shift1_Q042_7760486308/option3.png","question_bank/Telugu/2025-Jan-20-Shift1_Q042_7760486308/option4.png"],"optionsInQuestion":false,"correctAnswer":"1"},{"id":"q43","sectionId":"telugu","globalIndex":42,"questionType":"image","questionImage":"question_bank/Telugu/2025-Jan-20-Shift1_Q043_7760486309/question.png","optionImages":["question_bank/Telugu/2025-Jan-20-Shift1_Q043_7760486309/option1.png","question_bank/Telugu/2025-Jan-20-Shift1_Q043_7760486309/option2.png","question_bank/Telugu/2025-Jan-20-Shift1_Q043_7760486309/option3.png","question_bank/Telugu/2025-Jan-20-Shift1_Q043_7760486309/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q44","sectionId":"telugu","globalIndex":43,"questionType":"image","questionImage":"question_bank/Telugu/2025-Jan-20-Shift1_Q044_7760486310/question.png","optionImages":["question_bank/Telugu/2025-Jan-20-Shift1_Q044_7760486310/option1.png","question_bank/Telugu/2025-Jan-20-Shift1_Q044_7760486310/option2.png","question_bank/Telugu/2025-Jan-20-Shift1_Q044_7760486310/option3.png","question_bank/Telugu/2025-Jan-20-Shift1_Q044_7760486310/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q45","sectionId":"telugu","globalIndex":44,"questionType":"image","questionImage":"question_bank/Telugu/2025-Jan-20-Shift1_Q045_7760486311/question.png","optionImages":["question_bank/Telugu/2025-Jan-20-Shift1_Q045_7760486311/option1.png","question_bank/Telugu/2025-Jan-20-Shift1_Q045_7760486311/option2.png","question_bank/Telugu/2025-Jan-20-Shift1_Q045_7760486311/option3.png","question_bank/Telugu/2025-Jan-20-Shift1_Q045_7760486311/option4.png"],"optionsInQuestion":false,"correctAnswer":"1"},{"id":"q46","sectionId":"telugu","globalIndex":45,"questionType":"image","questionImage":"question_bank/Telugu/2025-Jan-20-Shift1_Q046_7760486312/question.png","optionImages":["question_bank/Telugu/2025-Jan-20-Shift1_Q046_7760486312/option1.png","question_bank/Telugu/2025-Jan-20-Shift1_Q046_7760486312/option2.png","question_bank/Telugu/2025-Jan-20-Shift1_Q046_7760486312/option3.png","question_bank/Telugu/2025-Jan-20-Shift1_Q046_7760486312/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q47","sectionId":"telugu","globalIndex":46,"questionType":"image","questionImage":"question_bank/Telugu/2025-Jan-20-Shift1_Q047_7760486313/question.png","optionImages":["question_bank/Telugu/2025-Jan-20-Shift1_Q047_7760486313/option1.png","question_bank/Telugu/2025-Jan-20-Shift1_Q047_7760486313/option2.png","question_bank/Telugu/2025-Jan-20-Shift1_Q047_7760486313/option3.png","question_bank/Telugu/2025-Jan-20-Shift1_Q047_7760486313/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q48","sectionId":"telugu","globalIndex":47,"questionType":"image","questionImage":"question_bank/Telugu/2025-Jan-20-Shift1_Q048_7760486314/question.png","optionImages":["question_bank/Telugu/2025-Jan-20-Shift1_Q048_7760486314/option1.png","question_bank/Telugu/2025-Jan-20-Shift1_Q048_7760486314/option2.png","question_bank/Telugu/2025-Jan-20-Shift1_Q048_7760486314/option3.png","question_bank/Telugu/2025-Jan-20-Shift1_Q048_7760486314/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q49","sectionId":"telugu","globalIndex":48,"questionType":"image","questionImage":"question_bank/Telugu/2025-Jan-20-Shift1_Q049_7760486315/question.png","optionImages":["question_bank/Telugu/2025-Jan-20-Shift1_Q049_7760486315/option1.png","question_bank/Telugu/2025-Jan-20-Shift1_Q049_7760486315/option2.png","question_bank/Telugu/2025-Jan-20-Shift1_Q049_7760486315/option3.png","question_bank/Telugu/2025-Jan-20-Shift1_Q049_7760486315/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q50","sectionId":"telugu","globalIndex":49,"questionType":"image","questionImage":"question_bank/Telugu/2025-Jan-20-Shift1_Q050_7760486316/question.png","optionImages":["question_bank/Telugu/2025-Jan-20-Shift1_Q050_7760486316/option1.png","question_bank/Telugu/2025-Jan-20-Shift1_Q050_7760486316/option2.png","question_bank/Telugu/2025-Jan-20-Shift1_Q050_7760486316/option3.png","question_bank/Telugu/2025-Jan-20-Shift1_Q050_7760486316/option4.png"],"optionsInQuestion":false,"correctAnswer":"1"},{"id":"q51","sectionId":"telugu","globalIndex":50,"questionType":"image","questionImage":"question_bank/Telugu/2025-Jan-20-Shift1_Q051_7760486317/question.png","optionImages":["question_bank/Telugu/2025-Jan-20-Shift1_Q051_7760486317/option1.png","question_bank/Telugu/2025-Jan-20-Shift1_Q051_7760486317/option2.png","question_bank/Telugu/2025-Jan-20-Shift1_Q051_7760486317/option3.png","question_bank/Telugu/2025-Jan-20-Shift1_Q051_7760486317/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q52","sectionId":"telugu","globalIndex":51,"questionType":"image","questionImage":"question_bank/Telugu/2025-Jan-20-Shift1_Q052_7760486318/question.png","optionImages":["question_bank/Telugu/2025-Jan-20-Shift1_Q052_7760486318/option1.png","question_bank/Telugu/2025-Jan-20-Shift1_Q052_7760486318/option2.png","question_bank/Telugu/2025-Jan-20-Shift1_Q052_7760486318/option3.png","question_bank/Telugu/2025-Jan-20-Shift1_Q052_7760486318/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q53","sectionId":"telugu","globalIndex":52,"questionType":"image","questionImage":"question_bank/Telugu/2025-Jan-20-Shift1_Q053_7760486319/question.png","optionImages":["question_bank/Telugu/2025-Jan-20-Shift1_Q053_7760486319/option1.png","question_bank/Telugu/2025-Jan-20-Shift1_Q053_7760486319/option2.png","question_bank/Telugu/2025-Jan-20-Shift1_Q053_7760486319/option3.png","question_bank/Telugu/2025-Jan-20-Shift1_Q053_7760486319/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q54","sectionId":"telugu","globalIndex":53,"questionType":"image","questionImage":"question_bank/Telugu/2025-Jan-20-Shift1_Q054_7760486320/question.png","optionImages":["question_bank/Telugu/2025-Jan-20-Shift1_Q054_7760486320/option1.png","question_bank/Telugu/2025-Jan-20-Shift1_Q054_7760486320/option2.png","question_bank/Telugu/2025-Jan-20-Shift1_Q054_7760486320/option3.png","question_bank/Telugu/2025-Jan-20-Shift1_Q054_7760486320/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q55","sectionId":"telugu","globalIndex":54,"questionType":"image","questionImage":"question_bank/Telugu/2025-Jan-20-Shift1_Q055_7760486321/question.png","optionImages":["question_bank/Telugu/2025-Jan-20-Shift1_Q055_7760486321/option1.png","question_bank/Telugu/2025-Jan-20-Shift1_Q055_7760486321/option2.png","question_bank/Telugu/2025-Jan-20-Shift1_Q055_7760486321/option3.png","question_bank/Telugu/2025-Jan-20-Shift1_Q055_7760486321/option4.png"],"optionsInQuestion":false,"correctAnswer":"1"},{"id":"q56","sectionId":"telugu","globalIndex":55,"questionType":"image","questionImage":"question_bank/Telugu/2025-Jan-20-Shift1_Q056_7760486322/question.png","optionImages":["question_bank/Telugu/2025-Jan-20-Shift1_Q056_7760486322/option1.png","question_bank/Telugu/2025-Jan-20-Shift1_Q056_7760486322/option2.png","question_bank/Telugu/2025-Jan-20-Shift1_Q056_7760486322/option3.png","question_bank/Telugu/2025-Jan-20-Shift1_Q056_7760486322/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q57","sectionId":"telugu","globalIndex":56,"questionType":"image","questionImage":"question_bank/Telugu/2025-Jan-20-Shift1_Q057_7760486323/question.png","optionImages":["question_bank/Telugu/2025-Jan-20-Shift1_Q057_7760486323/option1.png","question_bank/Telugu/2025-Jan-20-Shift1_Q057_7760486323/option2.png","question_bank/Telugu/2025-Jan-20-Shift1_Q057_7760486323/option3.png","question_bank/Telugu/2025-Jan-20-Shift1_Q057_7760486323/option4.png"],"optionsInQuestion":false,"correctAnswer":"1"},{"id":"q58","sectionId":"telugu","globalIndex":57,"questionType":"image","questionImage":"question_bank/Telugu/2025-Jan-20-Shift1_Q058_7760486324/question.png","optionImages":["question_bank/Telugu/2025-Jan-20-Shift1_Q058_7760486324/option1.png","question_bank/Telugu/2025-Jan-20-Shift1_Q058_7760486324/option2.png","question_bank/Telugu/2025-Jan-20-Shift1_Q058_7760486324/option3.png","question_bank/Telugu/2025-Jan-20-Shift1_Q058_7760486324/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q59","sectionId":"telugu","globalIndex":58,"questionType":"image","questionImage":"question_bank/Telugu/2025-Jan-20-Shift1_Q059_7760486325/question.png","optionImages":["question_bank/Telugu/2025-Jan-20-Shift1_Q059_7760486325/option1.png","question_bank/Telugu/2025-Jan-20-Shift1_Q059_7760486325/option2.png","question_bank/Telugu/2025-Jan-20-Shift1_Q059_7760486325/option3.png","question_bank/Telugu/2025-Jan-20-Shift1_Q059_7760486325/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q60","sectionId":"telugu","globalIndex":59,"questionType":"image","questionImage":"question_bank/Telugu/2025-Jan-20-Shift1_Q060_7760486326/question.png","optionImages":["question_bank/Telugu/2025-Jan-20-Shift1_Q060_7760486326/option1.png","question_bank/Telugu/2025-Jan-20-Shift1_Q060_7760486326/option2.png","question_bank/Telugu/2025-Jan-20-Shift1_Q060_7760486326/option3.png","question_bank/Telugu/2025-Jan-20-Shift1_Q060_7760486326/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q61","sectionId":"english","globalIndex":60,"questionType":"image","questionImage":"question_bank/English/2025-Jan-20-Shift1_Q061_7760486328/question.png","optionImages":["question_bank/English/2025-Jan-20-Shift1_Q061_7760486328/option1.png","question_bank/English/2025-Jan-20-Shift1_Q061_7760486328/option2.png","question_bank/English/2025-Jan-20-Shift1_Q061_7760486328/option3.png","question_bank/English/2025-Jan-20-Shift1_Q061_7760486328/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q62","sectionId":"english","globalIndex":61,"questionType":"image","questionImage":"question_bank/English/2025-Jan-20-Shift1_Q062_7760486329/question.png","optionImages":["question_bank/English/2025-Jan-20-Shift1_Q062_7760486329/option1.png","question_bank/English/2025-Jan-20-Shift1_Q062_7760486329/option2.png","question_bank/English/2025-Jan-20-Shift1_Q062_7760486329/option3.png","question_bank/English/2025-Jan-20-Shift1_Q062_7760486329/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q63","sectionId":"english","globalIndex":62,"questionType":"image","questionImage":"question_bank/English/2025-Jan-20-Shift1_Q063_7760486330/question.png","optionImages":["question_bank/English/2025-Jan-20-Shift1_Q063_7760486330/option1.png","question_bank/English/2025-Jan-20-Shift1_Q063_7760486330/option2.png","question_bank/English/2025-Jan-20-Shift1_Q063_7760486330/option3.png","question_bank/English/2025-Jan-20-Shift1_Q063_7760486330/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q64","sectionId":"english","globalIndex":63,"questionType":"image","questionImage":"question_bank/English/2025-Jan-20-Shift1_Q064_7760486331/question.png","optionImages":["question_bank/English/2025-Jan-20-Shift1_Q064_7760486331/option1.png","question_bank/English/2025-Jan-20-Shift1_Q064_7760486331/option2.png","question_bank/English/2025-Jan-20-Shift1_Q064_7760486331/option3.png","question_bank/English/2025-Jan-20-Shift1_Q064_7760486331/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q65","sectionId":"english","globalIndex":64,"questionType":"image","questionImage":"question_bank/English/2025-Jan-20-Shift1_Q065_7760486332/question.png","optionImages":["question_bank/English/2025-Jan-20-Shift1_Q065_7760486332/option1.png","question_bank/English/2025-Jan-20-Shift1_Q065_7760486332/option2.png","question_bank/English/2025-Jan-20-Shift1_Q065_7760486332/option3.png","question_bank/English/2025-Jan-20-Shift1_Q065_7760486332/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q66","sectionId":"english","globalIndex":65,"questionType":"image","questionImage":"question_bank/English/2025-Jan-20-Shift1_Q066_7760486333/question.png","optionImages":["question_bank/English/2025-Jan-20-Shift1_Q066_7760486333/option1.png","question_bank/English/2025-Jan-20-Shift1_Q066_7760486333/option2.png","question_bank/English/2025-Jan-20-Shift1_Q066_7760486333/option3.png","question_bank/English/2025-Jan-20-Shift1_Q066_7760486333/option4.png"],"optionsInQuestion":false,"correctAnswer":"1"},{"id":"q67","sectionId":"english","globalIndex":66,"questionType":"image","questionImage":"question_bank/English/2025-Jan-20-Shift1_Q067_7760486334/question.png","optionImages":["question_bank/English/2025-Jan-20-Shift1_Q067_7760486334/option1.png","question_bank/English/2025-Jan-20-Shift1_Q067_7760486334/option2.png","question_bank/English/2025-Jan-20-Shift1_Q067_7760486334/option3.png","question_bank/English/2025-Jan-20-Shift1_Q067_7760486334/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q68","sectionId":"english","globalIndex":67,"questionType":"image","questionImage":"question_bank/English/2025-Jan-20-Shift1_Q068_7760486335/question.png","optionImages":["question_bank/English/2025-Jan-20-Shift1_Q068_7760486335/option1.png","question_bank/English/2025-Jan-20-Shift1_Q068_7760486335/option2.png","question_bank/English/2025-Jan-20-Shift1_Q068_7760486335/option3.png","question_bank/English/2025-Jan-20-Shift1_Q068_7760486335/option4.png"],"optionsInQuestion":false,"correctAnswer":"1"},{"id":"q69","sectionId":"english","globalIndex":68,"questionType":"image","questionImage":"question_bank/English/2025-Jan-20-Shift1_Q069_7760486336/question.png","optionImages":["question_bank/English/2025-Jan-20-Shift1_Q069_7760486336/option1.png","question_bank/English/2025-Jan-20-Shift1_Q069_7760486336/option2.png","question_bank/English/2025-Jan-20-Shift1_Q069_7760486336/option3.png","question_bank/English/2025-Jan-20-Shift1_Q069_7760486336/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q70","sectionId":"english","globalIndex":69,"questionType":"image","questionImage":"question_bank/English/2025-Jan-20-Shift1_Q070_7760486337/question.png","optionImages":["question_bank/English/2025-Jan-20-Shift1_Q070_7760486337/option1.png","question_bank/English/2025-Jan-20-Shift1_Q070_7760486337/option2.png","question_bank/English/2025-Jan-20-Shift1_Q070_7760486337/option3.png","question_bank/English/2025-Jan-20-Shift1_Q070_7760486337/option4.png"],"optionsInQuestion":false,"correctAnswer":"1"},{"id":"q71","sectionId":"english","globalIndex":70,"questionType":"image","questionImage":"question_bank/English/2025-Jan-20-Shift1_Q071_7760486338/question.png","optionImages":["question_bank/English/2025-Jan-20-Shift1_Q071_7760486338/option1.png","question_bank/English/2025-Jan-20-Shift1_Q071_7760486338/option2.png","question_bank/English/2025-Jan-20-Shift1_Q071_7760486338/option3.png","question_bank/English/2025-Jan-20-Shift1_Q071_7760486338/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q72","sectionId":"english","globalIndex":71,"questionType":"image","questionImage":"question_bank/English/2025-Jan-20-Shift1_Q072_7760486339/question.png","optionImages":["question_bank/English/2025-Jan-20-Shift1_Q072_7760486339/option1.png","question_bank/English/2025-Jan-20-Shift1_Q072_7760486339/option2.png","question_bank/English/2025-Jan-20-Shift1_Q072_7760486339/option3.png","question_bank/English/2025-Jan-20-Shift1_Q072_7760486339/option4.png"],"optionsInQuestion":false,"correctAnswer":"1"},{"id":"q73","sectionId":"english","globalIndex":72,"questionType":"image","questionImage":"question_bank/English/2025-Jan-20-Shift1_Q073_7760486340/question.png","optionImages":["question_bank/English/2025-Jan-20-Shift1_Q073_7760486340/option1.png","question_bank/English/2025-Jan-20-Shift1_Q073_7760486340/option2.png","question_bank/English/2025-Jan-20-Shift1_Q073_7760486340/option3.png","question_bank/English/2025-Jan-20-Shift1_Q073_7760486340/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q74","sectionId":"english","globalIndex":73,"questionType":"image","questionImage":"question_bank/English/2025-Jan-20-Shift1_Q074_7760486341/question.png","optionImages":["question_bank/English/2025-Jan-20-Shift1_Q074_7760486341/option1.png","question_bank/English/2025-Jan-20-Shift1_Q074_7760486341/option2.png","question_bank/English/2025-Jan-20-Shift1_Q074_7760486341/option3.png","question_bank/English/2025-Jan-20-Shift1_Q074_7760486341/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q75","sectionId":"english","globalIndex":74,"questionType":"image","questionImage":"question_bank/English/2025-Jan-20-Shift1_Q075_7760486342/question.png","optionImages":["question_bank/English/2025-Jan-20-Shift1_Q075_7760486342/option1.png","question_bank/English/2025-Jan-20-Shift1_Q075_7760486342/option2.png","question_bank/English/2025-Jan-20-Shift1_Q075_7760486342/option3.png","question_bank/English/2025-Jan-20-Shift1_Q075_7760486342/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q76","sectionId":"english","globalIndex":75,"questionType":"image","questionImage":"question_bank/English/2025-Jan-20-Shift1_Q076_7760486343/question.png","optionImages":["question_bank/English/2025-Jan-20-Shift1_Q076_7760486343/option1.png","question_bank/English/2025-Jan-20-Shift1_Q076_7760486343/option2.png","question_bank/English/2025-Jan-20-Shift1_Q076_7760486343/option3.png","question_bank/English/2025-Jan-20-Shift1_Q076_7760486343/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q77","sectionId":"english","globalIndex":76,"questionType":"image","questionImage":"question_bank/English/2025-Jan-20-Shift1_Q077_7760486344/question.png","optionImages":["question_bank/English/2025-Jan-20-Shift1_Q077_7760486344/option1.png","question_bank/English/2025-Jan-20-Shift1_Q077_7760486344/option2.png","question_bank/English/2025-Jan-20-Shift1_Q077_7760486344/option3.png","question_bank/English/2025-Jan-20-Shift1_Q077_7760486344/option4.png"],"optionsInQuestion":false,"correctAnswer":"1"},{"id":"q78","sectionId":"english","globalIndex":77,"questionType":"image","questionImage":"question_bank/English/2025-Jan-20-Shift1_Q078_7760486345/question.png","optionImages":["question_bank/English/2025-Jan-20-Shift1_Q078_7760486345/option1.png","question_bank/English/2025-Jan-20-Shift1_Q078_7760486345/option2.png","question_bank/English/2025-Jan-20-Shift1_Q078_7760486345/option3.png","question_bank/English/2025-Jan-20-Shift1_Q078_7760486345/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q79","sectionId":"english","globalIndex":78,"questionType":"image","questionImage":"question_bank/English/2025-Jan-20-Shift1_Q079_7760486346/question.png","optionImages":["question_bank/English/2025-Jan-20-Shift1_Q079_7760486346/option1.png","question_bank/English/2025-Jan-20-Shift1_Q079_7760486346/option2.png","question_bank/English/2025-Jan-20-Shift1_Q079_7760486346/option3.png","question_bank/English/2025-Jan-20-Shift1_Q079_7760486346/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q80","sectionId":"english","globalIndex":79,"questionType":"image","questionImage":"question_bank/English/2025-Jan-20-Shift1_Q080_7760486347/question.png","optionImages":["question_bank/English/2025-Jan-20-Shift1_Q080_7760486347/option1.png","question_bank/English/2025-Jan-20-Shift1_Q080_7760486347/option2.png","question_bank/English/2025-Jan-20-Shift1_Q080_7760486347/option3.png","question_bank/English/2025-Jan-20-Shift1_Q080_7760486347/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q81","sectionId":"english","globalIndex":80,"questionType":"image","questionImage":"question_bank/English/2025-Jan-20-Shift1_Q081_7760486348/question.png","optionImages":["question_bank/English/2025-Jan-20-Shift1_Q081_7760486348/option1.png","question_bank/English/2025-Jan-20-Shift1_Q081_7760486348/option2.png","question_bank/English/2025-Jan-20-Shift1_Q081_7760486348/option3.png","question_bank/English/2025-Jan-20-Shift1_Q081_7760486348/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q82","sectionId":"english","globalIndex":81,"questionType":"image","questionImage":"question_bank/English/2025-Jan-20-Shift1_Q082_7760486349/question.png","optionImages":["question_bank/English/2025-Jan-20-Shift1_Q082_7760486349/option1.png","question_bank/English/2025-Jan-20-Shift1_Q082_7760486349/option2.png","question_bank/English/2025-Jan-20-Shift1_Q082_7760486349/option3.png","question_bank/English/2025-Jan-20-Shift1_Q082_7760486349/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q83","sectionId":"english","globalIndex":82,"questionType":"image","questionImage":"question_bank/English/2025-Jan-20-Shift1_Q083_7760486350/question.png","optionImages":["question_bank/English/2025-Jan-20-Shift1_Q083_7760486350/option1.png","question_bank/English/2025-Jan-20-Shift1_Q083_7760486350/option2.png","question_bank/English/2025-Jan-20-Shift1_Q083_7760486350/option3.png","question_bank/English/2025-Jan-20-Shift1_Q083_7760486350/option4.png"],"optionsInQuestion":false,"correctAnswer":"1"},{"id":"q84","sectionId":"english","globalIndex":83,"questionType":"image","questionImage":"question_bank/English/2025-Jan-20-Shift1_Q084_7760486351/question.png","optionImages":["question_bank/English/2025-Jan-20-Shift1_Q084_7760486351/option1.png","question_bank/English/2025-Jan-20-Shift1_Q084_7760486351/option2.png","question_bank/English/2025-Jan-20-Shift1_Q084_7760486351/option3.png","question_bank/English/2025-Jan-20-Shift1_Q084_7760486351/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q85","sectionId":"english","globalIndex":84,"questionType":"image","questionImage":"question_bank/English/2025-Jan-20-Shift1_Q085_7760486352/question.png","optionImages":["question_bank/English/2025-Jan-20-Shift1_Q085_7760486352/option1.png","question_bank/English/2025-Jan-20-Shift1_Q085_7760486352/option2.png","question_bank/English/2025-Jan-20-Shift1_Q085_7760486352/option3.png","question_bank/English/2025-Jan-20-Shift1_Q085_7760486352/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q86","sectionId":"english","globalIndex":85,"questionType":"image","questionImage":"question_bank/English/2025-Jan-20-Shift1_Q086_7760486353/question.png","optionImages":["question_bank/English/2025-Jan-20-Shift1_Q086_7760486353/option1.png","question_bank/English/2025-Jan-20-Shift1_Q086_7760486353/option2.png","question_bank/English/2025-Jan-20-Shift1_Q086_7760486353/option3.png","question_bank/English/2025-Jan-20-Shift1_Q086_7760486353/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q87","sectionId":"english","globalIndex":86,"questionType":"image","questionImage":"question_bank/English/2025-Jan-20-Shift1_Q087_7760486354/question.png","optionImages":["question_bank/English/2025-Jan-20-Shift1_Q087_7760486354/option1.png","question_bank/English/2025-Jan-20-Shift1_Q087_7760486354/option2.png","question_bank/English/2025-Jan-20-Shift1_Q087_7760486354/option3.png","question_bank/English/2025-Jan-20-Shift1_Q087_7760486354/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q88","sectionId":"english","globalIndex":87,"questionType":"image","questionImage":"question_bank/English/2025-Jan-20-Shift1_Q088_7760486355/question.png","optionImages":["question_bank/English/2025-Jan-20-Shift1_Q088_7760486355/option1.png","question_bank/English/2025-Jan-20-Shift1_Q088_7760486355/option2.png","question_bank/English/2025-Jan-20-Shift1_Q088_7760486355/option3.png","question_bank/English/2025-Jan-20-Shift1_Q088_7760486355/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q89","sectionId":"english","globalIndex":88,"questionType":"image","questionImage":"question_bank/English/2025-Jan-20-Shift1_Q089_7760486356/question.png","optionImages":["question_bank/English/2025-Jan-20-Shift1_Q089_7760486356/option1.png","question_bank/English/2025-Jan-20-Shift1_Q089_7760486356/option2.png","question_bank/English/2025-Jan-20-Shift1_Q089_7760486356/option3.png","question_bank/English/2025-Jan-20-Shift1_Q089_7760486356/option4.png"],"optionsInQuestion":false,"correctAnswer":"1"},{"id":"q90","sectionId":"english","globalIndex":89,"questionType":"image","questionImage":"question_bank/English/2025-Jan-20-Shift1_Q090_7760486357/question.png","optionImages":["question_bank/English/2025-Jan-20-Shift1_Q090_7760486357/option1.png","question_bank/English/2025-Jan-20-Shift1_Q090_7760486357/option2.png","question_bank/English/2025-Jan-20-Shift1_Q090_7760486357/option3.png","question_bank/English/2025-Jan-20-Shift1_Q090_7760486357/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q91","sectionId":"mathematics","globalIndex":90,"questionType":"image","questionImage":"question_bank/Mathematics/2025-Jan-20-Shift1_Q091_7760486358/question.png","optionImages":["question_bank/Mathematics/2025-Jan-20-Shift1_Q091_7760486358/option1.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q091_7760486358/option2.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q091_7760486358/option3.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q091_7760486358/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q92","sectionId":"mathematics","globalIndex":91,"questionType":"image","questionImage":"question_bank/Mathematics/2025-Jan-20-Shift1_Q092_7760486359/question.png","optionImages":["question_bank/Mathematics/2025-Jan-20-Shift1_Q092_7760486359/option1.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q092_7760486359/option2.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q092_7760486359/option3.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q092_7760486359/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q93","sectionId":"mathematics","globalIndex":92,"questionType":"image","questionImage":"question_bank/Mathematics/2025-Jan-20-Shift1_Q093_7760486360/question.png","optionImages":["question_bank/Mathematics/2025-Jan-20-Shift1_Q093_7760486360/option1.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q093_7760486360/option2.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q093_7760486360/option3.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q093_7760486360/option4.png"],"optionsInQuestion":false,"correctAnswer":"1"},{"id":"q94","sectionId":"mathematics","globalIndex":93,"questionType":"image","questionImage":"question_bank/Mathematics/2025-Jan-20-Shift1_Q094_7760486361/question.png","optionImages":["question_bank/Mathematics/2025-Jan-20-Shift1_Q094_7760486361/option1.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q094_7760486361/option2.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q094_7760486361/option3.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q094_7760486361/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q95","sectionId":"mathematics","globalIndex":94,"questionType":"image","questionImage":"question_bank/Mathematics/2025-Jan-20-Shift1_Q095_7760486362/question.png","optionImages":["question_bank/Mathematics/2025-Jan-20-Shift1_Q095_7760486362/option1.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q095_7760486362/option2.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q095_7760486362/option3.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q095_7760486362/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q96","sectionId":"mathematics","globalIndex":95,"questionType":"image","questionImage":"question_bank/Mathematics/2025-Jan-20-Shift1_Q096_7760486363/question.png","optionImages":["question_bank/Mathematics/2025-Jan-20-Shift1_Q096_7760486363/option1.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q096_7760486363/option2.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q096_7760486363/option3.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q096_7760486363/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q97","sectionId":"mathematics","globalIndex":96,"questionType":"image","questionImage":"question_bank/Mathematics/2025-Jan-20-Shift1_Q097_7760486364/question.png","optionImages":["question_bank/Mathematics/2025-Jan-20-Shift1_Q097_7760486364/option1.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q097_7760486364/option2.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q097_7760486364/option3.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q097_7760486364/option4.png"],"optionsInQuestion":false,"correctAnswer":"1"},{"id":"q98","sectionId":"mathematics","globalIndex":97,"questionType":"image","questionImage":"question_bank/Mathematics/2025-Jan-20-Shift1_Q098_7760486365/question.png","optionImages":["question_bank/Mathematics/2025-Jan-20-Shift1_Q098_7760486365/option1.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q098_7760486365/option2.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q098_7760486365/option3.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q098_7760486365/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q99","sectionId":"mathematics","globalIndex":98,"questionType":"image","questionImage":"question_bank/Mathematics/2025-Jan-20-Shift1_Q099_7760486366/question.png","optionImages":["question_bank/Mathematics/2025-Jan-20-Shift1_Q099_7760486366/option1.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q099_7760486366/option2.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q099_7760486366/option3.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q099_7760486366/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q100","sectionId":"mathematics","globalIndex":99,"questionType":"image","questionImage":"question_bank/Mathematics/2025-Jan-20-Shift1_Q100_7760486367/question.png","optionImages":["question_bank/Mathematics/2025-Jan-20-Shift1_Q100_7760486367/option1.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q100_7760486367/option2.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q100_7760486367/option3.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q100_7760486367/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q101","sectionId":"mathematics","globalIndex":100,"questionType":"image","questionImage":"question_bank/Mathematics/2025-Jan-20-Shift1_Q101_7760486368/question.png","optionImages":["question_bank/Mathematics/2025-Jan-20-Shift1_Q101_7760486368/option1.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q101_7760486368/option2.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q101_7760486368/option3.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q101_7760486368/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q102","sectionId":"mathematics","globalIndex":101,"questionType":"image","questionImage":"question_bank/Mathematics/2025-Jan-20-Shift1_Q102_7760486369/question.png","optionImages":["question_bank/Mathematics/2025-Jan-20-Shift1_Q102_7760486369/option1.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q102_7760486369/option2.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q102_7760486369/option3.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q102_7760486369/option4.png"],"optionsInQuestion":false,"correctAnswer":"1"},{"id":"q103","sectionId":"mathematics","globalIndex":102,"questionType":"image","questionImage":"question_bank/Mathematics/2025-Jan-20-Shift1_Q103_7760486370/question.png","optionImages":["question_bank/Mathematics/2025-Jan-20-Shift1_Q103_7760486370/option1.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q103_7760486370/option2.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q103_7760486370/option3.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q103_7760486370/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q104","sectionId":"mathematics","globalIndex":103,"questionType":"image","questionImage":"question_bank/Mathematics/2025-Jan-20-Shift1_Q104_7760486371/question.png","optionImages":["question_bank/Mathematics/2025-Jan-20-Shift1_Q104_7760486371/option1.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q104_7760486371/option2.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q104_7760486371/option3.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q104_7760486371/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q105","sectionId":"mathematics","globalIndex":104,"questionType":"image","questionImage":"question_bank/Mathematics/2025-Jan-20-Shift1_Q105_7760486372/question.png","optionImages":["question_bank/Mathematics/2025-Jan-20-Shift1_Q105_7760486372/option1.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q105_7760486372/option2.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q105_7760486372/option3.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q105_7760486372/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q106","sectionId":"mathematics","globalIndex":105,"questionType":"image","questionImage":"question_bank/Mathematics/2025-Jan-20-Shift1_Q106_7760486373/question.png","optionImages":["question_bank/Mathematics/2025-Jan-20-Shift1_Q106_7760486373/option1.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q106_7760486373/option2.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q106_7760486373/option3.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q106_7760486373/option4.png"],"optionsInQuestion":false,"correctAnswer":"1"},{"id":"q107","sectionId":"mathematics","globalIndex":106,"questionType":"image","questionImage":"question_bank/Mathematics/2025-Jan-20-Shift1_Q107_7760486374/question.png","optionImages":["question_bank/Mathematics/2025-Jan-20-Shift1_Q107_7760486374/option1.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q107_7760486374/option2.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q107_7760486374/option3.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q107_7760486374/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q108","sectionId":"mathematics","globalIndex":107,"questionType":"image","questionImage":"question_bank/Mathematics/2025-Jan-20-Shift1_Q108_7760486375/question.png","optionImages":["question_bank/Mathematics/2025-Jan-20-Shift1_Q108_7760486375/option1.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q108_7760486375/option2.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q108_7760486375/option3.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q108_7760486375/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q109","sectionId":"mathematics","globalIndex":108,"questionType":"image","questionImage":"question_bank/Mathematics/2025-Jan-20-Shift1_Q109_7760486376/question.png","optionImages":["question_bank/Mathematics/2025-Jan-20-Shift1_Q109_7760486376/option1.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q109_7760486376/option2.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q109_7760486376/option3.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q109_7760486376/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q110","sectionId":"mathematics","globalIndex":109,"questionType":"image","questionImage":"question_bank/Mathematics/2025-Jan-20-Shift1_Q110_7760486377/question.png","optionImages":["question_bank/Mathematics/2025-Jan-20-Shift1_Q110_7760486377/option1.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q110_7760486377/option2.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q110_7760486377/option3.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q110_7760486377/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q111","sectionId":"mathematics","globalIndex":110,"questionType":"image","questionImage":"question_bank/Mathematics/2025-Jan-20-Shift1_Q111_7760486378/question.png","optionImages":["question_bank/Mathematics/2025-Jan-20-Shift1_Q111_7760486378/option1.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q111_7760486378/option2.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q111_7760486378/option3.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q111_7760486378/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q112","sectionId":"mathematics","globalIndex":111,"questionType":"image","questionImage":"question_bank/Mathematics/2025-Jan-20-Shift1_Q112_7760486379/question.png","optionImages":["question_bank/Mathematics/2025-Jan-20-Shift1_Q112_7760486379/option1.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q112_7760486379/option2.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q112_7760486379/option3.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q112_7760486379/option4.png"],"optionsInQuestion":false,"correctAnswer":"1"},{"id":"q113","sectionId":"mathematics","globalIndex":112,"questionType":"image","questionImage":"question_bank/Mathematics/2025-Jan-20-Shift1_Q113_7760486380/question.png","optionImages":["question_bank/Mathematics/2025-Jan-20-Shift1_Q113_7760486380/option1.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q113_7760486380/option2.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q113_7760486380/option3.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q113_7760486380/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q114","sectionId":"mathematics","globalIndex":113,"questionType":"image","questionImage":"question_bank/Mathematics/2025-Jan-20-Shift1_Q114_7760486381/question.png","optionImages":["question_bank/Mathematics/2025-Jan-20-Shift1_Q114_7760486381/option1.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q114_7760486381/option2.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q114_7760486381/option3.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q114_7760486381/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q115","sectionId":"mathematics","globalIndex":114,"questionType":"image","questionImage":"question_bank/Mathematics/2025-Jan-20-Shift1_Q115_7760486382/question.png","optionImages":["question_bank/Mathematics/2025-Jan-20-Shift1_Q115_7760486382/option1.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q115_7760486382/option2.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q115_7760486382/option3.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q115_7760486382/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q116","sectionId":"mathematics","globalIndex":115,"questionType":"image","questionImage":"question_bank/Mathematics/2025-Jan-20-Shift1_Q116_7760486383/question.png","optionImages":["question_bank/Mathematics/2025-Jan-20-Shift1_Q116_7760486383/option1.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q116_7760486383/option2.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q116_7760486383/option3.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q116_7760486383/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q117","sectionId":"mathematics","globalIndex":116,"questionType":"image","questionImage":"question_bank/Mathematics/2025-Jan-20-Shift1_Q117_7760486384/question.png","optionImages":["question_bank/Mathematics/2025-Jan-20-Shift1_Q117_7760486384/option1.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q117_7760486384/option2.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q117_7760486384/option3.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q117_7760486384/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q118","sectionId":"mathematics","globalIndex":117,"questionType":"image","questionImage":"question_bank/Mathematics/2025-Jan-20-Shift1_Q118_7760486385/question.png","optionImages":["question_bank/Mathematics/2025-Jan-20-Shift1_Q118_7760486385/option1.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q118_7760486385/option2.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q118_7760486385/option3.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q118_7760486385/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q119","sectionId":"mathematics","globalIndex":118,"questionType":"image","questionImage":"question_bank/Mathematics/2025-Jan-20-Shift1_Q119_7760486386/question.png","optionImages":["question_bank/Mathematics/2025-Jan-20-Shift1_Q119_7760486386/option1.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q119_7760486386/option2.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q119_7760486386/option3.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q119_7760486386/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q120","sectionId":"mathematics","globalIndex":119,"questionType":"image","questionImage":"question_bank/Mathematics/2025-Jan-20-Shift1_Q120_7760486387/question.png","optionImages":["question_bank/Mathematics/2025-Jan-20-Shift1_Q120_7760486387/option1.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q120_7760486387/option2.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q120_7760486387/option3.png","question_bank/Mathematics/2025-Jan-20-Shift1_Q120_7760486387/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q121","sectionId":"science","globalIndex":120,"questionType":"image","questionImage":"question_bank/Science/2025-Jan-20-Shift1_Q121_7760486388/question.png","optionImages":["question_bank/Science/2025-Jan-20-Shift1_Q121_7760486388/option1.png","question_bank/Science/2025-Jan-20-Shift1_Q121_7760486388/option2.png","question_bank/Science/2025-Jan-20-Shift1_Q121_7760486388/option3.png","question_bank/Science/2025-Jan-20-Shift1_Q121_7760486388/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q122","sectionId":"science","globalIndex":121,"questionType":"image","questionImage":"question_bank/Science/2025-Jan-20-Shift1_Q122_7760486389/question.png","optionImages":["question_bank/Science/2025-Jan-20-Shift1_Q122_7760486389/option1.png","question_bank/Science/2025-Jan-20-Shift1_Q122_7760486389/option2.png","question_bank/Science/2025-Jan-20-Shift1_Q122_7760486389/option3.png","question_bank/Science/2025-Jan-20-Shift1_Q122_7760486389/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q123","sectionId":"science","globalIndex":122,"questionType":"image","questionImage":"question_bank/Science/2025-Jan-20-Shift1_Q123_7760486390/question.png","optionImages":["question_bank/Science/2025-Jan-20-Shift1_Q123_7760486390/option1.png","question_bank/Science/2025-Jan-20-Shift1_Q123_7760486390/option2.png","question_bank/Science/2025-Jan-20-Shift1_Q123_7760486390/option3.png","question_bank/Science/2025-Jan-20-Shift1_Q123_7760486390/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q124","sectionId":"science","globalIndex":123,"questionType":"image","questionImage":"question_bank/Science/2025-Jan-20-Shift1_Q124_7760486391/question.png","optionImages":["question_bank/Science/2025-Jan-20-Shift1_Q124_7760486391/option1.png","question_bank/Science/2025-Jan-20-Shift1_Q124_7760486391/option2.png","question_bank/Science/2025-Jan-20-Shift1_Q124_7760486391/option3.png","question_bank/Science/2025-Jan-20-Shift1_Q124_7760486391/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q125","sectionId":"science","globalIndex":124,"questionType":"image","questionImage":"question_bank/Science/2025-Jan-20-Shift1_Q125_7760486392/question.png","optionImages":["question_bank/Science/2025-Jan-20-Shift1_Q125_7760486392/option1.png","question_bank/Science/2025-Jan-20-Shift1_Q125_7760486392/option2.png","question_bank/Science/2025-Jan-20-Shift1_Q125_7760486392/option3.png","question_bank/Science/2025-Jan-20-Shift1_Q125_7760486392/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q126","sectionId":"science","globalIndex":125,"questionType":"image","questionImage":"question_bank/Science/2025-Jan-20-Shift1_Q126_7760486393/question.png","optionImages":["question_bank/Science/2025-Jan-20-Shift1_Q126_7760486393/option1.png","question_bank/Science/2025-Jan-20-Shift1_Q126_7760486393/option2.png","question_bank/Science/2025-Jan-20-Shift1_Q126_7760486393/option3.png","question_bank/Science/2025-Jan-20-Shift1_Q126_7760486393/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q127","sectionId":"science","globalIndex":126,"questionType":"image","questionImage":"question_bank/Science/2025-Jan-20-Shift1_Q127_7760486394/question.png","optionImages":["question_bank/Science/2025-Jan-20-Shift1_Q127_7760486394/option1.png","question_bank/Science/2025-Jan-20-Shift1_Q127_7760486394/option2.png","question_bank/Science/2025-Jan-20-Shift1_Q127_7760486394/option3.png","question_bank/Science/2025-Jan-20-Shift1_Q127_7760486394/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q128","sectionId":"science","globalIndex":127,"questionType":"image","questionImage":"question_bank/Science/2025-Jan-20-Shift1_Q128_7760486395/question.png","optionImages":["question_bank/Science/2025-Jan-20-Shift1_Q128_7760486395/option1.png","question_bank/Science/2025-Jan-20-Shift1_Q128_7760486395/option2.png","question_bank/Science/2025-Jan-20-Shift1_Q128_7760486395/option3.png","question_bank/Science/2025-Jan-20-Shift1_Q128_7760486395/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q129","sectionId":"science","globalIndex":128,"questionType":"image","questionImage":"question_bank/Science/2025-Jan-20-Shift1_Q129_7760486396/question.png","optionImages":["question_bank/Science/2025-Jan-20-Shift1_Q129_7760486396/option1.png","question_bank/Science/2025-Jan-20-Shift1_Q129_7760486396/option2.png","question_bank/Science/2025-Jan-20-Shift1_Q129_7760486396/option3.png","question_bank/Science/2025-Jan-20-Shift1_Q129_7760486396/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q130","sectionId":"science","globalIndex":129,"questionType":"image","questionImage":"question_bank/Science/2025-Jan-20-Shift1_Q130_7760486397/question.png","optionImages":["question_bank/Science/2025-Jan-20-Shift1_Q130_7760486397/option1.png","question_bank/Science/2025-Jan-20-Shift1_Q130_7760486397/option2.png","question_bank/Science/2025-Jan-20-Shift1_Q130_7760486397/option3.png","question_bank/Science/2025-Jan-20-Shift1_Q130_7760486397/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q131","sectionId":"science","globalIndex":130,"questionType":"image","questionImage":"question_bank/Science/2025-Jan-20-Shift1_Q131_7760486398/question.png","optionImages":["question_bank/Science/2025-Jan-20-Shift1_Q131_7760486398/option1.png","question_bank/Science/2025-Jan-20-Shift1_Q131_7760486398/option2.png","question_bank/Science/2025-Jan-20-Shift1_Q131_7760486398/option3.png","question_bank/Science/2025-Jan-20-Shift1_Q131_7760486398/option4.png"],"optionsInQuestion":false,"correctAnswer":"1"},{"id":"q132","sectionId":"science","globalIndex":131,"questionType":"image","questionImage":"question_bank/Science/2025-Jan-20-Shift1_Q132_7760486399/question.png","optionImages":["question_bank/Science/2025-Jan-20-Shift1_Q132_7760486399/option1.png","question_bank/Science/2025-Jan-20-Shift1_Q132_7760486399/option2.png","question_bank/Science/2025-Jan-20-Shift1_Q132_7760486399/option3.png","question_bank/Science/2025-Jan-20-Shift1_Q132_7760486399/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q133","sectionId":"science","globalIndex":132,"questionType":"image","questionImage":"question_bank/Science/2025-Jan-20-Shift1_Q133_7760486400/question.png","optionImages":["question_bank/Science/2025-Jan-20-Shift1_Q133_7760486400/option1.png","question_bank/Science/2025-Jan-20-Shift1_Q133_7760486400/option2.png","question_bank/Science/2025-Jan-20-Shift1_Q133_7760486400/option3.png","question_bank/Science/2025-Jan-20-Shift1_Q133_7760486400/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q134","sectionId":"science","globalIndex":133,"questionType":"image","questionImage":"question_bank/Science/2025-Jan-20-Shift1_Q134_7760486401/question.png","optionImages":["question_bank/Science/2025-Jan-20-Shift1_Q134_7760486401/option1.png","question_bank/Science/2025-Jan-20-Shift1_Q134_7760486401/option2.png","question_bank/Science/2025-Jan-20-Shift1_Q134_7760486401/option3.png","question_bank/Science/2025-Jan-20-Shift1_Q134_7760486401/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q135","sectionId":"science","globalIndex":134,"questionType":"image","questionImage":"question_bank/Science/2025-Jan-20-Shift1_Q135_7760486402/question.png","optionImages":["question_bank/Science/2025-Jan-20-Shift1_Q135_7760486402/option1.png","question_bank/Science/2025-Jan-20-Shift1_Q135_7760486402/option2.png","question_bank/Science/2025-Jan-20-Shift1_Q135_7760486402/option3.png","question_bank/Science/2025-Jan-20-Shift1_Q135_7760486402/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q136","sectionId":"science","globalIndex":135,"questionType":"image","questionImage":"question_bank/Science/2025-Jan-20-Shift1_Q136_7760486403/question.png","optionImages":["question_bank/Science/2025-Jan-20-Shift1_Q136_7760486403/option1.png","question_bank/Science/2025-Jan-20-Shift1_Q136_7760486403/option2.png","question_bank/Science/2025-Jan-20-Shift1_Q136_7760486403/option3.png","question_bank/Science/2025-Jan-20-Shift1_Q136_7760486403/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q137","sectionId":"science","globalIndex":136,"questionType":"image","questionImage":"question_bank/Science/2025-Jan-20-Shift1_Q137_7760486404/question.png","optionImages":["question_bank/Science/2025-Jan-20-Shift1_Q137_7760486404/option1.png","question_bank/Science/2025-Jan-20-Shift1_Q137_7760486404/option2.png","question_bank/Science/2025-Jan-20-Shift1_Q137_7760486404/option3.png","question_bank/Science/2025-Jan-20-Shift1_Q137_7760486404/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q138","sectionId":"science","globalIndex":137,"questionType":"image","questionImage":"question_bank/Science/2025-Jan-20-Shift1_Q138_7760486405/question.png","optionImages":["question_bank/Science/2025-Jan-20-Shift1_Q138_7760486405/option1.png","question_bank/Science/2025-Jan-20-Shift1_Q138_7760486405/option2.png","question_bank/Science/2025-Jan-20-Shift1_Q138_7760486405/option3.png","question_bank/Science/2025-Jan-20-Shift1_Q138_7760486405/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q139","sectionId":"science","globalIndex":138,"questionType":"image","questionImage":"question_bank/Science/2025-Jan-20-Shift1_Q139_7760486406/question.png","optionImages":["question_bank/Science/2025-Jan-20-Shift1_Q139_7760486406/option1.png","question_bank/Science/2025-Jan-20-Shift1_Q139_7760486406/option2.png","question_bank/Science/2025-Jan-20-Shift1_Q139_7760486406/option3.png","question_bank/Science/2025-Jan-20-Shift1_Q139_7760486406/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q140","sectionId":"science","globalIndex":139,"questionType":"image","questionImage":"question_bank/Science/2025-Jan-20-Shift1_Q140_7760486407/question.png","optionImages":["question_bank/Science/2025-Jan-20-Shift1_Q140_7760486407/option1.png","question_bank/Science/2025-Jan-20-Shift1_Q140_7760486407/option2.png","question_bank/Science/2025-Jan-20-Shift1_Q140_7760486407/option3.png","question_bank/Science/2025-Jan-20-Shift1_Q140_7760486407/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q141","sectionId":"science","globalIndex":140,"questionType":"image","questionImage":"question_bank/Science/2025-Jan-20-Shift1_Q141_7760486408/question.png","optionImages":["question_bank/Science/2025-Jan-20-Shift1_Q141_7760486408/option1.png","question_bank/Science/2025-Jan-20-Shift1_Q141_7760486408/option2.png","question_bank/Science/2025-Jan-20-Shift1_Q141_7760486408/option3.png","question_bank/Science/2025-Jan-20-Shift1_Q141_7760486408/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q142","sectionId":"science","globalIndex":141,"questionType":"image","questionImage":"question_bank/Science/2025-Jan-20-Shift1_Q142_7760486409/question.png","optionImages":["question_bank/Science/2025-Jan-20-Shift1_Q142_7760486409/option1.png","question_bank/Science/2025-Jan-20-Shift1_Q142_7760486409/option2.png","question_bank/Science/2025-Jan-20-Shift1_Q142_7760486409/option3.png","question_bank/Science/2025-Jan-20-Shift1_Q142_7760486409/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q143","sectionId":"science","globalIndex":142,"questionType":"image","questionImage":"question_bank/Science/2025-Jan-20-Shift1_Q143_7760486410/question.png","optionImages":["question_bank/Science/2025-Jan-20-Shift1_Q143_7760486410/option1.png","question_bank/Science/2025-Jan-20-Shift1_Q143_7760486410/option2.png","question_bank/Science/2025-Jan-20-Shift1_Q143_7760486410/option3.png","question_bank/Science/2025-Jan-20-Shift1_Q143_7760486410/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q144","sectionId":"science","globalIndex":143,"questionType":"image","questionImage":"question_bank/Science/2025-Jan-20-Shift1_Q144_7760486411/question.png","optionImages":["question_bank/Science/2025-Jan-20-Shift1_Q144_7760486411/option1.png","question_bank/Science/2025-Jan-20-Shift1_Q144_7760486411/option2.png","question_bank/Science/2025-Jan-20-Shift1_Q144_7760486411/option3.png","question_bank/Science/2025-Jan-20-Shift1_Q144_7760486411/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q145","sectionId":"science","globalIndex":144,"questionType":"image","questionImage":"question_bank/Science/2025-Jan-20-Shift1_Q145_7760486412/question.png","optionImages":["question_bank/Science/2025-Jan-20-Shift1_Q145_7760486412/option1.png","question_bank/Science/2025-Jan-20-Shift1_Q145_7760486412/option2.png","question_bank/Science/2025-Jan-20-Shift1_Q145_7760486412/option3.png","question_bank/Science/2025-Jan-20-Shift1_Q145_7760486412/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q146","sectionId":"science","globalIndex":145,"questionType":"image","questionImage":"question_bank/Science/2025-Jan-20-Shift1_Q146_7760486413/question.png","optionImages":["question_bank/Science/2025-Jan-20-Shift1_Q146_7760486413/option1.png","question_bank/Science/2025-Jan-20-Shift1_Q146_7760486413/option2.png","question_bank/Science/2025-Jan-20-Shift1_Q146_7760486413/option3.png","question_bank/Science/2025-Jan-20-Shift1_Q146_7760486413/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q147","sectionId":"science","globalIndex":146,"questionType":"image","questionImage":"question_bank/Science/2025-Jan-20-Shift1_Q147_7760486414/question.png","optionImages":["question_bank/Science/2025-Jan-20-Shift1_Q147_7760486414/option1.png","question_bank/Science/2025-Jan-20-Shift1_Q147_7760486414/option2.png","question_bank/Science/2025-Jan-20-Shift1_Q147_7760486414/option3.png","question_bank/Science/2025-Jan-20-Shift1_Q147_7760486414/option4.png"],"optionsInQuestion":false,"correctAnswer":"3"},{"id":"q148","sectionId":"science","globalIndex":147,"questionType":"image","questionImage":"question_bank/Science/2025-Jan-20-Shift1_Q148_7760486415/question.png","optionImages":["question_bank/Science/2025-Jan-20-Shift1_Q148_7760486415/option1.png","question_bank/Science/2025-Jan-20-Shift1_Q148_7760486415/option2.png","question_bank/Science/2025-Jan-20-Shift1_Q148_7760486415/option3.png","question_bank/Science/2025-Jan-20-Shift1_Q148_7760486415/option4.png"],"optionsInQuestion":false,"correctAnswer":"2"},{"id":"q149","sectionId":"science","globalIndex":148,"questionType":"image","questionImage":"question_bank/Science/2025-Jan-20-Shift1_Q149_7760486416/question.png","optionImages":["question_bank/Science/2025-Jan-20-Shift1_Q149_7760486416/option1.png","question_bank/Science/2025-Jan-20-Shift1_Q149_7760486416/option2.png","question_bank/Science/2025-Jan-20-Shift1_Q149_7760486416/option3.png","question_bank/Science/2025-Jan-20-Shift1_Q149_7760486416/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"},{"id":"q150","sectionId":"science","globalIndex":149,"questionType":"image","questionImage":"question_bank/Science/2025-Jan-20-Shift1_Q150_7760486417/question.png","optionImages":["question_bank/Science/2025-Jan-20-Shift1_Q150_7760486417/option1.png","question_bank/Science/2025-Jan-20-Shift1_Q150_7760486417/option2.png","question_bank/Science/2025-Jan-20-Shift1_Q150_7760486417/option3.png","question_bank/Science/2025-Jan-20-Shift1_Q150_7760486417/option4.png"],"optionsInQuestion":false,"correctAnswer":"4"}]}
+{
+  "id": "real-2025-Jan-20-Shift1",
+  "title": "20 Jan 2025 — Shift 1",
+  "type": "Real Paper",
+  "conductingBody": "CTET",
+  "duration": 150,
+  "totalMarks": 150,
+  "totalQuestions": 150,
+  "negativeMarking": false,
+  "marksPerQuestion": 1,
+  "instructions": [
+    "This is a 150-question paper with 5 sections (30 questions each).",
+    "Each question carries 1 mark. There is no negative marking.",
+    "Questions are displayed as images from the original exam paper.",
+    "Use the question palette on the right to navigate between questions.",
+    "Mark questions for review using the 'Mark & Next' button.",
+    "You can change your answer at any time before submitting.",
+    "The timer will auto-submit when time expires."
+  ],
+  "sections": [
+    {
+      "id": "cdp",
+      "name": "Child Development & Pedagogy",
+      "shortName": "CDP",
+      "questionCount": 30,
+      "startIndex": 0
+    },
+    {
+      "id": "telugu",
+      "name": "Telugu",
+      "shortName": "Telugu",
+      "questionCount": 30,
+      "startIndex": 30
+    },
+    {
+      "id": "english",
+      "name": "English",
+      "shortName": "English",
+      "questionCount": 30,
+      "startIndex": 60
+    },
+    {
+      "id": "mathematics",
+      "name": "Mathematics",
+      "shortName": "Math",
+      "questionCount": 30,
+      "startIndex": 90
+    },
+    {
+      "id": "science",
+      "name": "Science",
+      "shortName": "Science",
+      "questionCount": 30,
+      "startIndex": 120
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "sectionId": "cdp",
+      "globalIndex": 0,
+      "questionType": "image",
+      "questionImage": "question_bank/CDP/2025-Jan-20-Shift1_Q001_7760486265/question.png",
+      "optionImages": [
+        "question_bank/CDP/2025-Jan-20-Shift1_Q001_7760486265/option1.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q001_7760486265/option2.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q001_7760486265/option3.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q001_7760486265/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q2",
+      "sectionId": "cdp",
+      "globalIndex": 1,
+      "questionType": "image",
+      "questionImage": "question_bank/CDP/2025-Jan-20-Shift1_Q002_7760486266/question.png",
+      "optionImages": [
+        "question_bank/CDP/2025-Jan-20-Shift1_Q002_7760486266/option1.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q002_7760486266/option2.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q002_7760486266/option3.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q002_7760486266/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    },
+    {
+      "id": "q3",
+      "sectionId": "cdp",
+      "globalIndex": 2,
+      "questionType": "image",
+      "questionImage": "question_bank/CDP/2025-Jan-20-Shift1_Q003_7760486267/question.png",
+      "optionImages": [
+        "question_bank/CDP/2025-Jan-20-Shift1_Q003_7760486267/option1.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q003_7760486267/option2.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q003_7760486267/option3.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q003_7760486267/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q4",
+      "sectionId": "cdp",
+      "globalIndex": 3,
+      "questionType": "image",
+      "questionImage": "question_bank/CDP/2025-Jan-20-Shift1_Q004_7760486268/question.png",
+      "optionImages": [
+        "question_bank/CDP/2025-Jan-20-Shift1_Q004_7760486268/option1.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q004_7760486268/option2.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q004_7760486268/option3.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q004_7760486268/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q5",
+      "sectionId": "cdp",
+      "globalIndex": 4,
+      "questionType": "image",
+      "questionImage": "question_bank/CDP/2025-Jan-20-Shift1_Q005_7760486269/question.png",
+      "optionImages": [
+        "question_bank/CDP/2025-Jan-20-Shift1_Q005_7760486269/option1.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q005_7760486269/option2.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q005_7760486269/option3.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q005_7760486269/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q6",
+      "sectionId": "cdp",
+      "globalIndex": 5,
+      "questionType": "image",
+      "questionImage": "question_bank/CDP/2025-Jan-20-Shift1_Q006_7760486270/question.png",
+      "optionImages": [
+        "question_bank/CDP/2025-Jan-20-Shift1_Q006_7760486270/option1.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q006_7760486270/option2.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q006_7760486270/option3.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q006_7760486270/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    },
+    {
+      "id": "q7",
+      "sectionId": "cdp",
+      "globalIndex": 6,
+      "questionType": "image",
+      "questionImage": "question_bank/CDP/2025-Jan-20-Shift1_Q007_7760486271/question.png",
+      "optionImages": [
+        "question_bank/CDP/2025-Jan-20-Shift1_Q007_7760486271/option1.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q007_7760486271/option2.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q007_7760486271/option3.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q007_7760486271/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q8",
+      "sectionId": "cdp",
+      "globalIndex": 7,
+      "questionType": "image",
+      "questionImage": "question_bank/CDP/2025-Jan-20-Shift1_Q008_7760486272/question.png",
+      "optionImages": [
+        "question_bank/CDP/2025-Jan-20-Shift1_Q008_7760486272/option1.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q008_7760486272/option2.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q008_7760486272/option3.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q008_7760486272/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q9",
+      "sectionId": "cdp",
+      "globalIndex": 8,
+      "questionType": "image",
+      "questionImage": "question_bank/CDP/2025-Jan-20-Shift1_Q009_7760486273/question.png",
+      "optionImages": [
+        "question_bank/CDP/2025-Jan-20-Shift1_Q009_7760486273/option1.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q009_7760486273/option2.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q009_7760486273/option3.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q009_7760486273/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q10",
+      "sectionId": "cdp",
+      "globalIndex": 9,
+      "questionType": "image",
+      "questionImage": "question_bank/CDP/2025-Jan-20-Shift1_Q010_7760486274/question.png",
+      "optionImages": [
+        "question_bank/CDP/2025-Jan-20-Shift1_Q010_7760486274/option1.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q010_7760486274/option2.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q010_7760486274/option3.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q010_7760486274/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q11",
+      "sectionId": "cdp",
+      "globalIndex": 10,
+      "questionType": "image",
+      "questionImage": "question_bank/CDP/2025-Jan-20-Shift1_Q011_7760486275/question.png",
+      "optionImages": [
+        "question_bank/CDP/2025-Jan-20-Shift1_Q011_7760486275/option1.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q011_7760486275/option2.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q011_7760486275/option3.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q011_7760486275/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q12",
+      "sectionId": "cdp",
+      "globalIndex": 11,
+      "questionType": "image",
+      "questionImage": "question_bank/CDP/2025-Jan-20-Shift1_Q012_7760486276/question.png",
+      "optionImages": [
+        "question_bank/CDP/2025-Jan-20-Shift1_Q012_7760486276/option1.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q012_7760486276/option2.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q012_7760486276/option3.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q012_7760486276/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    },
+    {
+      "id": "q13",
+      "sectionId": "cdp",
+      "globalIndex": 12,
+      "questionType": "image",
+      "questionImage": "question_bank/CDP/2025-Jan-20-Shift1_Q013_7760486277/question.png",
+      "optionImages": [
+        "question_bank/CDP/2025-Jan-20-Shift1_Q013_7760486277/option1.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q013_7760486277/option2.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q013_7760486277/option3.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q013_7760486277/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q14",
+      "sectionId": "cdp",
+      "globalIndex": 13,
+      "questionType": "image",
+      "questionImage": "question_bank/CDP/2025-Jan-20-Shift1_Q014_7760486278/question.png",
+      "optionImages": [
+        "question_bank/CDP/2025-Jan-20-Shift1_Q014_7760486278/option1.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q014_7760486278/option2.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q014_7760486278/option3.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q014_7760486278/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q15",
+      "sectionId": "cdp",
+      "globalIndex": 14,
+      "questionType": "image",
+      "questionImage": "question_bank/CDP/2025-Jan-20-Shift1_Q015_7760486279/question.png",
+      "optionImages": [
+        "question_bank/CDP/2025-Jan-20-Shift1_Q015_7760486279/option1.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q015_7760486279/option2.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q015_7760486279/option3.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q015_7760486279/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q16",
+      "sectionId": "cdp",
+      "globalIndex": 15,
+      "questionType": "image",
+      "questionImage": "question_bank/CDP/2025-Jan-20-Shift1_Q016_7760486280/question.png",
+      "optionImages": [
+        "question_bank/CDP/2025-Jan-20-Shift1_Q016_7760486280/option1.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q016_7760486280/option2.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q016_7760486280/option3.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q016_7760486280/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q17",
+      "sectionId": "cdp",
+      "globalIndex": 16,
+      "questionType": "image",
+      "questionImage": "question_bank/CDP/2025-Jan-20-Shift1_Q017_7760486281/question.png",
+      "optionImages": [
+        "question_bank/CDP/2025-Jan-20-Shift1_Q017_7760486281/option1.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q017_7760486281/option2.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q017_7760486281/option3.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q017_7760486281/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    },
+    {
+      "id": "q18",
+      "sectionId": "cdp",
+      "globalIndex": 17,
+      "questionType": "image",
+      "questionImage": "question_bank/CDP/2025-Jan-20-Shift1_Q018_7760486282/question.png",
+      "optionImages": [
+        "question_bank/CDP/2025-Jan-20-Shift1_Q018_7760486282/option1.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q018_7760486282/option2.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q018_7760486282/option3.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q018_7760486282/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q19",
+      "sectionId": "cdp",
+      "globalIndex": 18,
+      "questionType": "image",
+      "questionImage": "question_bank/CDP/2025-Jan-20-Shift1_Q019_7760486283/question.png",
+      "optionImages": [
+        "question_bank/CDP/2025-Jan-20-Shift1_Q019_7760486283/option1.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q019_7760486283/option2.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q019_7760486283/option3.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q019_7760486283/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q20",
+      "sectionId": "cdp",
+      "globalIndex": 19,
+      "questionType": "image",
+      "questionImage": "question_bank/CDP/2025-Jan-20-Shift1_Q020_7760486284/question.png",
+      "optionImages": [
+        "question_bank/CDP/2025-Jan-20-Shift1_Q020_7760486284/option1.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q020_7760486284/option2.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q020_7760486284/option3.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q020_7760486284/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q21",
+      "sectionId": "cdp",
+      "globalIndex": 20,
+      "questionType": "image",
+      "questionImage": "question_bank/CDP/2025-Jan-20-Shift1_Q021_7760486285/question.png",
+      "optionImages": [
+        "question_bank/CDP/2025-Jan-20-Shift1_Q021_7760486285/option1.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q021_7760486285/option2.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q021_7760486285/option3.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q021_7760486285/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q22",
+      "sectionId": "cdp",
+      "globalIndex": 21,
+      "questionType": "image",
+      "questionImage": "question_bank/CDP/2025-Jan-20-Shift1_Q022_7760486286/question.png",
+      "optionImages": [
+        "question_bank/CDP/2025-Jan-20-Shift1_Q022_7760486286/option1.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q022_7760486286/option2.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q022_7760486286/option3.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q022_7760486286/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q23",
+      "sectionId": "cdp",
+      "globalIndex": 22,
+      "questionType": "image",
+      "questionImage": "question_bank/CDP/2025-Jan-20-Shift1_Q023_7760486287/question.png",
+      "optionImages": [
+        "question_bank/CDP/2025-Jan-20-Shift1_Q023_7760486287/option1.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q023_7760486287/option2.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q023_7760486287/option3.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q023_7760486287/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q24",
+      "sectionId": "cdp",
+      "globalIndex": 23,
+      "questionType": "image",
+      "questionImage": "question_bank/CDP/2025-Jan-20-Shift1_Q024_7760486288/question.png",
+      "optionImages": [
+        "question_bank/CDP/2025-Jan-20-Shift1_Q024_7760486288/option1.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q024_7760486288/option2.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q024_7760486288/option3.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q024_7760486288/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q25",
+      "sectionId": "cdp",
+      "globalIndex": 24,
+      "questionType": "image",
+      "questionImage": "question_bank/CDP/2025-Jan-20-Shift1_Q025_7760486289/question.png",
+      "optionImages": [
+        "question_bank/CDP/2025-Jan-20-Shift1_Q025_7760486289/option1.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q025_7760486289/option2.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q025_7760486289/option3.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q025_7760486289/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q26",
+      "sectionId": "cdp",
+      "globalIndex": 25,
+      "questionType": "image",
+      "questionImage": "question_bank/CDP/2025-Jan-20-Shift1_Q026_7760486290/question.png",
+      "optionImages": [
+        "question_bank/CDP/2025-Jan-20-Shift1_Q026_7760486290/option1.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q026_7760486290/option2.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q026_7760486290/option3.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q026_7760486290/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q27",
+      "sectionId": "cdp",
+      "globalIndex": 26,
+      "questionType": "image",
+      "questionImage": "question_bank/CDP/2025-Jan-20-Shift1_Q027_7760486291/question.png",
+      "optionImages": [
+        "question_bank/CDP/2025-Jan-20-Shift1_Q027_7760486291/option1.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q027_7760486291/option2.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q027_7760486291/option3.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q027_7760486291/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q28",
+      "sectionId": "cdp",
+      "globalIndex": 27,
+      "questionType": "image",
+      "questionImage": "question_bank/CDP/2025-Jan-20-Shift1_Q028_7760486292/question.png",
+      "optionImages": [
+        "question_bank/CDP/2025-Jan-20-Shift1_Q028_7760486292/option1.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q028_7760486292/option2.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q028_7760486292/option3.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q028_7760486292/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q29",
+      "sectionId": "cdp",
+      "globalIndex": 28,
+      "questionType": "image",
+      "questionImage": "question_bank/CDP/2025-Jan-20-Shift1_Q029_7760486293/question.png",
+      "optionImages": [
+        "question_bank/CDP/2025-Jan-20-Shift1_Q029_7760486293/option1.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q029_7760486293/option2.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q029_7760486293/option3.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q029_7760486293/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q30",
+      "sectionId": "cdp",
+      "globalIndex": 29,
+      "questionType": "image",
+      "questionImage": "question_bank/CDP/2025-Jan-20-Shift1_Q030_7760486294/question.png",
+      "optionImages": [
+        "question_bank/CDP/2025-Jan-20-Shift1_Q030_7760486294/option1.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q030_7760486294/option2.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q030_7760486294/option3.png",
+        "question_bank/CDP/2025-Jan-20-Shift1_Q030_7760486294/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q31",
+      "sectionId": "telugu",
+      "globalIndex": 30,
+      "questionType": "image",
+      "questionImage": "question_bank/Telugu/2025-Jan-20-Shift1_Q031_7760486296/question.png",
+      "optionImages": [
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q031_7760486296/option1.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q031_7760486296/option2.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q031_7760486296/option3.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q031_7760486296/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    },
+    {
+      "id": "q32",
+      "sectionId": "telugu",
+      "globalIndex": 31,
+      "questionType": "image",
+      "questionImage": "question_bank/Telugu/2025-Jan-20-Shift1_Q032_7760486297/question.png",
+      "optionImages": [
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q032_7760486297/option1.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q032_7760486297/option2.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q032_7760486297/option3.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q032_7760486297/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q33",
+      "sectionId": "telugu",
+      "globalIndex": 32,
+      "questionType": "image",
+      "questionImage": "question_bank/Telugu/2025-Jan-20-Shift1_Q033_7760486298/question.png",
+      "optionImages": [
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q033_7760486298/option1.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q033_7760486298/option2.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q033_7760486298/option3.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q033_7760486298/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    },
+    {
+      "id": "q34",
+      "sectionId": "telugu",
+      "globalIndex": 33,
+      "questionType": "image",
+      "questionImage": "question_bank/Telugu/2025-Jan-20-Shift1_Q034_7760486299/question.png",
+      "optionImages": [
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q034_7760486299/option1.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q034_7760486299/option2.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q034_7760486299/option3.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q034_7760486299/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    },
+    {
+      "id": "q35",
+      "sectionId": "telugu",
+      "globalIndex": 34,
+      "questionType": "image",
+      "questionImage": "question_bank/Telugu/2025-Jan-20-Shift1_Q035_7760486301/question.png",
+      "optionImages": [
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q035_7760486301/option1.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q035_7760486301/option2.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q035_7760486301/option3.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q035_7760486301/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q36",
+      "sectionId": "telugu",
+      "globalIndex": 35,
+      "questionType": "image",
+      "questionImage": "question_bank/Telugu/2025-Jan-20-Shift1_Q036_7760486302/question.png",
+      "optionImages": [
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q036_7760486302/option1.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q036_7760486302/option2.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q036_7760486302/option3.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q036_7760486302/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    },
+    {
+      "id": "q37",
+      "sectionId": "telugu",
+      "globalIndex": 36,
+      "questionType": "image",
+      "questionImage": "question_bank/Telugu/2025-Jan-20-Shift1_Q037_7760486303/question.png",
+      "optionImages": [
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q037_7760486303/option1.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q037_7760486303/option2.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q037_7760486303/option3.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q037_7760486303/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q38",
+      "sectionId": "telugu",
+      "globalIndex": 37,
+      "questionType": "image",
+      "questionImage": "question_bank/Telugu/2025-Jan-20-Shift1_Q038_7760486304/question.png",
+      "optionImages": [
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q038_7760486304/option1.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q038_7760486304/option2.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q038_7760486304/option3.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q038_7760486304/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q39",
+      "sectionId": "telugu",
+      "globalIndex": 38,
+      "questionType": "image",
+      "questionImage": "question_bank/Telugu/2025-Jan-20-Shift1_Q039_7760486305/question.png",
+      "optionImages": [
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q039_7760486305/option1.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q039_7760486305/option2.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q039_7760486305/option3.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q039_7760486305/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q40",
+      "sectionId": "telugu",
+      "globalIndex": 39,
+      "questionType": "image",
+      "questionImage": "question_bank/Telugu/2025-Jan-20-Shift1_Q040_7760486306/question.png",
+      "optionImages": [
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q040_7760486306/option1.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q040_7760486306/option2.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q040_7760486306/option3.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q040_7760486306/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q41",
+      "sectionId": "telugu",
+      "globalIndex": 40,
+      "questionType": "image",
+      "questionImage": "question_bank/Telugu/2025-Jan-20-Shift1_Q041_7760486307/question.png",
+      "optionImages": [
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q041_7760486307/option1.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q041_7760486307/option2.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q041_7760486307/option3.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q041_7760486307/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q42",
+      "sectionId": "telugu",
+      "globalIndex": 41,
+      "questionType": "image",
+      "questionImage": "question_bank/Telugu/2025-Jan-20-Shift1_Q042_7760486308/question.png",
+      "optionImages": [
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q042_7760486308/option1.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q042_7760486308/option2.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q042_7760486308/option3.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q042_7760486308/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q43",
+      "sectionId": "telugu",
+      "globalIndex": 42,
+      "questionType": "image",
+      "questionImage": "question_bank/Telugu/2025-Jan-20-Shift1_Q043_7760486309/question.png",
+      "optionImages": [
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q043_7760486309/option1.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q043_7760486309/option2.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q043_7760486309/option3.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q043_7760486309/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q44",
+      "sectionId": "telugu",
+      "globalIndex": 43,
+      "questionType": "image",
+      "questionImage": "question_bank/Telugu/2025-Jan-20-Shift1_Q044_7760486310/question.png",
+      "optionImages": [
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q044_7760486310/option1.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q044_7760486310/option2.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q044_7760486310/option3.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q044_7760486310/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    },
+    {
+      "id": "q45",
+      "sectionId": "telugu",
+      "globalIndex": 44,
+      "questionType": "image",
+      "questionImage": "question_bank/Telugu/2025-Jan-20-Shift1_Q045_7760486311/question.png",
+      "optionImages": [
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q045_7760486311/option1.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q045_7760486311/option2.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q045_7760486311/option3.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q045_7760486311/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q46",
+      "sectionId": "telugu",
+      "globalIndex": 45,
+      "questionType": "image",
+      "questionImage": "question_bank/Telugu/2025-Jan-20-Shift1_Q046_7760486312/question.png",
+      "optionImages": [
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q046_7760486312/option1.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q046_7760486312/option2.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q046_7760486312/option3.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q046_7760486312/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q47",
+      "sectionId": "telugu",
+      "globalIndex": 46,
+      "questionType": "image",
+      "questionImage": "question_bank/Telugu/2025-Jan-20-Shift1_Q047_7760486313/question.png",
+      "optionImages": [
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q047_7760486313/option1.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q047_7760486313/option2.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q047_7760486313/option3.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q047_7760486313/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q48",
+      "sectionId": "telugu",
+      "globalIndex": 47,
+      "questionType": "image",
+      "questionImage": "question_bank/Telugu/2025-Jan-20-Shift1_Q048_7760486314/question.png",
+      "optionImages": [
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q048_7760486314/option1.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q048_7760486314/option2.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q048_7760486314/option3.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q048_7760486314/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q49",
+      "sectionId": "telugu",
+      "globalIndex": 48,
+      "questionType": "image",
+      "questionImage": "question_bank/Telugu/2025-Jan-20-Shift1_Q049_7760486315/question.png",
+      "optionImages": [
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q049_7760486315/option1.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q049_7760486315/option2.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q049_7760486315/option3.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q049_7760486315/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q50",
+      "sectionId": "telugu",
+      "globalIndex": 49,
+      "questionType": "image",
+      "questionImage": "question_bank/Telugu/2025-Jan-20-Shift1_Q050_7760486316/question.png",
+      "optionImages": [
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q050_7760486316/option1.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q050_7760486316/option2.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q050_7760486316/option3.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q050_7760486316/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q51",
+      "sectionId": "telugu",
+      "globalIndex": 50,
+      "questionType": "image",
+      "questionImage": "question_bank/Telugu/2025-Jan-20-Shift1_Q051_7760486317/question.png",
+      "optionImages": [
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q051_7760486317/option1.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q051_7760486317/option2.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q051_7760486317/option3.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q051_7760486317/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    },
+    {
+      "id": "q52",
+      "sectionId": "telugu",
+      "globalIndex": 51,
+      "questionType": "image",
+      "questionImage": "question_bank/Telugu/2025-Jan-20-Shift1_Q052_7760486318/question.png",
+      "optionImages": [
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q052_7760486318/option1.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q052_7760486318/option2.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q052_7760486318/option3.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q052_7760486318/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q53",
+      "sectionId": "telugu",
+      "globalIndex": 52,
+      "questionType": "image",
+      "questionImage": "question_bank/Telugu/2025-Jan-20-Shift1_Q053_7760486319/question.png",
+      "optionImages": [
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q053_7760486319/option1.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q053_7760486319/option2.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q053_7760486319/option3.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q053_7760486319/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q54",
+      "sectionId": "telugu",
+      "globalIndex": 53,
+      "questionType": "image",
+      "questionImage": "question_bank/Telugu/2025-Jan-20-Shift1_Q054_7760486320/question.png",
+      "optionImages": [
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q054_7760486320/option1.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q054_7760486320/option2.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q054_7760486320/option3.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q054_7760486320/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    },
+    {
+      "id": "q55",
+      "sectionId": "telugu",
+      "globalIndex": 54,
+      "questionType": "image",
+      "questionImage": "question_bank/Telugu/2025-Jan-20-Shift1_Q055_7760486321/question.png",
+      "optionImages": [
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q055_7760486321/option1.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q055_7760486321/option2.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q055_7760486321/option3.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q055_7760486321/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q56",
+      "sectionId": "telugu",
+      "globalIndex": 55,
+      "questionType": "image",
+      "questionImage": "question_bank/Telugu/2025-Jan-20-Shift1_Q056_7760486322/question.png",
+      "optionImages": [
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q056_7760486322/option1.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q056_7760486322/option2.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q056_7760486322/option3.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q056_7760486322/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    },
+    {
+      "id": "q57",
+      "sectionId": "telugu",
+      "globalIndex": 56,
+      "questionType": "image",
+      "questionImage": "question_bank/Telugu/2025-Jan-20-Shift1_Q057_7760486323/question.png",
+      "optionImages": [
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q057_7760486323/option1.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q057_7760486323/option2.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q057_7760486323/option3.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q057_7760486323/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q58",
+      "sectionId": "telugu",
+      "globalIndex": 57,
+      "questionType": "image",
+      "questionImage": "question_bank/Telugu/2025-Jan-20-Shift1_Q058_7760486324/question.png",
+      "optionImages": [
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q058_7760486324/option1.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q058_7760486324/option2.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q058_7760486324/option3.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q058_7760486324/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q59",
+      "sectionId": "telugu",
+      "globalIndex": 58,
+      "questionType": "image",
+      "questionImage": "question_bank/Telugu/2025-Jan-20-Shift1_Q059_7760486325/question.png",
+      "optionImages": [
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q059_7760486325/option1.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q059_7760486325/option2.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q059_7760486325/option3.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q059_7760486325/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q60",
+      "sectionId": "telugu",
+      "globalIndex": 59,
+      "questionType": "image",
+      "questionImage": "question_bank/Telugu/2025-Jan-20-Shift1_Q060_7760486326/question.png",
+      "optionImages": [
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q060_7760486326/option1.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q060_7760486326/option2.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q060_7760486326/option3.png",
+        "question_bank/Telugu/2025-Jan-20-Shift1_Q060_7760486326/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q61",
+      "sectionId": "english",
+      "globalIndex": 60,
+      "questionType": "image",
+      "questionImage": "question_bank/English/2025-Jan-20-Shift1_Q061_7760486328/question.png",
+      "optionImages": [
+        "question_bank/English/2025-Jan-20-Shift1_Q061_7760486328/option1.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q061_7760486328/option2.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q061_7760486328/option3.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q061_7760486328/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q62",
+      "sectionId": "english",
+      "globalIndex": 61,
+      "questionType": "image",
+      "questionImage": "question_bank/English/2025-Jan-20-Shift1_Q062_7760486329/question.png",
+      "optionImages": [
+        "question_bank/English/2025-Jan-20-Shift1_Q062_7760486329/option1.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q062_7760486329/option2.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q062_7760486329/option3.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q062_7760486329/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q63",
+      "sectionId": "english",
+      "globalIndex": 62,
+      "questionType": "image",
+      "questionImage": "question_bank/English/2025-Jan-20-Shift1_Q063_7760486330/question.png",
+      "optionImages": [
+        "question_bank/English/2025-Jan-20-Shift1_Q063_7760486330/option1.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q063_7760486330/option2.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q063_7760486330/option3.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q063_7760486330/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q64",
+      "sectionId": "english",
+      "globalIndex": 63,
+      "questionType": "image",
+      "questionImage": "question_bank/English/2025-Jan-20-Shift1_Q064_7760486331/question.png",
+      "optionImages": [
+        "question_bank/English/2025-Jan-20-Shift1_Q064_7760486331/option1.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q064_7760486331/option2.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q064_7760486331/option3.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q064_7760486331/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    },
+    {
+      "id": "q65",
+      "sectionId": "english",
+      "globalIndex": 64,
+      "questionType": "image",
+      "questionImage": "question_bank/English/2025-Jan-20-Shift1_Q065_7760486332/question.png",
+      "optionImages": [
+        "question_bank/English/2025-Jan-20-Shift1_Q065_7760486332/option1.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q065_7760486332/option2.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q065_7760486332/option3.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q065_7760486332/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q66",
+      "sectionId": "english",
+      "globalIndex": 65,
+      "questionType": "image",
+      "questionImage": "question_bank/English/2025-Jan-20-Shift1_Q066_7760486333/question.png",
+      "optionImages": [
+        "question_bank/English/2025-Jan-20-Shift1_Q066_7760486333/option1.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q066_7760486333/option2.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q066_7760486333/option3.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q066_7760486333/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q67",
+      "sectionId": "english",
+      "globalIndex": 66,
+      "questionType": "image",
+      "questionImage": "question_bank/English/2025-Jan-20-Shift1_Q067_7760486334/question.png",
+      "optionImages": [
+        "question_bank/English/2025-Jan-20-Shift1_Q067_7760486334/option1.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q067_7760486334/option2.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q067_7760486334/option3.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q067_7760486334/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q68",
+      "sectionId": "english",
+      "globalIndex": 67,
+      "questionType": "image",
+      "questionImage": "question_bank/English/2025-Jan-20-Shift1_Q068_7760486335/question.png",
+      "optionImages": [
+        "question_bank/English/2025-Jan-20-Shift1_Q068_7760486335/option1.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q068_7760486335/option2.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q068_7760486335/option3.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q068_7760486335/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q69",
+      "sectionId": "english",
+      "globalIndex": 68,
+      "questionType": "image",
+      "questionImage": "question_bank/English/2025-Jan-20-Shift1_Q069_7760486336/question.png",
+      "optionImages": [
+        "question_bank/English/2025-Jan-20-Shift1_Q069_7760486336/option1.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q069_7760486336/option2.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q069_7760486336/option3.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q069_7760486336/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    },
+    {
+      "id": "q70",
+      "sectionId": "english",
+      "globalIndex": 69,
+      "questionType": "image",
+      "questionImage": "question_bank/English/2025-Jan-20-Shift1_Q070_7760486337/question.png",
+      "optionImages": [
+        "question_bank/English/2025-Jan-20-Shift1_Q070_7760486337/option1.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q070_7760486337/option2.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q070_7760486337/option3.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q070_7760486337/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q71",
+      "sectionId": "english",
+      "globalIndex": 70,
+      "questionType": "image",
+      "questionImage": "question_bank/English/2025-Jan-20-Shift1_Q071_7760486338/question.png",
+      "optionImages": [
+        "question_bank/English/2025-Jan-20-Shift1_Q071_7760486338/option1.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q071_7760486338/option2.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q071_7760486338/option3.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q071_7760486338/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q72",
+      "sectionId": "english",
+      "globalIndex": 71,
+      "questionType": "image",
+      "questionImage": "question_bank/English/2025-Jan-20-Shift1_Q072_7760486339/question.png",
+      "optionImages": [
+        "question_bank/English/2025-Jan-20-Shift1_Q072_7760486339/option1.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q072_7760486339/option2.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q072_7760486339/option3.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q072_7760486339/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q73",
+      "sectionId": "english",
+      "globalIndex": 72,
+      "questionType": "image",
+      "questionImage": "question_bank/English/2025-Jan-20-Shift1_Q073_7760486340/question.png",
+      "optionImages": [
+        "question_bank/English/2025-Jan-20-Shift1_Q073_7760486340/option1.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q073_7760486340/option2.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q073_7760486340/option3.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q073_7760486340/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    },
+    {
+      "id": "q74",
+      "sectionId": "english",
+      "globalIndex": 73,
+      "questionType": "image",
+      "questionImage": "question_bank/English/2025-Jan-20-Shift1_Q074_7760486341/question.png",
+      "optionImages": [
+        "question_bank/English/2025-Jan-20-Shift1_Q074_7760486341/option1.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q074_7760486341/option2.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q074_7760486341/option3.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q074_7760486341/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    },
+    {
+      "id": "q75",
+      "sectionId": "english",
+      "globalIndex": 74,
+      "questionType": "image",
+      "questionImage": "question_bank/English/2025-Jan-20-Shift1_Q075_7760486342/question.png",
+      "optionImages": [
+        "question_bank/English/2025-Jan-20-Shift1_Q075_7760486342/option1.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q075_7760486342/option2.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q075_7760486342/option3.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q075_7760486342/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    },
+    {
+      "id": "q76",
+      "sectionId": "english",
+      "globalIndex": 75,
+      "questionType": "image",
+      "questionImage": "question_bank/English/2025-Jan-20-Shift1_Q076_7760486343/question.png",
+      "optionImages": [
+        "question_bank/English/2025-Jan-20-Shift1_Q076_7760486343/option1.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q076_7760486343/option2.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q076_7760486343/option3.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q076_7760486343/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q77",
+      "sectionId": "english",
+      "globalIndex": 76,
+      "questionType": "image",
+      "questionImage": "question_bank/English/2025-Jan-20-Shift1_Q077_7760486344/question.png",
+      "optionImages": [
+        "question_bank/English/2025-Jan-20-Shift1_Q077_7760486344/option1.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q077_7760486344/option2.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q077_7760486344/option3.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q077_7760486344/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q78",
+      "sectionId": "english",
+      "globalIndex": 77,
+      "questionType": "image",
+      "questionImage": "question_bank/English/2025-Jan-20-Shift1_Q078_7760486345/question.png",
+      "optionImages": [
+        "question_bank/English/2025-Jan-20-Shift1_Q078_7760486345/option1.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q078_7760486345/option2.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q078_7760486345/option3.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q078_7760486345/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q79",
+      "sectionId": "english",
+      "globalIndex": 78,
+      "questionType": "image",
+      "questionImage": "question_bank/English/2025-Jan-20-Shift1_Q079_7760486346/question.png",
+      "optionImages": [
+        "question_bank/English/2025-Jan-20-Shift1_Q079_7760486346/option1.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q079_7760486346/option2.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q079_7760486346/option3.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q079_7760486346/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q80",
+      "sectionId": "english",
+      "globalIndex": 79,
+      "questionType": "image",
+      "questionImage": "question_bank/English/2025-Jan-20-Shift1_Q080_7760486347/question.png",
+      "optionImages": [
+        "question_bank/English/2025-Jan-20-Shift1_Q080_7760486347/option1.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q080_7760486347/option2.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q080_7760486347/option3.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q080_7760486347/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q81",
+      "sectionId": "english",
+      "globalIndex": 80,
+      "questionType": "image",
+      "questionImage": "question_bank/English/2025-Jan-20-Shift1_Q081_7760486348/question.png",
+      "optionImages": [
+        "question_bank/English/2025-Jan-20-Shift1_Q081_7760486348/option1.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q081_7760486348/option2.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q081_7760486348/option3.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q081_7760486348/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q82",
+      "sectionId": "english",
+      "globalIndex": 81,
+      "questionType": "image",
+      "questionImage": "question_bank/English/2025-Jan-20-Shift1_Q082_7760486349/question.png",
+      "optionImages": [
+        "question_bank/English/2025-Jan-20-Shift1_Q082_7760486349/option1.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q082_7760486349/option2.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q082_7760486349/option3.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q082_7760486349/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    },
+    {
+      "id": "q83",
+      "sectionId": "english",
+      "globalIndex": 82,
+      "questionType": "image",
+      "questionImage": "question_bank/English/2025-Jan-20-Shift1_Q083_7760486350/question.png",
+      "optionImages": [
+        "question_bank/English/2025-Jan-20-Shift1_Q083_7760486350/option1.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q083_7760486350/option2.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q083_7760486350/option3.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q083_7760486350/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q84",
+      "sectionId": "english",
+      "globalIndex": 83,
+      "questionType": "image",
+      "questionImage": "question_bank/English/2025-Jan-20-Shift1_Q084_7760486351/question.png",
+      "optionImages": [
+        "question_bank/English/2025-Jan-20-Shift1_Q084_7760486351/option1.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q084_7760486351/option2.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q084_7760486351/option3.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q084_7760486351/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    },
+    {
+      "id": "q85",
+      "sectionId": "english",
+      "globalIndex": 84,
+      "questionType": "image",
+      "questionImage": "question_bank/English/2025-Jan-20-Shift1_Q085_7760486352/question.png",
+      "optionImages": [
+        "question_bank/English/2025-Jan-20-Shift1_Q085_7760486352/option1.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q085_7760486352/option2.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q085_7760486352/option3.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q085_7760486352/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q86",
+      "sectionId": "english",
+      "globalIndex": 85,
+      "questionType": "image",
+      "questionImage": "question_bank/English/2025-Jan-20-Shift1_Q086_7760486353/question.png",
+      "optionImages": [
+        "question_bank/English/2025-Jan-20-Shift1_Q086_7760486353/option1.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q086_7760486353/option2.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q086_7760486353/option3.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q086_7760486353/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q87",
+      "sectionId": "english",
+      "globalIndex": 86,
+      "questionType": "image",
+      "questionImage": "question_bank/English/2025-Jan-20-Shift1_Q087_7760486354/question.png",
+      "optionImages": [
+        "question_bank/English/2025-Jan-20-Shift1_Q087_7760486354/option1.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q087_7760486354/option2.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q087_7760486354/option3.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q087_7760486354/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    },
+    {
+      "id": "q88",
+      "sectionId": "english",
+      "globalIndex": 87,
+      "questionType": "image",
+      "questionImage": "question_bank/English/2025-Jan-20-Shift1_Q088_7760486355/question.png",
+      "optionImages": [
+        "question_bank/English/2025-Jan-20-Shift1_Q088_7760486355/option1.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q088_7760486355/option2.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q088_7760486355/option3.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q088_7760486355/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    },
+    {
+      "id": "q89",
+      "sectionId": "english",
+      "globalIndex": 88,
+      "questionType": "image",
+      "questionImage": "question_bank/English/2025-Jan-20-Shift1_Q089_7760486356/question.png",
+      "optionImages": [
+        "question_bank/English/2025-Jan-20-Shift1_Q089_7760486356/option1.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q089_7760486356/option2.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q089_7760486356/option3.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q089_7760486356/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q90",
+      "sectionId": "english",
+      "globalIndex": 89,
+      "questionType": "image",
+      "questionImage": "question_bank/English/2025-Jan-20-Shift1_Q090_7760486357/question.png",
+      "optionImages": [
+        "question_bank/English/2025-Jan-20-Shift1_Q090_7760486357/option1.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q090_7760486357/option2.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q090_7760486357/option3.png",
+        "question_bank/English/2025-Jan-20-Shift1_Q090_7760486357/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q91",
+      "sectionId": "mathematics",
+      "globalIndex": 90,
+      "questionType": "image",
+      "questionImage": "question_bank/Mathematics/2025-Jan-20-Shift1_Q091_7760486358/question.png",
+      "optionImages": [
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q091_7760486358/option1.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q091_7760486358/option2.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q091_7760486358/option3.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q091_7760486358/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q92",
+      "sectionId": "mathematics",
+      "globalIndex": 91,
+      "questionType": "image",
+      "questionImage": "question_bank/Mathematics/2025-Jan-20-Shift1_Q092_7760486359/question.png",
+      "optionImages": [
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q092_7760486359/option1.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q092_7760486359/option2.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q092_7760486359/option3.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q092_7760486359/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q93",
+      "sectionId": "mathematics",
+      "globalIndex": 92,
+      "questionType": "image",
+      "questionImage": "question_bank/Mathematics/2025-Jan-20-Shift1_Q093_7760486360/question.png",
+      "optionImages": [
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q093_7760486360/option1.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q093_7760486360/option2.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q093_7760486360/option3.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q093_7760486360/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q94",
+      "sectionId": "mathematics",
+      "globalIndex": 93,
+      "questionType": "image",
+      "questionImage": "question_bank/Mathematics/2025-Jan-20-Shift1_Q094_7760486361/question.png",
+      "optionImages": [
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q094_7760486361/option1.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q094_7760486361/option2.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q094_7760486361/option3.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q094_7760486361/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q95",
+      "sectionId": "mathematics",
+      "globalIndex": 94,
+      "questionType": "image",
+      "questionImage": "question_bank/Mathematics/2025-Jan-20-Shift1_Q095_7760486362/question.png",
+      "optionImages": [
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q095_7760486362/option1.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q095_7760486362/option2.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q095_7760486362/option3.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q095_7760486362/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    },
+    {
+      "id": "q96",
+      "sectionId": "mathematics",
+      "globalIndex": 95,
+      "questionType": "image",
+      "questionImage": "question_bank/Mathematics/2025-Jan-20-Shift1_Q096_7760486363/question.png",
+      "optionImages": [
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q096_7760486363/option1.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q096_7760486363/option2.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q096_7760486363/option3.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q096_7760486363/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q97",
+      "sectionId": "mathematics",
+      "globalIndex": 96,
+      "questionType": "image",
+      "questionImage": "question_bank/Mathematics/2025-Jan-20-Shift1_Q097_7760486364/question.png",
+      "optionImages": [
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q097_7760486364/option1.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q097_7760486364/option2.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q097_7760486364/option3.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q097_7760486364/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q98",
+      "sectionId": "mathematics",
+      "globalIndex": 97,
+      "questionType": "image",
+      "questionImage": "question_bank/Mathematics/2025-Jan-20-Shift1_Q098_7760486365/question.png",
+      "optionImages": [
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q098_7760486365/option1.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q098_7760486365/option2.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q098_7760486365/option3.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q098_7760486365/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q99",
+      "sectionId": "mathematics",
+      "globalIndex": 98,
+      "questionType": "image",
+      "questionImage": "question_bank/Mathematics/2025-Jan-20-Shift1_Q099_7760486366/question.png",
+      "optionImages": [
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q099_7760486366/option1.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q099_7760486366/option2.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q099_7760486366/option3.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q099_7760486366/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q100",
+      "sectionId": "mathematics",
+      "globalIndex": 99,
+      "questionType": "image",
+      "questionImage": "question_bank/Mathematics/2025-Jan-20-Shift1_Q100_7760486367/question.png",
+      "optionImages": [
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q100_7760486367/option1.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q100_7760486367/option2.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q100_7760486367/option3.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q100_7760486367/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    },
+    {
+      "id": "q101",
+      "sectionId": "mathematics",
+      "globalIndex": 100,
+      "questionType": "image",
+      "questionImage": "question_bank/Mathematics/2025-Jan-20-Shift1_Q101_7760486368/question.png",
+      "optionImages": [
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q101_7760486368/option1.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q101_7760486368/option2.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q101_7760486368/option3.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q101_7760486368/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q102",
+      "sectionId": "mathematics",
+      "globalIndex": 101,
+      "questionType": "image",
+      "questionImage": "question_bank/Mathematics/2025-Jan-20-Shift1_Q102_7760486369/question.png",
+      "optionImages": [
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q102_7760486369/option1.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q102_7760486369/option2.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q102_7760486369/option3.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q102_7760486369/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q103",
+      "sectionId": "mathematics",
+      "globalIndex": 102,
+      "questionType": "image",
+      "questionImage": "question_bank/Mathematics/2025-Jan-20-Shift1_Q103_7760486370/question.png",
+      "optionImages": [
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q103_7760486370/option1.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q103_7760486370/option2.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q103_7760486370/option3.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q103_7760486370/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    },
+    {
+      "id": "q104",
+      "sectionId": "mathematics",
+      "globalIndex": 103,
+      "questionType": "image",
+      "questionImage": "question_bank/Mathematics/2025-Jan-20-Shift1_Q104_7760486371/question.png",
+      "optionImages": [
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q104_7760486371/option1.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q104_7760486371/option2.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q104_7760486371/option3.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q104_7760486371/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q105",
+      "sectionId": "mathematics",
+      "globalIndex": 104,
+      "questionType": "image",
+      "questionImage": "question_bank/Mathematics/2025-Jan-20-Shift1_Q105_7760486372/question.png",
+      "optionImages": [
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q105_7760486372/option1.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q105_7760486372/option2.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q105_7760486372/option3.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q105_7760486372/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q106",
+      "sectionId": "mathematics",
+      "globalIndex": 105,
+      "questionType": "image",
+      "questionImage": "question_bank/Mathematics/2025-Jan-20-Shift1_Q106_7760486373/question.png",
+      "optionImages": [
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q106_7760486373/option1.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q106_7760486373/option2.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q106_7760486373/option3.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q106_7760486373/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q107",
+      "sectionId": "mathematics",
+      "globalIndex": 106,
+      "questionType": "image",
+      "questionImage": "question_bank/Mathematics/2025-Jan-20-Shift1_Q107_7760486374/question.png",
+      "optionImages": [
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q107_7760486374/option1.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q107_7760486374/option2.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q107_7760486374/option3.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q107_7760486374/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    },
+    {
+      "id": "q108",
+      "sectionId": "mathematics",
+      "globalIndex": 107,
+      "questionType": "image",
+      "questionImage": "question_bank/Mathematics/2025-Jan-20-Shift1_Q108_7760486375/question.png",
+      "optionImages": [
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q108_7760486375/option1.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q108_7760486375/option2.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q108_7760486375/option3.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q108_7760486375/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q109",
+      "sectionId": "mathematics",
+      "globalIndex": 108,
+      "questionType": "image",
+      "questionImage": "question_bank/Mathematics/2025-Jan-20-Shift1_Q109_7760486376/question.png",
+      "optionImages": [
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q109_7760486376/option1.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q109_7760486376/option2.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q109_7760486376/option3.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q109_7760486376/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q110",
+      "sectionId": "mathematics",
+      "globalIndex": 109,
+      "questionType": "image",
+      "questionImage": "question_bank/Mathematics/2025-Jan-20-Shift1_Q110_7760486377/question.png",
+      "optionImages": [
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q110_7760486377/option1.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q110_7760486377/option2.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q110_7760486377/option3.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q110_7760486377/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q111",
+      "sectionId": "mathematics",
+      "globalIndex": 110,
+      "questionType": "image",
+      "questionImage": "question_bank/Mathematics/2025-Jan-20-Shift1_Q111_7760486378/question.png",
+      "optionImages": [
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q111_7760486378/option1.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q111_7760486378/option2.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q111_7760486378/option3.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q111_7760486378/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    },
+    {
+      "id": "q112",
+      "sectionId": "mathematics",
+      "globalIndex": 111,
+      "questionType": "image",
+      "questionImage": "question_bank/Mathematics/2025-Jan-20-Shift1_Q112_7760486379/question.png",
+      "optionImages": [
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q112_7760486379/option1.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q112_7760486379/option2.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q112_7760486379/option3.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q112_7760486379/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q113",
+      "sectionId": "mathematics",
+      "globalIndex": 112,
+      "questionType": "image",
+      "questionImage": "question_bank/Mathematics/2025-Jan-20-Shift1_Q113_7760486380/question.png",
+      "optionImages": [
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q113_7760486380/option1.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q113_7760486380/option2.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q113_7760486380/option3.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q113_7760486380/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q114",
+      "sectionId": "mathematics",
+      "globalIndex": 113,
+      "questionType": "image",
+      "questionImage": "question_bank/Mathematics/2025-Jan-20-Shift1_Q114_7760486381/question.png",
+      "optionImages": [
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q114_7760486381/option1.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q114_7760486381/option2.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q114_7760486381/option3.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q114_7760486381/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q115",
+      "sectionId": "mathematics",
+      "globalIndex": 114,
+      "questionType": "image",
+      "questionImage": "question_bank/Mathematics/2025-Jan-20-Shift1_Q115_7760486382/question.png",
+      "optionImages": [
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q115_7760486382/option1.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q115_7760486382/option2.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q115_7760486382/option3.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q115_7760486382/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q116",
+      "sectionId": "mathematics",
+      "globalIndex": 115,
+      "questionType": "image",
+      "questionImage": "question_bank/Mathematics/2025-Jan-20-Shift1_Q116_7760486383/question.png",
+      "optionImages": [
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q116_7760486383/option1.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q116_7760486383/option2.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q116_7760486383/option3.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q116_7760486383/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    },
+    {
+      "id": "q117",
+      "sectionId": "mathematics",
+      "globalIndex": 116,
+      "questionType": "image",
+      "questionImage": "question_bank/Mathematics/2025-Jan-20-Shift1_Q117_7760486384/question.png",
+      "optionImages": [
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q117_7760486384/option1.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q117_7760486384/option2.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q117_7760486384/option3.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q117_7760486384/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q118",
+      "sectionId": "mathematics",
+      "globalIndex": 117,
+      "questionType": "image",
+      "questionImage": "question_bank/Mathematics/2025-Jan-20-Shift1_Q118_7760486385/question.png",
+      "optionImages": [
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q118_7760486385/option1.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q118_7760486385/option2.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q118_7760486385/option3.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q118_7760486385/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q119",
+      "sectionId": "mathematics",
+      "globalIndex": 118,
+      "questionType": "image",
+      "questionImage": "question_bank/Mathematics/2025-Jan-20-Shift1_Q119_7760486386/question.png",
+      "optionImages": [
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q119_7760486386/option1.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q119_7760486386/option2.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q119_7760486386/option3.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q119_7760486386/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q120",
+      "sectionId": "mathematics",
+      "globalIndex": 119,
+      "questionType": "image",
+      "questionImage": "question_bank/Mathematics/2025-Jan-20-Shift1_Q120_7760486387/question.png",
+      "optionImages": [
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q120_7760486387/option1.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q120_7760486387/option2.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q120_7760486387/option3.png",
+        "question_bank/Mathematics/2025-Jan-20-Shift1_Q120_7760486387/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    },
+    {
+      "id": "q121",
+      "sectionId": "science",
+      "globalIndex": 120,
+      "questionType": "image",
+      "questionImage": "question_bank/Science/2025-Jan-20-Shift1_Q121_7760486388/question.png",
+      "optionImages": [
+        "question_bank/Science/2025-Jan-20-Shift1_Q121_7760486388/option1.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q121_7760486388/option2.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q121_7760486388/option3.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q121_7760486388/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q122",
+      "sectionId": "science",
+      "globalIndex": 121,
+      "questionType": "image",
+      "questionImage": "question_bank/Science/2025-Jan-20-Shift1_Q122_7760486389/question.png",
+      "optionImages": [
+        "question_bank/Science/2025-Jan-20-Shift1_Q122_7760486389/option1.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q122_7760486389/option2.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q122_7760486389/option3.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q122_7760486389/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    },
+    {
+      "id": "q123",
+      "sectionId": "science",
+      "globalIndex": 122,
+      "questionType": "image",
+      "questionImage": "question_bank/Science/2025-Jan-20-Shift1_Q123_7760486390/question.png",
+      "optionImages": [
+        "question_bank/Science/2025-Jan-20-Shift1_Q123_7760486390/option1.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q123_7760486390/option2.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q123_7760486390/option3.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q123_7760486390/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q124",
+      "sectionId": "science",
+      "globalIndex": 123,
+      "questionType": "image",
+      "questionImage": "question_bank/Science/2025-Jan-20-Shift1_Q124_7760486391/question.png",
+      "optionImages": [
+        "question_bank/Science/2025-Jan-20-Shift1_Q124_7760486391/option1.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q124_7760486391/option2.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q124_7760486391/option3.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q124_7760486391/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q125",
+      "sectionId": "science",
+      "globalIndex": 124,
+      "questionType": "image",
+      "questionImage": "question_bank/Science/2025-Jan-20-Shift1_Q125_7760486392/question.png",
+      "optionImages": [
+        "question_bank/Science/2025-Jan-20-Shift1_Q125_7760486392/option1.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q125_7760486392/option2.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q125_7760486392/option3.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q125_7760486392/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q126",
+      "sectionId": "science",
+      "globalIndex": 125,
+      "questionType": "image",
+      "questionImage": "question_bank/Science/2025-Jan-20-Shift1_Q126_7760486393/question.png",
+      "optionImages": [
+        "question_bank/Science/2025-Jan-20-Shift1_Q126_7760486393/option1.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q126_7760486393/option2.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q126_7760486393/option3.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q126_7760486393/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q127",
+      "sectionId": "science",
+      "globalIndex": 126,
+      "questionType": "image",
+      "questionImage": "question_bank/Science/2025-Jan-20-Shift1_Q127_7760486394/question.png",
+      "optionImages": [
+        "question_bank/Science/2025-Jan-20-Shift1_Q127_7760486394/option1.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q127_7760486394/option2.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q127_7760486394/option3.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q127_7760486394/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q128",
+      "sectionId": "science",
+      "globalIndex": 127,
+      "questionType": "image",
+      "questionImage": "question_bank/Science/2025-Jan-20-Shift1_Q128_7760486395/question.png",
+      "optionImages": [
+        "question_bank/Science/2025-Jan-20-Shift1_Q128_7760486395/option1.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q128_7760486395/option2.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q128_7760486395/option3.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q128_7760486395/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q129",
+      "sectionId": "science",
+      "globalIndex": 128,
+      "questionType": "image",
+      "questionImage": "question_bank/Science/2025-Jan-20-Shift1_Q129_7760486396/question.png",
+      "optionImages": [
+        "question_bank/Science/2025-Jan-20-Shift1_Q129_7760486396/option1.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q129_7760486396/option2.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q129_7760486396/option3.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q129_7760486396/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    },
+    {
+      "id": "q130",
+      "sectionId": "science",
+      "globalIndex": 129,
+      "questionType": "image",
+      "questionImage": "question_bank/Science/2025-Jan-20-Shift1_Q130_7760486397/question.png",
+      "optionImages": [
+        "question_bank/Science/2025-Jan-20-Shift1_Q130_7760486397/option1.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q130_7760486397/option2.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q130_7760486397/option3.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q130_7760486397/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q131",
+      "sectionId": "science",
+      "globalIndex": 130,
+      "questionType": "image",
+      "questionImage": "question_bank/Science/2025-Jan-20-Shift1_Q131_7760486398/question.png",
+      "optionImages": [
+        "question_bank/Science/2025-Jan-20-Shift1_Q131_7760486398/option1.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q131_7760486398/option2.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q131_7760486398/option3.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q131_7760486398/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q132",
+      "sectionId": "science",
+      "globalIndex": 131,
+      "questionType": "image",
+      "questionImage": "question_bank/Science/2025-Jan-20-Shift1_Q132_7760486399/question.png",
+      "optionImages": [
+        "question_bank/Science/2025-Jan-20-Shift1_Q132_7760486399/option1.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q132_7760486399/option2.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q132_7760486399/option3.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q132_7760486399/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    },
+    {
+      "id": "q133",
+      "sectionId": "science",
+      "globalIndex": 132,
+      "questionType": "image",
+      "questionImage": "question_bank/Science/2025-Jan-20-Shift1_Q133_7760486400/question.png",
+      "optionImages": [
+        "question_bank/Science/2025-Jan-20-Shift1_Q133_7760486400/option1.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q133_7760486400/option2.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q133_7760486400/option3.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q133_7760486400/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q134",
+      "sectionId": "science",
+      "globalIndex": 133,
+      "questionType": "image",
+      "questionImage": "question_bank/Science/2025-Jan-20-Shift1_Q134_7760486401/question.png",
+      "optionImages": [
+        "question_bank/Science/2025-Jan-20-Shift1_Q134_7760486401/option1.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q134_7760486401/option2.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q134_7760486401/option3.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q134_7760486401/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    },
+    {
+      "id": "q135",
+      "sectionId": "science",
+      "globalIndex": 134,
+      "questionType": "image",
+      "questionImage": "question_bank/Science/2025-Jan-20-Shift1_Q135_7760486402/question.png",
+      "optionImages": [
+        "question_bank/Science/2025-Jan-20-Shift1_Q135_7760486402/option1.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q135_7760486402/option2.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q135_7760486402/option3.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q135_7760486402/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q136",
+      "sectionId": "science",
+      "globalIndex": 135,
+      "questionType": "image",
+      "questionImage": "question_bank/Science/2025-Jan-20-Shift1_Q136_7760486403/question.png",
+      "optionImages": [
+        "question_bank/Science/2025-Jan-20-Shift1_Q136_7760486403/option1.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q136_7760486403/option2.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q136_7760486403/option3.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q136_7760486403/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q137",
+      "sectionId": "science",
+      "globalIndex": 136,
+      "questionType": "image",
+      "questionImage": "question_bank/Science/2025-Jan-20-Shift1_Q137_7760486404/question.png",
+      "optionImages": [
+        "question_bank/Science/2025-Jan-20-Shift1_Q137_7760486404/option1.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q137_7760486404/option2.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q137_7760486404/option3.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q137_7760486404/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q138",
+      "sectionId": "science",
+      "globalIndex": 137,
+      "questionType": "image",
+      "questionImage": "question_bank/Science/2025-Jan-20-Shift1_Q138_7760486405/question.png",
+      "optionImages": [
+        "question_bank/Science/2025-Jan-20-Shift1_Q138_7760486405/option1.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q138_7760486405/option2.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q138_7760486405/option3.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q138_7760486405/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    },
+    {
+      "id": "q139",
+      "sectionId": "science",
+      "globalIndex": 138,
+      "questionType": "image",
+      "questionImage": "question_bank/Science/2025-Jan-20-Shift1_Q139_7760486406/question.png",
+      "optionImages": [
+        "question_bank/Science/2025-Jan-20-Shift1_Q139_7760486406/option1.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q139_7760486406/option2.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q139_7760486406/option3.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q139_7760486406/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q140",
+      "sectionId": "science",
+      "globalIndex": 139,
+      "questionType": "image",
+      "questionImage": "question_bank/Science/2025-Jan-20-Shift1_Q140_7760486407/question.png",
+      "optionImages": [
+        "question_bank/Science/2025-Jan-20-Shift1_Q140_7760486407/option1.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q140_7760486407/option2.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q140_7760486407/option3.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q140_7760486407/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q141",
+      "sectionId": "science",
+      "globalIndex": 140,
+      "questionType": "image",
+      "questionImage": "question_bank/Science/2025-Jan-20-Shift1_Q141_7760486408/question.png",
+      "optionImages": [
+        "question_bank/Science/2025-Jan-20-Shift1_Q141_7760486408/option1.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q141_7760486408/option2.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q141_7760486408/option3.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q141_7760486408/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    },
+    {
+      "id": "q142",
+      "sectionId": "science",
+      "globalIndex": 141,
+      "questionType": "image",
+      "questionImage": "question_bank/Science/2025-Jan-20-Shift1_Q142_7760486409/question.png",
+      "optionImages": [
+        "question_bank/Science/2025-Jan-20-Shift1_Q142_7760486409/option1.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q142_7760486409/option2.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q142_7760486409/option3.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q142_7760486409/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q143",
+      "sectionId": "science",
+      "globalIndex": 142,
+      "questionType": "image",
+      "questionImage": "question_bank/Science/2025-Jan-20-Shift1_Q143_7760486410/question.png",
+      "optionImages": [
+        "question_bank/Science/2025-Jan-20-Shift1_Q143_7760486410/option1.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q143_7760486410/option2.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q143_7760486410/option3.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q143_7760486410/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q144",
+      "sectionId": "science",
+      "globalIndex": 143,
+      "questionType": "image",
+      "questionImage": "question_bank/Science/2025-Jan-20-Shift1_Q144_7760486411/question.png",
+      "optionImages": [
+        "question_bank/Science/2025-Jan-20-Shift1_Q144_7760486411/option1.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q144_7760486411/option2.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q144_7760486411/option3.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q144_7760486411/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q145",
+      "sectionId": "science",
+      "globalIndex": 144,
+      "questionType": "image",
+      "questionImage": "question_bank/Science/2025-Jan-20-Shift1_Q145_7760486412/question.png",
+      "optionImages": [
+        "question_bank/Science/2025-Jan-20-Shift1_Q145_7760486412/option1.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q145_7760486412/option2.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q145_7760486412/option3.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q145_7760486412/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "1"
+    },
+    {
+      "id": "q146",
+      "sectionId": "science",
+      "globalIndex": 145,
+      "questionType": "image",
+      "questionImage": "question_bank/Science/2025-Jan-20-Shift1_Q146_7760486413/question.png",
+      "optionImages": [
+        "question_bank/Science/2025-Jan-20-Shift1_Q146_7760486413/option1.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q146_7760486413/option2.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q146_7760486413/option3.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q146_7760486413/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "3"
+    },
+    {
+      "id": "q147",
+      "sectionId": "science",
+      "globalIndex": 146,
+      "questionType": "image",
+      "questionImage": "question_bank/Science/2025-Jan-20-Shift1_Q147_7760486414/question.png",
+      "optionImages": [
+        "question_bank/Science/2025-Jan-20-Shift1_Q147_7760486414/option1.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q147_7760486414/option2.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q147_7760486414/option3.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q147_7760486414/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q148",
+      "sectionId": "science",
+      "globalIndex": 147,
+      "questionType": "image",
+      "questionImage": "question_bank/Science/2025-Jan-20-Shift1_Q148_7760486415/question.png",
+      "optionImages": [
+        "question_bank/Science/2025-Jan-20-Shift1_Q148_7760486415/option1.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q148_7760486415/option2.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q148_7760486415/option3.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q148_7760486415/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "2"
+    },
+    {
+      "id": "q149",
+      "sectionId": "science",
+      "globalIndex": 148,
+      "questionType": "image",
+      "questionImage": "question_bank/Science/2025-Jan-20-Shift1_Q149_7760486416/question.png",
+      "optionImages": [
+        "question_bank/Science/2025-Jan-20-Shift1_Q149_7760486416/option1.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q149_7760486416/option2.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q149_7760486416/option3.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q149_7760486416/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    },
+    {
+      "id": "q150",
+      "sectionId": "science",
+      "globalIndex": 149,
+      "questionType": "image",
+      "questionImage": "question_bank/Science/2025-Jan-20-Shift1_Q150_7760486417/question.png",
+      "optionImages": [
+        "question_bank/Science/2025-Jan-20-Shift1_Q150_7760486417/option1.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q150_7760486417/option2.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q150_7760486417/option3.png",
+        "question_bank/Science/2025-Jan-20-Shift1_Q150_7760486417/option4.png"
+      ],
+      "optionsInQuestion": false,
+      "correctAnswer": "4"
+    }
+  ]
+}
