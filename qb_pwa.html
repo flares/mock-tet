@@ -493,19 +493,7 @@ img { display: block; max-width: 100%; height: auto; }
 /* ── Per-paper measured line heights (px) ───────────────────────────────── */
 // Average pixel height of a single text line in question images, measured per paper.
 // Used to compute a uniform scale so all papers render text at the same CSS size.
-const PAPER_LINE_HEIGHTS = {
-  '2024-May-20-Shift1': 49.4, '2024-May-20-Shift2': 50.8,
-  '2024-May-21-Shift1': 52.2, '2024-May-21-Shift2': 52.0,
-  '2024-May-22-Shift1': 50.8, '2024-May-22-Shift2': 50.8,
-  '2025-Jan-05-Shift2': 46.5, '2025-Jan-11-Shift2': 43.8,
-  '2025-Jan-19-Shift1': 43.7, '2025-Jan-19-Shift2': 44.7,
-  '2025-Jan-20-Shift1': 43.8, '2025-Jan-20-Shift2': 46.2,
-  '2025-Jun-18-Shift1': 51.1, '2025-Jun-18-Shift2': 49.9,
-  '2025-Jun-19-Shift1': 44.7, '2025-Jun-19-Shift2': 53.3,
-  '2025-Jun-24-Shift1': 47.6,
-  '2026-Jan-03-Shift1': 43.4, '2026-Jan-03-Shift2': 42.9,
-  '2026-Jan-04-Shift1': 41.7, '2026-Jan-04-Shift2': 44.5,
-};
+const PAPER_LINE_HEIGHTS = {};
 const PAPER_LINE_HEIGHT_DEFAULT = 47;
 const LS_FONT_SIZE_KEY = 'qb_target_line_height_px';
 
