@@ -43,7 +43,7 @@ Ensure you are using the correct HTML formatting and inline styling for visually
 
 <div class="tet-explanation" data-subject="{SUBJECT_AREA}">
   <section class="answer">
-    <h3>Correct answer: {LETTER}</h3>
+    <h3>Correct answer: {NUMBER}</h3>
     <p class="en">{correct option English}</p>
   </section>
   {HERE add all your other section as appropriate - }
@@ -73,7 +73,7 @@ Sample HTML style : (we have existing CSS can style for below classes and sectio
 
 <div class="tet-explanation" data-subject="{SUBJECT_AREA}">
   <section class="answer">
-    <h3>Correct answer: {LETTER}</h3>
+    <h3>Correct answer: {NUMBER}</h3>
     <p class="en">{correct option English}</p>
   </section>
   <section class="short-explanation">

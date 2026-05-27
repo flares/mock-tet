@@ -36,6 +36,8 @@ jobs:
             appId:             "${{ secrets.FIREBASE_APP_ID }}",
             measurementId:     "${{ secrets.FIREBASE_MEASUREMENT_ID }}",
             geminiApiKey:      "${{ secrets.GEMINI_API_KEY }}",
+            workerUrl:         "https://tet-qb-worker.y-manojkrishna.workers.dev",
+            workerAuthToken:   "${{ secrets.WORKER_AUTH_TOKEN }}",
           };
           ENDOFCONFIG
 

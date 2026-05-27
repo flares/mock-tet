@@ -207,7 +207,7 @@ img { display: block; max-width: 100%; height: auto; }
 .pwa-exp-divider::before, .pwa-exp-divider::after {
   content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, #c5d2e3, transparent);
 }
-#pwa-ai-actions { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+#pwa-ai-actions { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 14px; margin-bottom: 12px; }
 #pwa-ai-btn {
   display: inline-flex; align-items: center; gap: 6px; padding: 10px 22px;
   background: #fff; color: #e65100; font-size: 13.5px; font-weight: 700;
@@ -216,15 +216,16 @@ img { display: block; max-width: 100%; height: auto; }
 }
 #pwa-ai-btn:active:not(:disabled) { background: #fff3e0; transform: scale(0.97); }
 #pwa-ai-btn:disabled { opacity: 0.6; cursor: not-allowed; }
-#pwa-talk-btn {
-  display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px;
-  background: #fff; color: #1a5276; font-size: 13.5px; font-weight: 700;
-  border-radius: 22px; border: 1.5px solid #1a5276;
-  box-shadow: 0 2px 6px rgba(26,82,118,0.18); transition: background 0.15s, transform 0.1s; min-height: 40px;
+#pwa-fab-like svg { stroke: #1565c0; }
+#pwa-fab-like.marked { background: #1565c0; border-color: #1565c0; box-shadow: 0 4px 14px rgba(21,101,192,0.4); }
+#pwa-fab-like.marked svg { stroke: #fff; }
+.pwa-fab-badge {
+  position: absolute; top: -4px; right: -4px;
+  background: #1565c0; color: #fff; font-size: 9px; font-weight: 700;
+  min-width: 16px; height: 16px; border-radius: 8px; padding: 0 3px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1.5px solid #fff;
 }
-#pwa-talk-btn:active:not(:disabled) { background: #eaf4fc; transform: scale(0.97); }
-#pwa-talk-btn.pwa-talk-active { background: #1a5276; color: #fff; border-color: #1a5276; }
-#pwa-talk-btn[hidden] { display: none !important; }
 #pwa-explanation {
   background: #fff; border-radius: 10px; padding: 14px; font-size: 14px;
   line-height: 1.6; color: #222; min-height: 48px;
@@ -260,6 +261,7 @@ img { display: block; max-width: 100%; height: auto; }
   width: 46px; height: 46px; border-radius: 50%; background: #fff;
   border: 1.5px solid #d8e0ec; box-shadow: 0 4px 12px rgba(0,0,0,0.16);
   display: flex; align-items: center; justify-content: center;
+  position: relative;
   transition: transform 0.12s, background 0.15s, border-color 0.15s, box-shadow 0.15s;
 }
 .pwa-fab-btn:active { transform: scale(0.92); }
@@ -376,11 +378,10 @@ img { display: block; max-width: 100%; height: auto; }
     </div>
     <div id="pwa-exp-section">
       <div class="pwa-exp-divider">Explanation</div>
+      <div id="pwa-explanation"><span class="pwa-msg">Loading…</span></div>
       <div id="pwa-ai-actions">
         <button id="pwa-ai-btn">&#10024; Explain with AI</button>
-        <button id="pwa-talk-btn" hidden>&#128483; Talk with Teacher</button>
       </div>
-      <div id="pwa-explanation"><span class="pwa-msg">Loading…</span></div>
     </div>
   </div>
 
@@ -388,6 +389,10 @@ img { display: block; max-width: 100%; height: auto; }
 
   <!-- FABs -->
   <div id="pwa-fab">
+    <button id="pwa-fab-like" class="pwa-fab-btn pwa-fab-hidden" aria-label="Helpful explanation">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
+      <span class="pwa-fab-badge" hidden>0</span>
+    </button>
     <button id="pwa-fab-revision" class="pwa-fab-btn" aria-label="Mark for Review">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
     </button>
@@ -417,6 +422,7 @@ img { display: block; max-width: 100%; height: auto; }
 
 <script src="js/explanation.js"></script>
 <script src="js/firebase-config.js" onerror="console.warn('Firebase config not found.')"></script>
+<script src="js/r2-explanations.js"></script>
 <script type="module" src="js/firebase-ai.js"></script>
 <script>
 /* ── Constants ──────────────────────────────────────────────────────────── */
@@ -430,14 +436,13 @@ const AI_CACHE_PFX   = 'ai_exp_persist:';
 const QB_INDEX_URL   = 'exams/qb_index.json';
 const QB_CACHE_KEY   = 'qb_index_cache_v1';
 
-// Click-to-reveal correct/wrong feedback. Currently disabled because the
-// correctAnswer values in metadata.json are unreliable — flip this to true
-// once the metadata is corrected.
-const SHOW_ANSWER_REVEAL = false;
+// R2 explanation state for the current question (null when no R2 explanation loaded)
+let _r2CurrentExp = null;
+
+const SHOW_ANSWER_REVEAL = true;
 
 /* ── State ──────────────────────────────────────────────────────────────── */
 let qbankCache         = null;
-let _ttsSpeaking       = false;
 let qbankFiltered      = [];
 let qbankSubjectFilter = 'all';
 let qbankStatusFilter  = 'to-read';   // default: unread questions
@@ -631,7 +636,6 @@ async function applyFilters() {
 }
 
 function renderCurrent() {
-  if (_ttsSpeaking) stopTTS();
   updateHeaderProgress();
 
   if (!qbankFiltered.length) { showEmptyState(); return; }
@@ -660,9 +664,7 @@ function renderCurrent() {
     optsEl.innerHTML = ''; optsWrap.style.display = 'none';
   } else {
     optsWrap.style.display = '';
-    // While SHOW_ANSWER_REVEAL is off, options always render neutrally and
-    // tapping them does nothing — metadata.correctAnswer is currently unreliable.
-    const prior = SHOW_ANSWER_REVEAL ? optionChoices.get(qimg) : null;
+    const prior = optionChoices.get(qimg);
     optsEl.className = 'pwa-opts' + (prior ? ' pwa-opts--revealed' : ' pwa-opts--inert');
     optsEl.innerHTML = item.optionImages.map((src, i) => {
       const k = i + 1;
@@ -693,7 +695,6 @@ function renderCurrent() {
 
 // Reveals the correct answer on first option click. Idempotent if already revealed.
 function revealOption(pickedIdx) {
-  if (!SHOW_ANSWER_REVEAL) return;     // disabled while metadata correctAnswer is unreliable
   const item = qbankFiltered[qbankIndex];
   if (!item) return;
   const qimg = item.questionImage;
@@ -712,12 +713,75 @@ function revealOption(pickedIdx) {
 
 function _prefetch(item) { if (item?.questionImage) new Image().src = item.questionImage; }
 
+/* ── R2 rating bar ──────────────────────────────────────────────────────── */
+function showRatingBar(exp, questionImage) {
+  _r2CurrentExp = { exp, questionImage };
+  const btn   = document.getElementById('pwa-fab-like');
+  const badge = btn.querySelector('.pwa-fab-badge');
+  const vote  = window.R2Explanations?.getUserVote(questionImage, exp.id) || null;
+  btn.classList.toggle('marked', vote === 'liked');
+  const count = exp.likes || 0;
+  badge.textContent = count;
+  badge.hidden = count === 0;
+  btn.classList.remove('pwa-fab-hidden');
+}
+
+function hideRatingBar() {
+  _r2CurrentExp = null;
+  const btn = document.getElementById('pwa-fab-like');
+  btn.classList.add('pwa-fab-hidden');
+  btn.classList.remove('marked');
+}
+
+async function handleRate() {
+  if (!_r2CurrentExp || !window.R2Explanations?.isConfigured()) return;
+  const { exp, questionImage } = _r2CurrentExp;
+  const currentVote = window.R2Explanations.getUserVote(questionImage, exp.id);
+  const r2Action = currentVote === 'liked' ? 'unlike' : 'like';
+  const newVote  = currentVote === 'liked' ? null : 'liked';
+  const updated  = await window.R2Explanations.rate(questionImage, exp.id, r2Action);
+  if (updated) {
+    window.R2Explanations.setUserVote(questionImage, exp.id, newVote);
+    showRatingBar({ ...exp, ...updated }, questionImage);
+  }
+}
+
 async function loadExplanation(questionImage) {
   const expEl = document.getElementById('pwa-explanation');
+  hideRatingBar();
+
+  // 1. localStorage (instant)
   const aiCached = getAiCache(questionImage);
-  if (aiCached) { expEl.innerHTML = aiCached; updateTalkBtnVisibility(); return; }
+  if (aiCached) {
+    expEl.innerHTML = aiCached;
+    // Fetch R2 state in background to populate rating bar
+    if (window.R2Explanations?.isConfigured()) {
+      window.R2Explanations.fetch(questionImage).then(doc => {
+        const best = window.R2Explanations.bestExplanation(doc?.explanations);
+        if (best) showRatingBar(best, questionImage);
+      });
+    }
+    return;
+  }
+
   expEl.innerHTML = '<span class="pwa-msg">Loading explanation…</span>';
-  updateTalkBtnVisibility();
+
+  // 2. R2 (100–150ms, best-rated explanation)
+  if (window.R2Explanations?.isConfigured()) {
+    try {
+      const doc  = await window.R2Explanations.fetch(questionImage);
+      const best = window.R2Explanations.bestExplanation(doc?.explanations);
+      if (best) {
+        ExplanationModal.setAiCache(questionImage, best.html);
+        expEl.innerHTML = best.html;
+        showRatingBar(best, questionImage);
+        document.getElementById('pwa-ai-btn').innerHTML = '&#10024; Regenerate';
+        return;
+      }
+    } catch {}
+  }
+
+  // 3. metadata.json fallback (legacy)
   const i = questionImage.lastIndexOf('/');
   if (i < 0) { expEl.innerHTML = noExplanationMsg(); return; }
   try {
@@ -726,7 +790,6 @@ async function loadExplanation(questionImage) {
     const data = await resp.json();
     expEl.innerHTML = data?.explanation?.html_text || noExplanationMsg();
   } catch { expEl.innerHTML = noExplanationMsg(); }
-  updateTalkBtnVisibility();
 }
 function noExplanationMsg() {
   return '<em style="color:#888;font-size:13px">No explanation yet. Tap ✨ Explain with AI to generate one.</em>';
@@ -817,105 +880,18 @@ async function handleAiExplain() {
     });
     expEl.innerHTML = html;
     aiBtn.innerHTML = '&#10024; Regenerate';
-    updateTalkBtnVisibility();
     document.getElementById('pwa-content').scrollTo({ top: expSection.offsetTop - 8, behavior: 'smooth' });
     updateHeaderProgress();
+    // Save to R2 async — non-blocking, best-effort
+    if (window.R2Explanations?.isConfigured()) {
+      window.R2Explanations.save(item.questionImage, html).then(exp => {
+        if (exp) showRatingBar(exp, item.questionImage);
+      });
+    }
   } catch (err) {
     expEl.innerHTML = `<div class="pwa-ai-error"><strong>AI error:</strong> ${esc(err.message || 'Generation failed.')}</div>`;
     aiBtn.innerHTML = '&#10024; Explain with AI';
   } finally { aiBtn.disabled = false; }
-}
-
-/* ── Talk with Teacher (TTS) ────────────────────────────────────────────── */
-function updateTalkBtnVisibility() {
-  const btn = document.getElementById('pwa-talk-btn');
-  if (!btn) return;
-  const expEl = document.getElementById('pwa-explanation');
-  const hasExplanation = expEl &&
-    !expEl.querySelector('.pwa-msg') &&
-    !expEl.querySelector('.pwa-ai-loading') &&
-    !expEl.querySelector('.pwa-ai-error') &&
-    expEl.textContent.trim().length > 30;
-  btn.hidden = !hasExplanation;
-  if (!hasExplanation && _ttsSpeaking) stopTTS();
-}
-
-function stopTTS() {
-  speechSynthesis.cancel();
-  _ttsSpeaking = false;
-  const btn = document.getElementById('pwa-talk-btn');
-  if (btn) { btn.innerHTML = '&#128483; Talk with Teacher'; btn.classList.remove('pwa-talk-active'); }
-}
-
-function getTeacherVoice() {
-  const voices = speechSynthesis.getVoices();
-  // Prefer Indian English male (Rishi is Google's en-IN male voice)
-  const inMale = voices.filter(v => v.lang === 'en-IN' && /rishi|male/i.test(v.name));
-  if (inMale.length) return inMale[0];
-  // Any en-IN
-  const inAny = voices.filter(v => v.lang === 'en-IN');
-  if (inAny.length) return inAny[0];
-  // en-GB male as fallback
-  const gbMale = voices.filter(v => v.lang === 'en-GB' && /male/i.test(v.name));
-  if (gbMale.length) return gbMale[0];
-  // Any English
-  return voices.find(v => v.lang.startsWith('en')) || null;
-}
-
-function explanationToText() {
-  const expEl = document.getElementById('pwa-explanation');
-  if (!expEl) return '';
-  const clone = expEl.cloneNode(true);
-  // Insert pauses around block boundaries so the spoken text flows naturally
-  clone.querySelectorAll('h2,h3,h4,p,li,td,section,div').forEach(el => {
-    el.append(document.createTextNode('. '));
-  });
-  return (clone.innerText || clone.textContent || '').replace(/\s+/g, ' ').replace(/(\.\s*){2,}/g, '. ').trim();
-}
-
-async function handleTalkWithTeacher() {
-  const btn = document.getElementById('pwa-talk-btn');
-  if (!btn) return;
-  if (_ttsSpeaking) { stopTTS(); return; }
-
-  const item = qbankFiltered[qbankIndex];
-  if (!item) return;
-
-  const text = explanationToText();
-  if (!text) return;
-
-  const subj = SUBJECT_DISPLAY[qbankSubjectFilter] || (item.sectionId || 'General');
-  const intro = `Alright. Let me explain this question for you. This is from ${subj}. `;
-  const script = intro + text;
-
-  const utter = new SpeechSynthesisUtterance(script);
-
-  // Ensure voices are loaded
-  let voice = getTeacherVoice();
-  if (!voice && speechSynthesis.getVoices().length === 0) {
-    await new Promise(resolve => {
-      const handler = () => { speechSynthesis.removeEventListener('voiceschanged', handler); resolve(); };
-      speechSynthesis.addEventListener('voiceschanged', handler);
-      setTimeout(resolve, 1200);
-    });
-    voice = getTeacherVoice();
-  }
-
-  if (voice) utter.voice = voice;
-  utter.lang   = 'en-IN';
-  utter.rate   = 0.87;   // deliberate teaching pace
-  utter.pitch  = 0.85;   // deeper, elder male
-  utter.volume = 1;
-
-  _ttsSpeaking = true;
-  btn.innerHTML = '&#9646;&#9646; Stop Speaking';
-  btn.classList.add('pwa-talk-active');
-
-  utter.onend   = () => stopTTS();
-  utter.onerror = () => { stopTTS(); showToast('Voice playback not available on this device.'); };
-
-  speechSynthesis.cancel();
-  speechSynthesis.speak(utter);
 }
 
 /* ── Subject dropdown ───────────────────────────────────────────────────── */
@@ -1054,7 +1030,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.getElementById('pwa-ai-btn').addEventListener('click', handleAiExplain);
-  document.getElementById('pwa-talk-btn').addEventListener('click', handleTalkWithTeacher);
+  document.getElementById('pwa-fab-like').addEventListener('click', handleRate);
+
 
   /* iOS zoom prevention */
   document.addEventListener('gesturestart', e => e.preventDefault());
