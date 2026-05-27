@@ -1,5 +1,6 @@
 # Change History
 
+- 2026-05-27 22:15 | v0.0.6 | minor | categorize-questions.md: design notes for question classification (model choice, cost, rate limits, prompt design, TODO)
 - 2026-05-27 22:00 | v0.0.6 | minor | scripts/classify_topics.py: Gemini 2.5 Flash Lite batch classifier for all 3150 questions; resumable, async, rate-limit aware
 - 2026-05-27 21:00 | v0.0.6 | minor | assets/syllabus_topics.json: 5-6 topics per subject (human + LLM versions) for question classification
 - 2026-05-27 20:15 | v0.0.6 | major | QB PWA: history-aware back/forward nav — random pushes to navHistory, back walks history, forward walks then falls to sequential next, filter change resets history; CLAUDE.md versioning + change_history rules
