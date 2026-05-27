@@ -176,7 +176,7 @@ img { display: block; max-width: 100%; height: auto; }
   box-shadow: 0 1px 3px rgba(10,30,60,0.06); margin-bottom: 12px;
   overflow-x: auto; -webkit-overflow-scrolling: touch;
 }
-.pwa-qimg { min-width: 100%; width: auto; max-width: none; height: auto; border-radius: 4px; display: block; }
+.pwa-qimg { width: auto; max-width: none; height: auto; border-radius: 4px; display: block; }
 
 /* Options */
 .pwa-opts-wrap {
@@ -428,8 +428,8 @@ img { display: block; max-width: 100%; height: auto; }
 
   <!-- Font-size calibration knob (testing) -->
   <div id="font-knob">
-    <span id="font-knob-label">Aa <strong id="font-knob-val">20</strong>px</span>
-    <input type="range" id="font-knob-slider" min="10" max="40" step="1" value="20">
+    <span id="font-knob-label">Aa <strong id="font-knob-val">48</strong>px</span>
+    <input type="range" id="font-knob-slider" min="40" max="60" step="1" value="20">
   </div>
 
   <!-- FABs -->
@@ -670,7 +670,7 @@ function showEmptyState() {
 }
 
 /* ── Image scaling ──────────────────────────────────────────────────────── */
-let targetLineHeightPx = parseInt(localStorage.getItem(LS_FONT_SIZE_KEY) || '20', 10);
+let targetLineHeightPx = Math.max(40, Math.min(60, parseInt(localStorage.getItem(LS_FONT_SIZE_KEY) || '48', 10)));
 
 function paperIdFromPath(imgPath) {
   // "question_bank/CDP/2024-May-20-Shift1_Q001_.../question.png" → "2024-May-20-Shift1"

@@ -1,5 +1,6 @@
 # Change History
 
+- 2026-05-27 | minor | QB PWA: font knob range 40-60px (default 48); remove min-width:100% so narrow questions don't stretch to fill container
 - 2026-05-27 | major | QB PWA: uniform image scaling — per-paper measured line heights, all question/option images rendered at consistent CSS font size; overflow-x scroll for large images; floating font-size calibration knob (bottom-left, persists to localStorage)
 
 - 2026-05-27 | major | scripts/build_real_exams.py: new script to regenerate all real-paper exam JSONs from questions.json; CLAUDE.md updated with mandatory regeneration step and sanity-check command
