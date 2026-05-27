@@ -174,8 +174,9 @@ img { display: block; max-width: 100%; height: auto; }
 .pwa-qimg-wrap {
   background: #fff; border-radius: 10px; padding: 10px;
   box-shadow: 0 1px 3px rgba(10,30,60,0.06); margin-bottom: 12px;
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
 }
-.pwa-qimg { width: 100%; border-radius: 4px; }
+.pwa-qimg { min-width: 100%; width: auto; max-width: none; height: auto; border-radius: 4px; display: block; }
 
 /* Options */
 .pwa-opts-wrap {
@@ -185,6 +186,7 @@ img { display: block; max-width: 100%; height: auto; }
 .pwa-opt {
   display: flex; align-items: flex-start; gap: 7px; padding: 7px 9px;
   background: #fafbff; border: 1.5px solid #dde4f0; border-radius: 7px; margin-bottom: 6px;
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
 }
 .pwa-opt:last-child { margin-bottom: 0; }
 .pwa-opt { cursor: pointer; transition: background 0.12s, border-color 0.12s; }
@@ -197,7 +199,7 @@ img { display: block; max-width: 100%; height: auto; }
 .pwa-opts--revealed .pwa-opt { cursor: default; }
 .pwa-opts--inert .pwa-opt { cursor: default; }
 .pwa-opts--inert .pwa-opt:active { background: #fafbff; }
-.pwa-opt img { max-width: 100%; width: auto; height: auto; display: block; border-radius: 3px; }
+.pwa-opt img { max-width: none; width: auto; height: auto; display: block; border-radius: 3px; }
 
 /* Explanation section */
 .pwa-exp-divider {
@@ -309,6 +311,43 @@ img { display: block; max-width: 100%; height: auto; }
 #pwa-explanation .answer { background: #e8f5e9; border-radius: 6px; padding: 10px 12px; margin-bottom: 10px; }
 #pwa-explanation section { margin-bottom: 12px; }
 #pwa-explanation img { max-width: 100%; height: auto; }
+
+/* ── Font-size knob ─────────────────────────────────────────────────────── */
+#font-knob {
+  position: fixed;
+  bottom: calc(80px + env(safe-area-inset-bottom));
+  left: 14px;
+  z-index: 35;
+  background: rgba(255,255,255,0.95);
+  border: 1.5px solid #d8e0ec;
+  border-radius: 14px;
+  box-shadow: 0 2px 10px rgba(10,30,60,0.15);
+  padding: 6px 10px 5px;
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  min-width: 72px;
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  user-select: none;
+}
+#font-knob-label {
+  font-size: 10px; font-weight: 600; color: #5a6e8e;
+  white-space: nowrap; letter-spacing: 0.3px;
+}
+#font-knob-val { color: #1565c0; }
+#font-knob-slider {
+  -webkit-appearance: none; appearance: none;
+  width: 60px; height: 4px;
+  background: #c5d2e3; border-radius: 2px; outline: none; cursor: pointer;
+}
+#font-knob-slider::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 16px; height: 16px; border-radius: 50%;
+  background: #1565c0; border: 2px solid #fff;
+  box-shadow: 0 1px 4px rgba(21,101,192,0.4);
+}
+#font-knob-slider::-moz-range-thumb {
+  width: 16px; height: 16px; border-radius: 50%;
+  background: #1565c0; border: 2px solid #fff; cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -387,6 +426,12 @@ img { display: block; max-width: 100%; height: auto; }
 
   <div id="pwa-toast"></div>
 
+  <!-- Font-size calibration knob (testing) -->
+  <div id="font-knob">
+    <span id="font-knob-label">Aa <strong id="font-knob-val">20</strong>px</span>
+    <input type="range" id="font-knob-slider" min="10" max="40" step="1" value="20">
+  </div>
+
   <!-- FABs -->
   <div id="pwa-fab">
     <button id="pwa-fab-like" class="pwa-fab-btn pwa-fab-hidden" aria-label="Helpful explanation">
@@ -425,6 +470,25 @@ img { display: block; max-width: 100%; height: auto; }
 <script src="js/r2-explanations.js"></script>
 <script type="module" src="js/firebase-ai.js"></script>
 <script>
+/* ── Per-paper measured line heights (px) ───────────────────────────────── */
+// Average pixel height of a single text line in question images, measured per paper.
+// Used to compute a uniform scale so all papers render text at the same CSS size.
+const PAPER_LINE_HEIGHTS = {
+  '2024-May-20-Shift1': 49.4, '2024-May-20-Shift2': 50.8,
+  '2024-May-21-Shift1': 52.2, '2024-May-21-Shift2': 52.0,
+  '2024-May-22-Shift1': 50.8, '2024-May-22-Shift2': 50.8,
+  '2025-Jan-05-Shift2': 46.5, '2025-Jan-11-Shift2': 43.8,
+  '2025-Jan-19-Shift1': 43.7, '2025-Jan-19-Shift2': 44.7,
+  '2025-Jan-20-Shift1': 43.8, '2025-Jan-20-Shift2': 46.2,
+  '2025-Jun-18-Shift1': 51.1, '2025-Jun-18-Shift2': 49.9,
+  '2025-Jun-19-Shift1': 44.7, '2025-Jun-19-Shift2': 53.3,
+  '2025-Jun-24-Shift1': 47.6,
+  '2026-Jan-03-Shift1': 43.4, '2026-Jan-03-Shift2': 42.9,
+  '2026-Jan-04-Shift1': 41.7, '2026-Jan-04-Shift2': 44.5,
+};
+const PAPER_LINE_HEIGHT_DEFAULT = 47;
+const LS_FONT_SIZE_KEY = 'qb_target_line_height_px';
+
 /* ── Constants ──────────────────────────────────────────────────────────── */
 const SUBJECT_DISPLAY = {
   all: 'All Subjects', cdp: 'CDP', telugu: 'Telugu',
@@ -605,6 +669,37 @@ function showEmptyState() {
   document.getElementById('pwa-fab').hidden           = true;
 }
 
+/* ── Image scaling ──────────────────────────────────────────────────────── */
+let targetLineHeightPx = parseInt(localStorage.getItem(LS_FONT_SIZE_KEY) || '20', 10);
+
+function paperIdFromPath(imgPath) {
+  // "question_bank/CDP/2024-May-20-Shift1_Q001_.../question.png" → "2024-May-20-Shift1"
+  const folder = (imgPath || '').split('/')[2] || '';
+  return folder.split('_Q')[0];
+}
+
+function getScale(paperId) {
+  const lineH = PAPER_LINE_HEIGHTS[paperId] || PAPER_LINE_HEIGHT_DEFAULT;
+  return targetLineHeightPx / lineH;
+}
+
+function applyImgScale(img, scale) {
+  const apply = () => {
+    img.style.width  = (img.naturalWidth * scale) + 'px';
+    img.style.height = 'auto';
+  };
+  if (img.complete && img.naturalWidth > 0) apply();
+  else img.addEventListener('load', apply, { once: true });
+}
+
+function applyScaleToCurrentQuestion() {
+  const item = qbankFiltered[qbankIndex];
+  if (!item) return;
+  const scale = getScale(paperIdFromPath(item.questionImage));
+  applyImgScale(document.getElementById('pwa-qimg'), scale);
+  document.querySelectorAll('#pwa-opts img').forEach(img => applyImgScale(img, scale));
+}
+
 function hideEmptyState() {
   document.getElementById('pwa-empty-state').classList.remove('visible');
   document.getElementById('pwa-qnum').hidden       = false;
@@ -685,6 +780,8 @@ function renderCurrent() {
     aiBtn.style.display = ''; aiBtn.disabled = false;
     aiBtn.innerHTML = getAiCache(qimg) ? '&#10024; Regenerate' : '&#10024; Explain with AI';
   }
+
+  applyScaleToCurrentQuestion();
 
   document.getElementById('pwa-content').scrollTo({ top: 0, behavior: 'auto' });
   _prefetch(qbankFiltered[qbankIndex + 1]);
@@ -1031,6 +1128,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('pwa-ai-btn').addEventListener('click', handleAiExplain);
   document.getElementById('pwa-fab-like').addEventListener('click', handleRate);
+
+  /* Font-size knob */
+  const knobSlider = document.getElementById('font-knob-slider');
+  const knobVal    = document.getElementById('font-knob-val');
+  knobSlider.value = targetLineHeightPx;
+  knobVal.textContent = targetLineHeightPx;
+  knobSlider.addEventListener('input', () => {
+    targetLineHeightPx = parseInt(knobSlider.value, 10);
+    knobVal.textContent = targetLineHeightPx;
+    localStorage.setItem(LS_FONT_SIZE_KEY, targetLineHeightPx);
+    applyScaleToCurrentQuestion();
+  });
 
 
   /* iOS zoom prevention */

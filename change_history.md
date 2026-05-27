@@ -1,5 +1,7 @@
 # Change History
 
+- 2026-05-27 | major | QB PWA: uniform image scaling — per-paper measured line heights, all question/option images rendered at consistent CSS font size; overflow-x scroll for large images; floating font-size calibration knob (bottom-left, persists to localStorage)
+
 - 2026-05-27 | major | scripts/build_real_exams.py: new script to regenerate all real-paper exam JSONs from questions.json; CLAUDE.md updated with mandatory regeneration step and sanity-check command
 - 2026-05-27 | major | exams: regenerate all 21 real-paper exam JSONs + qb_index from questions.json — fixed 549 wrong correctAnswer values in pre-existing JSONs (old build source had errors; questions.json is authoritative)
 - 2026-05-27 | minor | QB PWA: thumbs-up repositioned above revision/understood FABs; colour changed to steel blue; scroll-hide header removed (didn't solve full-screen viewing)
