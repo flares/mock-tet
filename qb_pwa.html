@@ -58,7 +58,7 @@ img { display: block; max-width: 100%; height: auto; }
 }
 
 /* Brand */
-#pwa-brand { color: #fff; display: flex; flex-direction: column; align-items: flex-start; justify-self: start; }
+#pwa-brand { background: none; border: none; padding: 0; color: #fff; display: flex; flex-direction: column; align-items: flex-start; justify-self: start; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .pwa-brand-tet { font-size: 22px; font-weight: 900; letter-spacing: 1px; line-height: 1; }
 .pwa-brand-suite { font-size: 10px; font-weight: 600; letter-spacing: 2.5px; color: #f0a500; margin-top: 2px; text-transform: uppercase; }
 
@@ -356,10 +356,10 @@ img { display: block; max-width: 100%; height: auto; }
   <!-- Header (z-index 50 — above backdrop so dropdown items are tappable) -->
   <header id="pwa-header">
     <div class="pwa-hrow1">
-      <div id="pwa-brand">
+      <button id="pwa-brand">
         <span class="pwa-brand-tet">TET</span>
         <span class="pwa-brand-suite">Suite</span>
-      </div>
+      </button>
 
       <div class="pwa-subject-wrap">
         <button id="pwa-subject-btn" aria-haspopup="listbox" aria-expanded="false">
@@ -389,7 +389,7 @@ img { display: block; max-width: 100%; height: auto; }
         <button class="pwa-chip" data-status="in-review">In Review</button>
         <button class="pwa-chip" data-status="understood">Understood</button>
       </div>
-      <button id="pwa-chip-explained" title="Questions with AI explanations cached locally">
+      <button id="pwa-chip-explained" title="Questions with AI explanations in R2">
         ✨ <span class="exp-count" id="pwa-exp-count">0</span>
       </button>
     </div>
@@ -494,6 +494,7 @@ const SUBJECT_DISPLAY = {
   all: 'All Subjects', cdp: 'CDP', telugu: 'Telugu',
   english: 'English', mathematics: 'Math', science: 'Science',
 };
+const APP_VERSION    = '0.0.6';
 const UNDERSTOOD_KEY = 'tet_understood_questions';
 const REVISION_KEY   = 'tet_revision_questions';
 const AI_CACHE_PFX   = 'ai_exp_persist:';
@@ -502,6 +503,8 @@ const QB_CACHE_KEY   = 'qb_index_cache_v1';
 
 // R2 explanation state for the current question (null when no R2 explanation loaded)
 let _r2CurrentExp = null;
+// Count of questions with explanations in R2 (null until fetched)
+let r2ExplainedCount = null;
 
 const SHOW_ANSWER_REVEAL = true;
 
@@ -511,6 +514,25 @@ let qbankFiltered      = [];
 let qbankSubjectFilter = 'all';
 let qbankStatusFilter  = 'to-read';   // default: unread questions
 let qbankIndex         = 0;
+
+// Navigation history — tracks visited qbankFiltered indices so back/forward works
+// across random jumps. Reset on filter changes.
+let navHistory = [0];
+let navPos     = 0;
+
+function navPush(idx) {
+  navHistory.splice(navPos + 1);   // discard any forward history when branching
+  navHistory.push(idx);
+  navPos     = navHistory.length - 1;
+  qbankIndex = idx;
+}
+
+function navReset() {
+  qbankIndex = 0;
+  navHistory = qbankFiltered.length > 0 ? [0] : [];
+  navPos     = qbankFiltered.length > 0 ? 0 : -1;
+}
+
 // Per-question reveal state for the click-to-reveal option behaviour.
 // Map<questionImage, { picked: 1-based index }>
 const optionChoices    = new Map();
@@ -726,7 +748,7 @@ async function applyFilters() {
     return;
   }
   qbankFiltered = buildFiltered(all);
-  qbankIndex    = 0;
+  navReset();
   renderCurrent();
 }
 
@@ -907,8 +929,8 @@ function updateHeaderProgress() {
   document.getElementById('pwa-progress-sub').innerHTML =
     `${undCount}&#10003;&nbsp;·&nbsp;${revCount}&#128278;`;
 
-  // Explained badge — shows count across ALL questions, not just filtered
-  const totalExp = (qbankCache || []).filter(q => !!getAiCache(q.questionImage)).length;
+  // Explained badge — R2 global count when fetched, else local cache count
+  const totalExp = r2ExplainedCount ?? (qbankCache || []).filter(q => !!getAiCache(q.questionImage)).length;
   document.getElementById('pwa-exp-count').textContent = totalExp;
 }
 
@@ -982,7 +1004,12 @@ async function handleAiExplain() {
     // Save to R2 async — non-blocking, best-effort
     if (window.R2Explanations?.isConfigured()) {
       window.R2Explanations.save(item.questionImage, html).then(exp => {
-        if (exp) showRatingBar(exp, item.questionImage);
+        if (exp) {
+          showRatingBar(exp, item.questionImage);
+          window.R2Explanations.addToIndex(item.questionImage).then(count => {
+            if (count !== null) { r2ExplainedCount = count; updateHeaderProgress(); }
+          });
+        }
       });
     }
   } catch (err) {
@@ -1018,6 +1045,17 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('pwa-explanation').innerHTML =
     '<span class="pwa-msg">Loading question bank…</span>';
   applyFilters();
+
+  /* Fetch R2 explanation index to populate the ✨ counter — public endpoint, no auth needed */
+  if (window.R2Explanations) {
+    window.R2Explanations.fetchIndex().then(({ count }) => {
+      r2ExplainedCount = count;
+      document.getElementById('pwa-exp-count').textContent = count;
+    });
+  }
+
+  /* Brand tap — show version */
+  document.getElementById('pwa-brand').addEventListener('click', () => showToast(`TET Suite v${APP_VERSION}`));
 
   /* Subject dropdown toggle */
   document.getElementById('pwa-subject-btn').addEventListener('click', e => {
@@ -1056,16 +1094,34 @@ document.addEventListener('DOMContentLoaded', () => {
     applyFilters();
   });
 
-  /* Nav buttons — renderCurrent() only, no filter rebuild */
+  /* Nav buttons — history-aware back / forward / random */
   document.getElementById('pwa-prev').addEventListener('click', () => {
-    if (qbankIndex > 0) { qbankIndex--; renderCurrent(); }
+    if (navPos > 0) {
+      // Walk back through history
+      navPos--;
+      qbankIndex = navHistory[navPos];
+      renderCurrent();
+    } else if (qbankIndex > 0) {
+      // Prepend sequential prev to history
+      navPush(qbankIndex - 1);
+      renderCurrent();
+    }
   });
   document.getElementById('pwa-next').addEventListener('click', () => {
-    if (qbankIndex < qbankFiltered.length - 1) { qbankIndex++; renderCurrent(); }
+    if (navPos < navHistory.length - 1) {
+      // Walk forward through history
+      navPos++;
+      qbankIndex = navHistory[navPos];
+      renderCurrent();
+    } else if (qbankIndex < qbankFiltered.length - 1) {
+      // Past end of history — go to sequential next and push it
+      navPush(qbankIndex + 1);
+      renderCurrent();
+    }
   });
   document.getElementById('pwa-random').addEventListener('click', () => {
     if (qbankFiltered.length > 0) {
-      qbankIndex = Math.floor(Math.random() * qbankFiltered.length);
+      navPush(Math.floor(Math.random() * qbankFiltered.length));
       renderCurrent();
     }
   });

@@ -1,5 +1,8 @@
 # Change History
 
+- 2026-05-27 20:15 | v0.0.6 | major | QB PWA: history-aware back/forward nav — random pushes to navHistory, back walks history, forward walks then falls to sequential next, filter change resets history; CLAUDE.md versioning + change_history rules
+- 2026-05-27 | v0.0.5 | minor | QB PWA: version 0.0.5 — tap TET Suite brand to show version toast; SW cache bumped to v6; fix addToIndex race condition and _indexSet null guard
+- 2026-05-27 | major | R2: add questions-with-explanations.json index doc; worker GET/POST /index routes; r2-explanations.js fetchIndex+addToIndex; QB PWA ✨ counter now shows R2 global count instead of local cache count
 - 2026-05-27 | minor | QB PWA: font knob range 40-60px (default 48); remove min-width:100% so narrow questions don't stretch to fill container
 - 2026-05-27 | major | QB PWA: uniform image scaling — per-paper measured line heights, all question/option images rendered at consistent CSS font size; overflow-x scroll for large images; floating font-size calibration knob (bottom-left, persists to localStorage)
 

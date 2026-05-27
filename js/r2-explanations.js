@@ -16,8 +16,14 @@
  *   setUserVote(questionImage, expId, vote)  → void
  */
 (function () {
-  const R2_CACHE_PFX = 'r2_exp:';
-  const VOTE_PFX     = 'r2_vote:';
+  const R2_CACHE_PFX    = 'r2_exp:';
+  const VOTE_PFX        = 'r2_vote:';
+  const INDEX_CACHE_KEY = 'r2_exp_index';
+  // Worker URL is not a secret — hardcoded so fetchIndex() works even without firebase-config.js
+  const WORKER_URL_DEFAULT = 'https://tet-qb-worker.y-manojkrishna.workers.dev';
+
+  // In-memory set of questionIds known to be in the R2 index (populated by fetchIndex).
+  let _indexSet = null;
 
   // ── Path helpers ────────────────────────────────────────────────────────────
 
@@ -83,6 +89,56 @@
       if (sb !== sa) return sb - sa;
       return new Date(b.generatedAt) - new Date(a.generatedAt);
     })[0];
+  }
+
+  function workerBase() {
+    return (window.FIREBASE_CONFIG?.workerUrl || WORKER_URL_DEFAULT).replace(/\/+$/, '');
+  }
+
+  function indexUrl() {
+    return `${workerBase()}/index`;
+  }
+
+  // ── R2 index — which questionIds have at least one explanation ─────────────
+
+  async function fetchIndex() {
+    try {
+      const resp = await fetch(indexUrl());
+      if (!resp.ok) throw new Error('non-ok');
+      const doc = await resp.json();
+      const ids = doc.questionIds || [];
+      _indexSet = new Set(ids);
+      try { localStorage.setItem(INDEX_CACHE_KEY, JSON.stringify(ids)); } catch {}
+      return { questionIds: ids, count: ids.length };
+    } catch {
+      try {
+        const cached = JSON.parse(localStorage.getItem(INDEX_CACHE_KEY) || '[]');
+        _indexSet = new Set(cached);
+        return { questionIds: cached, count: cached.length };
+      } catch {
+        _indexSet = new Set();
+        return { questionIds: [], count: 0 };
+      }
+    }
+  }
+
+  async function addToIndex(questionImage) {
+    if (!getConfig()) return null;
+    const qId = folderKey(questionImage);
+    if (_indexSet?.has(qId)) return _indexSet.size;
+    try {
+      const resp = await fetch(indexUrl(), {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json', ...authHeader() },
+        body:    JSON.stringify({ questionId: qId }),
+      });
+      if (!resp.ok) return null;
+      const data = await resp.json();
+      if (!_indexSet) _indexSet = new Set();
+      _indexSet.add(qId);
+      try { localStorage.setItem(INDEX_CACHE_KEY, JSON.stringify([..._indexSet])); } catch {}
+      return data.count;
+    } catch { return null; }
   }
 
   // ── Public API ─────────────────────────────────────────────────────────────
@@ -157,5 +213,5 @@
     } catch { return false; }
   }
 
-  window.R2Explanations = { isConfigured: () => !!getConfig(), fetch: fetch_, save, rate, remove, bestExplanation, getUserVote, setUserVote };
+  window.R2Explanations = { isConfigured: () => !!getConfig(), fetch: fetch_, save, rate, remove, bestExplanation, getUserVote, setUserVote, fetchIndex, addToIndex };
 })();

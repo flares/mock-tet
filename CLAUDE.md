@@ -16,12 +16,19 @@ Target audience: CTET Paper 2 (Classes VI–VIII), Mathematics & Science stream.
 
 ### Change logging rule (mandatory)
 
-For every code or content change, append an entry to `change_history.md`:
-- Date (YYYY-MM-DD)
-- Complexity (`major` or `minor`)
-- One-line summary
-
+For every code or content change, prepend an entry to the **top** of `change_history.md` (newest first):
+```
+- YYYY-MM-DD HH:MM | vX.X.X | major|minor | one-line summary
+```
 Every commit must include a `change_history.md` update.
+
+### Version rule (mandatory)
+
+`APP_VERSION` is defined as a JS constant at the top of the `<script>` block in `qb_pwa.html`. **Increment it on every commit** using semver-light:
+- `minor` change → bump patch (0.0.5 → 0.0.6)
+- `major` change → bump minor (0.0.5 → 0.1.0)
+
+The current version is `0.0.5`. After this session the next commit starts from whatever version was last set.
 
 ### Auto-skill triggers
 

@@ -13,6 +13,8 @@
  *       Set via: wrangler secret put AUTH_TOKEN
  */
 
+const INDEX_KEY = 'questions-with-explanations.json';
+
 const CORS = {
   'Access-Control-Allow-Origin':  '*',
   'Access-Control-Allow-Methods': 'GET, POST, PATCH, DELETE, OPTIONS',
@@ -27,6 +29,33 @@ export default {
 
     const url   = new URL(request.url);
     const parts = url.pathname.replace(/^\/+|\/+$/g, '').split('/');
+
+    // ── GET /index  — public: list of questionIds that have explanations ────
+    // ── POST /index — auth: add a questionId to the index ────────────────
+    if (parts[0] === 'index') {
+      if (request.method === 'GET') {
+        const obj = await env.EXPLANATIONS.get(INDEX_KEY);
+        if (!obj) return json({ schemaVersion: '1.0', questionIds: [] });
+        return json(await obj.json());
+      }
+      if (request.method === 'POST') {
+        const token = (request.headers.get('Authorization') || '').replace(/^Bearer\s+/i, '');
+        if (!env.AUTH_TOKEN || token !== env.AUTH_TOKEN) {
+          return json({ error: 'Unauthorized' }, 401);
+        }
+        const body = await request.json().catch(() => ({}));
+        const { questionId } = body;
+        if (!questionId) return json({ error: '"questionId" required' }, 400);
+        const obj = await env.EXPLANATIONS.get(INDEX_KEY);
+        const doc = obj ? await obj.json() : { schemaVersion: '1.0', questionIds: [] };
+        if (!doc.questionIds.includes(questionId)) {
+          doc.questionIds.push(questionId);
+          await env.EXPLANATIONS.put(INDEX_KEY, JSON.stringify(doc));
+        }
+        return json({ count: doc.questionIds.length });
+      }
+      return json({ error: 'Method not allowed' }, 405);
+    }
 
     if (parts[0] !== 'explanations') {
       return json({ error: 'Not found' }, 404);
