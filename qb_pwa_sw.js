@@ -1,4 +1,4 @@
-const CACHE = 'qb-pwa-v7';
+const CACHE = 'qb-pwa-v8';
 
 const SHELL = [
   './qb_pwa.html',
@@ -31,17 +31,19 @@ self.addEventListener('activate', e => {
 async function revalidateQbIndex() {
   const cache = await caches.open(CACHE);
   const cached = await cache.match('./exams/qb_index.json');
+  const prevEtag = cached?.headers.get('etag') ?? null;
   const headers = {};
-  if (cached) {
-    const etag = cached.headers.get('etag');
-    if (etag) headers['If-None-Match'] = etag;
-  }
+  if (prevEtag) headers['If-None-Match'] = prevEtag;
   const resp = await fetch('./exams/qb_index.json', { headers, cache: 'no-cache' });
   if (resp.status === 304) return; // not modified
   if (!resp.ok) return;
+  const newEtag = resp.headers.get('etag');
   await cache.put('./exams/qb_index.json', resp.clone());
-  const clients = await self.clients.matchAll({ includeUncontrolled: true });
-  clients.forEach(c => c.postMessage({ type: 'QB_INDEX_UPDATED' }));
+  // Only notify when we had a prior cached version and the ETag actually changed
+  if (cached && newEtag !== prevEtag) {
+    const clients = await self.clients.matchAll({ includeUncontrolled: true });
+    clients.forEach(c => c.postMessage({ type: 'QB_INDEX_UPDATED' }));
+  }
 }
 
 // Background Sync: revalidate when connectivity resumes after offline
@@ -88,18 +90,20 @@ self.addEventListener('fetch', e => {
       caches.open(CACHE).then(async cache => {
         const cached = await cache.match(request);
         const fetchPromise = (async () => {
+          const prevEtag = cached?.headers.get('etag') ?? null;
           const headers = {};
-          if (cached) {
-            const etag = cached.headers.get('etag');
-            if (etag) headers['If-None-Match'] = etag;
-          }
+          if (prevEtag) headers['If-None-Match'] = prevEtag;
           try {
             const resp = await fetch(request, { headers, cache: 'no-cache' });
             if (resp.status === 304) return cached;
             if (resp.ok) {
+              const newEtag = resp.headers.get('etag');
               await cache.put(request, resp.clone());
-              const clients = await self.clients.matchAll({ includeUncontrolled: true });
-              clients.forEach(c => c.postMessage({ type: 'QB_INDEX_UPDATED' }));
+              // Only notify when we had a prior cached version and the ETag actually changed
+              if (cached && newEtag !== prevEtag) {
+                const clients = await self.clients.matchAll({ includeUncontrolled: true });
+                clients.forEach(c => c.postMessage({ type: 'QB_INDEX_UPDATED' }));
+              }
             }
             return resp;
           } catch {

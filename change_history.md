@@ -1,5 +1,7 @@
 # Change History
 
+- 2026-05-28 | v0.1.3 | minor | Fix: update banner fires on every open — only send QB_INDEX_UPDATED when ETag actually changes, not on every 200 response
+
 - 2026-05-28 | v0.1.2 | minor | Reword update banner from "New questions available" to "App update available" to avoid misleading users
 
 - 2026-05-28 | v0.1.1 | minor | Fix iOS PWA broken-on-resume: add pageshow+visibilitychange handlers to re-run applyFilters when page restores from bfcache or OS freeze with incomplete initialization
