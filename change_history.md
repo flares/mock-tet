@@ -1,5 +1,7 @@
 # Change History
 
+- 2026-05-28 | v0.1.4 | minor | Fix: AI "Module failed to load" on iOS PWA — replace esm.run SDK imports with direct Gemini REST API fetch, remove Firebase Analytics CDN dependency
+
 - 2026-05-28 | v0.1.3 | minor | Fix: update banner fires on every open — only send QB_INDEX_UPDATED when ETag actually changes, not on every 200 response
 
 - 2026-05-28 | v0.1.2 | minor | Reword update banner from "New questions available" to "App update available" to avoid misleading users

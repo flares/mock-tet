@@ -513,7 +513,7 @@ img { display: block; max-width: 100%; height: auto; }
 <script src="js/explanation.js"></script>
 <script src="js/firebase-config.js" onerror="console.warn('Firebase config not found.')"></script>
 <script src="js/r2-explanations.js"></script>
-<script type="module" src="js/firebase-ai.js"></script>
+<script src="js/firebase-ai.js"></script>
 <script>
 /* ── Per-paper measured line heights (px) ───────────────────────────────── */
 // Average pixel height of a single text line in question images, measured per paper.
@@ -527,7 +527,7 @@ const SUBJECT_DISPLAY = {
   all: 'All Subjects', cdp: 'CDP', telugu: 'Telugu',
   english: 'English', mathematics: 'Math', science: 'Science',
 };
-const APP_VERSION    = '0.1.3';
+const APP_VERSION    = '0.1.4';
 const CACHE_BUST     = '1';   // increment on special pushes to wipe stale localStorage
 const UNDERSTOOD_KEY = 'tet_understood_questions';
 const REVISION_KEY   = 'tet_revision_questions';
