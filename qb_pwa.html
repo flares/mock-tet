@@ -527,7 +527,7 @@ const SUBJECT_DISPLAY = {
   all: 'All Subjects', cdp: 'CDP', telugu: 'Telugu',
   english: 'English', mathematics: 'Math', science: 'Science',
 };
-const APP_VERSION    = '0.1.6';
+const APP_VERSION    = '0.1.7';
 const CACHE_BUST     = '1';   // increment on special pushes to wipe stale localStorage
 const UNDERSTOOD_KEY = 'tet_understood_questions';
 const REVISION_KEY   = 'tet_revision_questions';
@@ -1055,6 +1055,13 @@ async function handleAiExplain() {
   expEl.innerHTML = '<div class="pwa-ai-loading"><span class="pwa-ai-spinner"></span>Generating AI explanation…</div>';
   document.getElementById('pwa-content').scrollTo({ top: expSection.offsetTop - 8, behavior: 'smooth' });
 
+  // iOS suspends in-flight fetches when the PWA is backgrounded — track whether
+  // the page lost visibility during this request so we can give a clearer error
+  // and auto-retry once on resume.
+  let backgroundedDuringFetch = false;
+  const onVis = () => { if (document.visibilityState === 'hidden') backgroundedDuringFetch = true; };
+  document.addEventListener('visibilitychange', onVis);
+
   try {
     const html = await window.AiExplainer.explain({
       questionImage: item.questionImage, optionImages: item.optionImages || [],
@@ -1077,9 +1084,30 @@ async function handleAiExplain() {
       });
     }
   } catch (err) {
-    expEl.innerHTML = `<div class="pwa-ai-error"><strong>AI error:</strong> ${esc(err.message || 'Generation failed.')}</div>`;
-    aiBtn.innerHTML = '&#10024; Explain with AI';
-  } finally { aiBtn.disabled = false; }
+    const msg = err.message || 'Generation failed.';
+    const looksLikeNetwork = /network error|load failed|failed to fetch/i.test(msg);
+    if (backgroundedDuringFetch && looksLikeNetwork) {
+      expEl.innerHTML = `<div class="pwa-ai-error"><strong>AI paused:</strong> iOS cancelled the request when you switched away from the app. Tap <strong>Explain with AI</strong> again and keep the app in foreground until the explanation loads (usually 10–20 seconds).</div>`;
+      aiBtn.innerHTML = '&#10024; Explain with AI';
+      // Auto-retry once on resume (only if the user is still viewing the same question)
+      const currentQimg = item.questionImage;
+      const onResume = () => {
+        if (document.visibilityState !== 'visible') return;
+        document.removeEventListener('visibilitychange', onResume);
+        const stillItem = qbankFiltered[qbankIndex];
+        if (stillItem && stillItem.questionImage === currentQimg && !getAiCache(currentQimg)) {
+          handleAiExplain();
+        }
+      };
+      document.addEventListener('visibilitychange', onResume);
+    } else {
+      expEl.innerHTML = `<div class="pwa-ai-error"><strong>AI error:</strong> ${esc(msg)}</div>`;
+      aiBtn.innerHTML = '&#10024; Explain with AI';
+    }
+  } finally {
+    document.removeEventListener('visibilitychange', onVis);
+    aiBtn.disabled = false;
+  }
 }
 
 /* ── Subject dropdown ───────────────────────────────────────────────────── */
