@@ -25,6 +25,13 @@
   // In-memory set of questionIds known to be in the R2 index (populated by fetchIndex).
   let _indexSet = null;
 
+  // Warm _indexSet from localStorage synchronously so hasInIndex works before
+  // fetchIndex() resolves on cold start.
+  try {
+    const cached = JSON.parse(localStorage.getItem(INDEX_CACHE_KEY) || 'null');
+    if (Array.isArray(cached)) _indexSet = new Set(cached);
+  } catch {}
+
   // ── Path helpers ────────────────────────────────────────────────────────────
 
   function parseImage(questionImage) {
@@ -213,5 +220,5 @@
     } catch { return false; }
   }
 
-  window.R2Explanations = { isConfigured: () => !!getConfig(), fetch: fetch_, save, rate, remove, bestExplanation, getUserVote, setUserVote, fetchIndex, addToIndex };
+  window.R2Explanations = { isConfigured: () => !!getConfig(), fetch: fetch_, save, rate, remove, bestExplanation, getUserVote, setUserVote, fetchIndex, addToIndex, hasInIndex: q => !!_indexSet?.has(folderKey(q)) };
 })();

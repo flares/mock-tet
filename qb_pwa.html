@@ -527,7 +527,7 @@ const SUBJECT_DISPLAY = {
   all: 'All Subjects', cdp: 'CDP', telugu: 'Telugu',
   english: 'English', mathematics: 'Math', science: 'Science',
 };
-const APP_VERSION    = '0.1.4';
+const APP_VERSION    = '0.1.5';
 const CACHE_BUST     = '1';   // increment on special pushes to wipe stale localStorage
 const UNDERSTOOD_KEY = 'tet_understood_questions';
 const REVISION_KEY   = 'tet_revision_questions';
@@ -699,7 +699,7 @@ function buildFiltered(all) {
       case 'to-read':    return !understood.has(q.questionImage);
       case 'in-review':  return revSet.has(q.questionImage);
       case 'understood': return understood.has(q.questionImage);
-      case 'explained':  return !!getAiCache(q.questionImage);
+      case 'explained':  return !!getAiCache(q.questionImage) || !!window.R2Explanations?.hasInIndex(q.questionImage);
       default:           return true;
     }
   };
@@ -1128,6 +1128,9 @@ document.addEventListener('DOMContentLoaded', () => {
     window.R2Explanations.fetchIndex().then(({ count }) => {
       r2ExplainedCount = count;
       document.getElementById('pwa-exp-count').textContent = count;
+      // If the user is already on the Explained filter, rebuild the list now that
+      // the R2 index is loaded — otherwise the filter shows only locally-cached items.
+      if (qbankStatusFilter === 'explained') applyFilters();
     });
   }
 
@@ -1338,6 +1341,7 @@ document.addEventListener('DOMContentLoaded', () => {
       window.R2Explanations.fetchIndex().then(({ count }) => {
         r2ExplainedCount = count;
         document.getElementById('pwa-exp-count').textContent = count;
+        if (qbankStatusFilter === 'explained') applyFilters();
       }).catch(() => {});
     }
   }

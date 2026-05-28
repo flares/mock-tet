@@ -1,5 +1,7 @@
 # Change History
 
+- 2026-05-28 | v0.1.5 | minor | Fix: Explained filter — chip showed R2 global count but filter only matched local cache, leaving 0 navigable items. Filter now uses R2 index and re-builds list once index loads
+
 - 2026-05-28 | v0.1.4 | minor | Fix: AI "Module failed to load" on iOS PWA — replace esm.run SDK imports with direct Gemini REST API fetch, remove Firebase Analytics CDN dependency
 
 - 2026-05-28 | v0.1.3 | minor | Fix: update banner fires on every open — only send QB_INDEX_UPDATED when ETag actually changes, not on every 200 response
