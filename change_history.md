@@ -1,5 +1,7 @@
 # Change History
 
+- 2026-05-28 | v0.1.6 | minor | Diagnostic: wrap image and Gemini fetches in try/catch with prefixed error messages so iOS PWA "Load failed" can be traced to source
+
 - 2026-05-28 | v0.1.5 | minor | Fix: Explained filter — chip showed R2 global count but filter only matched local cache, leaving 0 navigable items. Filter now uses R2 index and re-builds list once index loads
 
 - 2026-05-28 | v0.1.4 | minor | Fix: AI "Module failed to load" on iOS PWA — replace esm.run SDK imports with direct Gemini REST API fetch, remove Firebase Analytics CDN dependency

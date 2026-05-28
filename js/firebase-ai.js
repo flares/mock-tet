@@ -48,8 +48,13 @@ Ensure you are using the correct HTML formatting and inline styling for visually
 // ── Helpers ─────────────────────────────────────────────────────────────────
 
 async function fetchImageAsInlineData(url) {
-  const resp = await fetch(url);
-  if (!resp.ok) throw new Error(`Image fetch failed: ${url}`);
+  let resp;
+  try {
+    resp = await fetch(url);
+  } catch (e) {
+    throw new Error(`Image network error (${url}): ${e.message || e}`);
+  }
+  if (!resp.ok) throw new Error(`Image fetch failed (${resp.status}): ${url}`);
   const blob = await resp.blob();
   const mimeType = blob.type || "image/png";
   return new Promise((resolve, reject) => {
@@ -82,11 +87,16 @@ async function callGemini(apiKey, parts) {
     generationConfig: { temperature: 0.3 },
   };
 
-  const resp = await fetch(`${GEMINI_API_URL}?key=${apiKey}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
-  });
+  let resp;
+  try {
+    resp = await fetch(`${GEMINI_API_URL}?key=${apiKey}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+  } catch (e) {
+    throw new Error(`Gemini network error: ${e.message || e}. Check connectivity or try Wi-Fi.`);
+  }
 
   if (!resp.ok) {
     const errText = await resp.text().catch(() => String(resp.status));
