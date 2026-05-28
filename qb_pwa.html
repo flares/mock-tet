@@ -527,7 +527,7 @@ const SUBJECT_DISPLAY = {
   all: 'All Subjects', cdp: 'CDP', telugu: 'Telugu',
   english: 'English', mathematics: 'Math', science: 'Science',
 };
-const APP_VERSION    = '0.1.0';
+const APP_VERSION    = '0.1.1';
 const CACHE_BUST     = '1';   // increment on special pushes to wipe stale localStorage
 const UNDERSTOOD_KEY = 'tet_understood_questions';
 const REVISION_KEY   = 'tet_revision_questions';
@@ -1327,6 +1327,26 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .catch(err => console.warn('[QB PWA] SW registration failed:', err));
   }
+
+  // Recover from broken state after iOS bfcache restore or PWA resume.
+  // If the page was frozen mid-initialization (applyFilters still in-flight when
+  // iOS backgrounded it), the DOM shows the initial shell with no data. Detect
+  // this on any visible-transition and re-run initialization.
+  function _resumeCheck() {
+    if (!qbankCache || !qbankFiltered.length) applyFilters();
+    if (r2ExplainedCount === null && window.R2Explanations) {
+      window.R2Explanations.fetchIndex().then(({ count }) => {
+        r2ExplainedCount = count;
+        document.getElementById('pwa-exp-count').textContent = count;
+      }).catch(() => {});
+    }
+  }
+  // pageshow with persisted=true: bfcache restore (typical iOS minimize+reopen)
+  window.addEventListener('pageshow', e => { if (e.persisted) _resumeCheck(); });
+  // visibilitychange: covers lock-screen unlock, app-switcher resume, and edge cases
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') _resumeCheck();
+  });
 });
 </script>
 </body>

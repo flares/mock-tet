@@ -1,5 +1,7 @@
 # Change History
 
+- 2026-05-28 | v0.1.1 | minor | Fix iOS PWA broken-on-resume: add pageshow+visibilitychange handlers to re-run applyFilters when page restores from bfcache or OS freeze with incomplete initialization
+
 - 2026-05-27 | v0.1.0 | major | PWA background auto-update: SW stale-while-revalidate for qb_index.json, Background Sync on reconnect, Periodic Background Sync (Android), "New questions available" banner, app-updated toast; CACHE_BUST constant for selective localStorage reset on special pushes
 
 - 2026-05-27 | v0.0.7 | minor | progress counter shows global done/3150 (understood ∪ in-review); To Read chip has no count; In Review and Understood chips show global count badges
