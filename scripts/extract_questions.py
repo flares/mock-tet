@@ -735,7 +735,7 @@ def save_images(questions: list, pdf_path: Path, out_dir: Path) -> list:
         # metadata.json
         meta_out = {k: v for k, v in qd.items()
                     if k not in ('content_xrefs', 'icon_xrefs', 'passage_xref',
-                                 'opts_pg', 'opts_y',
+                                 'opts_pg', 'opts_y', 'header_pg', 'header_y',
                                  'next_header_pg', 'next_header_y')}
         meta_out['is_comprehension'] = passage_xref is not None
         sprite_coords = build_sprite(q_dir)
