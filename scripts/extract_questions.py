@@ -9,11 +9,13 @@ Processes all 20xx*.pdf answer-key files in papers/ and writes:
       {paper}_Q{num:03d}_{id}/
         question.png          – question image (passage merged above for COMP Qs)
         option1.png … option4.png  – option images (absent for text-option Qs)
-        metadata.json
+        sprite.png            – question + options stacked vertically (1 request PWA)
+        metadata.json         – includes "sprite" key with per-piece {y, h, w} coords
     questions.json            – master index consumed by build_qb_index.py
 
 Images are compressed in-place with pngquant + optipng immediately after
 writing (skipped silently if the tools are not installed).
+Sprite is built from the compressed PNGs, quantised to 4-colour palette.
 
 Subject ranges (TET Paper 2 standard):
   Q1-30 CDP  ·  Q31-60 Telugu  ·  Q61-90 English
@@ -559,6 +561,58 @@ def compress_png(path: Path) -> None:
         pass  # compression tools not installed — skip silently
 
 
+# ── Sprite builder ────────────────────────────────────────────────────────────
+
+_PIECE_KEYS = ['question', 'option1', 'option2', 'option3', 'option4']
+
+def build_sprite(q_dir: Path) -> dict | None:
+    """Stack question + option PNGs vertically into sprite.png.
+
+    Returns a coords dict like:
+      {"question": {"y": 0, "h": 108, "w": 612},
+       "option1":  {"y": 108, "h": 65, "w": 353}, ...}
+    or None if no images are present.
+    Writes sprite.png into q_dir and runs optipng on it.
+    """
+    pieces = []
+    for key in _PIECE_KEYS:
+        p = q_dir / f'{key}.png'
+        if p.exists():
+            try:
+                pieces.append((key, Image.open(p).convert('RGBA')))
+            except Exception:
+                pass
+
+    if not pieces:
+        return None
+
+    canvas_w = max(img.width for _, img in pieces)
+    canvas_h = sum(img.height for _, img in pieces)
+    canvas = Image.new('RGBA', (canvas_w, canvas_h), (255, 255, 255, 255))
+
+    coords: dict = {}
+    y = 0
+    for key, img in pieces:
+        canvas.paste(img, (0, y), img)
+        coords[key] = {'y': y, 'h': img.height, 'w': img.width}
+        y += img.height
+
+    # 4-colour palette — same depth as source images, keeps file small
+    sprite = canvas.convert('P', palette=Image.ADAPTIVE, colors=4)
+    sprite_path = q_dir / 'sprite.png'
+    sprite.save(str(sprite_path), 'PNG')
+
+    try:
+        subprocess.run(
+            ['optipng', '-o2', '-strip', 'all', '-quiet', str(sprite_path)],
+            capture_output=True, check=False,
+        )
+    except FileNotFoundError:
+        pass
+
+    return coords
+
+
 # ── Image saver ───────────────────────────────────────────────────────────────
 
 def save_images(questions: list, pdf_path: Path, out_dir: Path) -> list:
@@ -649,6 +703,9 @@ def save_images(questions: list, pdf_path: Path, out_dir: Path) -> list:
                                      'next_header_pg', 'next_header_y')}
             meta_out['is_comprehension']          = False
             meta_out['options_in_question_image'] = options_in_image
+            sprite_coords = build_sprite(q_dir)
+            if sprite_coords:
+                meta_out['sprite'] = sprite_coords
             with open(q_dir / 'metadata.json', 'w', encoding='utf-8') as f:
                 json.dump(meta_out, f, indent=2, ensure_ascii=False)
 
@@ -681,6 +738,9 @@ def save_images(questions: list, pdf_path: Path, out_dir: Path) -> list:
                                  'opts_pg', 'opts_y',
                                  'next_header_pg', 'next_header_y')}
         meta_out['is_comprehension'] = passage_xref is not None
+        sprite_coords = build_sprite(q_dir)
+        if sprite_coords:
+            meta_out['sprite'] = sprite_coords
         with open(q_dir / 'metadata.json', 'w', encoding='utf-8') as f:
             json.dump(meta_out, f, indent=2, ensure_ascii=False)
 
