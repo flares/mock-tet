@@ -100,12 +100,14 @@ question_bank/English/  30 Qs × 21 papers = 630 question folders
 question_bank/Mathematics/ 30 Qs × 21 papers = 630 question folders
 question_bank/Science/  30 Qs × 21 papers = 630 question folders
 question_bank/Telugu/   30 Qs × 21 papers = 630 question folders
-question_bank/questions.json  ★ Structured index of all questions (keyed by subject)
-question_bank/index.csv       Flat CSV index (Windows absolute paths — not used by web app)
+question_bank/questions.json  ★ Structured index of all questions (keyed by subject) — written by extract_questions.py
 
-scripts/build_real_exams.py  ★ Regenerate ALL real-paper exam JSONs from questions.json → run after every coworker sync
-scripts/build_qb_index.py   Flatten real-paper exam JSONs → exams/qb_index.json (called by build_real_exams.py)
+scripts/extract_questions.py ★ PDF → question_bank images + metadata.json + questions.json (requires pymupdf + pillow); compresses PNGs inline
+scripts/build_qb_index.py   ★ questions.json → exams/qb_index.json (self-contained; no real-*.json needed)
+scripts/build_real_exams.py  Regenerate all real-paper exam JSONs for the CBT exam.html interface
 scripts/build_exam.py        Assemble mock-test JSON from _raw text files → exams/<id>.json
+
+papers/                     ★ Source PDFs for extract_questions.py (gitignored — add PDFs here)
 
 worker/wrangler.toml        Cloudflare Worker config — binds to R2 bucket tet-questionbank-explanations
 worker/src/index.js         Worker code — explanation GET/POST/PATCH/DELETE API
@@ -169,7 +171,7 @@ Subject folder names: `CDP`, `English`, `Mathematics`, `Science`, `Telugu`
 ```
 Image paths in this file are **relative to the repo root** — directly usable by the web app.
 
-**`question_bank/index.csv`** — flat CSV with one row per question. Image paths here are **Windows absolute paths** (sourced from the coworker's machine) and are **not usable** by the web app. Use `questions.json` instead.
+**`question_bank/questions.json`** — written directly by `extract_questions.py` with relative image paths. Single source of truth for the entire pipeline downstream.
 
 ### Current coverage
 
@@ -185,6 +187,22 @@ Papers covered:
 
 ## Build pipeline — what to run and when
 
+### QB PWA pipeline (question_bank/questions.json → qb_index.json)
+
+This is the minimal pipeline to update the PWA after any question_bank change. It no longer depends on the real-*.json files.
+
+```
+questions.json  →  build_qb_index.py  →  exams/qb_index.json  →  PWA
+```
+
+```bash
+python3 scripts/build_qb_index.py
+```
+
+Reads `question_bank/questions.json` directly, writes `exams/qb_index.json` (3150 questions, ~1.8 MB). Self-contained — no other script needs to run first.
+
+---
+
 ### When new question_bank data arrives from the coworker
 
 The coworker provides updated data at:
@@ -199,39 +217,51 @@ rsync -av --delete \
 ```
 This syncs images, metadata.json files, and updates `questions.json` and `index.csv`.
 
-**Step 2 — Regenerate ALL real-paper exam JSONs from `questions.json`**
+**Step 2 — Rebuild the PWA question index**
+```bash
+python3 scripts/build_qb_index.py
+```
+Reads `question_bank/questions.json`, writes `exams/qb_index.json`. That's all the PWA needs.
 
-Always regenerate all of them — not just new papers. `questions.json` is the sole source of truth for `correctAnswer`. If the coworker corrects any answers in a future sync, the old exam JSONs will silently diverge unless regenerated. Run `scripts/build_real_exams.py` (see below):
+**Step 3 (optional) — Regenerate real-paper exam JSONs for the CBT interface**
+
+Only needed if you want `exam.html` (the CBT interface) to reflect the latest data. Always regenerate all of them — `questions.json` is the sole source of truth for `correctAnswer`.
 
 ```bash
 python3 scripts/build_real_exams.py
 ```
 
-This script reads every paper from `questions.json`, writes `exams/real-<paper_id>.json` for all of them, and updates `exams/manifest.json`. Section order is always: **CDP → Telugu → English → Mathematics → Science** (globalIndex 0–29, 30–59, 60–89, 90–119, 120–149).
+This reads `questions.json`, writes `exams/real-<paper_id>.json` for all papers, updates `exams/manifest.json`, and calls `build_qb_index.py` at the end. Section order: **CDP → Telugu → English → Mathematics → Science** (globalIndex 0–29, 30–59, 60–89, 90–119, 120–149).
 
-**Step 2b — Verify no answer mismatches (optional sanity check)**
+---
+
+### When extracting questions from new PDFs (running locally)
+
+Prerequisites: `pip install pymupdf pillow` and optionally `sudo apt install pngquant optipng` for compression.
+
+**Step 1 — Drop the new PDF into `papers/`**
 ```bash
-python3 -c "
-import json, pathlib
-qb = json.load(open('question_bank/questions.json'))
-truth = {q['q_id']: q['correct_answer'] for qs in qb.values() for q in qs}
-bad = 0
-for p in pathlib.Path('exams').glob('real-*.json'):
-    for q in json.loads(p.read_text()).get('questions', []):
-        qid = q.get('questionImage','').split('/')[2].split('_')[-1]
-        if qid in truth and str(truth[qid]) != str(q.get('correctAnswer','')):
-            print(p.name, qid, 'expected', truth[qid], 'got', q['correctAnswer']); bad += 1
-print('Mismatches:', bad)
-"
+cp ~/Downloads/2026-Jun-15-Shift1.pdf papers/
 ```
 
-**Step 3 — Rebuild the PWA question index**
+**Step 2 — Extract questions** (creates question_bank folders + metadata.json; compresses PNGs inline; writes questions.json)
+```bash
+# All PDFs in papers/ — full rebuild of questions.json
+python3 scripts/extract_questions.py
+
+# Or a single new PDF — merges into existing questions.json
+python3 scripts/extract_questions.py --pdf 2026-Jun-15-Shift1.pdf
+```
+
+**Step 3 — Rebuild the PWA index**
 ```bash
 python3 scripts/build_qb_index.py
 ```
-Reads all `"type": "Real Paper"` entries from `exams/manifest.json`, dedupes on `questionImage`, writes `exams/qb_index.json`.
 
-> **Important**: `build_qb_index.py` filters on `e.get("type") == "Real Paper"` — make sure all real-paper manifest entries use the `type` field (not `style`).
+**Validate the question bank** (optional sanity check):
+```bash
+python3 scripts/extract_questions.py --validate
+```
 
 ### When adding a new mock test (text-based, not image-based)
 
@@ -251,6 +281,26 @@ python3 -m http.server 8080
 ```
 Then open `http://localhost:8080/qb_pwa.html` for the PWA.
 Hard-refresh (`Ctrl+Shift+R`) or enable "Update on reload" in DevTools → Service Workers to pick up updated JSON files.
+
+---
+
+## qb_index.json — field reference
+
+Flat array of 3150 objects. Distinct values per field:
+
+| Field | Values |
+|---|---|
+| `questionType` | `"image"` — always |
+| `optionsInQuestion` | `false` — always (fallback never triggered across 21 papers) |
+| `sectionId` | `"cdp"`, `"english"`, `"mathematics"`, `"science"`, `"telugu"` |
+| `correctAnswer` | `"1"`, `"2"`, `"3"`, `"4"`, `null` (2 questions — known unresolved edge cases) |
+| `globalIndex` | `0`–`149` — per-paper position (CDP=0–29, Telugu=30–59, English=60–89, Math=90–119, Science=120–149); repeats across papers |
+| `examId` | 21 values — `"real-2024-May-20-Shift1"` … `"real-2026-Jan-04-Shift2"` |
+| `examTitle` | 21 values — `"20 May 2024 — Shift 1"` … `"04 Jan 2026 — Shift 2"` |
+| `questionImage` | 3150 unique paths — `question_bank/<Subject>/<paper>_Q<NNN>_<id>/question.png` |
+| `optionImages` | 3150 arrays of 4 paths — same folder, `option1.png`–`option4.png` |
+
+Note: `correctAnswer` is stored as a **string** (`"1"`–`"4"`), not an int.
 
 ---
 

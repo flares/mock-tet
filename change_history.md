@@ -1,5 +1,7 @@
 # Change History
 
+- 2026-06-03 | v0.1.8 | minor | Pipeline simplification: extract_questions.py writes questions.json directly (inline pngquant+optipng, no index.csv/generate_json.py); build_qb_index.py reads questions.json standalone; add project_overview.html with visual fork/join pipeline diagram; qb_index.json field reference in CLAUDE.md
+
 - 2026-05-28 | v0.1.7 | minor | UX: detect iOS PWA backgrounding during AI generation — show friendlier "AI paused" message and auto-retry once when user returns to foreground
 
 - 2026-05-28 | v0.1.6 | minor | Diagnostic: wrap image and Gemini fetches in try/catch with prefixed error messages so iOS PWA "Load failed" can be traced to source

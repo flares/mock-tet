@@ -3,3 +3,4 @@ js/firebase-config.js
 js/what-i-got-from-firebase-ui-firebase-config.txt
 worker/.wrangler/
 worker/node_modules/
+papers/
