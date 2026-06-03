@@ -1,0 +1,13 @@
+{
+  "name": "mock-tet",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "pretest": "[ -f /tmp/pw-libs/usr/lib/x86_64-linux-gnu/libnspr4.so ] || (cd /tmp && apt-get -q download libnspr4 libnss3 && mkdir -p pw-libs && dpkg -x libnspr4*.deb pw-libs && dpkg -x libnss3*.deb pw-libs)",
+    "test": "LD_LIBRARY_PATH=/tmp/pw-libs/usr/lib/x86_64-linux-gnu playwright test",
+    "test:ui": "LD_LIBRARY_PATH=/tmp/pw-libs/usr/lib/x86_64-linux-gnu playwright test --ui"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.61.0-alpha-2026-06-02"
+  }
+}
