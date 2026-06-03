@@ -54,6 +54,11 @@ import re, json, argparse, io, subprocess
 from pathlib import Path
 from collections import Counter
 from PIL import Image
+try:
+    import numpy as np
+    _NUMPY = True
+except ImportError:
+    _NUMPY = False
 
 
 # ── Paths ──────────────────────────────────────────────────────────────────────
@@ -563,16 +568,40 @@ def compress_png(path: Path) -> None:
 
 # ── Sprite builder ────────────────────────────────────────────────────────────
 
-_PIECE_KEYS = ['question', 'option1', 'option2', 'option3', 'option4']
+_PIECE_KEYS    = ['question', 'option1', 'option2', 'option3', 'option4']
+_SSIM_WARN     = 0.92   # warn if any sprite crop falls below this
+
+
+def _ssim(a: 'Image.Image', b: 'Image.Image') -> float:
+    """Mean SSIM (grayscale) between two PIL images. Returns 1.0 if numpy absent."""
+    if not _NUMPY:
+        return 1.0
+    ga = np.array(a.convert('L'), dtype=np.float64)
+    gb = np.array(b.convert('L'), dtype=np.float64)
+    if ga.shape != gb.shape:
+        b = b.resize((a.width, a.height), Image.LANCZOS)
+        gb = np.array(b.convert('L'), dtype=np.float64)
+    C1, C2 = (0.01 * 255) ** 2, (0.03 * 255) ** 2
+    mu_a, mu_b = ga.mean(), gb.mean()
+    sa, sb     = ga.std(), gb.std()
+    sab        = ((ga - mu_a) * (gb - mu_b)).mean()
+    return float(
+        ((2 * mu_a * mu_b + C1) * (2 * sab + C2)) /
+        ((mu_a**2 + mu_b**2 + C1) * (sa**2 + sb**2 + C2))
+    )
+
 
 def build_sprite(q_dir: Path) -> dict | None:
     """Stack question + option PNGs vertically into sprite.png.
 
-    Returns a coords dict like:
+    Saves sprite as RGB, compresses with the same pngquant + optipng pipeline
+    used for individual PNGs (much better quality than PIL palette quantisation).
+    Runs a per-piece SSIM check and warns if any crop degrades below _SSIM_WARN.
+
+    Returns coords dict:
       {"question": {"y": 0, "h": 108, "w": 612},
        "option1":  {"y": 108, "h": 65, "w": 353}, ...}
-    or None if no images are present.
-    Writes sprite.png into q_dir and runs optipng on it.
+    or None if no images found.
     """
     pieces = []
     for key in _PIECE_KEYS:
@@ -586,9 +615,9 @@ def build_sprite(q_dir: Path) -> dict | None:
     if not pieces:
         return None
 
-    canvas_w = max(img.width for _, img in pieces)
+    canvas_w = max(img.width  for _, img in pieces)
     canvas_h = sum(img.height for _, img in pieces)
-    canvas = Image.new('RGBA', (canvas_w, canvas_h), (255, 255, 255, 255))
+    canvas   = Image.new('RGBA', (canvas_w, canvas_h), (255, 255, 255, 255))
 
     coords: dict = {}
     y = 0
@@ -597,17 +626,20 @@ def build_sprite(q_dir: Path) -> dict | None:
         coords[key] = {'y': y, 'h': img.height, 'w': img.width}
         y += img.height
 
-    # 4-colour palette — same depth as source images, keeps file small
-    sprite = canvas.convert('P', palette=Image.ADAPTIVE, colors=4)
     sprite_path = q_dir / 'sprite.png'
-    sprite.save(str(sprite_path), 'PNG')
+    canvas.convert('RGB').save(str(sprite_path), 'PNG')
+    compress_png(sprite_path)   # pngquant 4 + optipng — same as individual PNGs
 
+    # ── SSIM sanity check ────────────────────────────────────────────────────
     try:
-        subprocess.run(
-            ['optipng', '-o2', '-strip', 'all', '-quiet', str(sprite_path)],
-            capture_output=True, check=False,
-        )
-    except FileNotFoundError:
+        sprite_img = Image.open(sprite_path).convert('RGBA')
+        for key, orig in pieces:
+            c    = coords[key]
+            crop = sprite_img.crop((0, c['y'], c['w'], c['y'] + c['h']))
+            score = _ssim(orig, crop)
+            if score < _SSIM_WARN:
+                print(f"  [WARN] sprite {q_dir.name}/{key}: SSIM {score:.3f} < {_SSIM_WARN}")
+    except Exception:
         pass
 
     return coords
