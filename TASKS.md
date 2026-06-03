@@ -61,30 +61,130 @@ Package the PWA as a native app using Capacitor (wraps existing HTML/JS with no 
 ---
 
 ## Task 4 — PWA Background Auto-Update & Offline-First Question Bank
-**Status:** Pending
+**Status:** Complete (2026-05-27, commit f68a0bb6)
 
 Make the PWA self-updating: fetch new `qb_index.json` and assets silently in the background.
 
 ### Subtasks
-- [ ] Background Sync API: register sync event in SW to revalidate `qb_index.json` when back online
-- [ ] Periodic Background Sync (Android Chrome): periodic sync tag for question bank refresh
-- [ ] SW cache strategy review: move `qb_index.json` to stale-while-revalidate
-- [ ] Version-aware cache busting: SW compares ETag/Last-Modified, updates localStorage silently
-- [ ] Optional push notification: "New questions available — tap to refresh"
-- [ ] Document iOS limitation: background fetch not supported on iOS PWA; workaround strategy
+- [x] Background Sync API: register sync event in SW to revalidate `qb_index.json` when back online
+- [x] Periodic Background Sync (Android Chrome): periodic sync tag for question bank refresh
+- [x] SW cache strategy review: move `qb_index.json` to stale-while-revalidate
+- [x] Version-aware cache busting: SW compares ETag, updates cache; CACHE_BUST constant wipes localStorage on special pushes
+- [x] "New questions available" banner with Reload/Dismiss; "App updated" toast on SW controllerchange
+- [x] Document iOS limitation: periodicSync not supported on iOS PWA; online-event Background Sync is the fallback
 
 ---
 
-## Task 5 — Frontend & Backend Performance Optimisation
+## Task 5 — Frontend, Network & Performance Simplification
 **Status:** Pending
+**Priority:** Medium
 
-Holistic performance pass on the PWA and Cloudflare Worker.
+Holistic audit and simplification of the PWA's frontend code, data flows, network layer, and Cloudflare Worker. The app has grown organically — this task creates a clean, coherent, fast architecture.
 
-### Subtasks
+### Blockers / decisions needed before starting
+- **Scope decision**: pure cleanup (no UX change) vs UX redesign. Recommend cleanup-only first pass.
+- **Firebase dependency**: if Task 6 (DeepSeek) fully replaces Gemini in the in-app flow, Firebase can be dropped entirely — that unblocks a significant simplification. Decide dependency first.
+- **Cookie audit first**: run a cookie audit before deciding what to remove; Firebase SDK may set cookies that aren't obvious.
+
+### Subtasks — Performance
 - [ ] `qb_index.json` (1.8 MB): evaluate Brotli compression via GitHub Pages headers, or split-by-subject indexes
 - [ ] Image loading: audit prefetch strategy, consider WebP conversion for question/option PNGs
-- [ ] JS: `qb_pwa.html` is one large file — evaluate lazy-loading explanation + Firebase modules
-- [ ] localStorage audit: AI cache key bloat, add eviction policy for old entries
-- [ ] Cloudflare Worker: add `Cache-Control` headers on R2 GET, reduce cold-start latency
+- [ ] Cloudflare Worker: add `Cache-Control` headers on R2 GET responses, reduce cold-start latency
 - [ ] SW install/activate: trim cached asset list, add cache size cap
-- [ ] Lighthouse audit: run and address PWA, performance, accessibility scores
+- [ ] `qb_pwa.html` is a monolithic file (~2000+ lines) — evaluate lazy-loading explanation + Firebase modules without a build step
+
+### Subtasks — Audits
+- [ ] Cookie audit: DevTools → Application → Cookies on the live site; document every cookie, its source, and whether it is needed
+- [ ] localStorage audit: enumerate all keys across `qb_pwa.html`, `js/r2-explanations.js`, `js/explanation.js`; identify stale/duplicate keys; add eviction policy for AI cache entries older than 30 days
+- [ ] Network audit: log all fetches on cold start and warm start; identify redundant or sequential requests that could be parallelised or eliminated
+- [ ] Lighthouse audit: record baseline scores (Performance / PWA / Accessibility / SEO), fix top-3 issues per category
+
+### Subtasks — Code cleanup
+- [ ] `js/firebase-config.js` is gitignored and must be manually copied — move secrets to Cloudflare Worker secrets so the repo is self-contained for new contributors
+- [ ] Remove legacy `questionbank.html` + `revision.html` + `js/questionbank.js` + `js/revision.js` if confirmed unused in favour of the PWA
+
+---
+
+## Task 6 — Bulk Explanation Generation (Multi-Model)
+**Status:** Pending
+**Priority:** Medium
+
+Bulk-generate AI explanations for every question in the bank and persist them to R2, so users always see an explanation without needing to tap "Explain with AI". Integrate DeepSeek as the primary model (cheaper, better at STEM than Gemini Flash) with Gemini as fallback.
+
+### Blockers / decisions needed before starting
+- **DeepSeek API key**: must be provisioned and stored as a Cloudflare Worker secret + in `firebase-config.js` locally. Not in git.
+- **Model choice**: DeepSeek v3 (chat) vs v4 (reasoning) — v4 chain-of-thought may be too verbose for a mobile card. Recommend v3 for bulk, v4 optionally for in-app on demand.
+- **Routing logic**: decide if DeepSeek is a replacement or Gemini fallback for the in-app flow. Simplest: DeepSeek for bulk script, keep Gemini for in-app until tested.
+- **Prompt adaptation**: DeepSeek uses the OpenAI-compatible API but may need prompt tuning for bilingual (English + Telugu) image questions.
+
+### Subtasks
+- [ ] Write `scripts/generate_explanations.py` — iterates `exams/qb_index.json`, supports `--model gemini|deepseek` flag, `--dry-run` for cost estimate
+- [ ] Add DeepSeek API call path in the script (OpenAI-compatible endpoint); calculate tokens × price before full run
+- [ ] POST each explanation to the Cloudflare Worker (`/explanations/:subject/:folder`) with bearer token; pass `model` field through
+- [ ] Skip questions already explained in R2 (check GET before POST — resumable)
+- [ ] Rate-limit per provider quota (batch by subject, configurable delay)
+- [ ] Add DeepSeek call path in the in-app explanation flow (`js/firebase-ai.js` or new `js/deepseek-ai.js`) with the same HTML-string output contract
+- [ ] Add model label to the explanation card UI (e.g. "Generated by DeepSeek v3")
+- [ ] Verify a sample of generated explanations in the PWA after the bulk run
+
+---
+
+## Task 7 — Multi-TET Data Ingestion Pipeline
+**Status:** Pending
+**Priority:** High
+
+A generalised pipeline to ingest ~120+ new exam papers spanning multiple TET types (CTET, TGTET, APTET, KTET, …). Each TET has a different section structure, question count, and language slots. The pipeline must accept a raw folder, auto-detect or be told the TET type, and produce all downstream artefacts (question_bank folders, questions.json, exam JSONs, qb_index.json).
+
+### Scope of change
+
+| TET | Section structure | Total Qs | Notes |
+|---|---|---|---|
+| CTET Paper 2 Math+Sci | CDP(30)+Lang1(30)+Lang2(30)+Math(30)+Science(30) | 150 | Current app |
+| CTET Paper 2 Social | CDP(30)+Lang1(30)+Lang2(30)+Social(60) | 150 | Social replaces Math+Sci |
+| TGTET / APTET | CDP + Language + Content area | varies | Need spec per TET |
+| KTET / others | TBD | TBD | Add as papers arrive |
+
+### Blockers / decisions needed before starting
+- **Schema extension**: `questions.json`, `metadata.json`, `qb_index.json`, and `manifest.json` currently have no `tet_type` field — all structures must be extended before the pipeline runs.
+- **Section definitions file**: each TET type needs a machine-readable spec (subject names, question counts, ordering) — e.g. `config/tet_types.json`. Need to define this schema.
+- **Image source format**: clarify whether incoming folders are already cropped PNGs (like current `question_bank/`) or raw PDFs to be cropped. If PDFs: need a cropping tool (e.g. `pdfplumber` + bounding-box config per paper layout).
+- **Language slot generalisation**: current code hardcodes `Telugu` as the second language. Must become a configurable slot (`lang1`, `lang2`) resolved at ingest time.
+- **Frontend TET selector**: `qb_pwa.html` needs a TET-type chooser (and subject/language filter that adapts per TET) before multi-TET content is usable.
+- **R2 key namespace**: current format is `explanations/<Subject>/<folder>.json` — must add `tet_type` or it will collide across TET types with the same subject names.
+- **build_real_exams.py**: currently hardcodes the 5-subject section order — must be driven by the TET type spec.
+
+### Subtasks
+- [ ] Define `config/tet_types.json` — machine-readable section specs for each TET type (name, subjects, counts, order)
+- [ ] Extend `metadata.json` schema: add `tet_type`, `lang1`, `lang2` fields; write migration script for existing 3150 questions (they are all `CTET`, `Telugu` + `English`)
+- [ ] Extend `questions.json`, `qb_index.json`, `manifest.json` with `tet_type` field
+- [ ] Write `scripts/ingest_paper.py <folder> --tet <type> --paper-id <id>` — validates folder structure, copies images, writes metadata.json per question, appends to questions.json
+- [ ] If PDF source: write `scripts/crop_pdf.py` using `pdfplumber` or `PyMuPDF` with per-layout bounding box config
+- [ ] Update `build_real_exams.py` to read section order from `config/tet_types.json` instead of hardcoding
+- [ ] Update `build_qb_index.py` to carry `tet_type` into qb_index entries
+- [ ] Update R2 key format: `explanations/<tet_type>/<Subject>/<folder>.json` — update Worker + client module
+- [ ] Frontend: TET selector dropdown on PWA home/filter screen; language slot filter adapts per TET type
+- [ ] Verify end-to-end with one new TGTET paper as a smoke test
+
+---
+
+## Task 8 — IE Irodov Problems Sub-App
+**Status:** Pending
+**Priority:** Low
+
+Add IE Irodov (Problems in General Physics) as a standalone sub-app within the same PWA. Crop problems from the PDF, create an interactive problem browser with AI step-by-step explanations.
+
+### Blockers / decisions needed before starting
+- **PDF source**: user has the Irodov PDF — confirm path/location before starting. Need to know if it is the original (Russian problems in English) or a solutions manual.
+- **Problem structure**: Irodov problems are numbered 1.1–6.7 across 6 chapters (Mechanics, Thermodynamics, E&M, Optics, Atomic, Nuclear). Each problem is a short paragraph, often with a sub-figure. Cropping strategy differs from CTET (which has clean per-question images).
+- **No answer key in book**: Irodov gives only the final numerical answer at the back, not steps. AI explanation must be generated (no `correctAnswer` equivalent). Decide what "correct" means in this sub-app (final answer check vs open-ended).
+- **UI paradigm**: CTET PWA is MCQ-based (4 options, tap to select). Irodov problems are open-ended numerical/derivation. Need a different interaction model — likely: show problem → show AI explanation → show final answer.
+- **Namespace isolation**: all Irodov data must live under a separate prefix (`irodov/`) in question_bank, R2, qb_index, and the PWA route to avoid collisions with CTET data.
+- **TET selector integration**: fits naturally as a separate entry in the app selector (Task 7 frontend) — "Irodov Physics" as a non-TET option.
+
+### Subtasks
+- [ ] Crop all Irodov problems from the PDF into `question_bank/Irodov/<chapter>/<problem_id>/` — one `problem.png` per problem (and `figure.png` if applicable)
+- [ ] Write `metadata.json` schema for Irodov: `{ problem_id, chapter, section, final_answer, has_figure }`
+- [ ] Build `irodov_index.json` (analogous to `qb_index.json`) for fast PWA cold-start
+- [ ] Design the Irodov problem card UI: problem image, "Show explanation" button, final answer reveal, like/dislike on explanation
+- [ ] Bulk-generate AI step-by-step explanations (uses Task 6 DeepSeek or Gemini) and persist to R2 under `explanations/Irodov/<chapter>/<problem_id>.json`
+- [ ] Wire the Irodov sub-app into the PWA (route / conditional render based on selected "app" in the selector)

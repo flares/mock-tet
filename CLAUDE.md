@@ -116,7 +116,23 @@ worker/package.json         wrangler as dev dependency (npm install + npx wrangl
 js/r2-explanations.js       R2 client module — fetch/save/rate, localStorage cache, exposes window.R2Explanations
 
 .claude/commands/create-mock-test.md   Skill for generating new mock test JSONs
+
+tests/qb_pwa.spec.js   Playwright E2E tests for the PWA (filters, mark for review/understood, progress counts)
+playwright.config.js   Playwright config — port 8085, service workers blocked, webServer auto-starts
+package.json           Dev deps: @playwright/test alpha (Ubuntu 26.04 support)
 ```
+
+---
+
+## Running tests
+
+```bash
+npm test
+```
+
+`pretest` hook auto-downloads `libnspr4` + `libnss3` from apt into `/tmp/pw-libs` if missing (needed on Ubuntu 26.04 because the Playwright Chromium binary predates the distro). Safe to run after a reboot — it's a no-op when the libs are already present.
+
+Do NOT use `npx playwright test` directly — the `LD_LIBRARY_PATH` and library check are wired through the npm scripts only.
 
 ---
 
