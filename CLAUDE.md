@@ -4,11 +4,11 @@
 
 A static site on GitHub Pages that serves two distinct purposes:
 
-1. **QB PWA** (`qb_pwa.html`) — the **primary focus**. An installable mobile PWA (iOS + Android) that lets CTET candidates browse all 3,150+ real-exam questions one at a time, with AI explanation, mark-understood / mark-for-revision tracking, subject filtering, and offline support.
+1. **QB PWA** (`qb_pwa.html`) — the **primary focus**. An installable mobile PWA (iOS + Android) that lets TET candidates browse 3,150+ real-exam questions one at a time, with AI explanation, mark-understood / mark-for-revision tracking, subject filtering, and offline support. Images are rendered from R2-hosted sprites via canvas.
 
 2. **Mock Test interface** (`exam.html`) — a pixel-faithful replica of the NTA CBT interface for practising the exam UI (navigation, timers, palette, submit flow). Secondary priority — functional but not the active development focus.
 
-Target audience: CTET Paper 2 (Classes VI–VIII), Mathematics & Science stream.
+Target audience: CTET Paper 2 (Classes VI–VIII), Mathematics & Science stream. Multi-TET expansion planned (Task 7).
 
 ---
 
@@ -28,7 +28,7 @@ Every commit must include a `change_history.md` update.
 - `minor` change → bump patch (0.0.5 → 0.0.6)
 - `major` change → bump minor (0.0.5 → 0.1.0)
 
-The current version is `0.0.5`. After this session the next commit starts from whatever version was last set.
+The current version is `0.2.1`. After this session the next commit starts from whatever version was last set.
 
 ### Auto-skill triggers
 
@@ -44,6 +44,7 @@ The current version is `0.0.5`. After this session the next commit starts from w
 - GitHub Pages — `index.html` at repo root, all paths relative
 - `fetch()` for JSON — **requires a local HTTP server** (`python3 -m http.server 8080`), not `file://`
 - `sessionStorage` for active exam session; `localStorage` for saved results and QB progress
+- Cloudflare Worker + R2 for sprite images and AI explanation persistence
 
 ---
 
@@ -77,14 +78,15 @@ js/result.js            Reads localStorage result, renders review
 js/questionbank.js      Desktop question bank logic
 js/revision.js          Revision page logic
 js/explanation.js       AI explanation panel (shared by QB pages)
-js/firebase-ai.js       Firebase/Gemini AI integration
-js/firebase-config.js   Firebase credentials (gitignored — use .example as template)
+js/firebase-ai.js       Gemini AI via direct REST API — sprite-based prompt (1 image + coords)
+js/firebase-config.js   Credentials (gitignored — use .example as template)
+js/r2-explanations.js   R2 client module — fetch/save/rate explanations, localStorage cache
 
 assets/pwa-icon.svg     PWA icon (SVG)
 assets/pwa-icon-180.png PWA icon (180×180 PNG for iOS)
 assets/syllabus/        Syllabus reference images
 
-qb_pwa.html             ★ PRIMARY — Mobile PWA question-bank browser
+qb_pwa.html             ★ PRIMARY — Mobile PWA question-bank browser (renders via canvas from R2 sprites)
 qb_pwa_manifest.json    Web App Manifest for the PWA
 qb_pwa_sw.js            Service Worker — cache-first images, network-first JSON
 
@@ -94,7 +96,7 @@ exams/real-*.json       Real CTET exam papers (21 papers, 150 Qs each = 3150 Qs 
 exams/paper2-*.json     Assembled mock tests (from _raw text files)
 exams/_raw/             Raw text source for mock tests (input to build_exam.py)
 
-question_bank/          ★ Master source of truth for all real-paper questions
+question_bank/          ★ Per-question folders with uncompressed individual PNGs + metadata.json
 question_bank/CDP/      30 Qs × 21 papers = 630 question folders
 question_bank/English/  30 Qs × 21 papers = 630 question folders
 question_bank/Mathematics/ 30 Qs × 21 papers = 630 question folders
@@ -102,18 +104,30 @@ question_bank/Science/  30 Qs × 21 papers = 630 question folders
 question_bank/Telugu/   30 Qs × 21 papers = 630 question folders
 question_bank/questions.json  ★ Structured index of all questions (keyed by subject) — written by extract_questions.py
 
-scripts/extract_questions.py ★ PDF → question_bank images + metadata.json + questions.json (requires pymupdf + pillow); compresses PNGs inline
-scripts/build_qb_index.py   ★ questions.json → exams/qb_index.json (self-contained; no real-*.json needed)
-scripts/build_real_exams.py  Regenerate all real-paper exam JSONs for the CBT exam.html interface
-scripts/build_exam.py        Assemble mock-test JSON from _raw text files → exams/<id>.json
+qb/                     ★ LOCAL STAGING ONLY — gitignored flat sprite store before R2 upload
+qb/<tet_bank>/          Q<id>_sprite.png + Q<id>_metadata.json per question
+                        Built by build_flat_qb.py or extract_questions.py --sprites-only
+                        Uploaded to R2 by upload_sprites.py — do not commit
 
-papers/                     ★ Source PDFs for extract_questions.py (gitignored — add PDFs here)
+scripts/extract_questions.py  ★ PDF → question_bank/ (uncompressed PNGs) + sprite (compressed once) + metadata.json + questions.json
+                               Flags: --pdf <file>, --pdf-dir <dir>, --sprites-only, --tet-bank, --validate
+                               Individual PNGs are NOT compressed — sprite is built from full-quality source, compressed once
+scripts/build_flat_qb.py      Collect existing question_bank/ sprites → qb/<tet_bank>/ flat structure
+                               Computes sprite coords from individual PNG dimensions when metadata.json lacks them
+scripts/upload_sprites.py     Upload qb/<tet_bank>/Q*_sprite.png to R2 tet-questionbank bucket (32 threads)
+                               Requires env vars: R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY
+scripts/build_qb_index.py     ★ qb/<tet_bank>/ → exams/qb_index.json
+                               Primary path: reads flat qb/ metadata (has sprite coords, tet taxonomy)
+                               Fallback: reads question_bank/questions.json if qb/ not built
+scripts/build_real_exams.py   Regenerate all real-paper exam JSONs for the CBT exam.html interface
+scripts/build_exam.py         Assemble mock-test JSON from _raw text files → exams/<id>.json
 
-worker/wrangler.toml        Cloudflare Worker config — binds to R2 bucket tet-questionbank-explanations
-worker/src/index.js         Worker code — explanation GET/POST/PATCH/DELETE API
-worker/package.json         wrangler as dev dependency (npm install + npx wrangler deploy to redeploy)
+papers/                 ★ Source PDFs for extract_questions.py (gitignored — add PDFs here)
+                          Also available at /mnt/c/Users/ymano/Universe/coworker/TET Preparation/papers/
 
-js/r2-explanations.js       R2 client module — fetch/save/rate, localStorage cache, exposes window.R2Explanations
+worker/wrangler.toml    Cloudflare Worker config — R2 bindings: EXPLANATIONS + QB_SPRITES
+worker/src/index.js     Worker code — /explanations/* API + /qb/:bank/:filename sprite serving
+worker/package.json     wrangler as dev dependency (npm install + npx wrangler deploy to redeploy)
 
 .claude/commands/create-mock-test.md   Skill for generating new mock test JSONs
 
@@ -143,13 +157,18 @@ Do NOT use `npx playwright test` directly — the `LD_LIBRARY_PATH` and library 
 Each question lives in its own folder:
 ```
 question_bank/<Subject>/<paper_id>_Q<NNN>_<q_id>/
-    question.png      Question image (cropped from original exam PDF)
-    option1.png       Option A image
-    option2.png       Option B image
-    option3.png       Option C image
-    option4.png       Option D image
+    question.png      Question image — uncompressed (full quality, source for sprite)
+    option1.png       Option A image — uncompressed
+    option2.png       Option B image — uncompressed
+    option3.png       Option C image — uncompressed
+    option4.png       Option D image — uncompressed
     metadata.json     Question metadata (see schema below)
+    sprite.png        ★ Stacked composite — gitignored, built from uncompressed PNGs, compressed once
 ```
+
+**Individual PNGs are intentionally uncompressed.** The sprite is built from them and compressed once with pngquant+optipng. Compressing individual PNGs first then building a sprite causes double quantisation and visible quality degradation.
+
+`sprite.png` files are gitignored (`question_bank/**/sprite.png`) — they are local build artefacts uploaded to R2 via `upload_sprites.py`. The R2 sprite is the canonical image source for the PWA.
 
 Subject folder names: `CDP`, `English`, `Mathematics`, `Science`, `Telugu`
 
@@ -159,35 +178,29 @@ Subject folder names: `CDP`, `English`, `Mathematics`, `Science`, `Telugu`
   "q_num": 1,
   "q_id": "8657994132",
   "subject": "CDP",
-  "correct_answer": 2,       // 1-indexed (1=A, 2=B, 3=C, 4=D)
+  "correct_answer": 2,
   "paper_id": "2026-Jan-03-Shift1",
   "year": "2026",
   "month": "Jan",
   "day": "03",
   "shift": "1",
   "date": "03 Jan 2026",
-  "is_comprehension": false
+  "is_comprehension": false,
+  "sprite": {
+    "question": { "y": 0,   "h": 108, "w": 612 },
+    "option1":  { "y": 108, "h": 65,  "w": 353 },
+    "option2":  { "y": 173, "h": 66,  "w": 332 },
+    "option3":  { "y": 239, "h": 68,  "w": 326 },
+    "option4":  { "y": 307, "h": 65,  "w": 336 }
+  }
 }
 ```
 
-### Root-level index files
+`sprite` key is present for questions extracted with the current pipeline. For older questions (pre-sprite), coords are computed from individual PNG dimensions by `build_flat_qb.py`.
 
-**`question_bank/questions.json`** — the structured master index, keyed by subject:
-```json
-{
-  "CDP": [ { "q_num": 1, "q_id": "...", "subject": "CDP", "paper": "2024-May-20-Shift1",
-             "correct_answer": 3, "options_in_question_image": false,
-             "question": "question_bank/CDP/.../question.png",
-             "options": ["question_bank/CDP/.../option1.png", ...] }, ... ],
-  "English": [...],
-  "Mathematics": [...],
-  "Science": [...],
-  "Telugu": [...]
-}
-```
-Image paths in this file are **relative to the repo root** — directly usable by the web app.
+### Root-level index
 
-**`question_bank/questions.json`** — written directly by `extract_questions.py` with relative image paths. Single source of truth for the entire pipeline downstream.
+**`question_bank/questions.json`** — structured master index keyed by subject, written by `extract_questions.py`. Single source of truth for the pipeline.
 
 ### Current coverage
 
@@ -203,95 +216,118 @@ Papers covered:
 
 ## Build pipeline — what to run and when
 
-### QB PWA pipeline (question_bank/questions.json → qb_index.json)
+### Full sprite pipeline (PDF → R2 → PWA)
 
-This is the minimal pipeline to update the PWA after any question_bank change. It no longer depends on the real-*.json files.
+This is the canonical pipeline for all new papers going forward. Everything flows through sprites.
 
 ```
-questions.json  →  build_qb_index.py  →  exams/qb_index.json  →  PWA
+PDF  →  extract_questions.py --sprites-only  →  qb/<tet_bank>/  →  upload_sprites.py  →  R2
+                                                       ↓
+                                               build_qb_index.py  →  exams/qb_index.json  →  PWA
 ```
 
 ```bash
+# Step 1 — Extract sprites directly to flat qb/ (no individual PNGs written)
+python3 scripts/extract_questions.py --sprites-only \
+  --pdf-dir "/mnt/c/Users/ymano/Universe/coworker/TET Preparation/papers/"
+
+# Step 2 — Build the PWA index from flat metadata
 python3 scripts/build_qb_index.py
+
+# Step 3 — Upload sprites to R2 (set env vars first)
+export R2_ACCOUNT_ID="..."
+export R2_ACCESS_KEY_ID="..."
+export R2_SECRET_ACCESS_KEY="..."
+python3 scripts/upload_sprites.py
 ```
 
-Reads `question_bank/questions.json` directly, writes `exams/qb_index.json` (3150 questions, ~1.8 MB). Self-contained — no other script needs to run first.
+`--sprites-only` loads images in-memory from PDF xrefs (never writes individual PNGs), builds the sprite, compresses it once, and writes to `qb/<tet_bank>/`. This is the highest-quality path.
+
+After upload, deploy the Worker if `worker/src/index.js` changed:
+```bash
+cd worker && npx wrangler deploy
+```
 
 ---
 
-### When new question_bank data arrives from the coworker
+### Full pipeline including question_bank/ (individual PNGs preserved)
 
-The coworker provides updated data at:
-`C:\Users\ymano\Universe\coworker\TET Preparation\question_bank\`
-(WSL path: `/mnt/c/Users/ymano/Universe/coworker/TET Preparation/question_bank/`)
+Use this when you also need the desktop `questionbank.html` to work, or want to keep individual PNGs for reference.
 
-**Step 1 — Sync the question_bank folder**
 ```bash
-rsync -av --delete \
-  "/mnt/c/Users/ymano/Universe/coworker/TET Preparation/question_bank/" \
-  /home/yadman/mock-tet/question_bank/
-```
-This syncs images, metadata.json files, and updates `questions.json` and `index.csv`.
+# Step 1 — Extract to question_bank/ (uncompressed individual PNGs + sprite per question)
+python3 scripts/extract_questions.py \
+  --pdf-dir "/mnt/c/Users/ymano/Universe/coworker/TET Preparation/papers/"
 
-**Step 2 — Rebuild the PWA question index**
-```bash
+# Step 2 — Collect sprites from question_bank/ into flat qb/ structure
+python3 scripts/build_flat_qb.py
+
+# Step 3 — Build PWA index
 python3 scripts/build_qb_index.py
-```
-Reads `question_bank/questions.json`, writes `exams/qb_index.json`. That's all the PWA needs.
 
-**Step 3 (optional) — Regenerate real-paper exam JSONs for the CBT interface**
+# Step 4 — Upload sprites to R2
+python3 scripts/upload_sprites.py
 
-Only needed if you want `exam.html` (the CBT interface) to reflect the latest data. Always regenerate all of them — `questions.json` is the sole source of truth for `correctAnswer`.
-
-```bash
+# Step 5 (optional) — Regenerate CBT exam JSONs
 python3 scripts/build_real_exams.py
 ```
 
-This reads `questions.json`, writes `exams/real-<paper_id>.json` for all papers, updates `exams/manifest.json`, and calls `build_qb_index.py` at the end. Section order: **CDP → Telugu → English → Mathematics → Science** (globalIndex 0–29, 30–59, 60–89, 90–119, 120–149).
+`build_flat_qb.py` reads `question_bank/questions.json`, copies `sprite.png` files into `qb/<tet_bank>/`, and computes missing sprite coords from individual PNG dimensions.
 
 ---
 
-### When extracting questions from new PDFs (running locally)
+### SSIM quality check
 
-Prerequisites: `pip install pymupdf pillow` and optionally `sudo apt install pngquant optipng` for compression.
+Always validate sprite quality after a new extraction run:
 
-**Step 1 — Drop the new PDF into `papers/`**
 ```bash
-cp ~/Downloads/2026-Jun-15-Shift1.pdf papers/
+python3 scripts/extract_questions.py --sprites-only \
+  --pdf-dir "/mnt/c/Users/ymano/Universe/coworker/TET Preparation/papers/" 2>&1 | grep -A 15 "SSIM report"
 ```
 
-**Step 2 — Extract questions** (creates question_bank folders + metadata.json; compresses PNGs inline; writes questions.json)
-```bash
-# All PDFs in papers/ — full rebuild of questions.json
-python3 scripts/extract_questions.py
+Expected: mean ≥ 0.98, min ≥ 0.96, 0 below 0.92 threshold.  
+Baseline from 21 papers: min 0.9662, mean 0.9839, 0/15750 below threshold.
 
-# Or a single new PDF — merges into existing questions.json
-python3 scripts/extract_questions.py --pdf 2026-Jun-15-Shift1.pdf
-```
+---
 
-**Step 3 — Rebuild the PWA index**
+### When new PDFs arrive from the coworker
+
+PDFs are at: `/mnt/c/Users/ymano/Universe/coworker/TET Preparation/papers/`
+
 ```bash
+# Sprites-only (fastest, best quality — recommended for production)
+python3 scripts/extract_questions.py --sprites-only \
+  --pdf "2026-Jun-15-Shift1.pdf"        # single new PDF
+# or
+python3 scripts/extract_questions.py --sprites-only \
+  --pdf-dir "/mnt/c/.../papers/"        # all PDFs at once
+
 python3 scripts/build_qb_index.py
+python3 scripts/upload_sprites.py
 ```
 
-**Validate the question bank** (optional sanity check):
+---
+
+### Validate the question bank
+
 ```bash
 python3 scripts/extract_questions.py --validate
 ```
 
-### When adding a new mock test (text-based, not image-based)
+---
+
+### When adding a new mock test (text-based)
 
 Uses a separate pipeline that does NOT touch `question_bank/`:
 
-1. Create `exams/_raw/<exam-id>/meta.txt` and one `.txt` per section (cdp/english/telugu/math/science)
+1. Create `exams/_raw/<exam-id>/meta.txt` and one `.txt` per section
 2. Run `python3 scripts/build_exam.py <exam-id>`
-   - Reads `exams/_raw/<exam-id>/*.txt`
-   - Writes `exams/<exam-id>.json`
-   - Updates `exams/manifest.json`
-   - Automatically calls `build_qb_index.py` at the end (but only real papers get indexed)
-3. Or just use the `/create-mock-test` skill which handles the whole flow.
+3. Or use the `/create-mock-test` skill which handles the whole flow.
+
+---
 
 ### Local development server
+
 ```bash
 python3 -m http.server 8080
 ```
@@ -302,21 +338,25 @@ Hard-refresh (`Ctrl+Shift+R`) or enable "Update on reload" in DevTools → Servi
 
 ## qb_index.json — field reference
 
-Flat array of 3150 objects. Distinct values per field:
+Flat array of 3150 objects. All fields per entry:
 
 | Field | Values |
 |---|---|
 | `questionType` | `"image"` — always |
-| `optionsInQuestion` | `false` — always (fallback never triggered across 21 papers) |
+| `optionsInQuestion` | `false` — always (text-option fallback never triggered across 21 papers) |
 | `sectionId` | `"cdp"`, `"english"`, `"mathematics"`, `"science"`, `"telugu"` |
-| `correctAnswer` | `"1"`, `"2"`, `"3"`, `"4"`, `null` (2 questions — known unresolved edge cases) |
+| `correctAnswer` | `"1"`–`"4"` (string), or `null` (2 known edge cases) |
 | `globalIndex` | `0`–`149` — per-paper position (CDP=0–29, Telugu=30–59, English=60–89, Math=90–119, Science=120–149); repeats across papers |
-| `examId` | 21 values — `"real-2024-May-20-Shift1"` … `"real-2026-Jan-04-Shift2"` |
-| `examTitle` | 21 values — `"20 May 2024 — Shift 1"` … `"04 Jan 2026 — Shift 2"` |
-| `questionImage` | 3150 unique paths — `question_bank/<Subject>/<paper>_Q<NNN>_<id>/question.png` |
-| `optionImages` | 3150 arrays of 4 paths — same folder, `option1.png`–`option4.png` |
+| `examId` | `"real-2024-May-20-Shift1"` … `"real-2026-Jan-04-Shift2"` |
+| `examTitle` | `"20 May 2024 — Shift 1"` … `"04 Jan 2026 — Shift 2"` |
+| `questionImage` | `question_bank/<Subject>/<paper>_Q<NNN>_<id>/question.png` — **kept for localStorage compat only** (understood/revision/AI cache keys); not used for rendering |
+| `spriteUrl` | `https://tet-qb-worker.y-manojkrishna.workers.dev/qb/<tet_bank>/Q<id>_sprite.png` — R2 sprite served via Worker |
+| `sprite` | `{question:{y,h,w}, option1:{y,h,w}, option2:{y,h,w}, option3:{y,h,w}, option4:{y,h,w}}` — per-piece pixel boundaries in the sprite |
+| `tet_type` | `"TGTET"` (will expand as more TET types are added) |
+| `stream` | `"Maths_Science_Telugu"` |
+| `tet_bank` | `"tgtet_maths_science_telugu"` — R2 subfolder and logical bank key |
 
-Note: `correctAnswer` is stored as a **string** (`"1"`–`"4"`), not an int.
+`optionImages` was removed in v0.2.0. The PWA renders everything from `spriteUrl` + `sprite` via canvas.
 
 ---
 
@@ -324,98 +364,85 @@ Note: `correctAnswer` is stored as a **string** (`"1"`–`"4"`), not an int.
 
 `qb_pwa.html` is an installable standalone PWA targeting iOS and Android.
 
-- **Cold start**: fetches `exams/qb_index.json` (one request, ~1.75 MB) instead of 21 individual exam JSONs
+- **Cold start**: fetches `exams/qb_index.json` (~2 MB) once instead of 21 individual exam JSONs
 - **Warm start**: serves from `localStorage` key `qb_index_cache_v1`, revalidates in background
-- **Images**: only the current question's `<img src>` is set; adjacent questions are prefetched after render
-- **Offline**: service worker (`qb_pwa_sw.js`) — cache-first for images, network-first for JSON, SW shell cached on install
+- **Rendering**: `<canvas>` elements only — `_drawCrop(canvas, spriteImg, {y,h,w}, scale)` crops the R2 sprite per piece. No `<img>` tags for question/option content.
+- **Storage keys**: all localStorage keys (understood set, revision list, AI cache) use `questionImage` (the old `question_bank/...` path) as the key — this preserves user progress across the sprite migration
+- **Prefetch**: after render, adjacent questions' `spriteUrl` is prefetched via `new Image().src`
+- **Offline**: service worker (`qb_pwa_sw.js`) — cache-first for images, network-first for JSON
 
 ---
 
-## R2 explanation persistence
+## AI explanation — sprite-based prompt
 
-AI-generated explanations are saved to Cloudflare R2 bucket `tet-questionbank-explanations` via a Cloudflare Worker proxy.
+`js/firebase-ai.js` sends a single sprite image to Gemini instead of 5 separate images.
 
-### Architecture
+**System instruction** includes an `IMAGE FORMAT` block explaining the sprite layout (question at top, options A–D stacked below).
 
-```
-qb_pwa.html  →  js/r2-explanations.js  →  Cloudflare Worker  →  R2 bucket
-```
+**User parts sent per question:**
+1. `{text: "Subject area: <label>"}`
+2. `{text: "This is a sprite image containing the full question at the top followed by the 4 answer options (A, B, C, D) stacked vertically below it. Exact pixel boundaries for each section are provided after the image."}`
+3. `{inlineData: <base64 of R2 sprite>}` — fetched from `spriteUrl`
+4. `{text: "Sprite pixel boundaries (y=0 is top of image):\nQuestion: y=0px to y=Npx...\nOption A: ..."}` — from `item.sprite`
+5. `{text: "Determine the correct option yourself and explain it..."}`
+6. `{text: <MOBILE_ADDENDUM>}` (mobile=true from PWA)
 
-- **Worker code**: `worker/src/index.js` — deployed separately from the static site
-- **Worker URL**: `https://tet-qb-worker.y-manojkrishna.workers.dev`
-- **Auth**: Bearer token stored as Cloudflare secret (`AUTH_TOKEN`) — never in git. Also in `js/firebase-config.js` as `workerAuthToken` (gitignored).
-- **Client module**: `js/r2-explanations.js` — exposes `window.R2Explanations`
+Fallback path: if `spriteUrl` is null (desktop `questionbank.html`), falls back to fetching individual `question.png` + `option1-4.png` files as before.
 
-### R2 object key format
+---
 
-```
-explanations/<Subject>/<question_folder>.json
-```
-e.g. `explanations/CDP/2026-Jan-03-Shift1_Q001_8657994132.json`
+## R2 buckets and Worker
 
-Subject is the capitalised folder name: `CDP`, `English`, `Mathematics`, `Science`, `Telugu`.
+Two R2 buckets, one Worker:
 
-### Per-question JSON schema (schemaVersion 1.0)
+| Bucket | Purpose | Worker binding |
+|---|---|---|
+| `tet-questionbank-explanations` | AI explanation JSON docs | `EXPLANATIONS` |
+| `tet-questionbank` | Sprite PNGs | `QB_SPRITES` |
 
-```json
-{
-  "schemaVersion": "1.0",
-  "questionId": "2026-Jan-03-Shift1_Q001_8657994132",
-  "subject": "CDP",
-  "explanations": [
-    {
-      "id": "<uuid>",
-      "html": "<div>...</div>",
-      "model": "gemini-2.5-flash",
-      "generatedAt": "2026-05-27T10:00:00Z",
-      "likes": 0,
-      "dislikes": 0
-    }
-  ]
-}
-```
+**Worker URL**: `https://tet-qb-worker.y-manojkrishna.workers.dev`
 
-Multiple explanations per question are kept (one per "Regenerate"). Best explanation shown = highest net score (likes − dislikes), then most recent.
-
-### Worker API endpoints
+**Worker routes:**
 
 | Method | Path | Auth | Purpose |
 |---|---|---|---|
+| GET | `/qb/:bank/:filename` | none | Serve sprite PNG from R2 with immutable cache |
 | GET | `/explanations/:subject/:folder` | none | Fetch all explanations |
 | POST | `/explanations/:subject/:folder` | Bearer | Save new explanation |
-| PATCH | `/explanations/:subject/:folder/:expId` | Bearer | Update likes/dislikes (`action`: like/unlike/dislike/undislike) |
+| PATCH | `/explanations/:subject/:folder/:expId` | Bearer | Update likes/dislikes |
 | DELETE | `/explanations/:subject/:folder/:expId` | Bearer | Remove one explanation |
+
+**R2 sprite key format**: `<tet_bank>/Q<id>_sprite.png`  
+e.g. `tgtet_maths_science_telugu/Q715053766_sprite.png`
+
+**R2 explanation key format**: `explanations/<Subject>/<question_folder>.json`  
+e.g. `explanations/CDP/2026-Jan-03-Shift1_Q001_8657994132.json`
 
 ### Deploying the Worker
 
 ```bash
 cd worker
-npm install          # install wrangler locally
-npx wrangler login   # one-time browser auth
-npx wrangler secret put AUTH_TOKEN   # set the bearer token secret
-npx wrangler deploy  # deploy — prints the worker URL
+npm install
+npx wrangler login       # one-time
+npx wrangler secret put AUTH_TOKEN
+npx wrangler deploy
 ```
 
-**Re-deploy after any change to `worker/src/index.js`** — `git push` only updates the static site, not the Worker.
-
-### localStorage keys used by r2-explanations.js
-
-- `r2_exp:<folder>` — cached R2 doc (full explanations array) per question
-- `r2_vote:<folder>` — user's current vote `{expId, vote: 'liked'|null}` per question
+Re-deploy after any change to `worker/src/index.js`.
 
 ### firebase-config.js fields required
 
 ```js
+geminiApiKey:    "...",
 workerUrl:       "https://tet-qb-worker.y-manojkrishna.workers.dev",
-workerAuthToken: "<same value set via wrangler secret put AUTH_TOKEN>",
+workerAuthToken: "<same value as AUTH_TOKEN secret>",
 ```
 
 ### PWA explanation load order
 
-1. `localStorage` (`ai_exp_persist:<folder>`) — instant, set by `ExplanationModal.setAiCache`
-2. R2 via Worker (~100ms) — fetches best-rated explanation, populates localStorage
-3. `metadata.json` fallback — legacy, never has useful data in practice
-4. "No explanation yet" message
+1. `localStorage` (`ai_exp_persist:<folder>`) — instant
+2. R2 via Worker (~100ms) — fetches best-rated explanation
+3. "No explanation yet" message
 
 ---
 
@@ -440,19 +467,3 @@ Examples:
 - `real-2026-Jan-03-Shift1.json` — CTET Jan 2026 paper
 - `paper2-full-01.json` — Full 150Q mock test
 - `paper2-mini-telugu-01.json` — Mini-test: Telugu section only
-
----
-
-## Task backlog — future features (do not start without instruction)
-
-### 1. Result persistence with multiple attempts (Priority: High)
-- Store each attempt in localStorage keyed by `examId + timestamp`
-- Show attempt history and trend on exam cards in `index.html`
-
-### 2. User login / authentication (Priority: Medium)
-- Firebase Auth with Google OAuth
-- Associate attempts and results with logged-in user
-
-### 3. Paid tests / monetisation (Priority: Low — after login)
-- Razorpay integration (UPI / cards / net banking)
-- Gate paid exams behind purchase check in `exam.html`

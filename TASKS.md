@@ -130,10 +130,10 @@ Bulk-generate AI explanations for every question in the bank and persist them to
 ---
 
 ## Task 7 — Multi-TET Data Ingestion Pipeline
-**Status:** Pending
+**Status:** Pending (partially unblocked by sprite work in v0.2.0)
 **Priority:** High
 
-A generalised pipeline to ingest ~120+ new exam papers spanning multiple TET types (CTET, TGTET, APTET, KTET, …). Each TET has a different section structure, question count, and language slots. The pipeline must accept a raw folder, auto-detect or be told the TET type, and produce all downstream artefacts (question_bank folders, questions.json, exam JSONs, qb_index.json).
+A generalised pipeline to ingest ~120+ new exam papers spanning multiple TET types (CTET, TGTET, APTET, KTET, …). Each TET has a different section structure, question count, and language slots. The pipeline produces sprites → R2 → qb_index.json → PWA. All new papers go through the sprite pipeline exclusively.
 
 ### Scope of change
 
@@ -144,26 +144,29 @@ A generalised pipeline to ingest ~120+ new exam papers spanning multiple TET typ
 | TGTET / APTET | CDP + Language + Content area | varies | Need spec per TET |
 | KTET / others | TBD | TBD | Add as papers arrive |
 
-### Blockers / decisions needed before starting
-- **Schema extension**: `questions.json`, `metadata.json`, `qb_index.json`, and `manifest.json` currently have no `tet_type` field — all structures must be extended before the pipeline runs.
-- **Section definitions file**: each TET type needs a machine-readable spec (subject names, question counts, ordering) — e.g. `config/tet_types.json`. Need to define this schema.
-- **Image source format**: clarify whether incoming folders are already cropped PNGs (like current `question_bank/`) or raw PDFs to be cropped. If PDFs: need a cropping tool (e.g. `pdfplumber` + bounding-box config per paper layout).
-- **Language slot generalisation**: current code hardcodes `Telugu` as the second language. Must become a configurable slot (`lang1`, `lang2`) resolved at ingest time.
-- **Frontend TET selector**: `qb_pwa.html` needs a TET-type chooser (and subject/language filter that adapts per TET) before multi-TET content is usable.
-- **R2 key namespace**: current format is `explanations/<Subject>/<folder>.json` — must add `tet_type` or it will collide across TET types with the same subject names.
-- **build_real_exams.py**: currently hardcodes the 5-subject section order — must be driven by the TET type spec.
+### What the sprite work already resolved (v0.2.0)
+- ✅ `tet_type`, `stream`, `tet_bank` fields added to `qb_index.json` and flat metadata
+- ✅ R2 sprite key namespace: `<tet_bank>/Q<id>_sprite.png` — no collision across TET types
+- ✅ `extract_questions.py --sprites-only --tet-bank <bank>` — canonical ingestion command
+- ✅ `extract_questions.py --pdf-dir <dir>` — batch process all PDFs in a folder
+- ✅ `build_qb_index.py` reads flat `qb/<tet_bank>/` metadata, carries all taxonomy fields through
+- ✅ Worker `/qb/:bank/:filename` route — bank-namespaced sprite serving live
+
+### Remaining blockers / decisions
+- **Section definitions file**: each TET type needs a machine-readable spec (subject names, question counts, ordering) — `config/tet_types.json`. `extract_questions.py` currently hardcodes CTET section detection logic.
+- **Language slot generalisation**: Telugu is currently a hardcoded subject name in several places. Must become configurable (`lang1`, `lang2`) resolved at ingest time per TET type.
+- **Frontend TET selector**: `qb_pwa.html` needs a TET-type / tet_bank chooser before multi-bank content is usable in one app.
+- **R2 explanation key namespace**: current format is `explanations/<Subject>/<folder>.json` — must add `tet_bank` prefix or collisions will occur when multiple TET types share subject names (e.g. both have a `CDP` subject).
+- **build_real_exams.py**: hardcodes 5-subject section order — must be driven by `config/tet_types.json`.
 
 ### Subtasks
-- [ ] Define `config/tet_types.json` — machine-readable section specs for each TET type (name, subjects, counts, order)
-- [ ] Extend `metadata.json` schema: add `tet_type`, `lang1`, `lang2` fields; write migration script for existing 3150 questions (they are all `CTET`, `Telugu` + `English`)
-- [ ] Extend `questions.json`, `qb_index.json`, `manifest.json` with `tet_type` field
-- [ ] Write `scripts/ingest_paper.py <folder> --tet <type> --paper-id <id>` — validates folder structure, copies images, writes metadata.json per question, appends to questions.json
-- [ ] If PDF source: write `scripts/crop_pdf.py` using `pdfplumber` or `PyMuPDF` with per-layout bounding box config
-- [ ] Update `build_real_exams.py` to read section order from `config/tet_types.json` instead of hardcoding
-- [ ] Update `build_qb_index.py` to carry `tet_type` into qb_index entries
-- [ ] Update R2 key format: `explanations/<tet_type>/<Subject>/<folder>.json` — update Worker + client module
-- [ ] Frontend: TET selector dropdown on PWA home/filter screen; language slot filter adapts per TET type
-- [ ] Verify end-to-end with one new TGTET paper as a smoke test
+- [ ] Define `config/tet_types.json` — machine-readable section specs per TET type (name, subjects, counts, order, language slots)
+- [ ] Update `extract_questions.py` section-detection to read from `config/tet_types.json` instead of hardcoding
+- [ ] Update `build_real_exams.py` to read section order from `config/tet_types.json`
+- [ ] Update R2 explanation key format to `explanations/<tet_bank>/<Subject>/<folder>.json` — update Worker + `js/r2-explanations.js` + `js/r2-explanations.js` aiCacheKey parsing
+- [ ] Frontend: tet_bank selector on PWA filter screen; subject filter adapts per TET type spec
+- [ ] Run full sprite pipeline on all ~120 new papers: `extract_questions.py --sprites-only --pdf-dir`, `build_qb_index.py`, `upload_sprites.py`
+- [ ] Verify end-to-end with one new non-CTET paper as a smoke test
 
 ---
 
