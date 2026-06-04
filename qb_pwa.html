@@ -111,6 +111,21 @@ img { display: block; max-width: 100%; height: auto; }
 .pwa-dd-item:active { background: #eef2f8; }
 .pwa-dd-item.active { background: #1a3a5c; color: #fff; }
 .pwa-dd-item + .pwa-dd-item { border-top: 1px solid #edf0f6; }
+/* "Paper-wise ▸" drill row + its side flyout of papers */
+.pwa-dd-drill { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: #1565c0; }
+.pwa-dd-drill.active { color: #fff; }
+.pwa-dd-arrow {
+  width: 13px; height: 13px; flex-shrink: 0; fill: none; stroke: currentColor;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+.pwa-paper-dd {
+  position: fixed; left: 20%; right: 8%; z-index: 400;
+  background: #fff; border: 2.5px solid #b0c4de; border-radius: 12px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.45), 0 6px 18px rgba(0,0,0,0.25);
+  overflow-y: auto; animation: ddIn 0.16s ease;
+}
+.pwa-paper-dd[hidden] { display: none; }
+.pwa-paper-dd .pwa-dd-item { white-space: normal; }
 
 /* Counter */
 #pwa-progress { justify-self: end; text-align: right; line-height: 1.1; color: #fff; }
@@ -159,11 +174,21 @@ img { display: block; max-width: 100%; height: auto; }
 
 /* ── Content area — fills screen, padding clears floating nav ───────────── */
 #pwa-content {
-  flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden;
-  overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
-  padding: 12px 14px calc(80px + env(safe-area-inset-bottom));
-  scroll-behavior: smooth; background: #f4f6fb;
+  flex: 1; min-height: 0; overflow: hidden; position: relative;
+  padding: 6px; background: #f4f6fb;
 }
+/* Unified question card — fills the page (thin margins, rounded corners) and is the
+   element that slides on navigation. It is also the vertical scroller for long content. */
+.pwa-qcard {
+  height: 100%; overflow-y: auto; overflow-x: hidden;
+  overscroll-behavior: contain; -webkit-overflow-scrolling: touch; scroll-behavior: smooth;
+  background: #fff; border-radius: 16px;
+  box-shadow: 0 4px 6px rgba(10,30,60,0.06), 0 12px 32px rgba(10,30,60,0.14);
+  border: 1px solid rgba(180,200,230,0.5);
+  padding: 14px 14px calc(88px + env(safe-area-inset-bottom));
+  will-change: transform;
+}
+.pwa-qcard[hidden] { display: none; }
 
 /* Empty state — vertically centred in the content viewport */
 #pwa-empty-state {
@@ -189,17 +214,25 @@ img { display: block; max-width: 100%; height: auto; }
 
 /* Question image card */
 .pwa-qimg-wrap {
-  background: #fff; border-radius: 10px; padding: 10px;
-  box-shadow: 0 1px 3px rgba(10,30,60,0.06); margin-bottom: 12px;
-  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  margin-bottom: 14px; overflow-x: auto; -webkit-overflow-scrolling: touch;
 }
 .pwa-qimg { display: block; border-radius: 4px; max-width: none; }
 .pwa-opt-canvas { display: block; border-radius: 3px; max-width: none; }
 
-/* Options */
+/* Skeleton shimmer shown on a canvas while its R2 sprite is still loading.
+   The canvas bitmap is cleared (transparent) so this CSS background shows; the
+   real crop paints over it on load. Sized to the known piece dims → no reflow. */
+@keyframes pwaShimmer { 0% { background-position: 180% 0; } 100% { background-position: -180% 0; } }
+.pwa-loading {
+  background-image: linear-gradient(100deg, #e7ebf2 28%, #f5f8fc 50%, #e7ebf2 72%);
+  background-size: 220% 100%; background-repeat: no-repeat;
+  animation: pwaShimmer 1.15s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) { .pwa-loading { animation: none; } }
+
+/* Options — flat on the unified card (each option has its own border/fill) */
 .pwa-opts-wrap {
-  background: #fff; border-radius: 10px; padding: 8px;
-  box-shadow: 0 1px 3px rgba(10,30,60,0.06); margin-bottom: 14px;
+  background: none; box-shadow: none; padding: 0; margin-bottom: 6px;
 }
 .pwa-opt {
   display: flex; align-items: flex-start; gap: 7px; padding: 7px 9px;
@@ -247,9 +280,9 @@ img { display: block; max-width: 100%; height: auto; }
   border: 1.5px solid #fff;
 }
 #pwa-explanation {
-  background: #fff; border-radius: 10px; padding: 14px; font-size: 14px;
-  line-height: 1.6; color: #222; min-height: 48px;
-  box-shadow: 0 1px 3px rgba(10,30,60,0.06); overflow-x: auto; word-wrap: break-word;
+  background: #f7f9fc; border: 1px solid #eef1f6; border-radius: 10px; padding: 14px;
+  font-size: 14px; line-height: 1.6; color: #222; min-height: 48px;
+  overflow-x: auto; word-wrap: break-word;
 }
 .pwa-ai-loading { display: flex; align-items: center; gap: 10px; padding: 8px 0; color: #555; font-size: 13px; }
 .pwa-ai-spinner {
@@ -311,6 +344,17 @@ img { display: block; max-width: 100%; height: auto; }
 #pwa-fab-understood.marked { background: #2e7d32; border-color: #2e7d32; box-shadow: 0 4px 14px rgba(46,125,50,0.4); }
 #pwa-fab-understood.marked svg { stroke: #fff; }
 .pwa-fab-hidden { display: none !important; }
+#pwa-fab-focus svg { stroke: #1a3a5c; }
+#pwa-fab-focus.is-exit { background: #1a3a5c; border-color: #1a3a5c; box-shadow: 0 4px 14px rgba(26,58,92,0.4); }
+#pwa-fab-focus.is-exit svg { stroke: #fff; }
+
+/* ── Focus mode — hide all chrome, keep the question card + a single exit FAB ── */
+.pwa-focus #pwa-header,
+.pwa-focus #pwa-footer,
+.pwa-focus #pwa-fab-like,
+.pwa-focus #pwa-fab-revision,
+.pwa-focus #font-knob { display: none !important; }
+.pwa-focus #pwa-content { padding-top: calc(env(safe-area-inset-top) + 6px); }
 
 /* ── Floating nav pill ──────────────────────────────────────────────────── */
 #pwa-footer {
@@ -351,7 +395,7 @@ img { display: block; max-width: 100%; height: auto; }
 /* ── Font-size knob ─────────────────────────────────────────────────────── */
 #font-knob {
   position: fixed;
-  bottom: calc(80px + env(safe-area-inset-bottom));
+  bottom: calc(72px + env(safe-area-inset-bottom) + 14px);
   left: 14px;
   z-index: 35;
   background: rgba(255,255,255,0.95);
@@ -392,6 +436,7 @@ img { display: block; max-width: 100%; height: auto; }
   display: flex; align-items: center; justify-content: center;
   padding: calc(env(safe-area-inset-top) + 20px) 20px calc(env(safe-area-inset-bottom) + 20px);
   overflow-y: auto; animation: spFade 0.2s ease;
+  align-content: center;
 }
 #pwa-stream-picker[hidden] { display: none; }
 @keyframes spFade { from { opacity: 0; } to { opacity: 1; } }
@@ -405,30 +450,63 @@ img { display: block; max-width: 100%; height: auto; }
 .sp-brand-tet { font-size: 24px; font-weight: 900; letter-spacing: 1px; color: #1a3a5c; }
 .sp-brand-suite { font-size: 11px; font-weight: 700; letter-spacing: 3px; color: #f0a500; }
 .sp-title { font-size: 19px; font-weight: 800; color: #16243a; line-height: 1.25; }
-.sp-sub { font-size: 13px; color: #6a7a98; margin: 4px 0 18px; line-height: 1.4; }
-.sp-field { margin-bottom: 13px; }
+.sp-sub { font-size: 13px; color: #6a7a98; margin: 4px 0 12px; line-height: 1.4; }
+.sp-scale {
+  display: flex; align-items: flex-start; gap: 8px;
+  font-size: 12.5px; color: #6a7a98; line-height: 1.45;
+  margin: 0 0 18px; padding-top: 12px; border-top: 1px solid #eef1f6;
+}
+.sp-scale svg {
+  width: 15px; height: 15px; margin-top: 1px; flex-shrink: 0; fill: none;
+  stroke: #f0a500; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+.sp-scale strong { color: #1565c0; font-weight: 800; }
+.sp-field { margin-bottom: 13px; position: relative; }
 .sp-flabel {
   display: block; font-size: 10.5px; font-weight: 700; text-transform: uppercase;
   letter-spacing: 1px; color: #8a97ad; margin-bottom: 5px; padding-left: 2px;
 }
-.sp-select-wrap { position: relative; }
-.sp-select-wrap select {
-  -webkit-appearance: none; appearance: none;
-  width: 100%; padding: 12px 38px 12px 14px; font-size: 15px; font-weight: 600;
-  color: #16243a; background: #f4f6fb; border: 1.5px solid #dde4f0; border-radius: 11px;
+.sp-dd-btn {
+  -webkit-appearance: none; appearance: none; width: 100%;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 11px 14px; font-size: 15px; font-weight: 600; color: #16243a; text-align: left;
+  background: #f4f6fb; border: 1.5px solid #dde4f0; border-radius: 11px;
   cursor: pointer; font-family: inherit; line-height: 1.3;
 }
-.sp-select-wrap select:focus { outline: none; border-color: #1565c0; background: #fff; }
-.sp-select-wrap select:disabled { opacity: 0.5; cursor: not-allowed; }
+.sp-dd-btn:active { background: #eef2f8; }
+.sp-dd-btn[aria-expanded="true"] { border-color: #1565c0; background: #fff; }
+.sp-dd-val { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .sp-caret {
-  position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
-  width: 13px; height: 13px; fill: none; stroke: #5a6e8e; stroke-width: 2.2;
-  stroke-linecap: round; stroke-linejoin: round; pointer-events: none;
+  width: 13px; height: 13px; flex-shrink: 0; fill: none; stroke: #5a6e8e; stroke-width: 2.2;
+  stroke-linecap: round; stroke-linejoin: round; pointer-events: none; transition: transform 0.2s;
 }
+.sp-dd-btn[aria-expanded="true"] .sp-caret { transform: rotate(180deg); }
+.sp-dd-panel {
+  position: fixed; left: 20%; right: 8%; z-index: 400;
+  background: #fff; border: 2.5px solid #b0c4de; border-radius: 12px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.45), 0 6px 18px rgba(0,0,0,0.25);
+  max-height: 75vh; overflow-y: auto; animation: ddIn 0.15s ease;
+}
+.sp-dd-panel--stream {
+  top: 15%; bottom: 15%; max-height: none;
+}
+.sp-dd-panel[hidden] { display: none; }
+.sp-dd-opt {
+  display: block; width: 100%; text-align: left; padding: 12px 14px;
+  font-size: 14px; font-weight: 600; color: #1a3a5c; background: none;
+}
+.sp-dd-opt + .sp-dd-opt { border-top: 1.5px solid #e0e6ef; }
+.sp-dd-opt:active { background: #eef2f8; }
+.sp-dd-opt.active { background: #1a3a5c; color: #fff; }
+/* Stream items: stream name on the left, smaller paper/question count on the right */
+.sp-dd-opt--stream { display: flex; flex-direction: row; align-items: baseline; justify-content: space-between; gap: 10px; }
+.sp-dd-opt-name { font-size: 14px; font-weight: 700; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sp-dd-opt-meta { font-size: 11px; font-weight: 600; color: #8a97ad; flex-shrink: 0; white-space: nowrap; }
+.sp-dd-opt.active .sp-dd-opt-meta { color: rgba(255,255,255,0.72); }
 .sp-summary {
   margin: 16px 0 14px; padding: 12px 14px; border-radius: 11px;
   background: #eef4fb; border: 1px solid #d8e6f5; font-size: 13px;
-  color: #334; line-height: 1.5; min-height: 44px;
+  color: #334; line-height: 1.5; min-height: 86px;   /* fixed footprint → card never resizes on switch */
 }
 .sp-summary strong { color: #1565c0; font-weight: 800; }
 .sp-summary .sp-empty { color: #97a3b8; }
@@ -475,6 +553,7 @@ img { display: block; max-width: 100%; height: auto; }
           <svg class="pwa-chevron" viewBox="0 0 14 14" aria-hidden="true"><polyline points="2,4 7,10 12,4"/></svg>
         </button>
         <div id="pwa-subject-dd" hidden role="listbox"></div>
+        <div id="pwa-paper-dd" class="pwa-paper-dd" hidden role="listbox" aria-label="Filter by paper"></div>
       </div>
       <div id="pwa-chips-scroll">
         <button class="pwa-chip active" data-status="to-read">To Read</button>
@@ -509,19 +588,21 @@ img { display: block; max-width: 100%; height: auto; }
       <p class="pwa-empty-text" id="pwa-empty-text"></p>
     </div>
 
-    <!-- Question content -->
-    <div id="pwa-qnum"></div>
-    <div class="pwa-qimg-wrap">
-      <canvas id="pwa-qimg" class="pwa-qimg"></canvas>
-    </div>
-    <div class="pwa-opts-wrap" id="pwa-opts-wrap">
-      <div id="pwa-opts"></div>
-    </div>
-    <div id="pwa-exp-section">
-      <div class="pwa-exp-divider">Explanation</div>
-      <div id="pwa-explanation"><span class="pwa-msg">Loading…</span></div>
-      <div id="pwa-ai-actions">
-        <button id="pwa-ai-btn">&#10024; Explain with AI</button>
+    <!-- Question content — one unified card that slides on navigation -->
+    <div class="pwa-qcard" id="pwa-qcard">
+      <div id="pwa-qnum"></div>
+      <div class="pwa-qimg-wrap">
+        <canvas id="pwa-qimg" class="pwa-qimg"></canvas>
+      </div>
+      <div class="pwa-opts-wrap" id="pwa-opts-wrap">
+        <div id="pwa-opts"></div>
+      </div>
+      <div id="pwa-exp-section">
+        <div class="pwa-exp-divider">Explanation</div>
+        <div id="pwa-explanation"><span class="pwa-msg">Loading…</span></div>
+        <div id="pwa-ai-actions">
+          <button id="pwa-ai-btn">&#10024; Explain with AI</button>
+        </div>
       </div>
     </div>
   </div>
@@ -546,6 +627,9 @@ img { display: block; max-width: 100%; height: auto; }
     <button id="pwa-fab-understood" class="pwa-fab-btn" aria-label="Mark as Understood">
       <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
     </button>
+    <button id="pwa-fab-focus" class="pwa-fab-btn" aria-label="Focus mode" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6c0 2-2 2-2 4v10a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2V10c0-2-2-2-2-4V2h12Z"/><line x1="6" y1="6" x2="18" y2="6"/><line x1="12" y1="12" x2="12" y2="12"/></svg>
+    </button>
   </div>
 
   <!-- Stream picker overlay (TET → Paper → Stream) -->
@@ -554,21 +638,34 @@ img { display: block; max-width: 100%; height: auto; }
       <div class="sp-brand"><span class="sp-brand-tet">TET</span><span class="sp-brand-suite">SUITE</span></div>
       <h2 class="sp-title">Choose your question bank</h2>
       <p class="sp-sub">Pick a TET, paper and stream to start practising.</p>
+      <p class="sp-scale">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+        <span id="sp-scale-text"></span>
+      </p>
 
-      <div class="sp-field">
+      <div class="sp-field" id="sp-field-tet">
         <span class="sp-flabel">TET</span>
-        <div class="sp-select-wrap"><select id="sp-tet"></select>
-          <svg class="sp-caret" viewBox="0 0 14 14" aria-hidden="true"><polyline points="2,4 7,10 12,4"/></svg></div>
+        <button class="sp-dd-btn" id="sp-tet-btn" type="button" aria-haspopup="listbox" aria-expanded="false">
+          <span class="sp-dd-val" id="sp-tet-val"></span>
+          <svg class="sp-caret" viewBox="0 0 14 14" aria-hidden="true"><polyline points="2,4 7,10 12,4"/></svg>
+        </button>
+        <div class="sp-dd-panel" id="sp-tet-dd" hidden role="listbox"></div>
       </div>
-      <div class="sp-field">
+      <div class="sp-field" id="sp-field-paper">
         <span class="sp-flabel">Paper</span>
-        <div class="sp-select-wrap"><select id="sp-paper"></select>
-          <svg class="sp-caret" viewBox="0 0 14 14" aria-hidden="true"><polyline points="2,4 7,10 12,4"/></svg></div>
+        <button class="sp-dd-btn" id="sp-paper-btn" type="button" aria-haspopup="listbox" aria-expanded="false">
+          <span class="sp-dd-val" id="sp-paper-val"></span>
+          <svg class="sp-caret" viewBox="0 0 14 14" aria-hidden="true"><polyline points="2,4 7,10 12,4"/></svg>
+        </button>
+        <div class="sp-dd-panel" id="sp-paper-dd" hidden role="listbox"></div>
       </div>
-      <div class="sp-field">
+      <div class="sp-field" id="sp-field-stream">
         <span class="sp-flabel">Stream</span>
-        <div class="sp-select-wrap"><select id="sp-stream"></select>
-          <svg class="sp-caret" viewBox="0 0 14 14" aria-hidden="true"><polyline points="2,4 7,10 12,4"/></svg></div>
+        <button class="sp-dd-btn" id="sp-stream-btn" type="button" aria-haspopup="listbox" aria-expanded="false">
+          <span class="sp-dd-val" id="sp-stream-val"></span>
+          <svg class="sp-caret" viewBox="0 0 14 14" aria-hidden="true"><polyline points="2,4 7,10 12,4"/></svg>
+        </button>
+        <div class="sp-dd-panel sp-dd-panel--stream" id="sp-stream-dd" hidden role="listbox"></div>
       </div>
 
       <div id="sp-summary" class="sp-summary"></div>
@@ -610,7 +707,7 @@ const PAPER_LINE_HEIGHT_DEFAULT = 47;
 const LS_FONT_SIZE_KEY = 'qb_target_line_height_px';
 
 /* ── Constants ──────────────────────────────────────────────────────────── */
-const APP_VERSION    = '0.3.1';
+const APP_VERSION    = '0.4.3';
 const CACHE_BUST     = '1';   // increment on special pushes to wipe stale localStorage
 const UNDERSTOOD_KEY = 'tet_understood_questions';
 const REVISION_KEY   = 'tet_revision_questions';
@@ -618,6 +715,8 @@ const AI_CACHE_PFX   = 'ai_exp_persist:';
 const QB_MANIFEST_URL = 'exams/qb_manifest.json';
 const SELECTED_BANK_KEY = 'qb_selected_bank';
 const DEFAULT_BANK   = 'tgtet_maths_science_telugu';   // legacy stream — preselected
+const posKey     = bank => `qb_pos_v1:${bank}`;
+const filtersKey = bank => `qb_filters_v1:${bank}`;
 // Per-stream index cache key (v2: was a single 'qb_index_cache_v1' before multi-TET)
 const qbCacheKey = bank => `qb_index_cache_v2:${bank}`;
 const streamIndexUrl = bank => `exams/qb_index_${bank}.json`;
@@ -635,8 +734,26 @@ let streamSections     = [];     // [{id, name}] sections for the active stream
 let qbankCache         = null;
 let qbankFiltered      = [];
 let qbankSubjectFilter = 'all';
+let qbankPaperFilter   = 'all';       // an examId, or 'all' — mutually exclusive with subject
 let qbankStatusFilter  = 'to-read';   // default: unread questions
 let qbankIndex         = 0;
+let _restorePos        = null;   // questionImage to seek after next navReset
+
+// Scope predicate shared by the filter pipeline and the header counts.
+// Paper filter wins when active (mutually exclusive with subject).
+function inActiveScope(q) {
+  if (qbankPaperFilter !== 'all')   return q.examId === qbankPaperFilter;
+  if (qbankSubjectFilter !== 'all') return (q.sectionId || '').toLowerCase() === qbankSubjectFilter;
+  return true;
+}
+// Ordered, de-duplicated list of papers in the active stream.
+function papersForStream() {
+  const out = [], seen = new Set();
+  for (const q of (qbankCache || [])) {
+    if (q.examId && !seen.has(q.examId)) { seen.add(q.examId); out.push({ examId: q.examId, examTitle: q.examTitle }); }
+  }
+  return out;
+}
 
 // Display label for a subject/section id within the active stream
 function subjectDisplay(id) {
@@ -655,6 +772,10 @@ function navPush(idx) {
   navHistory.push(idx);
   navPos     = navHistory.length - 1;
   qbankIndex = idx;
+  try {
+    const item = qbankFiltered[idx];
+    if (selectedBank && item) localStorage.setItem(posKey(selectedBank), item.questionImage);
+  } catch {}
 }
 
 function navReset() {
@@ -784,10 +905,6 @@ function buildFiltered(all) {
   const understood = getUnderstoodSet();
   const revSet     = getRevisionSet();
 
-  const subjMatch = q =>
-    qbankSubjectFilter === 'all' ||
-    (q.sectionId || '').toLowerCase() === qbankSubjectFilter;
-
   const statusMatch = q => {
     switch (qbankStatusFilter) {
       case 'to-read':    return !understood.has(q.questionImage);
@@ -797,7 +914,7 @@ function buildFiltered(all) {
     }
   };
 
-  return all.filter(q => subjMatch(q) && statusMatch(q));
+  return all.filter(q => inActiveScope(q) && statusMatch(q));
 }
 
 /* ── Empty state ─────────────────────────────────────────────────────────── */
@@ -822,14 +939,11 @@ function showEmptyState() {
   document.getElementById('pwa-empty-text').innerHTML   = def.text;
   document.getElementById('pwa-empty-state').classList.add('visible');
 
-  // Hide question elements
-  document.getElementById('pwa-qnum').hidden         = true;
-  document.querySelector('.pwa-qimg-wrap').hidden     = true;
-  document.getElementById('pwa-opts-wrap').hidden     = true;
-  document.getElementById('pwa-exp-section').hidden   = true;
-  document.getElementById('pwa-prev').disabled        = true;
-  document.getElementById('pwa-next').disabled        = true;
-  document.getElementById('pwa-fab').hidden           = true;
+  setFocusMode(false);   // never strand the user in focus mode on an empty list
+  document.getElementById('pwa-qcard').hidden  = true;
+  document.getElementById('pwa-prev').disabled = true;
+  document.getElementById('pwa-next').disabled = true;
+  document.getElementById('pwa-fab').hidden     = true;
 }
 
 /* ── Image scaling ──────────────────────────────────────────────────────── */
@@ -870,11 +984,8 @@ function applyScaleToCurrentQuestion() {
 
 function hideEmptyState() {
   document.getElementById('pwa-empty-state').classList.remove('visible');
-  document.getElementById('pwa-qnum').hidden       = false;
-  document.querySelector('.pwa-qimg-wrap').hidden   = false;
-  document.getElementById('pwa-opts-wrap').hidden   = false;
-  document.getElementById('pwa-exp-section').hidden = false;
-  document.getElementById('pwa-fab').hidden         = false;
+  document.getElementById('pwa-qcard').hidden = false;
+  document.getElementById('pwa-fab').hidden    = false;
 }
 
 /* ── Filter pipeline ──────────────────────────────────────────────────────
@@ -895,6 +1006,11 @@ async function applyFilters() {
   }
   qbankFiltered = buildFiltered(all);
   navReset();
+  if (_restorePos) {
+    const idx = qbankFiltered.findIndex(q => q.questionImage === _restorePos);
+    if (idx >= 0) { qbankIndex = idx; navHistory = [idx]; navPos = 0; }
+    _restorePos = null;
+  }
   renderCurrent();
 }
 
@@ -947,7 +1063,10 @@ function renderCurrent() {
         if (k === Number(item.correctAnswer)) cls += ' pwa-opt--correct';
         else if (k === prior.picked)          cls += ' pwa-opt--wrong';
       }
-      return `<div class="${cls}" data-opt="${k}"><span class="pwa-opt-num">${k}</span><canvas class="pwa-opt-canvas"></canvas></div>`;
+      // Pre-size the canvas to its known piece dims + shimmer while the sprite loads.
+      const c = sprite[`option${k}`];
+      const w = Math.round(c.w * scale), h = Math.round(c.h * scale);
+      return `<div class="${cls}" data-opt="${k}"><span class="pwa-opt-num">${k}</span><canvas class="pwa-opt-canvas pwa-loading" style="width:${w}px;height:${h}px"></canvas></div>`;
     }).join('');
   } else {
     optsEl.innerHTML = ''; optsWrap.style.display = 'none';
@@ -955,24 +1074,43 @@ function renderCurrent() {
 
   // Load sprite and draw crops into canvases
   if (spriteUrl && sprite.question) {
+    // Skeleton: clear the stale bitmap (so the shimmer CSS bg shows) and pre-size
+    // the question canvas to its known dims, so there's no reflow when it paints.
+    qCanvas.width  = sprite.question.w;
+    qCanvas.height = sprite.question.h;
+    qCanvas.style.width  = Math.round(sprite.question.w * scale) + 'px';
+    qCanvas.style.height = Math.round(sprite.question.h * scale) + 'px';
+    qCanvas.classList.add('pwa-loading');
+
     const guardImg = qimg;
+    const clearSkeletons = () => {
+      qCanvas.classList.remove('pwa-loading');
+      optsEl.querySelectorAll('canvas.pwa-loading').forEach(c => c.classList.remove('pwa-loading'));
+    };
     const spriteImg = new Image();
     spriteImg.crossOrigin = 'anonymous';
     spriteImg.onload = () => {
       const stillItem = qbankFiltered[qbankIndex];
       if (!stillItem || stillItem.questionImage !== guardImg) return;
       _drawCrop(qCanvas, spriteImg, sprite.question, scale);
+      qCanvas.classList.remove('pwa-loading');
       if (!item.optionsInQuestion) {
         optKeys.forEach(k => {
           const div = optsEl.querySelector(`[data-opt="${k}"]`);
           const cnv = div?.querySelector('canvas');
-          if (cnv) _drawCrop(cnv, spriteImg, sprite[`option${k}`], scale);
+          if (cnv) { _drawCrop(cnv, spriteImg, sprite[`option${k}`], scale); cnv.classList.remove('pwa-loading'); }
         });
       }
+    };
+    // On failure, stop the shimmer rather than spin forever.
+    spriteImg.onerror = () => {
+      const stillItem = qbankFiltered[qbankIndex];
+      if (stillItem && stillItem.questionImage === guardImg) clearSkeletons();
     };
     spriteImg.src = spriteUrl;
   } else {
     // Clear canvas if no sprite available
+    qCanvas.classList.remove('pwa-loading');
     qCanvas.width = 1; qCanvas.height = 1;
     qCanvas.style.width = ''; qCanvas.style.height = '';
   }
@@ -986,7 +1124,7 @@ function renderCurrent() {
     aiBtn.innerHTML = getAiCache(qimg) ? '&#10024; Regenerate' : '&#10024; Explain with AI';
   }
 
-  document.getElementById('pwa-content').scrollTo({ top: 0, behavior: 'auto' });
+  document.getElementById('pwa-qcard').scrollTo({ top: 0, behavior: 'auto' });
   _prefetch(qbankFiltered[qbankIndex + 1]);
   _prefetch(qbankFiltered[qbankIndex - 1]);
 
@@ -1012,6 +1150,99 @@ function revealOption(pickedIdx) {
 }
 
 function _prefetch(item) { if (item?.spriteUrl) new Image().src = item.spriteUrl; }
+
+/* ── Navigation, focus mode & swipe ─────────────────────────────────────── */
+// History-aware prev/next. Return true when the position actually moved.
+function navPrev() {
+  if (navPos > 0)        { navPos--; qbankIndex = navHistory[navPos]; renderCurrent(); return true; }
+  if (qbankIndex > 0)    { navPush(qbankIndex - 1); renderCurrent(); return true; }
+  return false;
+}
+function navNext() {
+  if (navPos < navHistory.length - 1) { navPos++; qbankIndex = navHistory[navPos]; renderCurrent(); return true; }
+  if (qbankIndex < qbankFiltered.length - 1) { navPush(qbankIndex + 1); renderCurrent(); return true; }
+  return false;
+}
+
+// Slide the card out in the gesture direction, swap content, slide the new one in.
+let _sliding = false;
+function navAnimated(dir) {            // dir: 'next' | 'prev'
+  const card = document.getElementById('pwa-qcard');
+  const go   = dir === 'next' ? navNext : navPrev;
+  if (_sliding) return;
+  if (!card || card.hidden) { go(); return; }
+  const out  = dir === 'next' ? -1 : 1;                 // 'next' exits to the left
+  const dist = Math.min(window.innerWidth * 0.45, 200);
+  _sliding = true;
+  card.style.transition = 'transform 0.17s ease-in, opacity 0.17s ease-in';
+  card.style.transform  = `translateX(${out * dist}px)`;
+  card.style.opacity    = '0';
+  setTimeout(() => {
+    const moved = go();                                 // renders next/prev (no-op at the ends)
+    card.style.transition = 'none';
+    card.style.transform  = `translateX(${(moved ? -out : out) * (moved ? 48 : 40)}px)`;
+    void card.offsetWidth;                              // force reflow before the entry transition
+    card.style.transition = 'transform 0.24s cubic-bezier(0.2,0.7,0.2,1), opacity 0.24s';
+    card.style.transform  = 'translateX(0)';
+    card.style.opacity    = '1';
+    setTimeout(() => { card.style.transition = ''; card.style.transform = ''; _sliding = false; }, 260);
+  }, 170);
+}
+
+// Focus mode — hide all chrome, keep the question card + a single exit FAB.
+let _focusHintTid = null;
+function setFocusMode(on) {
+  on = !!on;
+  const app = document.getElementById('pwa-app');
+  if (!app) return;
+  const was = app.classList.contains('pwa-focus');
+  app.classList.toggle('pwa-focus', on);
+  const btn = document.getElementById('pwa-fab-focus');
+  if (btn) {
+    btn.classList.toggle('is-exit', on);
+    btn.setAttribute('aria-label', on ? 'Exit focus mode' : 'Focus mode');
+    btn.setAttribute('aria-pressed', String(on));
+  }
+  if (_focusHintTid) { clearTimeout(_focusHintTid); _focusHintTid = null; }
+  if (on === was) return;                       // no real state change → no toast
+  if (on) {
+    document.getElementById('pwa-qcard')?.scrollTo({ top: 0 });
+    showToast('Focus mode on');
+    _focusHintTid = setTimeout(() => {          // a beat later: how to navigate now that buttons are gone
+      if (isFocusMode()) showToast('Swipe left/right to change questions');
+      _focusHintTid = null;
+    }, 1600);
+  } else {
+    showToast('Focus mode off');
+  }
+}
+function isFocusMode() { return document.getElementById('pwa-app').classList.contains('pwa-focus'); }
+
+// Horizontal swipe → prev/next. Vertical scroll and wide-image panning are preserved.
+function attachSwipe(el) {
+  let x0 = 0, y0 = 0, t0 = 0, imgWrap = null;
+  el.addEventListener('touchstart', e => {
+    if (e.touches.length !== 1) { t0 = 0; return; }
+    const t = e.touches[0]; x0 = t.clientX; y0 = t.clientY; t0 = Date.now();
+    const w = e.target.closest('.pwa-qimg-wrap');
+    imgWrap = (w && w.scrollWidth > w.clientWidth + 2) ? w : null;   // a pannable wide image
+  }, { passive: true });
+  el.addEventListener('touchend', e => {
+    if (!t0) return;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - x0, dy = t.clientY - y0, dt = Date.now() - t0;
+    t0 = 0;
+    if (dt > 700) return;                                                 // too slow to be a flick
+    if (Math.abs(dx) < 55 || Math.abs(dx) < Math.abs(dy) * 1.4) return;   // not horizontal-dominant
+    if (imgWrap) {                                                        // defer to image panning
+      const atStart = imgWrap.scrollLeft <= 0;
+      const atEnd   = imgWrap.scrollLeft + imgWrap.clientWidth >= imgWrap.scrollWidth - 2;
+      if (dx < 0 && !atEnd)   return;
+      if (dx > 0 && !atStart) return;
+    }
+    navAnimated(dx < 0 ? 'next' : 'prev');
+  }, { passive: true });
+}
 
 /* ── R2 rating bar ──────────────────────────────────────────────────────── */
 function showRatingBar(exp, questionImage) {
@@ -1092,11 +1323,9 @@ function updateHeaderProgress() {
   const understood = getUnderstoodSet();
   const revSet     = getRevisionSet();
 
-  // Scope to the active subject filter
+  // Scope to the active subject OR paper filter (mutually exclusive)
   const all = qbankCache || [];
-  const scoped = qbankSubjectFilter === 'all'
-    ? all
-    : all.filter(q => (q.sectionId || '').toLowerCase() === qbankSubjectFilter);
+  const scoped = all.filter(inActiveScope);
 
   const scopedTotal = scoped.length;
   const scopedDone  = scoped.filter(q => understood.has(q.questionImage) || revSet.has(q.questionImage)).length;
@@ -1237,6 +1466,7 @@ function openSubjectDropdown() {
 }
 function closeSubjectDropdown() {
   document.getElementById('pwa-subject-dd').hidden = true;
+  document.getElementById('pwa-paper-dd').hidden = true;
   document.querySelector('#pwa-subject-btn .pwa-chevron').classList.remove('pwa-chevron--open');
   document.getElementById('pwa-dd-backdrop').classList.remove('visible');
   document.getElementById('pwa-subject-btn').setAttribute('aria-expanded', 'false');
@@ -1248,9 +1478,35 @@ function buildSubjectDropdown(sections) {
   dd.innerHTML = [
     `<button class="pwa-dd-item active" data-subject="all">All Subjects</button>`,
     ...sections.map(s => `<button class="pwa-dd-item" data-subject="${esc(s.id)}">${esc(s.name)}</button>`),
+    `<button class="pwa-dd-item pwa-dd-drill" data-role="paperwise">Paper-wise`
+      + `<svg class="pwa-dd-arrow" viewBox="0 0 14 14" aria-hidden="true"><polyline points="5,3 10,7 5,11"/></svg></button>`,
   ].join('');
   qbankSubjectFilter = 'all';
+  qbankPaperFilter   = 'all';
+  document.getElementById('pwa-paper-dd').hidden = true;
   document.getElementById('pwa-subject-label').textContent = 'All Subjects';
+}
+
+/* Build the side flyout listing the active stream's papers (+ "All Papers"). */
+function buildPaperFlyout() {
+  const cur = qbankPaperFilter;
+  const items = [
+    `<button class="pwa-dd-item${cur === 'all' ? ' active' : ''}" data-exam-id="all">All Papers</button>`,
+    ...papersForStream().map(p =>
+      `<button class="pwa-dd-item${cur === p.examId ? ' active' : ''}" data-exam-id="${esc(p.examId)}">${esc(p.examTitle || p.examId)}</button>`),
+  ];
+  document.getElementById('pwa-paper-dd').innerHTML = items.join('');
+}
+
+/* Anchor the paper flyout beside the open subject panel: start it level with the
+   "Paper-wise" row and extend down to ~90% of the viewport (10% gap at the bottom). */
+function positionPaperFlyout() {
+  const fly   = document.getElementById('pwa-paper-dd');
+  const drill = document.querySelector('#pwa-subject-dd .pwa-dd-drill');
+  const drillTop = drill ? drill.getBoundingClientRect().top : window.innerHeight * 0.4;
+  const ABOVE = 24;   // start slightly above the drill row
+  fly.style.top       = Math.max(8, drillTop - ABOVE) + 'px';
+  fly.style.maxHeight = (window.innerHeight * 0.85 - (drillTop - ABOVE)) + 'px';
 }
 
 /* ── Stream selection ───────────────────────────────────────────────────── */
@@ -1259,19 +1515,42 @@ function updateStreamButton(cfg) {
   document.getElementById('pwa-stream-name').textContent = cfg.label;
 }
 
+function saveFilters() {
+  try {
+    if (selectedBank)
+      localStorage.setItem(filtersKey(selectedBank),
+        JSON.stringify({ subject: qbankSubjectFilter, status: qbankStatusFilter, paper: qbankPaperFilter }));
+  } catch {}
+}
+
 /* Switch the active stream: rebuild subjects, load that stream's index, render. */
 async function selectStream(bank, { persist = true } = {}) {
   const cfg = findStream(bank) || findStream(DEFAULT_BANK) || allStreams()[0];
   if (!cfg) return;
+  const prevBank = selectedBank;
   selectedBank   = cfg.tet_bank;
   selectedStream = cfg;
   streamSections = cfg.sections || [];
   if (persist) { try { localStorage.setItem(SELECTED_BANK_KEY, selectedBank); } catch {} }
   updateStreamButton(cfg);
   buildSubjectDropdown(streamSections);
-  qbankStatusFilter = 'to-read';
+
+  if (prevBank !== null && selectedBank !== prevBank) {
+    // Explicit switch to a different stream: reset filters and position
+    qbankSubjectFilter = 'all';
+    qbankPaperFilter   = 'all';
+    qbankStatusFilter  = 'to-read';
+    _restorePos        = null;
+  } else {
+    // Initial load or same stream: restore saved filters + position
+    try {
+      const f = JSON.parse(localStorage.getItem(filtersKey(selectedBank)) || 'null');
+      if (f) { qbankSubjectFilter = f.subject || 'all'; qbankStatusFilter = f.status || 'to-read'; qbankPaperFilter = f.paper || 'all'; }
+    } catch {}
+    try { _restorePos = localStorage.getItem(posKey(selectedBank)) || null; } catch {}
+  }
   syncChipHighlight();
-  qbankCache = null;              // force reload of the new stream's index
+  qbankCache = null;
   await applyFilters();
 }
 
@@ -1283,37 +1562,63 @@ function openPicker() {
 }
 function closePicker() { document.getElementById('pwa-stream-picker').hidden = true; }
 
-function _fillSelect(sel, items, value, label, current) {
-  sel.innerHTML = items.map(it =>
-    `<option value="${esc(value(it))}"${value(it) === current ? ' selected' : ''}>${esc(label(it))}</option>`
-  ).join('');
-}
+/* Picker selection state (drives the custom dropdowns). */
+let pickTet = null, pickPaper = null, pickBank = null;
+function _spTet()   { const t = (qbManifest?.tets || []); return t.find(x => x.tet_type === pickTet) || t[0] || null; }
+function _spPaper() { const p = _spTet()?.papers || []; return p.find(x => x.paper === pickPaper) || p[0] || null; }
 
 function populatePicker() {
-  const tets = qbManifest?.tets || [];
-  const cur  = selectedStream || findStream(DEFAULT_BANK) || allStreams()[0] || null;
-  const tetSel = document.getElementById('sp-tet');
-  _fillSelect(tetSel, tets, t => t.tet_type, t => t.label, cur?.tet_type);
-  cascadePaper(cur?.paper, cur?.tet_bank);
+  const cur = selectedStream || findStream(DEFAULT_BANK) || allStreams()[0] || null;
+  pickTet   = cur?.tet_type ?? qbManifest?.tets?.[0]?.tet_type ?? null;
+  pickPaper = cur?.paper    ?? null;
+  pickBank  = cur?.tet_bank ?? null;
+  spRender();
+  spCloseDD();
   document.getElementById('sp-version').textContent = APP_VERSION;
+
+  // Overall scale across every stream — emphasised numbers, theme middot separators.
+  const all    = allStreams();
+  const papers = all.reduce((n, s) => n + (s.paper_count || 0), 0);
+  const qs     = all.reduce((n, s) => n + (s.question_count || 0), 0);
+  document.getElementById('sp-scale-text').innerHTML =
+    `<strong>${papers.toLocaleString()}</strong> papers · ` +
+    `<strong>${qs.toLocaleString()}</strong> questions across ` +
+    `<strong>${all.length}</strong> streams`;
 }
-function cascadePaper(curPaper, curBank) {
-  const tet = (qbManifest?.tets || []).find(t => t.tet_type === document.getElementById('sp-tet').value);
+
+/* Render the three dropdown buttons + panels from the current picks, cascading
+   TET → Paper → Stream and falling back to the first available at each level. */
+function spRender() {
+  const tets = qbManifest?.tets || [];
+  if (!tets.some(t => t.tet_type === pickTet)) pickTet = tets[0]?.tet_type ?? null;
+  const tet = _spTet();
   const papers = tet?.papers || [];
-  _fillSelect(document.getElementById('sp-paper'), papers, p => p.paper, p => p.label, curPaper);
-  cascadeStream(curBank);
-}
-function cascadeStream(curBank) {
-  const tet = (qbManifest?.tets || []).find(t => t.tet_type === document.getElementById('sp-tet').value);
-  const pap = (tet?.papers || []).find(p => p.paper === document.getElementById('sp-paper').value);
+  if (!papers.some(p => p.paper === pickPaper)) pickPaper = papers[0]?.paper ?? null;
+  const pap = _spPaper();
   const streams = pap?.streams || [];
-  _fillSelect(document.getElementById('sp-stream'), streams, s => s.tet_bank,
-    s => `${s.label}  —  ${s.paper_count} paper${s.paper_count === 1 ? '' : 's'}`, curBank);
+  if (!streams.some(s => s.tet_bank === pickBank)) pickBank = streams[0]?.tet_bank ?? null;
+
+  document.getElementById('sp-tet-val').textContent = tet?.label || '—';
+  document.getElementById('sp-tet-dd').innerHTML = tets.map(t =>
+    `<button class="sp-dd-opt${t.tet_type === pickTet ? ' active' : ''}" data-tet="${esc(t.tet_type)}">${esc(t.label)}</button>`).join('');
+
+  document.getElementById('sp-paper-val').textContent = pap?.label || '—';
+  document.getElementById('sp-paper-dd').innerHTML = papers.map(p =>
+    `<button class="sp-dd-opt${p.paper === pickPaper ? ' active' : ''}" data-paper="${esc(p.paper)}">${esc(p.label)}</button>`).join('');
+
+  const curStream = streams.find(s => s.tet_bank === pickBank);
+  document.getElementById('sp-stream-val').textContent = curStream?.label || '—';
+  document.getElementById('sp-stream-dd').innerHTML = streams.map(s => {
+    const meta = `${s.paper_count} paper${s.paper_count === 1 ? '' : 's'}`;
+    return `<button class="sp-dd-opt sp-dd-opt--stream${s.tet_bank === pickBank ? ' active' : ''}" data-bank="${esc(s.tet_bank)}">`
+      + `<span class="sp-dd-opt-name">${esc(s.label)}</span><span class="sp-dd-opt-meta">${esc(meta)}</span></button>`;
+  }).join('');
+
   updatePickerSummary();
 }
+
 function updatePickerSummary() {
-  const bank = document.getElementById('sp-stream').value;
-  const s = findStream(bank);
+  const s = findStream(pickBank);
   const el = document.getElementById('sp-summary');
   const confirm = document.getElementById('sp-confirm');
   if (!s) { el.innerHTML = '<span class="sp-empty">No question banks available.</span>'; confirm.disabled = true; return; }
@@ -1323,8 +1628,32 @@ function updatePickerSummary() {
                  `<br>${esc(s.sections.map(x => x.name).join(' · '))}`;
 }
 
-/* Initial load: manifest → restore last stream (or default) → render.
-   On the very first open (nothing saved), pop the picker so the user chooses. */
+/* Picker dropdown open/close — only one panel open at a time. */
+function spCloseDD(except) {
+  ['sp-tet', 'sp-paper', 'sp-stream'].forEach(id => {
+    if (id === except) return;
+    document.getElementById(id + '-dd').hidden = true;
+    document.getElementById(id + '-btn').setAttribute('aria-expanded', 'false');
+  });
+}
+function positionDD(id) {
+  if (id === 'sp-stream') return;   // stream uses fixed CSS insets, not button-anchored
+  const dd = document.getElementById(id + '-dd');
+  const br = document.getElementById(id + '-btn').getBoundingClientRect();
+  dd.style.top = ''; dd.style.bottom = '';
+  dd.style.top = (br.bottom + 6) + 'px';
+}
+function spToggleDD(id) {
+  const dd = document.getElementById(id + '-dd');
+  const open = dd.hidden;            // hidden now → about to open
+  spCloseDD(open ? id : null);
+  dd.hidden = !open;
+  document.getElementById(id + '-btn').setAttribute('aria-expanded', String(open));
+  if (open) positionDD(id);
+}
+
+/* Initial load: manifest → pre-fill picker from last selection → always open picker.
+   QB index is deferred until the user confirms. */
 async function initStreams() {
   try { await loadManifest(); }
   catch (e) {
@@ -1335,8 +1664,23 @@ async function initStreams() {
   let saved = null;
   try { saved = localStorage.getItem(SELECTED_BANK_KEY); } catch {}
   const target = (saved && findStream(saved)) ? saved : DEFAULT_BANK;
-  await selectStream(target, { persist: true });
-  if (!saved) openPicker();   // first-ever open: let the user choose (cancel keeps default)
+  // If the user has a saved position, resume directly — skip the picker.
+  let savedPos = null;
+  try { if (saved) savedPos = localStorage.getItem(posKey(target)); } catch {}
+  if (saved && savedPos) {
+    await selectStream(target, { persist: false });
+  } else {
+    // No saved position: always show picker (pre-filled with last selection).
+    const cfg = findStream(target);
+    if (cfg) {
+      selectedBank   = cfg.tet_bank;
+      selectedStream = cfg;
+      streamSections = cfg.sections || [];
+      updateStreamButton(cfg);
+    }
+    openPicker();
+    document.getElementById('sp-close').hidden = !saved;
+  }
 }
 
 /* ── Chip highlight sync ────────────────────────────────────────────────── */
@@ -1368,18 +1712,35 @@ document.addEventListener('DOMContentLoaded', () => {
   /* Stream switcher → open picker */
   document.getElementById('pwa-stream-btn').addEventListener('click', openPicker);
 
-  /* Picker cascading selects + actions */
-  document.getElementById('sp-tet').addEventListener('change', () => cascadePaper());
-  document.getElementById('sp-paper').addEventListener('change', () => cascadeStream());
-  document.getElementById('sp-stream').addEventListener('change', updatePickerSummary);
+  /* Picker custom dropdowns + actions */
+  document.getElementById('sp-tet-btn').addEventListener('click', e => { e.stopPropagation(); spToggleDD('sp-tet'); });
+  document.getElementById('sp-paper-btn').addEventListener('click', e => { e.stopPropagation(); spToggleDD('sp-paper'); });
+  document.getElementById('sp-stream-btn').addEventListener('click', e => { e.stopPropagation(); spToggleDD('sp-stream'); });
+  document.getElementById('sp-tet-dd').addEventListener('click', e => {
+    const b = e.target.closest('.sp-dd-opt'); if (!b) return;
+    pickTet = b.dataset.tet; pickPaper = null; pickBank = null; spRender(); spCloseDD();
+  });
+  document.getElementById('sp-paper-dd').addEventListener('click', e => {
+    const b = e.target.closest('.sp-dd-opt'); if (!b) return;
+    pickPaper = b.dataset.paper; pickBank = null; spRender(); spCloseDD();
+  });
+  document.getElementById('sp-stream-dd').addEventListener('click', e => {
+    const b = e.target.closest('.sp-dd-opt'); if (!b) return;
+    pickBank = b.dataset.bank; spRender(); spCloseDD();
+  });
+  // Tapping anywhere in the picker card outside a field closes any open dropdown.
+  document.getElementById('pwa-stream-picker').addEventListener('click', e => {
+    if (!e.target.closest('.sp-field')) spCloseDD();
+  });
   document.getElementById('sp-confirm').addEventListener('click', () => {
-    const bank = document.getElementById('sp-stream').value;
+    const bank = pickBank || selectedBank;
     closePicker();
-    if (bank && bank !== selectedBank) selectStream(bank);
+    selectStream(bank);   // always load — may be first open or a new selection
   });
   document.getElementById('sp-close').addEventListener('click', () => {
-    try { if (selectedBank) localStorage.setItem(SELECTED_BANK_KEY, selectedBank); } catch {}
     closePicker();
+    // If QB index wasn't loaded yet (returning user dismissed without changing), load now
+    if (!qbankCache) selectStream(selectedBank);
   });
 
   /* Subject dropdown toggle */
@@ -1389,17 +1750,45 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   document.getElementById('pwa-dd-backdrop').addEventListener('click', closeSubjectDropdown);
 
-  /* Subject selection */
+  /* Subject selection + "Paper-wise" drill */
   document.getElementById('pwa-subject-dd').addEventListener('click', e => {
+    const drill = e.target.closest('.pwa-dd-drill');
+    if (drill) {
+      const fly = document.getElementById('pwa-paper-dd');
+      if (fly.hidden) { buildPaperFlyout(); fly.hidden = false; positionPaperFlyout(); }
+      else fly.hidden = true;
+      return;
+    }
     const btn = e.target.closest('.pwa-dd-item');
-    if (!btn) return;
+    if (!btn || btn.dataset.subject == null) return;
     const newSubject = btn.dataset.subject;
     qbankSubjectFilter = newSubject;
+    qbankPaperFilter   = 'all';
     document.getElementById('pwa-subject-label').textContent = subjectDisplay(newSubject);
-    document.querySelectorAll('.pwa-dd-item').forEach(b =>
+    document.querySelectorAll('#pwa-subject-dd .pwa-dd-item').forEach(b =>
       b.classList.toggle('active', b.dataset.subject === newSubject));
     closeSubjectDropdown();
-    applyFilters();
+    saveFilters(); applyFilters();
+  });
+
+  /* Paper-wise selection (mutually exclusive with subject) */
+  document.getElementById('pwa-paper-dd').addEventListener('click', e => {
+    const btn = e.target.closest('.pwa-dd-item');
+    if (!btn) return;
+    const id = btn.dataset.examId;
+    qbankPaperFilter   = id;          // 'all' or an examId
+    qbankSubjectFilter = 'all';
+    let label = 'All Subjects';
+    if (id !== 'all') { const p = papersForStream().find(x => x.examId === id); label = p ? (p.examTitle || id) : 'Paper'; }
+    document.getElementById('pwa-subject-label').textContent = label;
+    // Active marker: drill row when a paper is active, else "All Subjects".
+    document.querySelectorAll('#pwa-subject-dd .pwa-dd-item').forEach(b => {
+      const onAll   = id === 'all' && b.dataset.subject === 'all';
+      const onDrill = id !== 'all' && b.classList.contains('pwa-dd-drill');
+      b.classList.toggle('active', onAll || onDrill);
+    });
+    closeSubjectDropdown();
+    saveFilters(); applyFilters();
   });
 
   /* Status chips */
@@ -1408,40 +1797,22 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!chip) return;
     qbankStatusFilter = chip.dataset.status;
     syncChipHighlight();
-    applyFilters();
+    saveFilters(); applyFilters();
   });
 
-  /* Nav buttons — history-aware back / forward / random */
-  document.getElementById('pwa-prev').addEventListener('click', () => {
-    if (navPos > 0) {
-      // Walk back through history
-      navPos--;
-      qbankIndex = navHistory[navPos];
-      renderCurrent();
-    } else if (qbankIndex > 0) {
-      // Prepend sequential prev to history
-      navPush(qbankIndex - 1);
-      renderCurrent();
-    }
-  });
-  document.getElementById('pwa-next').addEventListener('click', () => {
-    if (navPos < navHistory.length - 1) {
-      // Walk forward through history
-      navPos++;
-      qbankIndex = navHistory[navPos];
-      renderCurrent();
-    } else if (qbankIndex < qbankFiltered.length - 1) {
-      // Past end of history — go to sequential next and push it
-      navPush(qbankIndex + 1);
-      renderCurrent();
-    }
-  });
+  /* Nav buttons — history-aware back / forward / random (logic in navPrev/navNext) */
+  document.getElementById('pwa-prev').addEventListener('click', () => navAnimated('prev'));
+  document.getElementById('pwa-next').addEventListener('click', () => navAnimated('next'));
   document.getElementById('pwa-random').addEventListener('click', () => {
     if (qbankFiltered.length > 0) {
       navPush(Math.floor(Math.random() * qbankFiltered.length));
       renderCurrent();
     }
   });
+
+  /* Focus mode toggle + swipe-to-navigate (active everywhere; sole nav in focus mode) */
+  document.getElementById('pwa-fab-focus').addEventListener('click', () => setFocusMode(!isFocusMode()));
+  attachSwipe(document.getElementById('pwa-qcard'));
 
   /* Option click — reveal correct/wrong on first tap */
   document.getElementById('pwa-opts').addEventListener('click', e => {

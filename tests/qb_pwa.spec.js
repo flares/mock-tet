@@ -204,14 +204,21 @@ test.describe('stream picker (first load)', () => {
     const picker = page.locator('#pwa-stream-picker');
     await expect(picker).toBeVisible();
 
-    // Stream <select> option text includes the paper count for each stream.
-    const msOption = page.locator('#sp-stream option', { hasText: 'Maths/Science · Telugu' });
+    // Stream dropdown lists each stream with its (smaller) paper count.
+    await page.click('#sp-stream-btn');
+    const msOption = page.locator('.sp-dd-opt', { hasText: 'Maths/Science · Telugu' });
     await expect(msOption).toContainText('21 papers');
+    await page.click('#sp-stream-btn');   // close the panel
 
-    // Switch to Paper 1 — the stream select cascades to the Paper 1 stream.
-    await page.selectOption('#sp-paper', '1');
-    const p1Option = page.locator('#sp-stream option', { hasText: 'Classes I–V' });
+    // Switch to Paper 1 — the stream cascades to the (only) Paper 1 stream.
+    await page.click('#sp-paper-btn');
+    await page.click('.sp-dd-opt[data-paper="1"]');
+    await expect(page.locator('#sp-stream-val')).toHaveText('Classes I–V');
+
+    await page.click('#sp-stream-btn');
+    const p1Option = page.locator('.sp-dd-opt', { hasText: 'Classes I–V' });
     await expect(p1Option).toContainText('7 papers');
+    await page.click('#sp-stream-btn');   // close the panel
 
     // Summary reflects the selected (Paper 1) stream.
     await expect(page.locator('#sp-summary')).toContainText('1,050');
@@ -249,7 +256,8 @@ test.describe('switching streams via the picker', () => {
     // Open the switcher and move to Paper 1.
     await page.click('#pwa-stream-btn');
     await expect(page.locator('#pwa-stream-picker')).toBeVisible();
-    await page.selectOption('#sp-paper', '1');
+    await page.click('#sp-paper-btn');
+    await page.click('.sp-dd-opt[data-paper="1"]');
     await page.click('#sp-confirm');
 
     // Progress total re-scopes to the Paper 1 stream's 5 questions.
