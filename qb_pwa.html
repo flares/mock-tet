@@ -707,7 +707,7 @@ const PAPER_LINE_HEIGHT_DEFAULT = 47;
 const LS_FONT_SIZE_KEY = 'qb_target_line_height_px';
 
 /* ── Constants ──────────────────────────────────────────────────────────── */
-const APP_VERSION    = '0.4.3';
+const APP_VERSION    = '0.4.4';
 const CACHE_BUST     = '1';   // increment on special pushes to wipe stale localStorage
 const UNDERSTOOD_KEY = 'tet_understood_questions';
 const REVISION_KEY   = 'tet_revision_questions';
@@ -1904,10 +1904,14 @@ document.addEventListener('DOMContentLoaded', () => {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./qb_pwa_sw.js', { scope: './' })
       .then(async reg => {
-        // Show toast when a new SW silently takes control (skipWaiting already set in SW)
+        // Show persistent reload banner when a new SW takes control (skipWaiting fires in SW)
         let prevController = navigator.serviceWorker.controller;
         navigator.serviceWorker.addEventListener('controllerchange', () => {
-          if (prevController !== null) showToast('App updated');
+          if (prevController !== null) {
+            const banner = document.getElementById('pwa-update-banner');
+            banner.querySelector('span').textContent = 'New version available';
+            banner.removeAttribute('hidden');
+          }
           prevController = navigator.serviceWorker.controller;
         });
 
