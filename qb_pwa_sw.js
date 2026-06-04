@@ -1,4 +1,4 @@
-const CACHE = 'qb-pwa-v9';
+const CACHE = 'qb-pwa-v10';
 
 const SHELL = [
   './qb_pwa.html',
@@ -6,6 +6,7 @@ const SHELL = [
   './css/reset.css',
   './js/explanation.js',
   './exams/manifest.json',
+  './exams/qb_manifest.json',
   './exams/qb_index.json',
   './assets/pwa-icon-180.png',
 ];

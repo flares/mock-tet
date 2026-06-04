@@ -86,13 +86,66 @@ OPTS_WINDOW = 500    # points: search window below "Options :" for coloured labe
 
 # ── Helpers ────────────────────────────────────────────────────────────────────
 
-def subject_from_qnum(q_num: int) -> str:
-    """TET Paper 2 fixed structure: subject determined by question number."""
+def subject_from_qnum(q_num: int, section_spec: 'list | None' = None) -> str:
+    """Subject for a question number.
+
+    With a section_spec (list of {name,start,end}, e.g. from config/tet_types.json)
+    the mapping is config-driven, so any TET / paper / stream structure works.
+    Without one, falls back to the TET Paper 2 Math/Science fixed structure
+    (unchanged default behaviour for the existing pipeline).
+    """
+    if section_spec:
+        for sec in section_spec:
+            if sec['start'] <= q_num <= sec['end']:
+                return sec['name']
+        return section_spec[-1]['name']
     if q_num <= 30:  return 'CDP'
     if q_num <= 60:  return 'Telugu'
     if q_num <= 90:  return 'English'
     if q_num <= 120: return 'Mathematics'
     return 'Science'
+
+
+_MONTHS = {'jan': 'Jan', 'feb': 'Feb', 'mar': 'Mar', 'apr': 'Apr', 'may': 'May',
+           'jun': 'Jun', 'jul': 'Jul', 'aug': 'Aug', 'sep': 'Sep', 'oct': 'Oct',
+           'nov': 'Nov', 'dec': 'Dec'}
+
+
+def normalize_paper_id(filename: str) -> 'str | None':
+    """Parse a messy answer-key filename into a clean YYYY-Mon-DD-ShiftN paper_id.
+
+    Handles every date layout seen in batch_papers_flat, e.g.:
+      698177173_Paper_I_Hindi_09th_Jan_2025_Shift_2          → 2025-Jan-09-Shift2
+      Mathematics-and-Science-Hindi-20th-January-2026-Shift-1 → 2026-Jan-20-Shift1
+      TS-TET-Answer-Key-Paper-1-English-Hindi-1-June-2024-Shift-2 → 2024-Jun-01-Shift2
+
+    Returns None when no full date+shift can be found (old undated scans), so the
+    caller can fall back to the filename stem.
+    """
+    stem = Path(filename).stem
+    ym = re.search(r'(20\d{2})', stem)
+    # Month must be a whole token — NOT a substring of a longer word, or "Mar" inside
+    # "Marathi" (and similar) would shadow the real month. (?<![a-z]) / (?![a-z]) bound it.
+    mm = re.search(
+        r'(?<![a-z])(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|'
+        r'jul(?:y)?|aug(?:ust)?|sep(?:tember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)'
+        r'(?![a-z])', stem, re.I)
+    sm = re.search(r'shift[\s_\-]*(\d)', stem, re.I)
+    day = None
+    if mm:
+        before = stem[max(0, mm.start() - 6):mm.start()]
+        after  = stem[mm.end():mm.end() + 6]
+        dm = re.search(r'(\d{1,2})(?:st|nd|rd|th)?[\s_\-]*$', before)
+        if dm:
+            day = int(dm.group(1))
+        else:
+            dm = re.search(r'^[\s_\-]*(\d{1,2})(?:st|nd|rd|th)?', after)
+            if dm:
+                day = int(dm.group(1))
+    if ym and mm and sm and day:
+        mon = _MONTHS[mm.group(1)[:3].lower()]
+        return f"{ym.group(1)}-{mon}-{day:02d}-Shift{sm.group(1)}"
+    return None
 
 
 def paper_info(filename: str) -> dict:
@@ -103,6 +156,16 @@ def paper_info(filename: str) -> dict:
         return dict(paper_id=stem, year=yr, month=mon, day=day, shift=sh,
                     date=f"{day} {mon} {yr}")
     return dict(paper_id=stem, year='', month='', day='', shift='', date=stem)
+
+
+def paper_info_from_id(paper_id: str) -> dict:
+    """Build the meta dict from an already-clean YYYY-Mon-DD-ShiftN paper_id."""
+    m = re.match(r'(\d{4})-(\w+)-(\d+)-Shift(\d)', paper_id)
+    if m:
+        yr, mon, day, sh = m.groups()
+        return dict(paper_id=paper_id, year=yr, month=mon, day=day, shift=sh,
+                    date=f"{int(day)} {mon} {yr}")
+    return dict(paper_id=paper_id, year='', month='', day='', shift='', date=paper_id)
 
 
 def is_green_color(color_int: int) -> bool:
@@ -203,9 +266,10 @@ def merge_images_vertically(doc, xref_top: int, xref_bottom: int, gap: int = 12)
 
 # ── Core extractor ─────────────────────────────────────────────────────────────
 
-def extract_pdf(pdf_path: Path) -> list:
+def extract_pdf(pdf_path: Path, section_spec: 'list | None' = None,
+                paper_meta: 'dict | None' = None) -> list:
     doc  = fitz.open(str(pdf_path))
-    meta = paper_info(pdf_path.name)
+    meta = paper_meta if paper_meta is not None else paper_info(pdf_path.name)
 
     # ── Pre-scan A: background/decoration xrefs (appear on > 5 pages) ───────────
     # We count every image to determine how many pages each xref appears on.
@@ -345,7 +409,7 @@ def extract_pdf(pdf_path: Path) -> list:
                 questions[q_num] = dict(
                     q_num          = q_num,
                     q_id           = q_id,
-                    subject        = subject_from_qnum(q_num),
+                    subject        = subject_from_qnum(q_num, section_spec),
                     correct_answer = None,
                     passage_xref   = comp_q_to_passage_xref.get(q_num),
                     content_xrefs  = [],

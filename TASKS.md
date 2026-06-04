@@ -130,7 +130,7 @@ Bulk-generate AI explanations for every question in the bank and persist them to
 ---
 
 ## Task 7 — Multi-TET Data Ingestion Pipeline
-**Status:** Pending (partially unblocked by sprite work in v0.2.0)
+**Status:** Largely complete (v0.3.0, 2026-06-04) — 21 new TGTET streams (16,646 Qs) ingested + uploaded to R2; PWA stream selector live. Remaining: non-TGTET states (APTET etc.) when un-scanned PDFs arrive; CBT `build_real_exams.py` still 5-subject hardcoded (PWA is the focus).
 **Priority:** High
 
 A generalised pipeline to ingest ~120+ new exam papers spanning multiple TET types (CTET, TGTET, APTET, KTET, …). Each TET has a different section structure, question count, and language slots. The pipeline produces sprites → R2 → qb_index.json → PWA. All new papers go through the sprite pipeline exclusively.
@@ -160,13 +160,14 @@ A generalised pipeline to ingest ~120+ new exam papers spanning multiple TET typ
 - **build_real_exams.py**: hardcodes 5-subject section order — must be driven by `config/tet_types.json`.
 
 ### Subtasks
-- [ ] Define `config/tet_types.json` — machine-readable section specs per TET type (name, subjects, counts, order, language slots)
-- [ ] Update `extract_questions.py` section-detection to read from `config/tet_types.json` instead of hardcoding
-- [ ] Update `build_real_exams.py` to read section order from `config/tet_types.json`
-- [ ] Update R2 explanation key format to `explanations/<tet_bank>/<Subject>/<folder>.json` — update Worker + `js/r2-explanations.js` + `js/r2-explanations.js` aiCacheKey parsing
-- [ ] Frontend: tet_bank selector on PWA filter screen; subject filter adapts per TET type spec
-- [ ] Run full sprite pipeline on all ~120 new papers: `extract_questions.py --sprites-only --pdf-dir`, `build_qb_index.py`, `upload_sprites.py`
-- [ ] Verify end-to-end with one new non-CTET paper as a smoke test
+- [x] Define `config/tet_types.json` — section specs per content type + folder→taxonomy map (via `gen_tet_config.py`)
+- [x] Generalise section-detection — `extract_questions.py` `subject_from_qnum(q_num, section_spec)` + `normalize_paper_id()`, driven by `ingest_batch.py`
+- [ ] Update `build_real_exams.py` to read section order from `config/tet_types.json` (CBT exam.html only — deferred, PWA is the focus)
+- [x] R2 explanation key collisions avoided — new banks prefix the `questionImage` folder with `<tet_bank>__`, so `explanations/<Subject>/<folder>.json` is auto-namespaced (no Worker change needed)
+- [x] Frontend: TET→Paper→Stream picker on the PWA; subject dropdown rebuilds per stream; counts stream-scoped; paper counts shown per stream
+- [x] Run sprite pipeline on the available batch — 21 streams (Paper 1 ×8 langs, Paper 2A Maths/Sci ×7, Social ×7) = 16,646 Qs → `qb/` → R2
+- [x] Verify end-to-end — headless smoke (0 console errors), 18/18 Playwright tests, live R2 sprite checks
+- [ ] Backlog: ingest remaining states (APTET) + old scanned papers in `batch_papers_flat/unprocessed/` (different format — needs OCR/scan pipeline)
 
 ---
 

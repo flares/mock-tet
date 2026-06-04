@@ -1,0 +1,59 @@
+{
+  "location": "/mnt/c/Users/ymano/Universe/coworker/TET Preparation/batch_papers_flat/unprocessed",
+  "folders": [
+    {
+      "folder": "AP_TET_Paper_1_Key",
+      "moved": true,
+      "pdfs": [
+        "APTET-Jan-2012-Paper-I-Key.pdf"
+      ],
+      "reason": "APTET 2012 — scanned image PDF, no text layer (0 questions)."
+    },
+    {
+      "folder": "AP_TET_Paper_2A_Math_Science",
+      "moved": true,
+      "pdfs": [
+        "APTET-July-2011-Maths-Science-Question-Paper-With-Key-1.pdf"
+      ],
+      "reason": "APTET 2011 — scanned image PDF, no text layer (0 questions)."
+    },
+    {
+      "folder": "TS_TET_Paper_1_Question_Paper",
+      "moved": true,
+      "pdfs": [
+        "TS-TET-2017-Paper-1.pdf",
+        "TS-TET-2023-Paper-1-updated-1.pdf"
+      ],
+      "reason": "TS-TET 2017 & 2023 — scanned image PDFs, no text layer (0 questions)."
+    },
+    {
+      "folder": "TS_TET_Paper_2A_Question_Paper",
+      "moved": true,
+      "pdfs": [
+        "TS-TET-2016-Paper-2.pdf",
+        "TS-TET-2017-Paper-2.pdf",
+        "TS-TET-Paper-2-Question-Paper-2023.pdf"
+      ],
+      "reason": "TS-TET 2016/2017/2023 — scanned image PDFs, no text layer (0 questions)."
+    },
+    {
+      "folder": "TS_TET_Paper_2A_Social_Studies_Paper",
+      "moved": true,
+      "pdfs": [
+        "Social-Paper-Kannada-30th-June-2025-Shift-2.pdf",
+        "Social-Paper-Tamil-30th-June-2025-Shift-2.pdf"
+      ],
+      "reason": "Kannada & Tamil 30-Jun-2025 — PARSEABLE but DUPLICATES already ingested via the *_Kannada / *_Tamil language folders; no language-neutral home, deferred."
+    }
+  ],
+  "skipped_text_option_questions": {
+    "note": "These 4 questions parsed fine but their ANSWER OPTIONS are plain text in the PDF (not embedded images), so the --sprites-only pipeline skipped them. Their papers are otherwise complete. To recover: extend the sprites-only path to render text-option regions into the sprite (reuse find_option_text_regions + render_page_region), then re-ingest these 3 papers.",
+    "count": 4,
+    "questions": [
+      { "tet_bank": "tgtet_paper1_marathi",        "paper": "2025-Jun-23-Shift2", "q_num": 17 },
+      { "tet_bank": "tgtet_social_studies_telugu", "paper": "2024-May-28-Shift2", "q_num": 150 },
+      { "tet_bank": "tgtet_social_studies_telugu", "paper": "2026-Jan-05-Shift2", "q_num": 149 },
+      { "tet_bank": "tgtet_social_studies_telugu", "paper": "2026-Jan-05-Shift2", "q_num": 150 }
+    ]
+  }
+}

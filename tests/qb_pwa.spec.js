@@ -5,7 +5,18 @@ const { test, expect } = require('@playwright/test');
 
 const WORKER_URL = 'https://tet-qb-worker.y-manojkrishna.workers.dev';
 
-function mkQ(sectionId, subjectDir, n) {
+// Two streams, both under the TGTET type, on two different papers.
+const MS_BANK = 'tgtet_maths_science_telugu';        // Paper 2A — the default/legacy stream
+const P1_BANK = 'tgtet_paper1';                       // Paper 1 — a second stream
+
+/**
+ * Build a single qb_index entry.
+ * @param {string} bank        tet_bank the question belongs to
+ * @param {string} sectionId   lowercase section id (must match the stream's manifest sections)
+ * @param {string} subjectDir  question_bank subject folder name (for the path/key)
+ * @param {number} n           1-based question number (drives the unique id / path)
+ */
+function mkQ(bank, sectionId, subjectDir, n) {
   const pad    = String(n).padStart(3, '0');
   const id     = String(n).repeat(10);
   const folder = `2024-May-20-Shift1_Q${pad}_${id}`;
@@ -19,9 +30,9 @@ function mkQ(sectionId, subjectDir, n) {
     examTitle: '20 May 2024 — Shift 1',
     globalIndex: n - 1,
     tet_type:  'TGTET',
-    stream:    'Maths_Science_Telugu',
-    tet_bank:  'tgtet_maths_science_telugu',
-    spriteUrl: `${WORKER_URL}/qb/tgtet_maths_science_telugu/Q${id}_sprite.png`,
+    stream:    bank === MS_BANK ? 'Maths_Science_Telugu' : 'Paper1',
+    tet_bank:  bank,
+    spriteUrl: `${WORKER_URL}/qb/${bank}/Q${id}_sprite.png`,
     sprite: {
       question: { y: 0,   h: 50, w: 100 },
       option1:  { y: 50,  h: 30, w: 100 },
@@ -32,17 +43,82 @@ function mkQ(sectionId, subjectDir, n) {
   };
 }
 
-/** 8 questions: 3 CDP, 3 Mathematics, 2 Science — all from one paper */
-const MOCK_INDEX = [
-  mkQ('cdp',         'CDP',         1),
-  mkQ('cdp',         'CDP',         2),
-  mkQ('cdp',         'CDP',         3),
-  mkQ('mathematics', 'Mathematics', 4),
-  mkQ('mathematics', 'Mathematics', 5),
-  mkQ('mathematics', 'Mathematics', 6),
-  mkQ('science',     'Science',     7),
-  mkQ('science',     'Science',     8),
+/** MS stream (Paper 2A): 8 questions — 3 CDP, 3 Mathematics, 2 Science. */
+const MS_INDEX = [
+  mkQ(MS_BANK, 'cdp',         'CDP',         1),
+  mkQ(MS_BANK, 'cdp',         'CDP',         2),
+  mkQ(MS_BANK, 'cdp',         'CDP',         3),
+  mkQ(MS_BANK, 'mathematics', 'Mathematics', 4),
+  mkQ(MS_BANK, 'mathematics', 'Mathematics', 5),
+  mkQ(MS_BANK, 'mathematics', 'Mathematics', 6),
+  mkQ(MS_BANK, 'science',     'Science',     7),
+  mkQ(MS_BANK, 'science',     'Science',     8),
 ];
+
+/** Paper 1 stream: 5 questions — 3 CDP, 2 EVS (Environmental Studies). */
+const P1_INDEX = [
+  mkQ(P1_BANK, 'cdp', 'CDP', 11),
+  mkQ(P1_BANK, 'cdp', 'CDP', 12),
+  mkQ(P1_BANK, 'cdp', 'CDP', 13),
+  mkQ(P1_BANK, 'evs', 'EVS', 14),
+  mkQ(P1_BANK, 'evs', 'EVS', 15),
+];
+
+// Manifest tree: one TET (TGTET), two papers (2A, 1), one stream each.
+const MOCK_MANIFEST = {
+  version: 1,
+  generatedAt: '2024-05-20T00:00:00Z',
+  tets: [
+    {
+      tet_type: 'TGTET',
+      label: 'TG TET',
+      papers: [
+        {
+          paper: '2A',
+          label: 'Paper 2A',
+          streams: [
+            {
+              tet_bank: MS_BANK,
+              stream: 'Maths_Science_Telugu',
+              label: 'Maths/Science · Telugu',
+              language: 'Telugu',
+              sections: [
+                { id: 'cdp',         name: 'CDP' },
+                { id: 'telugu',      name: 'Telugu' },
+                { id: 'english',     name: 'English' },
+                { id: 'mathematics', name: 'Mathematics' },
+                { id: 'science',     name: 'Science' },
+              ],
+              paper_count: 21,
+              question_count: 3150,
+              index: `exams/qb_index_${MS_BANK}.json`,
+            },
+          ],
+        },
+        {
+          paper: '1',
+          label: 'Paper 1',
+          streams: [
+            {
+              tet_bank: P1_BANK,
+              stream: 'Paper1',
+              label: 'Classes I–V',
+              language: 'Telugu',
+              sections: [
+                { id: 'cdp',     name: 'CDP' },
+                { id: 'evs',     name: 'Environmental Studies' },
+                { id: 'english', name: 'English' },
+              ],
+              paper_count: 7,
+              question_count: 1050,
+              index: `exams/qb_index_${P1_BANK}.json`,
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
 
 // 1×1 transparent PNG — satisfies any <img src> without a real file
 const BLANK_PNG = Buffer.from(
@@ -53,9 +129,18 @@ const BLANK_PNG = Buffer.from(
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 async function mockRoutes(page) {
-  await page.route('**/exams/qb_index.json', route =>
-    route.fulfill({ contentType: 'application/json', body: JSON.stringify(MOCK_INDEX) }),
+  // Multi-stream manifest (TET → Paper → Stream tree)
+  await page.route('**/exams/qb_manifest.json', route =>
+    route.fulfill({ contentType: 'application/json', body: JSON.stringify(MOCK_MANIFEST) }),
   );
+  // Per-stream indices
+  await page.route(`**/exams/qb_index_${MS_BANK}.json`, route =>
+    route.fulfill({ contentType: 'application/json', body: JSON.stringify(MS_INDEX) }),
+  );
+  await page.route(`**/exams/qb_index_${P1_BANK}.json`, route =>
+    route.fulfill({ contentType: 'application/json', body: JSON.stringify(P1_INDEX) }),
+  );
+  // CBT exam manifest (unrelated to the PWA, but harmless to stub)
   await page.route('**/exams/manifest.json', route =>
     route.fulfill({ contentType: 'application/json', body: JSON.stringify({ papers: [] }) }),
   );
@@ -75,15 +160,24 @@ async function mockRoutes(page) {
 
 /**
  * Seed localStorage before page scripts run, then navigate and wait for load.
+ * By default the MS stream is pre-selected so the app skips the first-load picker
+ * and goes straight to browsing. Pass `selectBank: null` to leave it unselected
+ * (so the picker auto-opens on first load).
+ *
  * @param {import('@playwright/test').Page} page
- * @param {{ understood?: string[], revision?: object[] }} opts
+ * @param {{ understood?: string[], revision?: object[], selectBank?: string|null }} opts
  */
-async function loadApp(page, { understood = [], revision = [] } = {}) {
-  await page.addInitScript(({ u, r }) => {
-    localStorage.removeItem('qb_index_cache_v1');
+async function loadApp(page, { understood = [], revision = [], selectBank = MS_BANK } = {}) {
+  await page.addInitScript(({ u, r, bank }) => {
+    // Wipe per-stream / manifest caches so the mocked routes are always hit fresh
+    Object.keys(localStorage)
+      .filter(k => k.startsWith('qb_index_cache_') || k === 'qb_manifest_cache_v1')
+      .forEach(k => localStorage.removeItem(k));
     localStorage.setItem('tet_understood_questions', JSON.stringify(u));
     localStorage.setItem('tet_revision_questions',  JSON.stringify(r));
-  }, { u: understood, r: revision });
+    if (bank) localStorage.setItem('qb_selected_bank', bank);
+    else localStorage.removeItem('qb_selected_bank');
+  }, { u: understood, r: revision, bank: selectBank });
 
   await page.goto('/qb_pwa.html');
 
@@ -91,13 +185,87 @@ async function loadApp(page, { understood = [], revision = [] } = {}) {
   await expect(page.locator('#pwa-progress-count')).not.toHaveText('—', { timeout: 8000 });
 }
 
-/** Open the subject dropdown and select a subject. */
+/** Open the subject dropdown and select a subject (items are built dynamically per stream). */
 async function selectSubject(page, subject) {
   await page.click('#pwa-subject-btn');
   await page.click(`.pwa-dd-item[data-subject="${subject}"]`);
 }
 
 // ─── Tests ───────────────────────────────────────────────────────────────────
+
+test.describe('stream picker (first load)', () => {
+  test.beforeEach(async ({ page }) => {
+    await mockRoutes(page);
+  });
+
+  test('auto-opens when no stream is saved, lists streams with paper counts, and confirming enters the stream', async ({ page }) => {
+    await loadApp(page, { selectBank: null });
+
+    const picker = page.locator('#pwa-stream-picker');
+    await expect(picker).toBeVisible();
+
+    // Stream <select> option text includes the paper count for each stream.
+    const msOption = page.locator('#sp-stream option', { hasText: 'Maths/Science · Telugu' });
+    await expect(msOption).toContainText('21 papers');
+
+    // Switch to Paper 1 — the stream select cascades to the Paper 1 stream.
+    await page.selectOption('#sp-paper', '1');
+    const p1Option = page.locator('#sp-stream option', { hasText: 'Classes I–V' });
+    await expect(p1Option).toContainText('7 papers');
+
+    // Summary reflects the selected (Paper 1) stream.
+    await expect(page.locator('#sp-summary')).toContainText('1,050');
+
+    // Confirm → picker closes and we enter the Paper 1 stream (5 questions, EVS subject).
+    await page.click('#sp-confirm');
+    await expect(picker).toBeHidden();
+    await expect(page.locator('#pwa-stream-name')).toHaveText('Classes I–V');
+    await expect(page.locator('#pwa-progress-count')).toContainText('/ 5');
+  });
+
+  test('does NOT open when a stream is already saved', async ({ page }) => {
+    await loadApp(page);  // seeds MS_BANK by default
+    await expect(page.locator('#pwa-stream-picker')).toBeHidden();
+    await expect(page.locator('#pwa-stream-name')).toHaveText('Maths/Science · Telugu');
+    await expect(page.locator('#pwa-progress-count')).toContainText('/ 8');
+  });
+});
+
+test.describe('switching streams via the picker', () => {
+  test.beforeEach(async ({ page }) => {
+    await mockRoutes(page);
+  });
+
+  test('re-scopes progress total and rebuilds the subject dropdown', async ({ page }) => {
+    await loadApp(page);  // start in the MS stream (8 questions)
+    await expect(page.locator('#pwa-progress-count')).toContainText('/ 8');
+
+    // MS stream has Science but not EVS.
+    await page.click('#pwa-subject-btn');
+    await expect(page.locator('.pwa-dd-item[data-subject="science"]')).toHaveCount(1);
+    await expect(page.locator('.pwa-dd-item[data-subject="evs"]')).toHaveCount(0);
+    await page.click('#pwa-subject-btn');  // close the dropdown again
+
+    // Open the switcher and move to Paper 1.
+    await page.click('#pwa-stream-btn');
+    await expect(page.locator('#pwa-stream-picker')).toBeVisible();
+    await page.selectOption('#sp-paper', '1');
+    await page.click('#sp-confirm');
+
+    // Progress total re-scopes to the Paper 1 stream's 5 questions.
+    await expect(page.locator('#pwa-stream-name')).toHaveText('Classes I–V');
+    await expect(page.locator('#pwa-progress-count')).toContainText('/ 5');
+
+    // Subject dropdown is rebuilt: EVS now present, Science gone.
+    await page.click('#pwa-subject-btn');
+    await expect(page.locator('.pwa-dd-item[data-subject="evs"]')).toHaveCount(1);
+    await expect(page.locator('.pwa-dd-item[data-subject="science"]')).toHaveCount(0);
+
+    // The new subject filter works within the new stream (2 EVS questions).
+    await page.click('.pwa-dd-item[data-subject="evs"]');
+    await expect(page.locator('#pwa-progress-count')).toContainText('/ 2');
+  });
+});
 
 test.describe('subject filter — progress count (top-right)', () => {
   test.beforeEach(async ({ page }) => {
@@ -233,8 +401,8 @@ test.describe('mark as understood', () => {
 
 test.describe('pre-seeded state from localStorage', () => {
   test('understood questions across subjects show correct scoped counts', async ({ page }) => {
-    const cdpQ1  = MOCK_INDEX[0].questionImage;  // CDP
-    const mathQ1 = MOCK_INDEX[3].questionImage;  // Mathematics
+    const cdpQ1  = MS_INDEX[0].questionImage;  // CDP
+    const mathQ1 = MS_INDEX[3].questionImage;  // Mathematics
 
     await mockRoutes(page);
     await loadApp(page, { understood: [cdpQ1, mathQ1] });
@@ -264,8 +432,8 @@ test.describe('pre-seeded state from localStorage', () => {
   });
 
   test('revision questions across subjects show correct scoped counts', async ({ page }) => {
-    const cdpQ2     = MOCK_INDEX[1];  // CDP Q2
-    const scienceQ1 = MOCK_INDEX[6];  // Science Q1
+    const cdpQ2     = MS_INDEX[1];  // CDP Q2
+    const scienceQ1 = MS_INDEX[6];  // Science Q1
 
     // Revision list format: { examId, examTitle, q: <question object> }
     const revision = [

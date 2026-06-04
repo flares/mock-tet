@@ -111,9 +111,23 @@ def upload(tet_bank: str, dry_run: bool) -> None:
 def main():
     p = argparse.ArgumentParser(description='Upload sprites to R2 tet-questionbank bucket')
     p.add_argument('--tet-bank', default='tgtet_maths_science_telugu')
+    p.add_argument('--all-banks', action='store_true',
+                   help='Upload every qb/<bank>/ folder (skips the empty pinned ones automatically)')
+    p.add_argument('--skip', default='', help='comma-separated bank names to skip (e.g. already-uploaded)')
     p.add_argument('--dry-run', action='store_true', help='Show what would be uploaded, no actual upload')
     args = p.parse_args()
-    upload(args.tet_bank, args.dry_run)
+
+    if args.all_banks:
+        skip = {s.strip() for s in args.skip.split(',') if s.strip()}
+        banks = sorted(d.name for d in QB_BASE.iterdir()
+                       if d.is_dir() and any(d.glob('Q*_sprite.png')))
+        banks = [b for b in banks if b not in skip]
+        print(f"Uploading {len(banks)} bank(s): {banks}\n")
+        for b in banks:
+            print(f"── {b} ──")
+            upload(b, args.dry_run)
+    else:
+        upload(args.tet_bank, args.dry_run)
 
 
 if __name__ == '__main__':
