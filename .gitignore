@@ -11,3 +11,7 @@ test-results/
 node_modules/
 __pycache__/
 *.pyc
+# Local R2 credentials — source before running upload/migration scripts. NEVER commit.
+scripts/.r2env
+.r2env
+.env

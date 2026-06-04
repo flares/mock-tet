@@ -92,14 +92,16 @@ img { display: block; max-width: 100%; height: auto; }
 
 /* Dropdown panel — z-index 60 (within header's stacking context, so effectively at 50 + painting order) */
 #pwa-subject-dd {
-  position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%);
-  min-width: 170px; background: #fff; border-radius: 12px;
+  /* Left-aligned to the subject button (it sits at the left edge of the filter row),
+     so the panel opens rightward and never spills off-screen. */
+  position: absolute; top: calc(100% + 8px); left: 0;
+  min-width: 170px; max-width: calc(100vw - 28px); background: #fff; border-radius: 12px;
   box-shadow: 0 10px 28px rgba(0,0,0,0.25); overflow: hidden; z-index: 60;
   animation: ddIn 0.16s ease;
 }
 @keyframes ddIn {
-  from { opacity:0; transform: translateX(-50%) translateY(-6px); }
-  to   { opacity:1; transform: translateX(-50%) translateY(0); }
+  from { opacity:0; transform: translateY(-6px); }
+  to   { opacity:1; transform: translateY(0); }
 }
 #pwa-subject-dd[hidden] { display: none; }
 .pwa-dd-item {
@@ -122,7 +124,8 @@ img { display: block; max-width: 100%; height: auto; }
 #pwa-subject-label { max-width: 96px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 #pwa-chips-scroll {
-  flex: 1; display: flex; gap: 6px; overflow-x: auto; overflow-y: hidden;
+  flex: 0 1 auto; margin-left: auto;   /* push status chips to the right edge */
+  display: flex; gap: 6px; overflow-x: auto; overflow-y: hidden;
   scrollbar-width: none; -webkit-overflow-scrolling: touch; padding: 2px 0;
 }
 #pwa-chips-scroll::-webkit-scrollbar { display: none; }
@@ -139,22 +142,6 @@ img { display: block; max-width: 100%; height: auto; }
   background: #f0a500; color: #1a1a1a; border-color: #f0a500;
   font-weight: 700; box-shadow: 0 1px 4px rgba(240,165,0,0.4);
 }
-
-/* Explained — pinned to right, visually distinct */
-#pwa-chip-explained {
-  flex-shrink: 0; margin-left: 8px; padding: 0 10px; height: 26px;
-  display: inline-flex; align-items: center; gap: 4px; border-radius: 14px;
-  font-size: 11px; font-weight: 600; white-space: nowrap;
-  background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.65);
-  border: 1px solid rgba(255,255,255,0.14); transition: background 0.13s, color 0.13s;
-}
-#pwa-chip-explained:active { background: rgba(255,255,255,0.2); }
-#pwa-chip-explained.active { background: #f0a500; color: #1a1a1a; border-color: #f0a500; font-weight: 700; }
-.exp-count {
-  background: rgba(255,255,255,0.22); border-radius: 8px;
-  padding: 0 5px; font-size: 10px; font-weight: 700; min-width: 16px; text-align: center;
-}
-#pwa-chip-explained.active .exp-count { background: rgba(26,58,92,0.2); }
 
 .chip-icon {
   width: 14px; height: 14px; fill: none; stroke: currentColor;
@@ -480,7 +467,7 @@ img { display: block; max-width: 100%; height: auto; }
       </div>
     </div>
 
-    <!-- Filter row: subject ·  To Read | In Review | Understood  ···  ✨ N -->
+    <!-- Filter row: subject  ·····  To Read | In Review | Understood (right edge) -->
     <div id="pwa-status-row" role="group" aria-label="Filters">
       <div class="pwa-subject-wrap">
         <button id="pwa-subject-btn" aria-haspopup="listbox" aria-expanded="false">
@@ -500,9 +487,6 @@ img { display: block; max-width: 100%; height: auto; }
           <span class="chip-count" id="chip-count-understood"></span>
         </button>
       </div>
-      <button id="pwa-chip-explained" title="Questions with AI explanations in R2">
-        ✨ <span class="exp-count" id="pwa-exp-count">0</span>
-      </button>
     </div>
   </header>
 
@@ -626,7 +610,7 @@ const PAPER_LINE_HEIGHT_DEFAULT = 47;
 const LS_FONT_SIZE_KEY = 'qb_target_line_height_px';
 
 /* ── Constants ──────────────────────────────────────────────────────────── */
-const APP_VERSION    = '0.3.0';
+const APP_VERSION    = '0.3.1';
 const CACHE_BUST     = '1';   // increment on special pushes to wipe stale localStorage
 const UNDERSTOOD_KEY = 'tet_understood_questions';
 const REVISION_KEY   = 'tet_revision_questions';
@@ -640,8 +624,6 @@ const streamIndexUrl = bank => `exams/qb_index_${bank}.json`;
 
 // R2 explanation state for the current question (null when no R2 explanation loaded)
 let _r2CurrentExp = null;
-// Count of questions with explanations in R2 (null until fetched)
-let r2ExplainedCount = null;
 
 const SHOW_ANSWER_REVEAL = true;
 
@@ -811,7 +793,6 @@ function buildFiltered(all) {
       case 'to-read':    return !understood.has(q.questionImage);
       case 'in-review':  return revSet.has(q.questionImage);
       case 'understood': return understood.has(q.questionImage);
-      case 'explained':  return !!getAiCache(q.questionImage) || !!window.R2Explanations?.hasInIndex(q.questionImage);
       default:           return true;
     }
   };
@@ -832,10 +813,6 @@ const EMPTY_DEFS = {
   'understood': {
     icon: '✓',
     text: 'No questions marked as understood yet.<br>Tap the <strong>✓ checkmark icon</strong> on the right to mark a question as understood.',
-  },
-  'explained': {
-    icon: '✨',
-    text: 'No AI explanations cached yet.<br>Open a question and tap <strong>✨ Explain with AI</strong> to generate one.',
   },
 };
 
@@ -902,7 +879,7 @@ function hideEmptyState() {
 
 /* ── Filter pipeline ──────────────────────────────────────────────────────
    applyFilters() rebuilds qbankFiltered + resets index, then renders.
-   Called ONLY on filter changes (subject, status, explained) and initial load.
+   Called ONLY on filter changes (subject, status) and initial load.
    Navigation buttons call renderCurrent() so the filtered set stays frozen
    while the user works through it — otherwise marking Q1 understood would
    silently drop it from the list and Next would skip Q2 (jumps to Q3).
@@ -1136,17 +1113,13 @@ function updateHeaderProgress() {
   const scopedUnd = scoped.filter(q => understood.has(q.questionImage)).length;
   if (revEl) revEl.textContent = scopedRev || '';
   if (undEl) undEl.textContent = scopedUnd || '';
-
-  // Explained badge — R2 global count when fetched, else local cache count
-  const totalExp = r2ExplainedCount ?? all.filter(q => !!getAiCache(q.questionImage)).length;
-  document.getElementById('pwa-exp-count').textContent = totalExp;
 }
 
 /* ── FAB visibility ─────────────────────────────────────────────────────── */
 function updateFabVisibility() {
   const revFab = document.getElementById('pwa-fab-revision');
-  // Revision FAB only shown in To Read and Explained filters
-  const showRev = qbankStatusFilter === 'to-read' || qbankStatusFilter === 'explained';
+  // Revision (bookmark) FAB only shown in the To Read filter
+  const showRev = qbankStatusFilter === 'to-read';
   revFab.classList.toggle('pwa-fab-hidden', !showRev);
   document.getElementById('pwa-fab-understood').classList.remove('pwa-fab-hidden');
 }
@@ -1218,14 +1191,13 @@ async function handleAiExplain() {
     aiBtn.innerHTML = '&#10024; Regenerate';
     document.getElementById('pwa-content').scrollTo({ top: expSection.offsetTop - 8, behavior: 'smooth' });
     updateHeaderProgress();
-    // Save to R2 async — non-blocking, best-effort
+    // Save to R2 async — non-blocking, best-effort. addToIndex keeps the R2
+    // explanation index current (used by bulk generation); no UI badge anymore.
     if (window.R2Explanations?.isConfigured()) {
       window.R2Explanations.save(item.questionImage, html).then(exp => {
         if (exp) {
           showRatingBar(exp, item.questionImage);
-          window.R2Explanations.addToIndex(item.questionImage).then(count => {
-            if (count !== null) { r2ExplainedCount = count; updateHeaderProgress(); }
-          });
+          window.R2Explanations.addToIndex(item.questionImage);
         }
       });
     }
@@ -1371,7 +1343,6 @@ async function initStreams() {
 function syncChipHighlight() {
   document.querySelectorAll('#pwa-chips-scroll .pwa-chip').forEach(b =>
     b.classList.toggle('active', b.dataset.status === qbankStatusFilter));
-  document.getElementById('pwa-chip-explained').classList.toggle('active', qbankStatusFilter === 'explained');
 }
 
 /* ── Bootstrap ──────────────────────────────────────────────────────────── */
@@ -1393,17 +1364,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('pwa-explanation').innerHTML =
     '<span class="pwa-msg">Loading question bank…</span>';
   initStreams();
-
-  /* Fetch R2 explanation index to populate the ✨ counter — public endpoint, no auth needed */
-  if (window.R2Explanations) {
-    window.R2Explanations.fetchIndex().then(({ count }) => {
-      r2ExplainedCount = count;
-      document.getElementById('pwa-exp-count').textContent = count;
-      // If the user is already on the Explained filter, rebuild the list now that
-      // the R2 index is loaded — otherwise the filter shows only locally-cached items.
-      if (qbankStatusFilter === 'explained') applyFilters();
-    });
-  }
 
   /* Stream switcher → open picker */
   document.getElementById('pwa-stream-btn').addEventListener('click', openPicker);
@@ -1447,13 +1407,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const chip = e.target.closest('.pwa-chip');
     if (!chip) return;
     qbankStatusFilter = chip.dataset.status;
-    syncChipHighlight();
-    applyFilters();
-  });
-
-  /* Explained badge toggle */
-  document.getElementById('pwa-chip-explained').addEventListener('click', () => {
-    qbankStatusFilter = qbankStatusFilter === 'explained' ? 'to-read' : 'explained';
     syncChipHighlight();
     applyFilters();
   });
@@ -1622,13 +1575,6 @@ document.addEventListener('DOMContentLoaded', () => {
   function _resumeCheck() {
     if (!qbManifest || !selectedBank) { initStreams(); }
     else if (!qbankCache || !qbankFiltered.length) applyFilters();
-    if (r2ExplainedCount === null && window.R2Explanations) {
-      window.R2Explanations.fetchIndex().then(({ count }) => {
-        r2ExplainedCount = count;
-        document.getElementById('pwa-exp-count').textContent = count;
-        if (qbankStatusFilter === 'explained') applyFilters();
-      }).catch(() => {});
-    }
   }
   // pageshow with persisted=true: bfcache restore (typical iOS minimize+reopen)
   window.addEventListener('pageshow', e => { if (e.persisted) _resumeCheck(); });
