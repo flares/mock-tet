@@ -1,5 +1,7 @@
 # Change History
 
+- 2026-06-04 | v0.2.0 | major | Sprite-based rendering: qb_index.json gains spriteUrl+sprite+TET taxonomy fields; qb_pwa.html renders from R2 sprite via canvas; worker adds /qb/:bank/:filename R2 route; new build_flat_qb.py + upload_sprites.py scripts; extract_questions.py --sprites-only flag; qb/ folder gitignored
+
 - 2026-06-03 | v0.1.8 | minor | Pipeline simplification: extract_questions.py writes questions.json directly (inline pngquant+optipng, no index.csv/generate_json.py); build_qb_index.py reads questions.json standalone; add project_overview.html with visual fork/join pipeline diagram; qb_index.json field reference in CLAUDE.md
 
 - 2026-05-28 | v0.1.7 | minor | UX: detect iOS PWA backgrounding during AI generation — show friendlier "AI paused" message and auto-retry once when user returns to foreground

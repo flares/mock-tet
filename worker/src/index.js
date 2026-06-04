@@ -57,6 +57,25 @@ export default {
       return json({ error: 'Method not allowed' }, 405);
     }
 
+    // ── GET /qb/:bank/:filename — serve sprite PNG from R2 QB_SPRITES ───────
+    if (parts[0] === 'qb') {
+      const bank     = parts[1];
+      const filename = parts[2];
+      if (!bank || !filename) return json({ error: 'Missing bank or filename' }, 400);
+
+      const key = `${bank}/${filename}`;
+      const obj = await env.QB_SPRITES.get(key);
+      if (!obj) return new Response(null, { status: 404, headers: CORS });
+
+      return new Response(obj.body, {
+        headers: {
+          ...CORS,
+          'Content-Type':  'image/png',
+          'Cache-Control': 'public, max-age=31536000, immutable',
+        },
+      });
+    }
+
     if (parts[0] !== 'explanations') {
       return json({ error: 'Not found' }, 404);
     }

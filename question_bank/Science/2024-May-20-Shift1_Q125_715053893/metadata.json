@@ -3,13 +3,38 @@
   "q_id": "715053893",
   "subject": "Science",
   "correct_answer": 3,
-  "header_pg": 89,
-  "header_y": 422.9239807128906,
   "paper_id": "2024-May-20-Shift1",
   "year": "2024",
   "month": "May",
   "day": "20",
   "shift": "1",
   "date": "20 May 2024",
-  "is_comprehension": false
+  "is_comprehension": false,
+  "sprite": {
+    "question": {
+      "y": 0,
+      "h": 137,
+      "w": 642
+    },
+    "option1": {
+      "y": 137,
+      "h": 51,
+      "w": 104
+    },
+    "option2": {
+      "y": 188,
+      "h": 55,
+      "w": 96
+    },
+    "option3": {
+      "y": 243,
+      "h": 46,
+      "w": 101
+    },
+    "option4": {
+      "y": 289,
+      "h": 51,
+      "w": 98
+    }
+  }
 }

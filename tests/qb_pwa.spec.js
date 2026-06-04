@@ -11,16 +11,24 @@ function mkQ(sectionId, subjectDir, n) {
   const folder = `2024-May-20-Shift1_Q${pad}_${id}`;
   return {
     questionImage:    `question_bank/${subjectDir}/${folder}/question.png`,
-    optionImages:     [],
-    optionsInQuestion: true,
-    questionType:     'mcq',
-    correctAnswer:    1,
+    optionsInQuestion: false,
+    questionType:     'image',
+    correctAnswer:    '1',
     sectionId,
     examId:    'real-2024-May-20-Shift1',
-    examTitle: '2024 May 20 Shift1',
+    examTitle: '20 May 2024 — Shift 1',
     globalIndex: n - 1,
-    spriteUrl: `${WORKER_URL}/images/${subjectDir}/${folder}/sprite.png`,
-    sprite:    { question: { y: 0, h: 50, w: 100 } },
+    tet_type:  'TGTET',
+    stream:    'Maths_Science_Telugu',
+    tet_bank:  'tgtet_maths_science_telugu',
+    spriteUrl: `${WORKER_URL}/qb/tgtet_maths_science_telugu/Q${id}_sprite.png`,
+    sprite: {
+      question: { y: 0,   h: 50, w: 100 },
+      option1:  { y: 50,  h: 30, w: 100 },
+      option2:  { y: 80,  h: 30, w: 100 },
+      option3:  { y: 110, h: 30, w: 100 },
+      option4:  { y: 140, h: 30, w: 100 },
+    },
   };
 }
 
@@ -53,7 +61,7 @@ async function mockRoutes(page) {
   );
   // Intercept the Cloudflare Worker: serve PNG for sprite images, JSON for everything else
   await page.route('**tet-qb-worker**', route => {
-    if (route.request().url().includes('/images/')) {
+    if (route.request().url().includes('/qb/')) {
       route.fulfill({ contentType: 'image/png', body: BLANK_PNG });
     } else {
       route.fulfill({ contentType: 'application/json', body: JSON.stringify({ schemaVersion: '1.0', questionIds: [] }) });

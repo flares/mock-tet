@@ -591,27 +591,12 @@ def _ssim(a: 'Image.Image', b: 'Image.Image') -> float:
     )
 
 
-def build_sprite(q_dir: Path) -> dict | None:
-    """Stack question + option PNGs vertically into sprite.png.
+def _build_sprite_from_pieces(pieces: list, sprite_path: Path) -> dict | None:
+    """Stack PIL image pieces [(key, Image)] vertically and save to sprite_path.
 
-    Saves sprite as RGB, compresses with the same pngquant + optipng pipeline
-    used for individual PNGs (much better quality than PIL palette quantisation).
-    Runs a per-piece SSIM check and warns if any crop degrades below _SSIM_WARN.
-
-    Returns coords dict:
-      {"question": {"y": 0, "h": 108, "w": 612},
-       "option1":  {"y": 108, "h": 65, "w": 353}, ...}
-    or None if no images found.
+    Compresses with pngquant + optipng and runs a per-piece SSIM sanity check.
+    Returns coords dict or None if pieces is empty.
     """
-    pieces = []
-    for key in _PIECE_KEYS:
-        p = q_dir / f'{key}.png'
-        if p.exists():
-            try:
-                pieces.append((key, Image.open(p).convert('RGBA')))
-            except Exception:
-                pass
-
     if not pieces:
         return None
 
@@ -626,11 +611,9 @@ def build_sprite(q_dir: Path) -> dict | None:
         coords[key] = {'y': y, 'h': img.height, 'w': img.width}
         y += img.height
 
-    sprite_path = q_dir / 'sprite.png'
     canvas.convert('RGB').save(str(sprite_path), 'PNG')
-    compress_png(sprite_path)   # pngquant 4 + optipng — same as individual PNGs
+    compress_png(sprite_path)
 
-    # ── SSIM sanity check ────────────────────────────────────────────────────
     try:
         sprite_img = Image.open(sprite_path).convert('RGBA')
         for key, orig in pieces:
@@ -638,16 +621,44 @@ def build_sprite(q_dir: Path) -> dict | None:
             crop = sprite_img.crop((0, c['y'], c['w'], c['y'] + c['h']))
             score = _ssim(orig, crop)
             if score < _SSIM_WARN:
-                print(f"  [WARN] sprite {q_dir.name}/{key}: SSIM {score:.3f} < {_SSIM_WARN}")
+                print(f"  [WARN] sprite {sprite_path.name}/{key}: SSIM {score:.3f} < {_SSIM_WARN}")
     except Exception:
         pass
 
     return coords
 
 
+def build_sprite(q_dir: Path) -> dict | None:
+    """Build sprite.png in q_dir from existing individual PNG files."""
+    pieces = []
+    for key in _PIECE_KEYS:
+        p = q_dir / f'{key}.png'
+        if p.exists():
+            try:
+                pieces.append((key, Image.open(p).convert('RGBA')))
+            except Exception:
+                pass
+    if not pieces:
+        return None
+    return _build_sprite_from_pieces(pieces, q_dir / 'sprite.png')
+
+
 # ── Image saver ───────────────────────────────────────────────────────────────
 
-def save_images(questions: list, pdf_path: Path, out_dir: Path) -> list:
+def _pil_from_xref(doc, xref: int) -> 'Image.Image':
+    """Load a PIL RGBA image directly from a PDF xref (no temp file)."""
+    pix = fitz.Pixmap(doc, xref)
+    if pix.n > 4:
+        pix = fitz.Pixmap(fitz.csRGB, pix)
+    img = Image.open(io.BytesIO(pix.tobytes("png"))).convert('RGBA')
+    pix = None
+    return img
+
+
+def save_images(questions: list, pdf_path: Path, out_dir: Path, *,
+                sprites_only: bool = False,
+                flat_qb_dir: 'Path | None' = None,
+                tet_meta: 'dict | None' = None) -> list:
     """Save all question images and return records suitable for questions.json."""
     doc     = fitz.open(str(pdf_path))
     records = []
@@ -676,6 +687,10 @@ def save_images(questions: list, pdf_path: Path, out_dir: Path) -> list:
 
         if len(imgs) < min_imgs:
             # ── Text-option fallback ──────────────────────────────────────────
+            if sprites_only:
+                print(f"  [WARN] Q{qd['q_num']} ({qd['paper_id']}): "
+                      f"text-option fallback skipped in --sprites-only mode")
+                continue
             # The question image is embedded; only the four options are plain
             # text.  Try to render each option region as its own PNG so that
             # the output format matches every other question.
@@ -748,12 +763,43 @@ def save_images(questions: list, pdf_path: Path, out_dir: Path) -> list:
             continue
 
         # ── Normal path: all images embedded ─────────────────────────────────
+        q_xref = imgs[0][2]
+
+        if sprites_only and flat_qb_dir:
+            # Build PIL images in memory, write sprite to flat qb/ only
+            pieces = []
+            if passage_xref:
+                data  = merge_images_vertically(doc, passage_xref, q_xref)
+                q_img = Image.open(io.BytesIO(data)).convert('RGBA')
+            else:
+                q_img = _pil_from_xref(doc, q_xref)
+            pieces.append(('question', q_img))
+            for i, (_pg, _y, xref) in enumerate(imgs[1:5], start=1):
+                pieces.append((f'option{i}', _pil_from_xref(doc, xref)))
+
+            q_id        = qd['q_id']
+            sprite_path = flat_qb_dir / f'Q{q_id}_sprite.png'
+            coords      = _build_sprite_from_pieces(pieces, sprite_path)
+
+            meta_out = {k: v for k, v in qd.items()
+                        if k not in ('content_xrefs', 'icon_xrefs', 'passage_xref',
+                                     'opts_pg', 'opts_y', 'header_pg', 'header_y',
+                                     'next_header_pg', 'next_header_y')}
+            meta_out['is_comprehension'] = passage_xref is not None
+            if coords:
+                meta_out['sprite'] = coords
+            if tet_meta:
+                meta_out.update(tet_meta)
+            (flat_qb_dir / f'Q{q_id}_metadata.json').write_text(
+                json.dumps(meta_out, ensure_ascii=False, indent=2), encoding='utf-8')
+            continue  # no questions.json record in sprites_only mode
+
+        # Standard write path: per-question subfolder in question_bank/
         q_dir = (out_dir / qd['subject']
                  / f"{qd['paper_id']}_Q{qd['q_num']:03d}_{qd['q_id']}")
         q_dir.mkdir(parents=True, exist_ok=True)
 
         # question.png
-        q_xref = imgs[0][2]
         if passage_xref:
             write_bytes(merge_images_vertically(doc, passage_xref, q_xref),
                         q_dir / 'question.png')
@@ -923,9 +969,17 @@ def validate_question_bank(out_dir: Path) -> bool:
 def main():
     parser = argparse.ArgumentParser(
         description='Extract TET Paper 2 questions from PDF answer-key files.')
-    parser.add_argument('--pdf', help='Process a single PDF (full path or filename in papers/)')
-    parser.add_argument('--validate', action='store_true',
+    parser.add_argument('--pdf',          help='Process a single PDF (full path or filename in papers/)')
+    parser.add_argument('--validate',     action='store_true',
                         help='Validate the question_bank without re-extracting')
+    parser.add_argument('--sprites-only', action='store_true',
+                        help='Write sprite+metadata to flat qb/<tet-bank>/ only — no individual PNGs')
+    parser.add_argument('--tet-bank',     default='tgtet_maths_science_telugu',
+                        help='TET bank slug for flat output (default: tgtet_maths_science_telugu)')
+    parser.add_argument('--tet-type',     default='TGTET',
+                        help='TET type label (default: TGTET)')
+    parser.add_argument('--stream',       default='Maths_Science_Telugu',
+                        help='Stream label (default: Maths_Science_Telugu)')
     args = parser.parse_args()
 
     if args.validate:
@@ -935,26 +989,40 @@ def main():
         ok = validate_question_bank(OUTPUT_DIR)
         raise SystemExit(0 if ok else 1)
 
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    sprites_only = args.sprites_only
+    flat_qb_dir  = None
+    tet_meta     = None
+
+    if sprites_only:
+        flat_qb_dir = REPO_ROOT / "qb" / args.tet_bank
+        flat_qb_dir.mkdir(parents=True, exist_ok=True)
+        tet_meta = {'tet_type': args.tet_type, 'stream': args.stream, 'tet_bank': args.tet_bank}
+        print(f"Sprites-only mode  →  {flat_qb_dir}\n")
+    else:
+        OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     if args.pdf:
         p = Path(args.pdf)
-        pdf_files = [p if p.is_absolute() else PDF_DIR / p]
+        pdf_files    = [p if p.is_absolute() else PDF_DIR / p]
         full_rebuild = False
     else:
         pdf_files    = sorted(PDF_DIR.glob('20*.pdf'))
         full_rebuild = True
 
-    print(f"Processing {len(pdf_files)} PDF(s)  ->  {OUTPUT_DIR}\n")
+    out_target = flat_qb_dir if sprites_only else OUTPUT_DIR
+    print(f"Processing {len(pdf_files)} PDF(s)  ->  {out_target}\n")
 
-    all_records = []
+    all_records: list = []
     all_paper_ids: set[str] = set()
     total = 0
 
     for pdf_path in pdf_files:
         print(f"  {pdf_path.name} ...", end=' ', flush=True)
         questions = extract_pdf(pdf_path)
-        records   = save_images(questions, pdf_path, OUTPUT_DIR)
+        records   = save_images(questions, pdf_path, OUTPUT_DIR,
+                                sprites_only=sprites_only,
+                                flat_qb_dir=flat_qb_dir,
+                                tet_meta=tet_meta)
 
         valid    = sum(1 for q in questions
                        if len(q['content_xrefs']) >= (4 if q.get('passage_xref') else 5)
@@ -972,8 +1040,9 @@ def main():
 
     print(f"\nDone. Total extracted: {total}")
 
-    update_questions_json(all_records, all_paper_ids, full_rebuild=full_rebuild)
-    validate_question_bank(OUTPUT_DIR)
+    if not sprites_only:
+        update_questions_json(all_records, all_paper_ids, full_rebuild=full_rebuild)
+        validate_question_bank(OUTPUT_DIR)
 
 
 if __name__ == '__main__':

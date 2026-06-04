@@ -3,13 +3,38 @@
   "q_id": "715053885",
   "subject": "Mathematics",
   "correct_answer": 4,
-  "header_pg": 81,
-  "header_y": 613.9340209960938,
   "paper_id": "2024-May-20-Shift1",
   "year": "2024",
   "month": "May",
   "day": "20",
   "shift": "1",
   "date": "20 May 2024",
-  "is_comprehension": false
+  "is_comprehension": false,
+  "sprite": {
+    "question": {
+      "y": 0,
+      "h": 440,
+      "w": 678
+    },
+    "option1": {
+      "y": 440,
+      "h": 64,
+      "w": 122
+    },
+    "option2": {
+      "y": 504,
+      "h": 66,
+      "w": 141
+    },
+    "option3": {
+      "y": 570,
+      "h": 65,
+      "w": 142
+    },
+    "option4": {
+      "y": 635,
+      "h": 37,
+      "w": 105
+    }
+  }
 }

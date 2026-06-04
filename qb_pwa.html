@@ -190,7 +190,8 @@ img { display: block; max-width: 100%; height: auto; }
   box-shadow: 0 1px 3px rgba(10,30,60,0.06); margin-bottom: 12px;
   overflow-x: auto; -webkit-overflow-scrolling: touch;
 }
-.pwa-qimg { width: auto; max-width: none; height: auto; border-radius: 4px; display: block; }
+.pwa-qimg { display: block; border-radius: 4px; max-width: none; }
+.pwa-opt-canvas { display: block; border-radius: 3px; max-width: none; }
 
 /* Options */
 .pwa-opts-wrap {
@@ -213,7 +214,7 @@ img { display: block; max-width: 100%; height: auto; }
 .pwa-opts--revealed .pwa-opt { cursor: default; }
 .pwa-opts--inert .pwa-opt { cursor: default; }
 .pwa-opts--inert .pwa-opt:active { background: #fafbff; }
-.pwa-opt img { max-width: none; width: auto; height: auto; display: block; border-radius: 3px; }
+.pwa-opt img, .pwa-opt canvas { max-width: none; width: auto; height: auto; display: block; border-radius: 3px; }
 
 /* Explanation section */
 .pwa-exp-divider {
@@ -455,7 +456,7 @@ img { display: block; max-width: 100%; height: auto; }
     <!-- Question content -->
     <div id="pwa-qnum"></div>
     <div class="pwa-qimg-wrap">
-      <img id="pwa-qimg" class="pwa-qimg" alt="Question" loading="lazy">
+      <canvas id="pwa-qimg" class="pwa-qimg"></canvas>
     </div>
     <div class="pwa-opts-wrap" id="pwa-opts-wrap">
       <div id="pwa-opts"></div>
@@ -527,7 +528,7 @@ const SUBJECT_DISPLAY = {
   all: 'All Subjects', cdp: 'CDP', telugu: 'Telugu',
   english: 'English', mathematics: 'Math', science: 'Science',
 };
-const APP_VERSION    = '0.1.8';
+const APP_VERSION    = '0.2.0';
 const CACHE_BUST     = '1';   // increment on special pushes to wipe stale localStorage
 const UNDERSTOOD_KEY = 'tet_understood_questions';
 const REVISION_KEY   = 'tet_revision_questions';
@@ -757,21 +758,26 @@ function getScale(paperId) {
   return targetLineHeightPx / lineH;
 }
 
-function applyImgScale(img, scale) {
-  const apply = () => {
-    img.style.width  = (img.naturalWidth * scale) + 'px';
-    img.style.height = 'auto';
-  };
-  if (img.complete && img.naturalWidth > 0) apply();
-  else img.addEventListener('load', apply, { once: true });
-}
-
 function applyScaleToCurrentQuestion() {
   const item = qbankFiltered[qbankIndex];
   if (!item) return;
-  const scale = getScale(paperIdFromPath(item.questionImage));
-  applyImgScale(document.getElementById('pwa-qimg'), scale);
-  document.querySelectorAll('#pwa-opts img').forEach(img => applyImgScale(img, scale));
+  const scale  = getScale(paperIdFromPath(item.questionImage));
+  const sprite = item.sprite || {};
+
+  const qCanvas = document.getElementById('pwa-qimg');
+  if (qCanvas && sprite.question) {
+    qCanvas.style.width  = Math.round(sprite.question.w * scale) + 'px';
+    qCanvas.style.height = Math.round(sprite.question.h * scale) + 'px';
+  }
+  document.querySelectorAll('#pwa-opts .pwa-opt').forEach(div => {
+    const k      = Number(div.dataset.opt);
+    const coords = sprite[`option${k}`];
+    const cnv    = div.querySelector('canvas');
+    if (coords && cnv) {
+      cnv.style.width  = Math.round(coords.w * scale) + 'px';
+      cnv.style.height = Math.round(coords.h * scale) + 'px';
+    }
+  });
 }
 
 function hideEmptyState() {
@@ -804,6 +810,16 @@ async function applyFilters() {
   renderCurrent();
 }
 
+/* ── Sprite rendering helpers ─────────────────────────────────────────── */
+function _drawCrop(cnv, spriteImg, coords, scale) {
+  const { y, h, w } = coords;
+  cnv.width  = w;
+  cnv.height = h;
+  cnv.style.width  = Math.round(w * scale) + 'px';
+  cnv.style.height = Math.round(h * scale) + 'px';
+  cnv.getContext('2d').drawImage(spriteImg, 0, y, w, h, 0, 0, w, h);
+}
+
 function renderCurrent() {
   updateHeaderProgress();
 
@@ -816,34 +832,61 @@ function renderCurrent() {
   if (qbankIndex >= qbankFiltered.length) qbankIndex = qbankFiltered.length - 1;
   if (qbankIndex < 0) qbankIndex = 0;
 
-  const item  = qbankFiltered[qbankIndex];
-  const qimg  = item.questionImage;
-  const qNum  = item.globalIndex != null ? item.globalIndex + 1 : '?';
-  const subj  = (item.sectionId || '').toUpperCase();
+  const item      = qbankFiltered[qbankIndex];
+  const qimg      = item.questionImage;
+  const sprite    = item.sprite || {};
+  const spriteUrl = item.spriteUrl;
+  const scale     = getScale(paperIdFromPath(qimg));
+  const qNum      = item.globalIndex != null ? item.globalIndex + 1 : '?';
+  const subj      = (item.sectionId || '').toUpperCase();
 
   document.getElementById('pwa-qnum').textContent =
     `${item.examTitle || item.examId || ''} · ${subj} · Q${qNum}`;
 
-  const imgEl = document.getElementById('pwa-qimg');
-  imgEl.src = qimg; imgEl.hidden = false;
-
+  const qCanvas  = document.getElementById('pwa-qimg');
   const optsEl   = document.getElementById('pwa-opts');
   const optsWrap = document.getElementById('pwa-opts-wrap');
-  if (item.optionsInQuestion || !item.optionImages.length) {
-    optsEl.innerHTML = ''; optsWrap.style.display = 'none';
-  } else {
+
+  // Build options HTML (canvas placeholders filled once sprite loads)
+  const optKeys = [1, 2, 3, 4].filter(k => sprite[`option${k}`]);
+  if (!item.optionsInQuestion && spriteUrl && optKeys.length) {
     optsWrap.style.display = '';
     const prior = optionChoices.get(qimg);
     optsEl.className = 'pwa-opts' + (prior ? ' pwa-opts--revealed' : ' pwa-opts--inert');
-    optsEl.innerHTML = item.optionImages.map((src, i) => {
-      const k = i + 1;
+    optsEl.innerHTML = optKeys.map(k => {
       let cls = 'pwa-opt';
       if (prior) {
         if (k === Number(item.correctAnswer)) cls += ' pwa-opt--correct';
         else if (k === prior.picked)          cls += ' pwa-opt--wrong';
       }
-      return `<div class="${cls}" data-opt="${k}"><span class="pwa-opt-num">${k}</span><img src="${esc(src)}" alt="Option ${k}" loading="lazy"></div>`;
+      return `<div class="${cls}" data-opt="${k}"><span class="pwa-opt-num">${k}</span><canvas class="pwa-opt-canvas"></canvas></div>`;
     }).join('');
+  } else {
+    optsEl.innerHTML = ''; optsWrap.style.display = 'none';
+  }
+
+  // Load sprite and draw crops into canvases
+  if (spriteUrl && sprite.question) {
+    const guardImg = qimg;
+    const spriteImg = new Image();
+    spriteImg.crossOrigin = 'anonymous';
+    spriteImg.onload = () => {
+      const stillItem = qbankFiltered[qbankIndex];
+      if (!stillItem || stillItem.questionImage !== guardImg) return;
+      _drawCrop(qCanvas, spriteImg, sprite.question, scale);
+      if (!item.optionsInQuestion) {
+        optKeys.forEach(k => {
+          const div = optsEl.querySelector(`[data-opt="${k}"]`);
+          const cnv = div?.querySelector('canvas');
+          if (cnv) _drawCrop(cnv, spriteImg, sprite[`option${k}`], scale);
+        });
+      }
+    };
+    spriteImg.src = spriteUrl;
+  } else {
+    // Clear canvas if no sprite available
+    qCanvas.width = 1; qCanvas.height = 1;
+    qCanvas.style.width = ''; qCanvas.style.height = '';
   }
 
   document.getElementById('pwa-prev').disabled = qbankIndex <= 0;
@@ -854,8 +897,6 @@ function renderCurrent() {
     aiBtn.style.display = ''; aiBtn.disabled = false;
     aiBtn.innerHTML = getAiCache(qimg) ? '&#10024; Regenerate' : '&#10024; Explain with AI';
   }
-
-  applyScaleToCurrentQuestion();
 
   document.getElementById('pwa-content').scrollTo({ top: 0, behavior: 'auto' });
   _prefetch(qbankFiltered[qbankIndex + 1]);
@@ -882,7 +923,7 @@ function revealOption(pickedIdx) {
   });
 }
 
-function _prefetch(item) { if (item?.questionImage) new Image().src = item.questionImage; }
+function _prefetch(item) { if (item?.spriteUrl) new Image().src = item.spriteUrl; }
 
 /* ── R2 rating bar ──────────────────────────────────────────────────────── */
 function showRatingBar(exp, questionImage) {
@@ -952,15 +993,7 @@ async function loadExplanation(questionImage) {
     } catch {}
   }
 
-  // 3. metadata.json fallback (legacy)
-  const i = questionImage.lastIndexOf('/');
-  if (i < 0) { expEl.innerHTML = noExplanationMsg(); return; }
-  try {
-    const resp = await fetch(questionImage.substring(0, i) + '/metadata.json');
-    if (!resp.ok) throw new Error();
-    const data = await resp.json();
-    expEl.innerHTML = data?.explanation?.html_text || noExplanationMsg();
-  } catch { expEl.innerHTML = noExplanationMsg(); }
+  expEl.innerHTML = noExplanationMsg();
 }
 function noExplanationMsg() {
   return '<em style="color:#888;font-size:13px">No explanation yet. Tap ✨ Explain with AI to generate one.</em>';

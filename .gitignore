@@ -4,3 +4,8 @@ js/what-i-got-from-firebase-ui-firebase-config.txt
 worker/.wrangler/
 worker/node_modules/
 papers/
+qb/
+question_bank/**/sprite.png
+sprite_check.html
+test-results/
+node_modules/

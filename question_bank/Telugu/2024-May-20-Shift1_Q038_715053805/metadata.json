@@ -3,13 +3,38 @@
   "q_id": "715053805",
   "subject": "Telugu",
   "correct_answer": 3,
-  "header_pg": 31,
-  "header_y": 21.27402687072754,
   "paper_id": "2024-May-20-Shift1",
   "year": "2024",
   "month": "May",
   "day": "20",
   "shift": "1",
   "date": "20 May 2024",
-  "is_comprehension": true
+  "is_comprehension": true,
+  "sprite": {
+    "question": {
+      "y": 0,
+      "h": 629,
+      "w": 616
+    },
+    "option1": {
+      "y": 629,
+      "h": 29,
+      "w": 55
+    },
+    "option2": {
+      "y": 658,
+      "h": 27,
+      "w": 46
+    },
+    "option3": {
+      "y": 685,
+      "h": 26,
+      "w": 35
+    },
+    "option4": {
+      "y": 711,
+      "h": 32,
+      "w": 52
+    }
+  }
 }
