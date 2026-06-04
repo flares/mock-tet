@@ -1,5 +1,7 @@
 # Change History
 
+- 2026-06-04 | v0.4.5 | minor | Auto-reload on SW update (controllerchange): safe now that position+filters are persisted; user seamlessly resumes same question on new version
+
 - 2026-06-04 | v0.4.4 | minor | Fix update banner not showing on iOS PWA: controllerchange now shows persistent "New version available" banner with Reload button instead of transient toast; SW cache bumped v12→v13
 
 - 2026-06-04 | v0.4.3 | minor | PWA session resume: position (questionImage), subject/status/paper filters persisted per bank; app resumes at same question on reopen; fresh open (no saved position) shows TET picker pre-filled; bank switch resets filters/position. Stream/Paper-wise dropdowns now fixed overlays (left 20%, right 8%, thick border + shadow); paper-wise flyout matches same style. Font-knob bottom aligned to FAB row. Question card elevated with two-layer shadow + subtle border. Focus mode retains understood FAB.
