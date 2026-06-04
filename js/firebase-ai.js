@@ -1,16 +1,39 @@
 /**
- * firebase-ai.js — Gemini AI via direct REST API (no SDK, no CDN imports).
+ * firebase-ai.js — Multi-provider AI explanation (Gemini, DeepSeek, any OpenAI-compatible).
+ * Active provider is set via window.FIREBASE_CONFIG.aiModel.
  * Exposes window.AiExplainer for use by non-module scripts.
  *
- * Requires in js/firebase-config.js (gitignored):
- *   geminiApiKey  — from https://aistudio.google.com/apikey (free, no billing)
+ * Supported providers (set aiModel in firebase-config.js):
+ *   "gemini"   — Google Gemini 2.5 Flash  (geminiApiKey)
+ *   "deepseek" — DeepSeek v4 Flash        (deepseekApiKey)
+ *
+ * Adding a new OpenAI-compatible endpoint: add an entry to PROVIDERS below.
  */
 
-// ── Constants ───────────────────────────────────────────────────────────────
+// ── Provider registry ────────────────────────────────────────────────────────
+
+const PROVIDERS = {
+  gemini: {
+    label:         "Gemini 2.5 Flash",
+    modelName:     "gemini-2.5-flash",
+    type:          "gemini",
+    supportsVision: true,
+    apiUrl:        "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
+    getKey:        cfg => (cfg?.geminiApiKey && cfg.geminiApiKey !== "YOUR_GEMINI_API_KEY") ? cfg.geminiApiKey : null,
+  },
+  deepseek: {
+    label:         "DeepSeek v4 Flash",
+    modelName:     "deepseek-v4-flash",
+    type:          "openai",
+    supportsVision: false,
+    apiUrl:        "https://api.deepseek.com/v1/chat/completions",
+    getKey:        cfg => cfg?.deepseekApiKey || null,
+  },
+};
+
+// ── Constants ────────────────────────────────────────────────────────────────
 
 const SESSION_PREFIX = "ai_exp:";
-const MODEL_NAME     = "gemini-2.5-flash";
-const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent`;
 
 const SUBJECT_LABELS = {
   cdp:         "Child Development & Pedagogy",
@@ -53,9 +76,24 @@ Ensure you are using the correct HTML formatting and inline styling for visually
 </div>
 `;
 
-// ── Helpers ─────────────────────────────────────────────────────────────────
+const MOBILE_ADDENDUM = `Give html output in a mobile-friendly manner. Note that the html you output will be displayed as-is without any processing, so curate your response accurately for mobile viewing following other principles mentioned below. Use compact layouts, avoid wide tables (prefer stacked rows or definition lists on mobile), keep font sizes readable (min 13px), use padding generously, avoid fixed widths, and prefer flex column layouts over multi-column grids.`;
 
-async function fetchImageAsInlineData(url) {
+// ── Provider helpers ─────────────────────────────────────────────────────────
+
+function getActiveProvider() {
+  const cfg  = window.FIREBASE_CONFIG;
+  const name = cfg?.aiModel || "gemini";
+  return PROVIDERS[name] || PROVIDERS.gemini;
+}
+
+function getApiKey() {
+  return getActiveProvider().getKey(window.FIREBASE_CONFIG);
+}
+
+// ── Image fetch → neutral part ───────────────────────────────────────────────
+// Neutral part: { type: "text", text } | { type: "image", dataUrl, mimeType }
+
+async function fetchImagePart(url) {
   let resp;
   try {
     resp = await fetch(url);
@@ -67,64 +105,108 @@ async function fetchImageAsInlineData(url) {
   const mimeType = blob.type || "image/png";
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
-    reader.onload  = () => resolve({ inlineData: { data: reader.result.split(",")[1], mimeType } });
+    reader.onload  = () => resolve({ type: "image", dataUrl: reader.result, mimeType, originalUrl: url });
     reader.onerror = reject;
     reader.readAsDataURL(blob);
   });
 }
 
-function sessionKey(questionImage) {
-  const parts = questionImage.split("/");
-  return SESSION_PREFIX + parts[parts.length - 2];
-}
+function txt(text) { return { type: "text", text }; }
 
-// ── Init ────────────────────────────────────────────────────────────────────
+// ── Provider-specific call functions ─────────────────────────────────────────
 
-function getApiKey() {
-  const config = window.FIREBASE_CONFIG;
-  if (!config || !config.geminiApiKey || config.geminiApiKey === "YOUR_GEMINI_API_KEY") return null;
-  return config.geminiApiKey;
-}
-
-// ── Gemini REST call ─────────────────────────────────────────────────────────
-
-async function callGemini(apiKey, parts) {
+async function callGemini(provider, apiKey, neutralParts) {
+  const geminiParts = neutralParts.map(p =>
+    p.type === "image"
+      ? { inlineData: { data: p.dataUrl.split(",")[1], mimeType: p.mimeType } }
+      : { text: p.text }
+  );
   const body = {
     system_instruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
-    contents: [{ role: "user", parts }],
+    contents: [{ role: "user", parts: geminiParts }],
     generationConfig: { temperature: 0.3 },
   };
-
   let resp;
   try {
-    resp = await fetch(`${GEMINI_API_URL}?key=${apiKey}`, {
-      method: "POST",
+    resp = await fetch(`${provider.apiUrl}?key=${apiKey}`, {
+      method:  "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
+      body:    JSON.stringify(body),
     });
   } catch (e) {
     throw new Error(`Gemini network error: ${e.message || e}. Check connectivity or try Wi-Fi.`);
   }
-
   if (!resp.ok) {
-    const errText = await resp.text().catch(() => String(resp.status));
-    throw new Error(`[GoogleGenerativeAI Error]: Error fetching from ${GEMINI_API_URL}: [${resp.status} ] ${errText}`);
+    const err = await resp.text().catch(() => String(resp.status));
+    throw new Error(`Gemini API error [${resp.status}]: ${err}`);
   }
-
   const data = await resp.json();
   const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
   if (!text) throw new Error("Empty response from Gemini API.");
   return text;
 }
 
-// ── Core ────────────────────────────────────────────────────────────────────
+async function callOpenAI(provider, apiKey, neutralParts) {
+  const content = neutralParts.map(p =>
+    p.type === "image"
+      ? { type: "image_url", image_url: { url: p.originalUrl || p.dataUrl } }
+      : { type: "text", text: p.text }
+  );
+  const body = {
+    model:       provider.modelName,
+    messages:    [
+      { role: "system", content: SYSTEM_INSTRUCTION },
+      { role: "user",   content },
+    ],
+    temperature: 0.3,
+  };
+  let resp;
+  try {
+    resp = await fetch(provider.apiUrl, {
+      method:  "POST",
+      headers: { "Content-Type": "application/json", "Authorization": `Bearer ${apiKey}` },
+      body:    JSON.stringify(body),
+    });
+  } catch (e) {
+    throw new Error(`${provider.label} network error: ${e.message || e}. Check connectivity or try Wi-Fi.`);
+  }
+  if (!resp.ok) {
+    const err = await resp.text().catch(() => String(resp.status));
+    throw new Error(`${provider.label} API error [${resp.status}]: ${err}`);
+  }
+  const data = await resp.json();
+  const text = data?.choices?.[0]?.message?.content;
+  if (!text) throw new Error(`Empty response from ${provider.label} API.`);
+  return text;
+}
 
-const MOBILE_ADDENDUM = `Give html output in a mobile-friendly manner. Note that the html you output will be displayed as-is without any processing, so curate your response accurately for mobile viewing following other principles mentioned below. Use compact layouts, avoid wide tables (prefer stacked rows or definition lists on mobile), keep font sizes readable (min 13px), use padding generously, avoid fixed widths, and prefer flex column layouts over multi-column grids.`;
+async function callAI(neutralParts) {
+  const provider   = getActiveProvider();
+  const apiKey     = getApiKey();
+  if (!apiKey) throw new Error(`${provider.label} API key missing — set ${provider.type === "openai" ? "deepseekApiKey" : "geminiApiKey"} in js/firebase-config.js`);
+  const hasImages  = neutralParts.some(p => p.type === "image");
+  if (hasImages && !provider.supportsVision) {
+    throw new Error(`${provider.label} does not support image inputs. Set aiModel: "gemini" in firebase-config.js for in-app explanations (questions are images).`);
+  }
+  return provider.type === "openai"
+    ? callOpenAI(provider, apiKey, neutralParts)
+    : callGemini(provider, apiKey, neutralParts);
+}
+
+// ── Cache helpers ────────────────────────────────────────────────────────────
+
+function sessionKey(questionImage) {
+  const parts     = questionImage.split("/");
+  const folder    = parts[parts.length - 2];
+  const modelName = getActiveProvider().modelName;
+  return `${SESSION_PREFIX}${modelName}:${folder}`;
+}
+
+// ── Core ─────────────────────────────────────────────────────────────────────
 
 async function explain({ questionImage, optionImages = [], optionsInQuestion = false, spriteUrl = null, sprite = null, correctAnswer, sectionId, forceRegenerate = false, mobile = false }) {
   const cacheKey = sessionKey(questionImage);
 
-  // Check localStorage first (persists across sessions), then sessionStorage
   if (!forceRegenerate) {
     const lsPersisted = typeof ExplanationModal !== "undefined" && ExplanationModal.getAiCache(questionImage);
     if (lsPersisted) return lsPersisted;
@@ -132,59 +214,51 @@ async function explain({ questionImage, optionImages = [], optionsInQuestion = f
     if (ssCached) return ssCached;
   }
 
-  const apiKey = getApiKey();
-  if (!apiKey) {
-    throw new Error("Gemini API key missing — add geminiApiKey to js/firebase-config.js. Get a free key at https://aistudio.google.com/apikey");
-  }
-
   const subjectArea = SUBJECT_LABELS[(sectionId || "").toLowerCase()] || sectionId || "General";
-  const parts = [{ text: `Subject area: ${subjectArea}` }];
+  const parts = [txt(`Subject area: ${subjectArea}`)];
 
   if (spriteUrl) {
-    // Sprite path: one image containing question + all options stacked top-to-bottom
-    const spritePart = await fetchImageAsInlineData(spriteUrl);
+    const spritePart = await fetchImagePart(spriteUrl);
     parts.push(
-      { text: "This is a sprite image containing the full question at the top followed by the 4 answer options (A, B, C, D) stacked vertically below it. Exact pixel boundaries for each section are provided after the image." },
+      txt("This is a sprite image containing the full question at the top followed by the 4 answer options (A, B, C, D) stacked vertically below it. Exact pixel boundaries for each section are provided after the image."),
       spritePart,
     );
-    // Include pixel-level crop coordinates so the model knows exactly where each segment is
     if (sprite && Object.keys(sprite).length) {
-      const LABELS = { question: 'Question', option1: 'Option A', option2: 'Option B', option3: 'Option C', option4: 'Option D' };
+      const LABELS = { question: "Question", option1: "Option A", option2: "Option B", option3: "Option C", option4: "Option D" };
       const coordDesc = Object.entries(sprite)
         .map(([k, v]) => `${LABELS[k] || k}: y=${v.y}px to y=${v.y + v.h}px (height=${v.h}px, width=${v.w}px)`)
-        .join('\n');
-      parts.push({ text: `Sprite pixel boundaries (y=0 is top of image):\n${coordDesc}` });
+        .join("\n");
+      parts.push(txt(`Sprite pixel boundaries (y=0 is top of image):\n${coordDesc}`));
     }
   } else {
-    // Fallback: individual image files (desktop questionbank.html, or pre-sprite questions)
+    // Fallback: individual image files (desktop questionbank.html)
     const imagesToFetch = [questionImage, ...(!optionsInQuestion ? optionImages.slice(0, 4) : [])];
-    const imageParts    = await Promise.all(imagesToFetch.map(fetchImageAsInlineData));
+    const imageParts    = await Promise.all(imagesToFetch.map(fetchImagePart));
     if (!optionsInQuestion) {
-      parts.push({ text: "Question image:" }, imageParts[0]);
-      parts.push({ text: "Option A:" },        imageParts[1]);
-      parts.push({ text: "Option B:" },        imageParts[2]);
-      parts.push({ text: "Option C:" },        imageParts[3]);
-      parts.push({ text: "Option D:" },        imageParts[4]);
+      parts.push(txt("Question image:"), imageParts[0]);
+      parts.push(txt("Option A:"),       imageParts[1]);
+      parts.push(txt("Option B:"),       imageParts[2]);
+      parts.push(txt("Option C:"),       imageParts[3]);
+      parts.push(txt("Option D:"),       imageParts[4]);
     } else {
-      parts.push({ text: "Question image (options are inside):" }, imageParts[0]);
+      parts.push(txt("Question image (options are inside):"), imageParts[0]);
     }
   }
 
-  parts.push({
-    text: `Determine the correct option yourself and explain it. Generate the HTML now. data-subject="${subjectArea}".`,
-  });
+  parts.push(txt(`Determine the correct option yourself and explain it. Generate the HTML now. data-subject="${subjectArea}".`));
+  if (mobile) parts.push(txt(MOBILE_ADDENDUM));
 
-  if (mobile) parts.push({ text: MOBILE_ADDENDUM });
-
-  let html = await callGemini(apiKey, parts);
+  let html = await callAI(parts);
   html = html.replace(/^```html?\s*/i, "").replace(/```\s*$/, "").trim();
-
   if (!html.startsWith("<")) throw new Error("Unexpected response format from AI.");
 
-  // Persist to both caches
   sessionStorage.setItem(cacheKey, html);
   if (typeof ExplanationModal !== "undefined") ExplanationModal.setAiCache(questionImage, html);
   return html;
 }
 
-window.AiExplainer = { explain, isConfigured: () => !!getApiKey() };
+window.AiExplainer = {
+  explain,
+  isConfigured:    () => !!getApiKey(),
+  activeProvider:  () => getActiveProvider().label,
+};

@@ -71,24 +71,39 @@ def upload(tet_bank: str, dry_run: bool) -> None:
         region_name="auto",
     )
 
-    print(f"Uploading to r2://{BUCKET}/{tet_bank}/  …")
-    ok = fail = 0
-    for sp in sprites:
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+    import threading
+
+    WORKERS = 32
+    counter = threading.local()
+    ok_count = [0]
+    fail_count = [0]
+    lock = threading.Lock()
+
+    def _upload_one(sp):
         key = f"{tet_bank}/{sp.name}"
-        try:
-            s3.upload_file(
-                str(sp), BUCKET, key,
-                ExtraArgs={
-                    "ContentType": "image/png",
-                    "CacheControl": "public, max-age=31536000, immutable",
-                },
-            )
-            ok += 1
-            if ok % 250 == 0:
-                print(f"  {ok}/{len(sprites)} uploaded…")
-        except Exception as e:
-            print(f"  [FAIL] {sp.name}: {e}")
-            fail += 1
+        s3.upload_file(
+            str(sp), BUCKET, key,
+            ExtraArgs={
+                "ContentType": "image/png",
+                "CacheControl": "public, max-age=31536000, immutable",
+            },
+        )
+        return sp.name
+
+    print(f"Uploading to r2://{BUCKET}/{tet_bank}/  ({WORKERS} threads) …")
+    ok = fail = 0
+    with ThreadPoolExecutor(max_workers=WORKERS) as ex:
+        futures = {ex.submit(_upload_one, sp): sp for sp in sprites}
+        for fut in as_completed(futures):
+            try:
+                fut.result()
+                ok += 1
+                if ok % 250 == 0:
+                    print(f"  {ok}/{len(sprites)} uploaded…", flush=True)
+            except Exception as e:
+                print(f"  [FAIL] {futures[fut].name}: {e}", flush=True)
+                fail += 1
 
     print(f"\nDone. {ok} uploaded, {fail} failed.")
 
