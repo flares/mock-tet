@@ -143,7 +143,10 @@ async function explain({ questionImage, optionImages = [], optionsInQuestion = f
   if (spriteUrl) {
     // Sprite path: one image containing question + all options stacked top-to-bottom
     const spritePart = await fetchImageAsInlineData(spriteUrl);
-    parts.push(spritePart);
+    parts.push(
+      { text: "This is a sprite image containing the full question at the top followed by the 4 answer options (A, B, C, D) stacked vertically below it. Exact pixel boundaries for each section are provided after the image." },
+      spritePart,
+    );
     // Include pixel-level crop coordinates so the model knows exactly where each segment is
     if (sprite && Object.keys(sprite).length) {
       const LABELS = { question: 'Question', option1: 'Option A', option2: 'Option B', option3: 'Option C', option4: 'Option D' };
