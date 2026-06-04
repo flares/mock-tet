@@ -591,10 +591,14 @@ def _ssim(a: 'Image.Image', b: 'Image.Image') -> float:
     )
 
 
-def _build_sprite_from_pieces(pieces: list, sprite_path: Path) -> dict | None:
-    """Stack PIL image pieces [(key, Image)] vertically and save to sprite_path.
+_ssim_scores: list = []  # global collector: (sprite_name, key, score)
 
-    Compresses with pngquant + optipng and runs a per-piece SSIM sanity check.
+
+def _build_sprite_from_pieces(pieces: list, sprite_path: Path) -> dict | None:
+    """Stack PIL image pieces [(key, Image)] vertically, save, compress, SSIM-check.
+
+    Compresses the sprite once (source pieces are uncompressed).
+    Appends per-piece SSIM scores to module-level _ssim_scores for summary reporting.
     Returns coords dict or None if pieces is empty.
     """
     if not pieces:
@@ -617,11 +621,12 @@ def _build_sprite_from_pieces(pieces: list, sprite_path: Path) -> dict | None:
     try:
         sprite_img = Image.open(sprite_path).convert('RGBA')
         for key, orig in pieces:
-            c    = coords[key]
-            crop = sprite_img.crop((0, c['y'], c['w'], c['y'] + c['h']))
+            c     = coords[key]
+            crop  = sprite_img.crop((0, c['y'], c['w'], c['y'] + c['h']))
             score = _ssim(orig, crop)
+            _ssim_scores.append((sprite_path.stem, key, score))
             if score < _SSIM_WARN:
-                print(f"  [WARN] sprite {sprite_path.name}/{key}: SSIM {score:.3f} < {_SSIM_WARN}")
+                print(f"  [WARN] {sprite_path.stem}/{key}: SSIM {score:.3f}")
     except Exception:
         pass
 
@@ -670,12 +675,13 @@ def save_images(questions: list, pdf_path: Path, out_dir: Path, *,
         with open(path, 'wb') as f:
             f.write(pix.tobytes("png"))
         pix = None
-        compress_png(path)
+        # No compression here — sprite is built from these uncompressed PNGs,
+        # then compressed once. Compressing twice degrades quality visibly.
 
     def write_bytes(data: bytes, path: Path):
         with open(path, 'wb') as f:
             f.write(data)
-        compress_png(path)
+        # Same: no compression on individual PNGs
 
     def rel(path: Path) -> str:
         return path.relative_to(REPO_ROOT).as_posix()
@@ -970,6 +976,7 @@ def main():
     parser = argparse.ArgumentParser(
         description='Extract TET Paper 2 questions from PDF answer-key files.')
     parser.add_argument('--pdf',          help='Process a single PDF (full path or filename in papers/)')
+    parser.add_argument('--pdf-dir',      help='Process all 20*.pdf files from this directory')
     parser.add_argument('--validate',     action='store_true',
                         help='Validate the question_bank without re-extracting')
     parser.add_argument('--sprites-only', action='store_true',
@@ -1005,6 +1012,9 @@ def main():
         p = Path(args.pdf)
         pdf_files    = [p if p.is_absolute() else PDF_DIR / p]
         full_rebuild = False
+    elif args.pdf_dir:
+        pdf_files    = sorted(Path(args.pdf_dir).glob('20*.pdf'))
+        full_rebuild = True
     else:
         pdf_files    = sorted(PDF_DIR.glob('20*.pdf'))
         full_rebuild = True
@@ -1039,6 +1049,31 @@ def main():
         all_paper_ids.update(r['paper'] for r in records)
 
     print(f"\nDone. Total extracted: {total}")
+
+    # ── SSIM summary ─────────────────────────────────────────────────────────
+    if _ssim_scores:
+        scores = [s for _, _, s in _ssim_scores]
+        scores_sorted = sorted(scores)
+        n = len(scores)
+        below = sum(1 for s in scores if s < _SSIM_WARN)
+        pct = lambda p: scores_sorted[int(p / 100 * n)]
+        print(f"\n── SSIM report ({n} piece crops across {total} questions) ──")
+        print(f"  min    {min(scores):.4f}")
+        print(f"  p1     {pct(1):.4f}")
+        print(f"  p5     {pct(5):.4f}")
+        print(f"  p25    {pct(25):.4f}")
+        print(f"  median {pct(50):.4f}")
+        print(f"  p75    {pct(75):.4f}")
+        print(f"  p95    {pct(95):.4f}")
+        print(f"  p99    {pct(99):.4f}")
+        print(f"  max    {max(scores):.4f}")
+        print(f"  mean   {sum(scores)/n:.4f}")
+        print(f"  below {_SSIM_WARN} threshold: {below}/{n} ({100*below/n:.1f}%)")
+        if below:
+            worst = sorted(_ssim_scores, key=lambda x: x[2])[:10]
+            print(f"  worst 10:")
+            for name, key, sc in worst:
+                print(f"    {sc:.4f}  {name}/{key}")
 
     if not sprites_only:
         update_questions_json(all_records, all_paper_ids, full_rebuild=full_rebuild)
