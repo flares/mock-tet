@@ -1,5 +1,45 @@
 # Change History
 
+- 2026-06-05 | v0.4.6 | minor | Fix silent FAB failures: SW offline fallback now returns 503 (not empty {}), _fetchStreamIndex validates array, applyFilters shows empty-state on load error (FAB hidden), revision FAB handler catches saveRevisionList throws with user-facing toast
+
+- 2026-06-05 | v0.4.5 | minor | Fix Playwright tests: seed qb_pos_v1:<bank> in loadApp so the v0.4.3 picker-on-fresh-open logic is bypassed in tests; fix stream-panel close in picker test (panel intercepts button clicks, use option click instead)
+
+- 2026-06-04 | v0.4.5 | minor | Auto-reload on SW update (controllerchange): safe now that position+filters are persisted; user seamlessly resumes same question on new version
+
+- 2026-06-04 | v0.4.4 | minor | Fix update banner not showing on iOS PWA: controllerchange now shows persistent "New version available" banner with Reload button instead of transient toast; SW cache bumped v12→v13
+
+- 2026-06-04 | v0.4.3 | minor | PWA session resume: position (questionImage), subject/status/paper filters persisted per bank; app resumes at same question on reopen; fresh open (no saved position) shows TET picker pre-filled; bank switch resets filters/position. Stream/Paper-wise dropdowns now fixed overlays (left 20%, right 8%, thick border + shadow); paper-wise flyout matches same style. Font-knob bottom aligned to FAB row. Question card elevated with two-layer shadow + subtle border. Focus mode retains understood FAB.
+
+- 2026-06-04 15:40 | v0.4.0 | major | PWA UX overhaul. (1) Stream picker: replaced the device-native TET/Paper/Stream `<select>`s with custom dropdowns styled like the in-app subject dropdown — fixes the white-card resize/recenter glitch when toggling papers (summary box now has a fixed footprint; stream items show the paper/question count as a smaller sub-label beneath the stream name). (2) Paper-wise filter: a "Paper-wise ▸" row at the bottom of the subject dropdown opens a scrollable side flyout of the stream's papers (+ All Papers); mutually exclusive with subject; chips + progress count re-scope via a shared inActiveScope() helper. (3) Focus Mode: new torch-icon FAB (toggles on/off via dark active fill) hides header/footer/chips/other FABs, keeps the question + options + explanation; toasts "Focus mode on" then a beat later "Swipe left/right to change questions". (4) Swipe nav: left=next / right=prev everywhere (vertical scroll + wide-image pan preserved), sole nav in focus mode. (5) Whole question now lives in one full-bleed rounded card (thin margins) that slides on every navigation (buttons + swipe); inner image/options/explanation panels flattened onto the single card. Updated Playwright picker tests for the custom dropdowns. SW cache v11→v12 so installed PWAs pick up the new shell.
+
+- 2026-06-04 14:35 | v0.3.2 | minor | Stream picker: add an overall-scale line below "Choose your question bank" — "<papers> papers · <questions> questions across <streams> streams" with a layered-papers icon (amber brand accent) + blue emphasised numbers, hairline divider above. Totals computed live from qb_manifest.json in populatePicker() (not hardcoded). Currently 132 papers · 19,796 questions · 22 streams.
+
+- 2026-06-04 | v0.3.1 | minor | PWA header tweaks: remove the ✨ Explained filter chip + its R2-count badge/machinery (per-question AI explanations unchanged); right-align the To Read / In Review / Understood chips to the screen edge; fix subject dropdown spilling off-screen on mobile — left-align it to the button (was centred via translateX(-50%), a leftover from when the dropdown sat in the header centre) + cap width to viewport. Persist R2 creds in gitignored scripts/.r2env. SW v11.
+
+- 2026-06-04 | v0.3.0 | major | Multi-TET ingestion + stream selector (Task 7): config/tet_types.json maps batch_papers_flat folders → TET taxonomy + section specs; new scripts/ingest_batch.py + scripts/gen_tet_config.py; extract_questions.py generalised (config-driven sections, flexible filename→paper_id normaliser); build_qb_index.py rewritten to emit per-stream exams/qb_index_<bank>.json + exams/qb_manifest.json (fixes latent empty-index bug; legacy bank reproduced bit-for-bit); upload_sprites.py --all-banks; PWA gains TET→Paper→Stream picker (native selects, paper+question counts per stream), dynamic per-stream subject dropdown, stream-scoped counts, per-bank index cache; SW v10 precaches qb_manifest.json. Ingested 21 new TGTET streams (Paper 1 + Paper 2A Maths/Science + Social Studies across 8 languages) = 16,646 new questions (19,796 total). 5 old/scanned folders moved to batch_papers_flat/unprocessed/. R2 AI-explanation keys switched to q_id-based (explanations/q/Q<id>.json) — stream-agnostic, no paper name/subject spaces; 73 existing explanations + index migrated via scripts/migrate_explanations_to_qid.py (old keys kept as backup). 4 text-option questions (across 3 papers) skipped by sprites-only ingest — logged in config/unprocessed_report.json.
+
+- 2026-06-04 | v0.2.1 | minor | AI explanation: switch to sprite-based prompt — send single R2 sprite image instead of 5 individual PNGs; include pixel-boundary coords (y-start/end per piece) so model can precisely locate question and options A–D; update system prompt with sprite layout description; individual-image path kept as fallback for desktop questionbank.html
+
+- 2026-06-04 | v0.2.0 | major | Sprite-based rendering: qb_index.json gains spriteUrl+sprite+TET taxonomy fields; qb_pwa.html renders from R2 sprite via canvas; worker adds /qb/:bank/:filename R2 route; new build_flat_qb.py + upload_sprites.py scripts; extract_questions.py --sprites-only flag; qb/ folder gitignored
+
+- 2026-06-03 | v0.1.8 | minor | Pipeline simplification: extract_questions.py writes questions.json directly (inline pngquant+optipng, no index.csv/generate_json.py); build_qb_index.py reads questions.json standalone; add project_overview.html with visual fork/join pipeline diagram; qb_index.json field reference in CLAUDE.md
+
+- 2026-05-28 | v0.1.7 | minor | UX: detect iOS PWA backgrounding during AI generation — show friendlier "AI paused" message and auto-retry once when user returns to foreground
+
+- 2026-05-28 | v0.1.6 | minor | Diagnostic: wrap image and Gemini fetches in try/catch with prefixed error messages so iOS PWA "Load failed" can be traced to source
+
+- 2026-05-28 | v0.1.5 | minor | Fix: Explained filter — chip showed R2 global count but filter only matched local cache, leaving 0 navigable items. Filter now uses R2 index and re-builds list once index loads
+
+- 2026-05-28 | v0.1.4 | minor | Fix: AI "Module failed to load" on iOS PWA — replace esm.run SDK imports with direct Gemini REST API fetch, remove Firebase Analytics CDN dependency
+
+- 2026-05-28 | v0.1.3 | minor | Fix: update banner fires on every open — only send QB_INDEX_UPDATED when ETag actually changes, not on every 200 response
+
+- 2026-05-28 | v0.1.2 | minor | Reword update banner from "New questions available" to "App update available" to avoid misleading users
+
+- 2026-05-28 | v0.1.1 | minor | Fix iOS PWA broken-on-resume: add pageshow+visibilitychange handlers to re-run applyFilters when page restores from bfcache or OS freeze with incomplete initialization
+
+- 2026-05-27 | v0.1.0 | major | PWA background auto-update: SW stale-while-revalidate for qb_index.json, Background Sync on reconnect, Periodic Background Sync (Android), "New questions available" banner, app-updated toast; CACHE_BUST constant for selective localStorage reset on special pushes
+
 - 2026-05-27 | v0.0.7 | minor | progress counter shows global done/3150 (understood ∪ in-review); To Read chip has no count; In Review and Understood chips show global count badges
 
 - 2026-05-27 22:15 | v0.0.6 | minor | categorize-questions.md: design notes for question classification (model choice, cost, rate limits, prompt design, TODO)

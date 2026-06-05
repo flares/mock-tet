@@ -3,3 +3,15 @@ js/firebase-config.js
 js/what-i-got-from-firebase-ui-firebase-config.txt
 worker/.wrangler/
 worker/node_modules/
+papers/
+qb/
+question_bank/**/sprite.png
+sprite_check.html
+test-results/
+node_modules/
+__pycache__/
+*.pyc
+# Local R2 credentials — source before running upload/migration scripts. NEVER commit.
+scripts/.r2env
+.r2env
+.env

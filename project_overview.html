@@ -1,0 +1,2200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TET Suite — Project Wiki</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,400&display=swap">
+<style>
+/* ── Reset & base ─────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 14px; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  background: #f6f8fa;
+  color: #24292f;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+a { color: #0969da; text-decoration: none; }
+a:hover { text-decoration: underline; }
+strong { font-weight: 600; }
+code {
+  font-family: 'SFMono-Regular', 'Cascadia Code', Consolas, 'Liberation Mono', monospace;
+  font-size: 12px;
+  background: #eef1f4;
+  border-radius: 4px;
+  padding: 1px 5px;
+  color: #24292f;
+}
+pre {
+  font-family: 'SFMono-Regular', 'Cascadia Code', Consolas, monospace;
+  font-size: 12px;
+  background: #f6f8fa;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  padding: 14px 16px;
+  overflow-x: auto;
+  line-height: 1.7;
+  color: #24292f;
+}
+pre code { background: none; padding: 0; font-size: inherit; }
+ul, ol { padding-left: 20px; }
+li { margin-bottom: 3px; }
+
+/* ── Site header ─────────────────────────────────────────────────────────── */
+.site-header {
+  background: #fff;
+  border-bottom: 1px solid #d0d7de;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.site-header h1 { font-size: 15px; font-weight: 600; color: #24292f; }
+.site-header .sub { font-size: 12px; color: #656d76; margin-left: 4px; }
+.tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.tag {
+  background: #ddf4ff;
+  color: #0550ae;
+  border: 1px solid #b6e3ff;
+  border-radius: 20px;
+  padding: 1px 9px;
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.tag.green  { background: #dafbe1; color: #116329; border-color: #aceebb; }
+.tag.orange { background: #fff8c5; color: #7d4e00; border-color: #f0d562; }
+.tag.grey   { background: #f6f8fa; color: #656d76; border-color: #d0d7de; }
+
+/* ── Tab bar ─────────────────────────────────────────────────────────────── */
+.tab-bar {
+  background: #fff;
+  border-bottom: 1px solid #d0d7de;
+  padding: 0 24px;
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tab-bar::-webkit-scrollbar { display: none; }
+.tab-btn {
+  padding: 12px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #656d76;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.1s;
+  margin-bottom: -1px;
+}
+.tab-btn:hover { color: #24292f; background: #f6f8fa; border-radius: 6px 6px 0 0; }
+.tab-btn.active { color: #fd7702; border-bottom-color: #fd7702; font-weight: 600; }
+
+/* ── Content area ────────────────────────────────────────────────────────── */
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.page-body { max-width: 1060px; margin: 0 auto; padding: 28px 24px 80px; }
+
+/* ── Section headings ────────────────────────────────────────────────────── */
+.section-head {
+  font-size: 18px;
+  font-weight: 600;
+  color: #24292f;
+  margin-bottom: 4px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #d0d7de;
+  margin-top: 28px;
+}
+.section-head:first-child { margin-top: 0; }
+.sub-head {
+  font-size: 13px;
+  font-weight: 600;
+  color: #24292f;
+  margin: 20px 0 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  font-size: 11px;
+  color: #656d76;
+}
+
+/* ── Callout boxes ───────────────────────────────────────────────────────── */
+.note {
+  background: #ddf4ff;
+  border: 1px solid #b6e3ff;
+  border-left: 4px solid #0969da;
+  border-radius: 0 6px 6px 0;
+  padding: 10px 14px;
+  margin: 12px 0;
+  font-size: 13px;
+  color: #24292f;
+}
+.note.warn {
+  background: #fff8c5;
+  border-color: #f0d562;
+  border-left-color: #bf8700;
+}
+.note.success {
+  background: #dafbe1;
+  border-color: #aceebb;
+  border-left-color: #1f883d;
+}
+.note.danger {
+  background: #ffebe9;
+  border-color: #ffc1ba;
+  border-left-color: #cf222e;
+}
+
+/* ── Cards / panels ──────────────────────────────────────────────────────── */
+.card {
+  background: #fff;
+  border: 1px solid #d0d7de;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.card h3 { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+.card p, .card li { font-size: 13px; color: #57606a; }
+.card ul { margin-top: 6px; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+@media (max-width: 720px) { .two-col, .three-col { grid-template-columns: 1fr; } }
+
+/* ── Stat grid ───────────────────────────────────────────────────────────── */
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; margin-bottom: 20px; }
+.stat-card {
+  background: #fff;
+  border: 1px solid #d0d7de;
+  border-radius: 8px;
+  padding: 14px;
+  text-align: center;
+}
+.stat-num { font-size: 26px; font-weight: 700; color: #0969da; line-height: 1; }
+.stat-lbl { font-size: 11px; color: #656d76; margin-top: 4px; }
+
+/* ── Tables ──────────────────────────────────────────────────────────────── */
+.tbl-wrap { overflow-x: auto; border: 1px solid #d0d7de; border-radius: 8px; margin-bottom: 16px; }
+table { width: 100%; border-collapse: collapse; background: #fff; font-size: 13px; }
+thead tr { background: #f6f8fa; }
+th { padding: 8px 12px; font-size: 11px; font-weight: 600; text-transform: uppercase;
+     letter-spacing: 0.5px; color: #57606a; text-align: left; border-bottom: 1px solid #d0d7de; }
+td { padding: 9px 12px; border-bottom: 1px solid #eef1f4; vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+td.mono { font-family: 'SFMono-Regular', Consolas, monospace; font-size: 11.5px; color: #0969da; white-space: nowrap; }
+td.muted { color: #57606a; }
+
+/* ── Badge ───────────────────────────────────────────────────────────────── */
+.badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 500;
+  border-radius: 20px;
+  padding: 1px 8px;
+  vertical-align: middle;
+}
+.b-blue   { background: #ddf4ff; color: #0550ae; border: 1px solid #b6e3ff; }
+.b-green  { background: #dafbe1; color: #116329; border: 1px solid #aceebb; }
+.b-yellow { background: #fff8c5; color: #7d4e00; border: 1px solid #f0d562; }
+.b-red    { background: #ffebe9; color: #a40e26; border: 1px solid #ffc1ba; }
+.b-grey   { background: #f6f8fa; color: #656d76; border: 1px solid #d0d7de; }
+.b-orange { background: #fff1e5; color: #953800; border: 1px solid #fcd4a6; }
+
+/* ── Architecture diagram ────────────────────────────────────────────────── */
+.arch-box {
+  background: #fff;
+  border: 1px solid #d0d7de;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.arch-layer {
+  padding: 14px 18px;
+  border-bottom: 1px solid #eef1f4;
+}
+.arch-layer:last-child { border-bottom: none; }
+.arch-layer-title {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #656d76;
+  margin-bottom: 8px;
+}
+.arch-items { display: flex; flex-wrap: wrap; gap: 8px; }
+.arch-item {
+  background: #f6f8fa;
+  border: 1px solid #d0d7de;
+  border-radius: 5px;
+  padding: 4px 12px;
+  font-size: 12px;
+}
+.arch-item.primary { background: #ddf4ff; border-color: #b6e3ff; color: #0550ae; font-weight: 500; }
+.arch-item.green   { background: #dafbe1; border-color: #aceebb; color: #116329; }
+.arch-item.orange  { background: #fff1e5; border-color: #fcd4a6; color: #953800; }
+.arch-conn {
+  text-align: center; padding: 6px; font-size: 18px; color: #8c959f; background: #f6f8fa;
+}
+
+/* ── Git tree ────────────────────────────────────────────────────────────── */
+.tree-line { font-family: 'SFMono-Regular', Consolas, monospace; font-size: 12.5px; line-height: 1.9; }
+.tree-line .dir  { color: #0969da; font-weight: 600; }
+.tree-line .file-key { color: #1f883d; font-weight: 500; }
+.tree-line .file { color: #24292f; }
+.tree-line .note-t { color: #8c959f; font-style: italic; font-family: inherit; }
+.tree-line .notgit { color: #cf222e; }
+.tree-section { background: #fff; border: 1px solid #d0d7de; border-radius: 8px; padding: 16px 20px; margin-bottom: 12px; }
+
+/* ── Pipeline ────────────────────────────────────────────────────────────── */
+.pipeline { display: flex; flex-direction: column; }
+.pl-step { display: flex; gap: 0; }
+.pl-left { display: flex; flex-direction: column; align-items: center; width: 36px; flex-shrink: 0; }
+.pl-dot { width: 12px; height: 12px; border-radius: 50%; background: #0969da; flex-shrink: 0; margin-top: 5px; }
+.pl-dot.g { background: #1f883d; }
+.pl-dot.y { background: #bf8700; }
+.pl-line { flex: 1; width: 2px; background: #d0d7de; margin: 4px 0; }
+.pl-body {
+  flex: 1;
+  background: #fff;
+  border: 1px solid #d0d7de;
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+}
+.pl-body h4 { font-size: 13px; font-weight: 600; margin-bottom: 5px; }
+.pl-body .cmd {
+  display: block;
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  font-size: 12px;
+  background: #f6f8fa;
+  border: 1px solid #d0d7de;
+  border-radius: 5px;
+  padding: 6px 10px;
+  margin: 6px 0;
+  color: #24292f;
+}
+.pl-body p { font-size: 12.5px; color: #57606a; }
+
+/* ── Flows ───────────────────────────────────────────────────────────────── */
+.flow-chain {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 8px 0;
+}
+.flow-node {
+  background: #f6f8fa;
+  border: 1px solid #d0d7de;
+  border-radius: 5px;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-family: 'SFMono-Regular', Consolas, monospace;
+}
+.flow-arr { color: #8c959f; font-size: 14px; }
+.flow-note { font-size: 11.5px; color: #57606a; margin: 2px 0 8px 4px; }
+
+/* ── LS key table ────────────────────────────────────────────────────────── */
+.ls-key { font-family: 'SFMono-Regular', Consolas, monospace; font-size: 11.5px; color: #0969da; }
+.ls-type { font-size: 11px; color: #656d76; }
+
+/* ── Test items ──────────────────────────────────────────────────────────── */
+.test-suite { margin-bottom: 18px; }
+.test-suite-name {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  color: #656d76;
+  margin-bottom: 7px;
+}
+.test-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 6px 10px;
+  background: #fff;
+  border: 1px solid #d0d7de;
+  border-radius: 5px;
+  margin-bottom: 4px;
+  font-size: 12.5px;
+}
+.test-pass { color: #1f883d; font-weight: 700; flex-shrink: 0; }
+.test-desc { color: #24292f; }
+.test-note { font-size: 11px; color: #8c959f; margin-left: 4px; }
+
+/* ── Task items ──────────────────────────────────────────────────────────── */
+.task-item {
+  background: #fff;
+  border: 1px solid #d0d7de;
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+}
+.task-header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
+.task-item h4 { font-size: 14px; font-weight: 600; }
+.task-item p { font-size: 13px; color: #57606a; }
+.p-high   { background: #ffebe9; color: #a40e26; border: 1px solid #ffc1ba; }
+.p-med    { background: #fff8c5; color: #7d4e00; border: 1px solid #f0d562; }
+.p-low    { background: #f6f8fa; color: #656d76; border: 1px solid #d0d7de; }
+.p-done   { background: #dafbe1; color: #116329; border: 1px solid #aceebb; }
+.p-pend   { background: #f6f8fa; color: #656d76; border: 1px solid #d0d7de; }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   DESIGN ENHANCEMENT LAYER
+   ══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --ink: #18171a;
+  --ink-2: #4a4750;
+  --ink-3: #8c899a;
+  --surface: #faf9f7;
+  --card: #ffffff;
+  --rule: #e8e5e0;
+  --rule-subtle: #f0ede8;
+  --accent: #1a5cf0;
+  --accent-tint: #eef3ff;
+  --accent-border: #b3cafc;
+  --green: #137a41;
+  --green-tint: #e4f5eb;
+  --amber: #975200;
+  --amber-tint: #fdf4e3;
+  --red: #bf1c22;
+  --red-tint: #fdeaea;
+  --orange: #d45c0a;
+  --shadow-1: 0 1px 3px rgba(24,23,26,0.05), 0 0 0 1px rgba(24,23,26,0.04);
+  --shadow-2: 0 3px 12px rgba(24,23,26,0.07), 0 1px 3px rgba(24,23,26,0.04);
+  --shadow-3: 0 8px 28px rgba(24,23,26,0.10), 0 2px 6px rgba(24,23,26,0.04);
+  --r: 10px;
+  --r-sm: 6px;
+}
+
+body {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Code */
+code {
+  font-family: 'JetBrains Mono', 'SFMono-Regular', monospace;
+  font-size: 11.5px;
+  background: var(--rule-subtle);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 1px 5px;
+  color: #c0370a;
+}
+
+pre {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  background: #1d1c20;
+  border: none;
+  border-radius: var(--r);
+  padding: 16px 20px;
+  color: #e2dfd9;
+  box-shadow: var(--shadow-2);
+  line-height: 1.75;
+  overflow-x: auto;
+}
+pre code { background: none; border: none; color: inherit; padding: 0; font-size: inherit; }
+
+/* Header */
+.site-header {
+  background: #fff;
+  border-bottom: 1px solid var(--rule);
+  box-shadow: 0 1px 0 var(--rule-subtle);
+  padding: 13px 28px;
+}
+.site-header h1 { font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: -0.2px; color: var(--ink); }
+.site-header .sub { color: var(--ink-3); }
+.tag { border-radius: 5px; font-family: 'DM Sans', sans-serif; letter-spacing: 0; }
+
+/* Tab bar */
+.tab-bar { background: #fff; border-bottom: 1px solid var(--rule); padding: 0 28px; }
+.tab-btn {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-3);
+  padding: 13px 15px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s ease, background 0.1s ease;
+  letter-spacing: -0.1px;
+}
+.tab-btn:hover { color: var(--ink); background: var(--surface); border-radius: 6px 6px 0 0; }
+.tab-btn.active { color: var(--orange); border-bottom-color: var(--orange); font-weight: 600; }
+
+/* Tab transition */
+.tab-content.active { animation: fadeUp 0.18s ease; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+/* Page body */
+.page-body { max-width: 1060px; margin: 0 auto; padding: 32px 28px 80px; }
+
+/* Section headings */
+.section-head {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+  color: var(--ink);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 10px;
+  margin-top: 32px;
+  margin-bottom: 14px;
+}
+.section-head:first-child { margin-top: 0; }
+
+.sub-head {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--ink-3);
+  margin: 22px 0 9px;
+}
+
+/* Cards */
+.card {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  box-shadow: var(--shadow-1);
+  padding: 18px;
+  margin-bottom: 12px;
+  transition: box-shadow 0.2s;
+}
+.card:hover { box-shadow: var(--shadow-2); }
+.card h3 { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; color: var(--ink); }
+.card p, .card li { font-size: 13px; color: var(--ink-2); }
+
+/* Stats */
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  box-shadow: var(--shadow-1);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.stat-card:hover { box-shadow: var(--shadow-2); transform: translateY(-2px); }
+.stat-num { font-family: 'Fraunces', serif; font-size: 30px; font-weight: 700; color: var(--accent); letter-spacing: -1.5px; line-height: 1; }
+.stat-lbl { font-family: 'DM Sans', sans-serif; font-size: 11px; color: var(--ink-3); margin-top: 5px; }
+
+/* Tables */
+.tbl-wrap { border: 1px solid var(--rule); border-radius: var(--r); box-shadow: var(--shadow-1); }
+table { background: var(--card); font-size: 13px; }
+thead tr { background: var(--surface); }
+th { font-family: 'DM Sans', sans-serif; font-size: 10.5px; font-weight: 700; letter-spacing: 0.8px; color: var(--ink-3); border-bottom: 1px solid var(--rule); padding: 9px 14px; }
+td { padding: 10px 14px; border-bottom: 1px solid var(--rule-subtle); color: var(--ink-2); }
+td.mono { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent); white-space: nowrap; }
+td.muted { color: var(--ink-2); }
+
+/* Badges */
+.badge { font-family: 'DM Sans', sans-serif; font-size: 10.5px; font-weight: 600; border-radius: 5px; padding: 2px 8px; }
+.b-blue   { background: var(--accent-tint); color: #1042b8; border-color: var(--accent-border); }
+.b-green  { background: var(--green-tint); color: var(--green); border-color: #9ed4b0; }
+.b-yellow { background: var(--amber-tint); color: var(--amber); border-color: #f0d088; }
+.b-red    { background: var(--red-tint); color: var(--red); border-color: #f5b8b8; }
+.b-grey   { background: var(--rule-subtle); color: var(--ink-3); border-color: var(--rule); }
+.b-orange { background: #fff2e8; color: var(--orange); border-color: #fcd4a6; }
+
+/* Notes */
+.note { border-radius: 0 var(--r) var(--r) 0; box-shadow: var(--shadow-1); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 12px 16px; }
+.note           { background: #eef4ff; border-color: var(--accent-border); border-left-color: var(--accent); }
+.note.warn      { background: var(--amber-tint); border-color: #f0d088; border-left-color: var(--amber); }
+.note.success   { background: var(--green-tint); border-color: #9ed4b0; border-left-color: var(--green); }
+.note.danger    { background: var(--red-tint); border-color: #f5b8b8; border-left-color: var(--red); }
+
+/* Architecture box */
+.arch-box { border-radius: var(--r); box-shadow: var(--shadow-2); border-color: var(--rule); }
+.arch-layer { border-bottom-color: var(--rule-subtle); }
+.arch-layer-title { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1.2px; }
+.arch-item { background: var(--surface); border-color: var(--rule); border-radius: var(--r-sm); font-family: 'DM Sans', sans-serif; font-size: 12px; }
+.arch-item.primary { background: var(--accent-tint); border-color: var(--accent-border); color: #1042b8; }
+.arch-item.green   { background: var(--green-tint); border-color: #9ed4b0; color: var(--green); }
+.arch-item.orange  { background: #fff2e8; border-color: #fcd4a6; color: var(--orange); }
+.arch-conn { background: var(--surface); color: var(--ink-3); }
+
+/* Tree section */
+.tree-section { background: #1d1c20; border: none; border-radius: var(--r); padding: 20px 24px; box-shadow: var(--shadow-3); }
+.tree-line { color: #c4c0ba; }
+.tree-line pre { background: transparent; border: none; box-shadow: none; padding: 0; color: #c4c0ba; }
+.tree-line .dir   { color: #82b8f8; }
+.tree-line .file-key { color: #7ec8a0; }
+.tree-line .file  { color: #c4c0ba; }
+.tree-line .note-t { color: #5c5960; font-style: italic; }
+.tree-line .notgit { color: #e88080; }
+
+/* Pipeline */
+.pl-dot { background: var(--accent); }
+.pl-dot.g { background: var(--green); }
+.pl-dot.y { background: var(--amber); }
+.pl-line { background: var(--rule); }
+.pl-body { background: var(--card); border-color: var(--rule); border-radius: var(--r); box-shadow: var(--shadow-1); }
+.pl-body h4 { font-family: 'DM Sans', sans-serif; font-weight: 600; color: var(--ink); }
+.pl-body .cmd {
+  background: #1d1c20;
+  border: none;
+  border-radius: var(--r-sm);
+  color: #7ec8a0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  padding: 8px 12px;
+  box-shadow: var(--shadow-1);
+}
+.pl-body p { font-size: 12.5px; color: var(--ink-2); }
+
+/* Flow */
+.flow-node { background: var(--surface); border: 1px solid var(--rule); border-radius: var(--r-sm); font-family: 'JetBrains Mono', monospace; font-size: 11.5px; }
+.flow-arr { color: var(--ink-3); }
+.flow-note { font-size: 12px; color: var(--ink-2); }
+
+/* Test items */
+.test-suite-name { font-family: 'DM Sans', sans-serif; font-size: 10.5px; font-weight: 700; letter-spacing: 1px; color: var(--ink-3); }
+.test-item { background: var(--card); border: 1px solid var(--rule); border-radius: var(--r-sm); box-shadow: var(--shadow-1); transition: box-shadow 0.15s; }
+.test-item:hover { box-shadow: var(--shadow-2); }
+.test-pass { color: var(--green); }
+.test-desc { font-family: 'DM Sans', sans-serif; color: var(--ink); }
+.test-note { font-size: 11px; color: var(--ink-3); }
+
+/* Tasks */
+.task-item { background: var(--card); border: 1px solid var(--rule); border-radius: var(--r); box-shadow: var(--shadow-1); transition: box-shadow 0.2s; }
+.task-item:hover { box-shadow: var(--shadow-2); }
+.task-item h4 { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; color: var(--ink); }
+.task-item p { font-size: 13px; color: var(--ink-2); }
+.p-high   { background: var(--red-tint); color: var(--red); border-color: #f5b8b8; }
+.p-med    { background: var(--amber-tint); color: var(--amber); border-color: #f0d088; }
+.p-low    { background: var(--rule-subtle); color: var(--ink-3); border-color: var(--rule); }
+.p-done   { background: var(--green-tint); color: var(--green); border-color: #9ed4b0; }
+.p-pend2  { background: var(--rule-subtle); color: var(--ink-3); border-color: var(--rule); }
+
+/* ── PDF → QB diagram ────────────────────────────────────────────────────── */
+.qb-pipeline {
+  position: relative;
+  padding-left: 0;
+}
+
+.qb-stage {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 0 12px;
+  margin-bottom: 6px;
+  position: relative;
+}
+
+.qb-stage-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 14px;
+}
+
+.qb-stage-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-2);
+  transition: transform 0.2s;
+  cursor: pointer;
+  z-index: 1;
+  position: relative;
+}
+.qb-stage:hover .qb-stage-icon { transform: scale(1.12); }
+
+.qb-stage-line {
+  flex: 1;
+  width: 2px;
+  min-height: 16px;
+  margin: 4px 0;
+}
+
+.qb-stage-body {
+  background: var(--card);
+  border: 1.5px solid var(--rule);
+  border-radius: var(--r);
+  padding: 13px 16px;
+  cursor: pointer;
+  transition: box-shadow 0.2s, border-color 0.2s;
+  box-shadow: var(--shadow-1);
+  user-select: none;
+}
+.qb-stage-body:hover { box-shadow: var(--shadow-2); border-color: var(--rule); }
+.qb-stage-body.open  { box-shadow: var(--shadow-3); border-color: var(--accent-border); }
+
+.qb-stage-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.qb-stage-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--ink-3);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 1px 6px;
+  flex-shrink: 0;
+}
+
+.qb-stage-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  flex: 1;
+}
+
+.qb-stage-subtitle {
+  font-size: 12px;
+  color: var(--ink-3);
+  font-family: 'DM Sans', sans-serif;
+  margin-top: 3px;
+}
+
+.qb-stage-chevron {
+  font-size: 12px;
+  color: var(--ink-3);
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+.qb-stage-body.open .qb-stage-chevron { transform: rotate(90deg); }
+
+.qb-detail {
+  display: none;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule-subtle);
+  animation: fadeUp 0.15s ease;
+}
+.qb-detail.open { display: block; }
+
+.qb-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+@media (max-width: 600px) { .qb-detail-grid { grid-template-columns: 1fr; } }
+
+.qb-detail-section { }
+.qb-detail-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--ink-3);
+  margin-bottom: 6px;
+}
+
+.qb-file-list { display: flex; flex-wrap: wrap; gap: 5px; }
+.qb-file {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+  padding: 2px 9px;
+  color: var(--ink-2);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.qb-file.new { background: var(--green-tint); border-color: #9ed4b0; color: var(--green); }
+.qb-file.updated { background: #fff8e8; border-color: #f0d088; color: var(--amber); }
+.qb-file.deploy { background: var(--accent-tint); border-color: var(--accent-border); color: #1042b8; }
+.qb-file.cloud { background: #f3f0ff; border-color: #c4b8fa; color: #5e2acf; }
+
+.qb-cmd-block {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  background: #1d1c20;
+  color: #7ec8a0;
+  border-radius: var(--r-sm);
+  padding: 8px 12px;
+  margin-top: 4px;
+  box-shadow: var(--shadow-1);
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.qb-detail p {
+  font-size: 12.5px;
+  color: var(--ink-2);
+  font-family: 'DM Sans', sans-serif;
+  line-height: 1.6;
+  margin-top: 4px;
+}
+
+/* Stage type colours */
+.qb-type-input  { background: #f0ede8; }
+.qb-type-input .qb-stage-icon  { background: #e4e0d8; color: var(--ink-3); }
+.qb-type-input  .qb-stage-line { background: #e0dcd4; }
+
+.qb-type-artifact { background: var(--green-tint); }
+.qb-type-artifact .qb-stage-icon { background: var(--green); color: #fff; }
+.qb-type-artifact .qb-stage-line { background: #9ed4b0; }
+
+.qb-type-transform { background: var(--accent-tint); }
+.qb-type-transform .qb-stage-icon { background: var(--accent); color: #fff; }
+.qb-type-transform .qb-stage-line { background: var(--accent-border); }
+
+.qb-type-deploy { background: #fff2e8; }
+.qb-type-deploy .qb-stage-icon { background: var(--orange); color: #fff; }
+.qb-type-deploy .qb-stage-line { background: #fcd4a6; }
+
+.qb-type-live { background: #f3f0ff; }
+.qb-type-live .qb-stage-icon { background: #5e2acf; color: #fff; }
+.qb-type-live .qb-stage-line { background: #c4b8fa; }
+
+.qb-legend {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  padding: 12px 16px;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  box-shadow: var(--shadow-1);
+}
+.qb-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  color: var(--ink-2);
+}
+.qb-legend-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+}
+
+.qb-expand-hint {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11.5px;
+  color: var(--ink-3);
+  text-align: center;
+  padding: 8px;
+  margin-bottom: 16px;
+}
+
+/* ── New pipeline flow diagram ───────────────────────────────────────────── */
+.pf-pipeline {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  max-width: 780px;
+  margin: 0 auto;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* connectors */
+.pf-arrow { display: flex; flex-direction: column; align-items: center; gap: 0; margin: 0 auto; }
+.pf-arrow-shaft { width: 2px; height: 24px; background: #c8c4bc; }
+.pf-arrow-head  { width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-top: 9px solid #c8c4bc; }
+
+/* base node */
+.pf-node {
+  border-radius: 10px;
+  overflow: hidden;
+  transition: box-shadow 0.15s;
+}
+
+/* source node (PDF) */
+.pf-source {
+  background: var(--card);
+  border: 1.5px solid #d8d4cc;
+  padding: 14px 18px;
+  display: flex; align-items: center; gap: 14px;
+}
+.pf-source-icon { font-size: 28px; flex-shrink: 0; }
+.pf-source-label { font-size: 14px; font-weight: 600; color: var(--ink); font-family: 'JetBrains Mono', monospace; }
+.pf-source-sub   { font-size: 12px; color: var(--ink-2); margin-top: 2px; }
+
+/* script nodes */
+.pf-script {
+  background: #fff8f2;
+  border: 2px solid #f5b87a;
+  border-left: 5px solid var(--orange);
+  cursor: pointer;
+  user-select: none;
+}
+.pf-script:hover { box-shadow: 0 2px 10px rgba(253,119,2,0.12); }
+.pf-script-head {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 16px;
+}
+.pf-script-badge {
+  background: var(--orange); color: #fff;
+  font-size: 10px; font-weight: 700; letter-spacing: .06em;
+  padding: 2px 7px; border-radius: 4px; flex-shrink: 0;
+  font-family: 'DM Sans', sans-serif;
+}
+.pf-script-name  { font-size: 15px; font-weight: 700; color: var(--ink); font-family: 'JetBrains Mono', monospace; }
+.pf-script-cmd   { font-size: 11.5px; color: var(--ink-2); font-family: 'JetBrains Mono', monospace; margin-top: 3px; }
+.pf-script-desc  { font-size: 12px; color: var(--ink-3); margin-top: 4px; }
+.pf-script-chevron { margin-left: auto; font-size: 11px; color: var(--ink-3); transition: transform 0.18s; flex-shrink: 0; }
+.pf-script.open .pf-script-chevron { transform: rotate(90deg); }
+.pf-script-detail { display: none; padding: 0 16px 14px; border-top: 1px solid #fde0c0; margin-top: 2px; }
+.pf-script.open .pf-script-detail { display: block; }
+
+/* deploy node */
+.pf-deploy {
+  background: #f2f6ff;
+  border: 2px solid #93b4f5;
+  border-left: 5px solid #4a7cf5;
+  cursor: pointer; user-select: none;
+}
+.pf-deploy:hover { box-shadow: 0 2px 10px rgba(74,124,245,0.12); }
+.pf-deploy .pf-script-badge { background: #4a7cf5; }
+
+/* live node */
+.pf-live {
+  background: #f7f3ff;
+  border: 2px solid #b49cf5;
+  border-left: 5px solid #7c4cf5;
+  padding: 14px 18px;
+}
+
+/* fork / join */
+.pf-fork {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.pf-fork-shaft { width: 2px; height: 20px; background: #c8c4bc; margin: 0 auto; }
+.pf-fork-bar   { height: 2px; background: #c8c4bc; margin: 0 60px; }
+.pf-fork-heads {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 60px;
+}
+.pf-fork-drop  { width: 2px; height: 18px; background: #c8c4bc; }
+.pf-fork-branches {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.pf-branch { flex: 1; display: flex; flex-direction: column; align-items: stretch; }
+.pf-branch-arrow { width: 2px; height: 18px; background: #c8c4bc; margin: 0 auto; }
+
+/* artifact nodes */
+.pf-artifact {
+  background: #f2faf5;
+  border: 1.5px dashed #72c48e;
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+.pf-artifact-head  { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.pf-artifact-icon  { font-size: 20px; }
+.pf-artifact-title { font-size: 13.5px; font-weight: 700; color: var(--ink); font-family: 'JetBrains Mono', monospace; }
+.pf-artifact-sub   { font-size: 12px; color: var(--ink-2); margin-top: 2px; }
+
+/* star artifact (qb_index.json) */
+.pf-artifact-star {
+  background: #fffbea;
+  border: 2px solid #f0c040;
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+.pf-artifact-star .pf-artifact-title { color: #8a6800; }
+
+/* file chips */
+.pf-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.pf-chip  {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 9px; border-radius: 5px;
+  font-size: 12px; font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+}
+.pf-chip-png  { background: #e8f3fd; color: #1a6098; border: 1px solid #b6d9f5; }
+.pf-chip-json { background: #e6f5ec; color: #1e7a3a; border: 1px solid #9fd4b0; }
+.pf-chip-json-master { background: #fffbe6; color: #8a6800; border: 1px solid #f0d060; font-weight: 700; }
+.pf-chip-no   { background: #fdeaea; color: #bf1c22; border: 1px solid #f5b8b8; }
+
+/* stat row */
+.pf-stats { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.pf-stat  {
+  background: var(--surface); border: 1px solid var(--rule);
+  border-radius: 20px; padding: 2px 10px;
+  font-size: 12px; color: var(--ink-2);
+}
+
+/* join label */
+.pf-join {
+  display: flex; flex-direction: column; align-items: stretch;
+}
+.pf-join-bar  { height: 2px; background: #c8c4bc; margin: 0 60px; }
+.pf-join-shaft { width: 2px; height: 20px; background: #c8c4bc; margin: 0 auto; }
+.pf-join-note {
+  text-align: center; font-size: 11px; color: var(--ink-3);
+  padding: 3px 0 6px;
+}
+
+/* two-col detail inside scripts */
+.pf-detail-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 10px; }
+.pf-detail-label { font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 4px; }
+.pf-detail-cols p { font-size: 12.5px; color: var(--ink-2); margin: 0 0 6px; line-height: 1.6; }
+.pf-code { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; background: #1d1c20; color: #7ddb8e; padding: 8px 12px; border-radius: 6px; white-space: pre; overflow-x: auto; }
+</style>
+</head>
+<body>
+
+<!-- Site Header -->
+<header class="site-header">
+  <h1>TET Suite <span class="sub">/ Project Wiki</span></h1>
+  <div class="tags">
+    <span class="tag">v0.1.2</span>
+    <span class="tag green">21 papers · 3,150 questions</span>
+    <span class="tag orange">sprites pending R2 upload</span>
+    <span class="tag grey">CTET Paper 2 · Math &amp; Science</span>
+    <span class="tag grey">last updated: 2026-06-03</span>
+  </div>
+</header>
+
+<!-- Tab Bar -->
+<nav class="tab-bar">
+  <button class="tab-btn active" onclick="showTab('overview')">Overview</button>
+  <button class="tab-btn" onclick="showTab('git')">Git Structure</button>
+  <button class="tab-btn" onclick="showTab('ux')">User Experience</button>
+  <button class="tab-btn" onclick="showTab('components')">Components</button>
+  <button class="tab-btn" onclick="showTab('flows')">Data Flows</button>
+  <button class="tab-btn" onclick="showTab('pipeline')">Build Pipeline</button>
+  <button class="tab-btn" onclick="showTab('tests')">Tests</button>
+  <button class="tab-btn" onclick="showTab('tasks')">Tasks</button>
+  <button class="tab-btn" onclick="showTab('pdfqb')">PDF → Question Bank</button>
+</nav>
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!-- TAB: Overview                                                           -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<div id="tab-overview" class="tab-content active">
+<div class="page-body">
+  <h2 class="section-head">What is this project?</h2>
+  <p style="margin-bottom:12px;font-size:14px;">
+    A static site on <strong>GitHub Pages</strong> that serves CTET Paper 2 (Classes VI–VIII, Mathematics &amp; Science stream) candidates.
+    Two distinct interfaces: a mobile-first installable <strong>PWA question browser</strong> (primary focus) and a <strong>CBT mock-test replica</strong> of the NTA exam interface (secondary).
+  </p>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-num">3,150</div><div class="stat-lbl">Questions indexed</div></div>
+    <div class="stat-card"><div class="stat-num">21</div><div class="stat-lbl">Real CTET papers</div></div>
+    <div class="stat-card"><div class="stat-num">5</div><div class="stat-lbl">Mock tests</div></div>
+    <div class="stat-card"><div class="stat-num">5</div><div class="stat-lbl">Subjects / paper</div></div>
+    <div class="stat-card"><div class="stat-num">3,150</div><div class="stat-lbl">Sprites built</div></div>
+    <div class="stat-card"><div class="stat-num">2.6 MB</div><div class="stat-lbl">qb_index.json</div></div>
+    <div class="stat-card"><div class="stat-num">121 MB</div><div class="stat-lbl">question_bank/</div></div>
+    <div class="stat-card"><div class="stat-num">15</div><div class="stat-lbl">Tests (all pass)</div></div>
+  </div>
+
+  <h2 class="section-head">System Architecture</h2>
+
+  <div class="arch-box">
+    <div class="arch-layer">
+      <div class="arch-layer-title">User device (iOS / Android / Desktop browser)</div>
+      <div class="arch-items">
+        <span class="arch-item primary">★ qb_pwa.html — PWA Question Browser</span>
+        <span class="arch-item">exam.html — CBT Mock Test</span>
+        <span class="arch-item">index.html — Home</span>
+        <span class="arch-item">result.html — Score Review</span>
+        <span class="arch-item">qb_pwa_sw.js — Service Worker</span>
+      </div>
+    </div>
+    <div class="arch-conn">↕ HTTP (HTTPS)</div>
+    <div class="arch-layer">
+      <div class="arch-layer-title">GitHub Pages — static CDN, auto-deploys on git push to main</div>
+      <div class="arch-items">
+        <span class="arch-item primary">exams/qb_index.json (2.6 MB)</span>
+        <span class="arch-item">exams/manifest.json</span>
+        <span class="arch-item">exams/real-*.json × 21</span>
+        <span class="arch-item">question_bank/**/*.png (fallback images)</span>
+        <span class="arch-item">All HTML / JS / CSS</span>
+      </div>
+    </div>
+    <div class="arch-conn">↕ HTTP (HTTPS) — Bearer token for writes</div>
+    <div class="arch-layer">
+      <div class="arch-layer-title">Cloudflare Worker — tet-qb-worker.y-manojkrishna.workers.dev — must be deployed separately via wrangler</div>
+      <div class="arch-items">
+        <span class="arch-item green">GET /images/:subject/:folder/sprite.png</span>
+        <span class="arch-item">GET /explanations/:subject/:folder</span>
+        <span class="arch-item">POST /explanations/:subject/:folder</span>
+        <span class="arch-item">PATCH /explanations/…/:expId (like/dislike)</span>
+        <span class="arch-item">GET /index (explanation count)</span>
+      </div>
+    </div>
+    <div class="arch-conn">↕ R2 SDK</div>
+    <div class="arch-layer">
+      <div class="arch-layer-title">Cloudflare R2 — bucket: tet-questionbank-explanations</div>
+      <div class="arch-items">
+        <span class="arch-item orange">images/&lt;Subject&gt;/&lt;folder&gt;/sprite.png × 3,150</span>
+        <span class="arch-item">explanations/&lt;Subject&gt;/&lt;folder&gt;.json</span>
+        <span class="arch-item">questions-with-explanations.json</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="note warn" style="margin-top:12px;">
+    <strong>Two separate deploy targets.</strong> <code>git push</code> updates GitHub Pages automatically via GitHub Actions.
+    The Cloudflare Worker requires a separate <code>cd worker &amp;&amp; npx wrangler deploy</code> after any change to <code>worker/src/index.js</code>.
+    Current pending deploy: <code>GET /images/</code> endpoint for sprite serving.
+  </div>
+
+  <h2 class="section-head" style="margin-top:24px;">Papers covered</h2>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Year</th><th>Dates &amp; Shifts</th><th>Papers</th></tr></thead>
+      <tbody>
+        <tr><td class="muted">2024 May</td><td class="muted">20-Shift1/2 · 21-Shift1/2 · 22-Shift1/2</td><td><span class="badge b-blue">6 papers</span></td></tr>
+        <tr><td class="muted">2025 Jan</td><td class="muted">5-Shift2 · 11-Shift2 · 19-Shift1/2 · 20-Shift1/2</td><td><span class="badge b-blue">6 papers</span></td></tr>
+        <tr><td class="muted">2025 Jun</td><td class="muted">18-Shift1/2 · 19-Shift1/2 · 24-Shift1</td><td><span class="badge b-blue">5 papers</span></td></tr>
+        <tr><td class="muted">2026 Jan</td><td class="muted">03-Shift1/2 · 04-Shift1/2</td><td><span class="badge b-blue">4 papers</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!-- TAB: Git Structure                                                      -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<div id="tab-git" class="tab-content">
+<div class="page-body">
+  <h2 class="section-head">Git Repository Structure</h2>
+  <div class="note">
+    <strong>19,002 files tracked in git.</strong> The vast majority are the question_bank images (18,902 files).
+    Sprite PNGs are <strong>not</strong> in git — they live in R2 only.
+  </div>
+
+  <div class="tree-section">
+    <div class="tree-line">
+<pre style="border:none;background:none;padding:0;font-size:12.5px;">
+<span class="dir">mock-tet/</span>
+│
+├── <span class="file">.github/workflows/deploy.yml</span>         <span class="note-t">CI: auto-deploy to GitHub Pages on push to main</span>
+├── <span class="dir">.claude/commands/</span>
+│   ├── <span class="file">create-mock-test.md</span>               <span class="note-t">Claude Code skill: generates new mock test JSON end-to-end</span>
+│   └── <span class="file">generate-explanations.md</span>          <span class="note-t">Claude Code skill: bulk explanation generation</span>
+│
+├── <span class="file-key">CLAUDE.md</span>                             <span class="note-t">Project intelligence — read by Claude Code every session</span>
+├── <span class="file">TASKS.md</span>                              <span class="note-t">Task backlog (8 items)</span>
+├── <span class="file">change_history.md</span>                    <span class="note-t">Changelog, newest-first (mandatory — updated every commit)</span>
+├── <span class="file">README.md</span>
+├── <span class="file">.gitignore</span>                           <span class="note-t">Excludes: firebase-config.js, node_modules, sprite.png</span>
+│
+├── <span class="file-key">qb_pwa.html</span>             ★ PRIMARY    <span class="note-t">Self-contained PWA (~2000 lines, all CSS inline)</span>
+├── <span class="file">qb_pwa_sw.js</span>                         <span class="note-t">Service Worker — cache-first images, SWR JSON</span>
+├── <span class="file">qb_pwa_manifest.json</span>                 <span class="note-t">Web App Manifest (name, icons, display: standalone)</span>
+│
+├── <span class="file">exam.html</span>                            <span class="note-t">NTA CBT mock-test interface</span>
+├── <span class="file">index.html</span>                           <span class="note-t">Home — exam card selector</span>
+├── <span class="file">instructions.html</span>                    <span class="note-t">Pre-exam checkbox gate</span>
+├── <span class="file">result.html</span>                          <span class="note-t">Score + section breakdown + review</span>
+├── <span class="file">questionbank.html</span>                    <span class="note-t">Legacy desktop question bank (superseded by PWA)</span>
+├── <span class="file">revision.html</span>                        <span class="note-t">Legacy flashcard view (superseded by PWA)</span>
+├── <span class="file">project_overview.html</span>                <span class="note-t">This file</span>
+│
+├── <span class="dir">css/</span>  <span class="note-t">(7 files)</span>
+│   ├── <span class="file">variables.css</span>                     <span class="note-t">All CSS custom properties</span>
+│   ├── <span class="file">reset.css</span>
+│   ├── <span class="file">exam.css</span>                          <span class="note-t">CBT layout (grid, palette, timer, status colours)</span>
+│   ├── <span class="file">home.css</span>  <span class="file">instructions.css</span>  <span class="file">result.css</span>  <span class="file">common.css</span>
+│
+├── <span class="dir">js/</span>  <span class="note-t">(14 files)</span>
+│   ├── <span class="file">r2-explanations.js</span>               <span class="note-t">R2 client — fetch/save/vote, localStorage cache</span>
+│   ├── <span class="file">explanation.js</span>                   <span class="note-t">Explanation modal UI (R2 + AI + like/dislike)</span>
+│   ├── <span class="file">firebase-ai.js</span>                   <span class="note-t">Gemini 2.5 Flash via Firebase AI SDK</span>
+│   ├── <span class="file">firebase-config.example.js</span>       <span class="note-t">Template — copy to firebase-config.js and fill secrets</span>
+│   ├── <span class="notgit">firebase-config.js</span>               <span class="note-t">🚫 GITIGNORED — contains Worker URL + Bearer token + Firebase creds</span>
+│   ├── <span class="file">state.js</span>                         <span class="note-t">ExamState singleton for CBT session</span>
+│   ├── <span class="file">timer.js</span>                         <span class="note-t">Drift-resistant countdown timer</span>
+│   ├── <span class="file">palette.js</span>                       <span class="note-t">Question palette renderer (5×6 grid)</span>
+│   ├── <span class="file">question.js</span>                      <span class="note-t">Question + options renderer</span>
+│   ├── <span class="file">exam.js</span>                          <span class="note-t">CBT main controller</span>
+│   ├── <span class="file">home.js</span>  <span class="file">instructions.js</span>  <span class="file">result.js</span>  <span class="file">questionbank.js</span>  <span class="file">revision.js</span>
+│
+├── <span class="dir">assets/</span>
+│   ├── <span class="file">pwa-icon.svg</span>  <span class="file">pwa-icon-180.png</span>
+│   ├── <span class="file">syllabus_topics.json</span>             <span class="note-t">Topic taxonomy for classification (Task 2)</span>
+│   └── <span class="dir">syllabus/</span>                        <span class="note-t">PDF syllabus references</span>
+│
+├── <span class="dir">exams/</span>  <span class="note-t">(47 files tracked)</span>
+│   ├── <span class="file-key">manifest.json</span>                    <span class="note-t">Catalogue of all 26 tests (21 real + 5 mock)</span>
+│   ├── <span class="file-key">qb_index.json</span>          2.6 MB   <span class="note-t">★ Flat index of all 3,150 questions (PWA cold-start file)</span>
+│   ├── <span class="file">real-2024-May-20-Shift1.json</span>     <span class="note-t">One per real CTET paper — 21 files</span>
+│   ├── <span class="file">  …real-2026-Jan-04-Shift2.json</span>
+│   ├── <span class="file">paper2-full-01.json</span>              <span class="note-t">Mock tests — 5 files</span>
+│   ├── <span class="file">  …paper2-mini-telugu-02.json</span>
+│   └── <span class="dir">_raw/</span>                            <span class="note-t">Text source for mock tests (input to build_exam.py)</span>
+│
+├── <span class="dir">question_bank/</span>  <span class="note-t">★ 18,902 files tracked · 121 MB total</span>
+│   ├── <span class="file-key">questions.json</span>                   <span class="note-t">Master index keyed by subject — source of truth for answers</span>
+│   ├── <span class="file">index.csv</span>                        <span class="note-t">Flat CSV (Windows absolute paths — not used by web app)</span>
+│   ├── <span class="dir">CDP/</span>        <span class="note-t">630 question folders × 6 files each = 3,780 files</span>
+│   ├── <span class="dir">Telugu/</span>     <span class="note-t">630 folders</span>
+│   ├── <span class="dir">English/</span>    <span class="note-t">630 folders</span>
+│   ├── <span class="dir">Mathematics/</span><span class="note-t">630 folders</span>
+│   └── <span class="dir">Science/</span>    <span class="note-t">630 folders</span>
+│       Each folder: question.png  option1.png  option2.png  option3.png  option4.png  metadata.json
+│       <span class="notgit">sprite.png — 🚫 NOT in git — uploaded to R2 (images/&lt;Subject&gt;/&lt;folder&gt;/sprite.png)</span>
+│
+├── <span class="dir">scripts/</span>  <span class="note-t">(5 files)</span>
+│   ├── <span class="file">build_real_exams.py</span>              <span class="note-t">Regenerate all 21 real exam JSONs from questions.json</span>
+│   ├── <span class="file">build_sprites.py</span>                 <span class="note-t">Create sprite.png per question (vertically stacked, 4-colour palette)</span>
+│   ├── <span class="file">upload_sprites.py</span>                <span class="note-t">Bulk-upload sprites to R2 via wrangler (12 parallel)</span>
+│   ├── <span class="file">build_qb_index.py</span>                <span class="note-t">Flatten real-paper JSONs → exams/qb_index.json</span>
+│   ├── <span class="file">build_exam.py</span>                    <span class="note-t">Assemble mock test JSON from _raw text files</span>
+│   └── <span class="file">classify_topics.py</span>               <span class="note-t">Gemini Flash Lite topic classifier (Task 2 skeleton)</span>
+│
+├── <span class="dir">worker/</span>  <span class="note-t">(4 files tracked — wrangler deploy is a separate step)</span>
+│   ├── <span class="file-key">src/index.js</span>                     <span class="note-t">Worker code — image serving + explanation CRUD</span>
+│   ├── <span class="file">wrangler.toml</span>                    <span class="note-t">Worker config + R2 binding</span>
+│   └── <span class="file">package.json</span>                     <span class="note-t">wrangler as devDep</span>
+│   <span class="notgit">node_modules/ — 🚫 gitignored</span>
+│
+├── <span class="dir">tests/</span>
+│   └── <span class="file">qb_pwa.spec.js</span>                   <span class="note-t">15 Playwright E2E tests (see Tests tab)</span>
+│
+├── <span class="file">package.json</span>                         <span class="note-t">npm scripts: test (Playwright), pretest (lib extraction)</span>
+├── <span class="file">playwright.config.js</span>                 <span class="note-t">Port 8085, SW blocked, webServer auto-starts</span>
+└── <span class="notgit">node_modules/ · test-results/ · playwright-report/ — 🚫 gitignored</span>
+</pre>
+    </div>
+  </div>
+
+  <h2 class="section-head">What lives where</h2>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Content type</th><th>Storage</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">HTML / JS / CSS / exam JSONs</td><td class="muted">Git + GitHub Pages</td><td class="muted">Text files, version-controlled, free CDN</td></tr>
+        <tr><td class="mono">question_bank PNGs (originals)</td><td class="muted">Git + GitHub Pages</td><td class="muted">Currently in git; scales poorly past ~120 papers — migration to R2 is part of Task 7</td></tr>
+        <tr><td class="mono">sprite.png per question</td><td class="muted">R2 only</td><td class="muted">Derived artifacts — generated locally, never tracked in git. Served from Worker with 1-year immutable cache.</td></tr>
+        <tr><td class="mono">AI explanations</td><td class="muted">R2 (via Worker)</td><td class="muted">User-generated content, needs server-side persistence and structured access control</td></tr>
+        <tr><td class="mono">firebase-config.js</td><td class="muted">Local only (gitignored)</td><td class="muted">Contains Bearer token, Firebase credentials — must never be committed</td></tr>
+        <tr><td class="mono">User progress (understood, revision)</td><td class="muted">localStorage</td><td class="muted">Device-local, no account system yet (Task 2 after login is implemented)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!-- TAB: User Experience                                                    -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<div id="tab-ux" class="tab-content">
+<div class="page-body">
+  <h2 class="section-head">What happens when a user visits the PWA</h2>
+
+  <div class="sub-head">First visit — cold start (no Service Worker installed)</div>
+  <div class="card">
+    <h3>Network requests in order</h3>
+    <div class="flow-chain">
+      <span class="flow-node">qb_pwa.html</span><span class="flow-arr">→</span>
+      <span class="flow-node">r2-explanations.js</span><span class="flow-arr">→</span>
+      <span class="flow-node">explanation.js</span><span class="flow-arr">→</span>
+      <span class="flow-node">firebase-ai.js</span><span class="flow-arr">→</span>
+      <span class="flow-node">firebase-config.js</span>
+    </div>
+    <div class="flow-chain">
+      <span class="flow-node">exams/qb_index.json <strong>(2.6 MB)</strong></span><span class="flow-arr">→</span>
+      <span class="flow-node">3,150 questions in memory</span>
+    </div>
+    <div class="flow-chain">
+      <span class="flow-node">Worker GET /index</span><span class="flow-arr">→</span>
+      <span class="flow-node">✨ count (questions with explanations)</span>
+    </div>
+    <div class="flow-chain">
+      <span class="flow-node">Worker GET /images/CDP/…/sprite.png</span><span class="flow-arr">→</span>
+      <span class="flow-node">canvas split → Q1 displayed</span>
+    </div>
+    <div class="flow-chain">
+      <span class="flow-node">Prefetch Q2, Q3 sprites</span><span class="flow-arr">(background)</span>
+    </div>
+    <p class="flow-note">Service Worker registers and installs during this visit. Pre-caches 7 shell files (see below). Does not serve anything until next visit.</p>
+  </div>
+
+  <div class="sub-head">Subsequent visits — warm start (Service Worker active)</div>
+  <div class="card">
+    <div class="flow-chain">
+      <span class="flow-node">qb_pwa.html</span><span class="flow-arr">→ SW cache-first →</span>
+      <span class="flow-node">instant (no network)</span>
+    </div>
+    <div class="flow-chain">
+      <span class="flow-node">qb_index.json</span><span class="flow-arr">→ SW stale-while-revalidate →</span>
+      <span class="flow-node">served from cache immediately</span><span class="flow-arr">+</span>
+      <span class="flow-node">background ETag check → updates if changed</span>
+    </div>
+    <div class="flow-chain">
+      <span class="flow-node">sprite PNGs</span><span class="flow-arr">→ SW cache-first →</span>
+      <span class="flow-node">instant after first browse</span><span class="flow-arr">(</span>
+      <span class="flow-node">1-year immutable</span><span class="flow-arr">)</span>
+    </div>
+    <div class="flow-chain">
+      <span class="flow-node">exam JSONs (real-*.json)</span><span class="flow-arr">→ SW network-first →</span>
+      <span class="flow-node">live if online, falls back to cache if offline</span>
+    </div>
+    <p class="flow-note">If qb_index.json changed in background: "App update available — Reload" banner appears. If SW itself updated: "App updated" toast fires on controllerchange.</p>
+  </div>
+
+  <div class="sub-head">Background sync (Android Chrome only)</div>
+  <div class="card">
+    <ul>
+      <li><strong>Background Sync API:</strong> when device comes back online after being offline, SW fires <code>sync</code> event → re-validates qb_index.json via ETag.</li>
+      <li><strong>Periodic Background Sync:</strong> registered on Android Chrome with tag <code>qb-refresh</code> — SW wakes periodically (every ~24h) to silently revalidate the question index even when app is not open.</li>
+      <li><strong>iOS PWA limitation:</strong> neither Background Sync nor Periodic Sync are supported. The <code>visibilitychange</code> and <code>pageshow</code> handlers (bfcache fix) trigger re-init when the user returns to the app.</li>
+    </ul>
+  </div>
+
+  <h2 class="section-head">Service Worker cache contents</h2>
+  <p style="margin-bottom:12px;font-size:13px;">Cache name: <code>qb-pwa-v7</code> (single cache — bump version in <code>qb_pwa_sw.js</code> line 1 to bust on next deploy)</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Files</th><th>Strategy</th><th>Cached when</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="mono">qb_pwa.html<br>css/variables.css, css/reset.css<br>js/explanation.js<br>exams/manifest.json<br>exams/qb_index.json<br>assets/pwa-icon-180.png</td>
+          <td class="muted">Pre-cached at SW install</td>
+          <td class="muted">On first visit, during SW install event (<code>addAll(SHELL)</code>)</td>
+        </tr>
+        <tr>
+          <td class="mono">Worker sprite PNGs<br>(images/&lt;Subject&gt;/…/sprite.png)</td>
+          <td class="muted">Cache-first (lazy)</td>
+          <td class="muted">On first view of each question — grows as user browses. Never re-fetched (1-year max-age from Worker).</td>
+        </tr>
+        <tr>
+          <td class="mono">exams/real-*.json<br>exams/paper2-*.json</td>
+          <td class="muted">Network-first (lazy)</td>
+          <td class="muted">On first use (e.g. opening a CBT mock test). Falls back to cache when offline.</td>
+        </tr>
+        <tr>
+          <td class="mono">question_bank/**/*.png (fallback)</td>
+          <td class="muted">Cache-first (lazy)</td>
+          <td class="muted">Only if sprite rendering fails (image error). These are the original per-image PNGs from GitHub Pages.</td>
+        </tr>
+        <tr>
+          <td class="mono">Other static assets (HTML, JS, CSS)</td>
+          <td class="muted">Network-first → cache fallback</td>
+          <td class="muted">On first request</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="section-head">localStorage — all keys</h2>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Key</th><th>Type / Size</th><th>Contents</th><th>Set by</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="mono ls-key">qb_index_cache_v1</td>
+          <td><code class="ls-type">Object, ~2.6 MB</code></td>
+          <td class="muted"><code>{ v: 1, etag: "…", data: [3150 question objects] }</code> — warm start cache so the app renders instantly without waiting for the 2.6 MB fetch.</td>
+          <td class="muted">qb_pwa.html</td>
+        </tr>
+        <tr>
+          <td class="mono ls-key">tet_understood_questions</td>
+          <td><code class="ls-type">Array of strings</code></td>
+          <td class="muted">JSON array of <code>questionImage</code> paths the user has marked as understood. Used to compute progress counts.</td>
+          <td class="muted">qb_pwa.html</td>
+        </tr>
+        <tr>
+          <td class="mono ls-key">tet_revision_questions</td>
+          <td><code class="ls-type">Array of objects</code></td>
+          <td class="muted">JSON array of <code>{ examId, examTitle, q: questionObject }</code> — questions marked for review. The full question object is stored so the revision view can render without fetching.</td>
+          <td class="muted">qb_pwa.html</td>
+        </tr>
+        <tr>
+          <td class="mono ls-key">ai_exp_persist:&lt;folder&gt;</td>
+          <td><code class="ls-type">HTML string, ~2–8 kB</code></td>
+          <td class="muted">Gemini-generated explanation HTML for one question. Key suffix is the question folder name (e.g. <code>2024-May-20-Shift1_Q001_715053766</code>). One key per question with a cached explanation.</td>
+          <td class="muted">qb_pwa.html</td>
+        </tr>
+        <tr>
+          <td class="mono ls-key">r2_exp:&lt;folder&gt;</td>
+          <td><code class="ls-type">Object, ~2–10 kB</code></td>
+          <td class="muted">Full R2 explanation doc: <code>{ schemaVersion, questionId, subject, explanations[…] }</code>. Avoids a Worker round-trip for already-fetched questions.</td>
+          <td class="muted">js/r2-explanations.js</td>
+        </tr>
+        <tr>
+          <td class="mono ls-key">r2_vote:&lt;folder&gt;</td>
+          <td><code class="ls-type">Small object</code></td>
+          <td class="muted"><code>{ expId: "…", vote: "liked" | null }</code> — user's current vote on the best explanation for each question. One key per question voted on.</td>
+          <td class="muted">js/r2-explanations.js</td>
+        </tr>
+        <tr>
+          <td class="mono ls-key">r2_exp_index</td>
+          <td><code class="ls-type">Array of strings</code></td>
+          <td class="muted">Cached list of question folder names that have at least one R2 explanation. Powers the ✨ counter without a Worker round-trip on warm start.</td>
+          <td class="muted">js/r2-explanations.js</td>
+        </tr>
+        <tr>
+          <td class="mono ls-key">qb_target_line_height_px</td>
+          <td><code class="ls-type">Number string</code></td>
+          <td class="muted">Font / image scaling preference (range 40–60 px, default 48). Persists the user's image size adjustment across sessions.</td>
+          <td class="muted">qb_pwa.html</td>
+        </tr>
+        <tr>
+          <td class="mono ls-key">cache_bust_v</td>
+          <td><code class="ls-type">String</code></td>
+          <td class="muted">Sentinel for the <code>CACHE_BUST</code> constant. If the value in localStorage doesn't match the hardcoded constant, all <code>ai_exp_persist:*</code> and the qb_index cache are wiped. Allows force-resetting stale clients on special pushes.</td>
+          <td class="muted">qb_pwa.html</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note warn">
+    <strong>Storage pressure:</strong> <code>qb_index_cache_v1</code> alone is ~2.6 MB. On top of that, each explanation cached via <code>ai_exp_persist:*</code> and <code>r2_exp:*</code> adds 2–10 kB. On iOS the localStorage quota is ~5 MB total — heavy use can hit this limit. A Task 5 subtask is to add an eviction policy for AI cache entries older than 30 days.
+  </div>
+
+  <h2 class="section-head">In-memory state during a session</h2>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Variable</th><th>Contents</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">qbank</td><td class="muted">Full array of all 3,150 question objects (loaded from qb_index.json or localStorage cache)</td></tr>
+        <tr><td class="mono">qbankFiltered</td><td class="muted">Subset of qbank matching the current subject filter + tab filter (All / To Read / In Review / Understood)</td></tr>
+        <tr><td class="mono">qbankIndex</td><td class="muted">Cursor into qbankFiltered — which question is currently displayed</td></tr>
+        <tr><td class="mono">understoodSet</td><td class="muted">Set of questionImage strings the user has marked understood (sync'd from localStorage)</td></tr>
+        <tr><td class="mono">revisionList</td><td class="muted">Array of question objects marked for review (sync'd from localStorage)</td></tr>
+        <tr><td class="mono">optionChoices</td><td class="muted">Map of questionImage → {picked, correctAnswer} for questions where the user tapped an option</td></tr>
+        <tr><td class="mono">_spriteCache</td><td class="muted">Map of questionImage → {question, option1…4} data URLs — canvas-decoded sprite pieces, keyed so they're not re-decoded on navigation</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!-- TAB: Components                                                         -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<div id="tab-components" class="tab-content">
+<div class="page-body">
+  <h2 class="section-head">Frontend — User-facing HTML</h2>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>File</th><th>Purpose</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="mono">qb_pwa.html</td>
+          <td class="muted"><strong style="color:#24292f;">★ Primary.</strong> Self-contained monolith (~2000 lines, CSS inline). Installable mobile PWA. Subject filter chips (All/CDP/Telugu/English/Maths/Science), tab filters (All/To Read/In Review/Understood), per-question mark-for-review and mark-as-understood FABs, progress counter, AI explanation panel, sprite canvas rendering, background auto-update banner, offline support via SW.</td>
+          <td><span class="badge b-blue">Primary focus</span></td>
+        </tr>
+        <tr>
+          <td class="mono">exam.html</td>
+          <td class="muted">Pixel-faithful NTA CBT replica. Full countdown timer, 30-question palette per section, section switcher, save &amp; mark for review, final submit confirmation. Reads any exam JSON from <code>exams/</code>. Session in sessionStorage; result written to localStorage on submit.</td>
+          <td><span class="badge b-grey">Secondary</span></td>
+        </tr>
+        <tr>
+          <td class="mono">index.html</td>
+          <td class="muted">Home page. Reads <code>exams/manifest.json</code>, renders one card per exam. Clicking a card → instructions.html.</td>
+          <td><span class="badge b-grey">Secondary</span></td>
+        </tr>
+        <tr>
+          <td class="mono">result.html</td>
+          <td class="muted">Post-exam score page. Reads result object from localStorage, renders total/section scores, and a scrollable per-question review panel with correct/wrong indicators.</td>
+          <td><span class="badge b-grey">Secondary</span></td>
+        </tr>
+        <tr>
+          <td class="mono">questionbank.html<br>revision.html</td>
+          <td class="muted">Legacy desktop question bank and flashcard review. Superseded by the PWA. Kept but not actively developed.</td>
+          <td><span class="badge b-red">Legacy</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="section-head">JavaScript modules</h2>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>File</th><th>Exposes</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="mono">qb_pwa_sw.js</td>
+          <td class="muted">Service Worker global</td>
+          <td class="muted">Cache management (single cache <code>qb-pwa-v7</code>), stale-while-revalidate for qb_index.json, cache-first for images, network-first for other JSON, Background Sync, Periodic Background Sync, client message on activation.</td>
+        </tr>
+        <tr>
+          <td class="mono">js/r2-explanations.js</td>
+          <td class="muted"><code>window.R2Explanations</code></td>
+          <td class="muted">Talks to the Worker API. Methods: <code>fetchExplanations(questionImage)</code>, <code>saveExplanation(questionImage, html, model)</code>, <code>vote(questionImage, expId, action)</code>, <code>fetchIndex()</code>. All results cached in localStorage to minimise Worker calls.</td>
+        </tr>
+        <tr>
+          <td class="mono">js/explanation.js</td>
+          <td class="muted"><code>window.ExplanationModal</code></td>
+          <td class="muted">Explanation modal UI. Orchestrates the load order: localStorage → R2 → AI generate. Renders explanation HTML, like/dislike buttons, regenerate button. Used by both qb_pwa.html and legacy questionbank.html.</td>
+        </tr>
+        <tr>
+          <td class="mono">js/firebase-ai.js</td>
+          <td class="muted"><code>window.FirebaseAI</code></td>
+          <td class="muted">Calls Gemini 2.5 Flash via the Firebase AI (Vertex AI) SDK. Takes a question image URL + correct answer, returns an HTML string explanation suitable for direct innerHTML injection.</td>
+        </tr>
+        <tr>
+          <td class="mono">js/state.js</td>
+          <td class="muted"><code>window.ExamState</code></td>
+          <td class="muted">Singleton for the CBT session. Tracks answers (<code>answers[]</code>), marks (<code>markedForReview[]</code>), visit order, time spent per question. Serialised to sessionStorage on every change.</td>
+        </tr>
+        <tr>
+          <td class="mono">js/timer.js</td>
+          <td class="muted"><code>window.ExamTimer</code></td>
+          <td class="muted">Drift-resistant countdown. Uses <code>Date.now()</code> delta on each tick rather than accumulated <code>setInterval</code> drift. Fires a callback on expiry.</td>
+        </tr>
+        <tr>
+          <td class="mono">js/palette.js</td>
+          <td class="muted"><code>window.PaletteRenderer</code></td>
+          <td class="muted">Renders the 5×6 question palette grid. Each cell is coloured by status (not-visited grey, not-answered red, answered green, marked purple, answered+marked purple+dot). Updates on every state change.</td>
+        </tr>
+        <tr>
+          <td class="mono">js/question.js</td>
+          <td class="muted"><code>window.QuestionRenderer</code></td>
+          <td class="muted">Renders question text/image and 4 option images or text. Handles the two question modes: image-based (question_bank PNGs) and text-based (mock tests).</td>
+        </tr>
+        <tr>
+          <td class="mono">js/exam.js</td>
+          <td class="muted">(main controller)</td>
+          <td class="muted">Wires ExamState, ExamTimer, PaletteRenderer, QuestionRenderer together. Handles navigation, option selection, save, mark, section switch, submit flow.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="section-head">Data files</h2>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>File</th><th>Size</th><th>Structure &amp; purpose</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="mono">exams/qb_index.json</td>
+          <td class="muted">2.6 MB</td>
+          <td class="muted">Flat JSON array of 3,150 question objects. Each: <code>{ questionImage, optionImages[], optionsInQuestion, questionType, correctAnswer, sectionId, globalIndex, examId, examTitle, spriteUrl, sprite: { question:{y,h,w}, option1–4:{y,h,w} } }</code>. Generated by <code>build_qb_index.py</code>.</td>
+        </tr>
+        <tr>
+          <td class="mono">exams/manifest.json</td>
+          <td class="muted">~8 kB</td>
+          <td class="muted">Catalogue of all 26 exams. Each entry: <code>{ id, title, type, date, totalQuestions }</code>. <code>type = "Real Paper"</code> triggers inclusion in qb_index. Read by index.html and build scripts.</td>
+        </tr>
+        <tr>
+          <td class="mono">exams/real-*.json × 21</td>
+          <td class="muted">~220 kB each</td>
+          <td class="muted">Full exam JSON. Schema: <code>{ id, title, totalMarks, marksPerQuestion, negativeMarking, duration, sections[], questions[] }</code>. Generated from <code>question_bank/questions.json</code> by <code>build_real_exams.py</code>.</td>
+        </tr>
+        <tr>
+          <td class="mono">question_bank/questions.json</td>
+          <td class="muted">~1.5 MB</td>
+          <td class="muted">Master index keyed by subject: <code>{ "CDP": [{q_num, q_id, subject, paper, correct_answer, options_in_question_image, question, options[]}], "English": […], … }</code>. The authoritative source for correct answers — all exam JSONs regenerated from this.</td>
+        </tr>
+        <tr>
+          <td class="mono">question_bank/&lt;Subject&gt;/&lt;folder&gt;/metadata.json</td>
+          <td class="muted">~100 B each</td>
+          <td class="muted"><code>{ q_num, q_id, subject, correct_answer, paper_id, year, month, day, shift, date, is_comprehension, sprite: { question:{y,h,w}, option1–4:{y,h,w} } }</code>. The <code>sprite</code> key is written by <code>build_sprites.py</code>.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="section-head">Cloud: Worker API endpoints</h2>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Method</th><th>Path</th><th>Auth</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">GET</td><td class="mono">/images/:subject/:folder/:file</td><td><span class="badge b-green">Public</span></td><td class="muted">Serve sprite PNG from R2. <code>Cache-Control: immutable, 1 year</code>.</td></tr>
+        <tr><td class="mono">GET</td><td class="mono">/explanations/:subject/:folder</td><td><span class="badge b-green">Public</span></td><td class="muted">Fetch all explanations for a question. Returns <code>{ schemaVersion, questionId, subject, explanations[] }</code>.</td></tr>
+        <tr><td class="mono">POST</td><td class="mono">/explanations/:subject/:folder</td><td><span class="badge b-red">Bearer</span></td><td class="muted">Save a new explanation. Body: <code>{ html, model }</code>. Returns the created explanation object (201).</td></tr>
+        <tr><td class="mono">PATCH</td><td class="mono">/explanations/:subject/:folder/:expId</td><td><span class="badge b-red">Bearer</span></td><td class="muted">Update like/dislike. Body: <code>{ action: "like"|"unlike"|"dislike"|"undislike" }</code>.</td></tr>
+        <tr><td class="mono">DELETE</td><td class="mono">/explanations/:subject/:folder/:expId</td><td><span class="badge b-red">Bearer</span></td><td class="muted">Remove one explanation.</td></tr>
+        <tr><td class="mono">GET</td><td class="mono">/index</td><td><span class="badge b-green">Public</span></td><td class="muted">Returns <code>{ questionIds: ["folder1", …] }</code> — all questions with at least one explanation.</td></tr>
+        <tr><td class="mono">POST</td><td class="mono">/index</td><td><span class="badge b-red">Bearer</span></td><td class="muted">Add a questionId to the index. Body: <code>{ questionId }</code>.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!-- TAB: Data Flows                                                         -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<div id="tab-flows" class="tab-content">
+<div class="page-body">
+  <h2 class="section-head">1 — PWA startup flow</h2>
+  <div class="card">
+    <div class="flow-chain">
+      <span class="flow-node">User opens qb_pwa.html</span>
+    </div>
+    <div class="flow-chain" style="margin-left:20px;">
+      <span class="flow-node">Check localStorage <code>cache_bust_v</code></span><span class="flow-arr">→</span>
+      <span class="flow-node">if mismatch: wipe qb_index_cache_v1 + ai_exp_persist:* keys</span>
+    </div>
+    <div class="flow-chain" style="margin-left:20px;">
+      <span class="flow-node">Read <code>qb_index_cache_v1</code> from localStorage</span><span class="flow-arr">→</span>
+      <span class="flow-node">if valid: render immediately (warm)</span>
+    </div>
+    <div class="flow-chain" style="margin-left:20px;">
+      <span class="flow-node">fetch qb_index.json (via SW stale-while-revalidate)</span><span class="flow-arr">→</span>
+      <span class="flow-node">if newer: update localStorage cache + show update banner</span>
+    </div>
+    <div class="flow-chain" style="margin-left:20px;">
+      <span class="flow-node">applyFilters()</span><span class="flow-arr">→</span>
+      <span class="flow-node">renderCurrent()</span><span class="flow-arr">→</span>
+      <span class="flow-node">_loadSpritePieces(item)</span>
+    </div>
+    <div class="flow-chain" style="margin-left:20px;">
+      <span class="flow-node">R2 Worker GET /index</span><span class="flow-arr">→</span>
+      <span class="flow-node">populate _indexSet → ✨ counter</span>
+    </div>
+  </div>
+
+  <h2 class="section-head">2 — Sprite rendering</h2>
+  <div class="card">
+    <p style="margin-bottom:10px;font-size:13px;">Each question in qb_index.json has a <code>spriteUrl</code> and <code>sprite</code> coords object. Instead of loading 5 separate images (question + 4 options), only 1 sprite PNG is fetched and split on a canvas.</p>
+    <div class="flow-chain">
+      <span class="flow-node">item.spriteUrl + item.sprite</span>
+    </div>
+    <div class="flow-chain">
+      <span class="flow-node">new Image(); img.crossOrigin = 'anonymous'</span><span class="flow-arr">→</span>
+      <span class="flow-node">img.src = spriteUrl</span><span class="flow-arr">→</span>
+      <span class="flow-node">SW / R2 Worker</span>
+    </div>
+    <div class="flow-chain">
+      <span class="flow-node">img.onload</span><span class="flow-arr">→</span>
+      <span class="flow-node">for each key in sprite: canvas.drawImage(img, 0, y, w, h, 0, 0, w, h)</span>
+    </div>
+    <div class="flow-chain">
+      <span class="flow-node">canvas.toDataURL() per piece</span><span class="flow-arr">→</span>
+      <span class="flow-node">_spriteCache.set(questionImage, pieces)</span>
+    </div>
+    <div class="flow-chain">
+      <span class="flow-node">pieces.question → &lt;img#pwa-qimg src&gt;</span>
+      &nbsp;&nbsp;
+      <span class="flow-node">pieces.option1–4 → option &lt;img&gt;</span>
+    </div>
+    <p class="flow-note">Fallback path: if spriteUrl absent or img.onerror fires → use original questionImage and optionImages paths from GitHub Pages (question_bank/**/*.png).</p>
+    <p class="flow-note">Sprite compression: 4-colour palette PNG (Pillow ADAPTIVE) + optipng -o2. Combined sprite is typically 15–30% smaller than the sum of individual images.</p>
+  </div>
+
+  <h2 class="section-head">3 — AI explanation load order</h2>
+  <div class="card">
+    <p style="margin-bottom:10px;font-size:13px;">When the user taps "Explain with AI", the ExplanationModal tries sources in priority order:</p>
+    <div class="flow-chain"><span class="flow-node" style="background:#dafbe1;">1. localStorage <code>ai_exp_persist:&lt;folder&gt;</code></span><span class="flow-arr">→</span><span class="flow-node">instant display if cached (no network)</span></div>
+    <div class="flow-chain"><span class="flow-node" style="background:#ddf4ff;">2. R2 via Worker <code>GET /explanations/:subject/:folder</code></span><span class="flow-arr">→</span><span class="flow-node">best explanation (highest likes−dislikes)</span></div>
+    <div class="flow-chain"><span class="flow-node" style="background:#fff8c5;">3. Generate via Gemini 2.5 Flash (Firebase AI SDK)</span><span class="flow-arr">→</span><span class="flow-node">returns HTML string</span></div>
+    <div class="flow-chain" style="margin-left:20px;"><span class="flow-node">POST to Worker → R2</span><span class="flow-arr">+</span><span class="flow-node">POST /index to register questionId</span><span class="flow-arr">+</span><span class="flow-node">cache in localStorage</span></div>
+    <div class="flow-chain"><span class="flow-node">4. "No explanation yet" message</span><span class="flow-arr">(</span><span class="flow-node">if all above fail</span><span class="flow-arr">)</span></div>
+    <p class="flow-note">Like/Dislike: PATCH /explanations/…/:expId with action = like | unlike | dislike | undislike. New best explanation (highest net score, then most recent) shown on next open.</p>
+  </div>
+
+  <h2 class="section-head">4 — Progress tracking</h2>
+  <div class="card">
+    <p style="margin-bottom:10px;font-size:13px;">All progress is device-local (localStorage only). The PWA computes counts on every render from the in-memory sets.</p>
+    <div class="flow-chain">
+      <span class="flow-node">Mark understood (FAB tap)</span><span class="flow-arr">→</span>
+      <span class="flow-node">add to <code>understoodSet</code></span><span class="flow-arr">→</span>
+      <span class="flow-node">saveUnderstoodSet → localStorage</span><span class="flow-arr">→</span>
+      <span class="flow-node">updateHeaderProgress()</span>
+    </div>
+    <div class="flow-chain">
+      <span class="flow-node">Mark for review (FAB tap)</span><span class="flow-arr">→</span>
+      <span class="flow-node">push to <code>revisionList</code></span><span class="flow-arr">→</span>
+      <span class="flow-node">saveRevisionList → localStorage</span><span class="flow-arr">→</span>
+      <span class="flow-node">updateHeaderProgress()</span>
+    </div>
+    <p class="flow-note">Progress counter = questions where (questionImage in understoodSet) OR (questionImage in revisionList), scoped to current filter. Chip counts similarly scoped.</p>
+  </div>
+
+  <h2 class="section-head">5 — CBT exam flow (exam.html)</h2>
+  <div class="card">
+    <div class="flow-chain">
+      <span class="flow-node">index.html</span><span class="flow-arr">→</span>
+      <span class="flow-node">instructions.html (checkbox gate, init ExamState)</span><span class="flow-arr">→</span>
+      <span class="flow-node">exam.html</span>
+    </div>
+    <div class="flow-chain" style="margin-left:20px;">
+      <span class="flow-node">fetch exams/&lt;id&gt;.json</span><span class="flow-arr">→</span>
+      <span class="flow-node">ExamState.init(examData)</span><span class="flow-arr">→</span>
+      <span class="flow-node">ExamTimer.start(duration)</span>
+    </div>
+    <div class="flow-chain" style="margin-left:20px;">
+      <span class="flow-node">User navigates / answers / marks</span><span class="flow-arr">→</span>
+      <span class="flow-node">state updates → palette re-renders</span>
+    </div>
+    <div class="flow-chain" style="margin-left:20px;">
+      <span class="flow-node">Submit / time-up</span><span class="flow-arr">→</span>
+      <span class="flow-node">compute score per section</span><span class="flow-arr">→</span>
+      <span class="flow-node">write result to localStorage</span><span class="flow-arr">→</span>
+      <span class="flow-node">redirect to result.html</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!-- TAB: Build Pipeline                                                     -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<div id="tab-pipeline" class="tab-content">
+<div class="page-body">
+  <h2 class="section-head">Pipeline A — New real-paper image data from coworker</h2>
+  <div class="note">Run all steps in order. Steps 2–5 must always run together; partial runs will leave the index out of sync with the exam JSONs.</div>
+
+  <div class="pipeline" style="margin-top:14px;">
+    <div class="pl-step">
+      <div class="pl-left"><div class="pl-dot"></div><div class="pl-line"></div></div>
+      <div class="pl-body">
+        <h4>Step 1 — Sync question_bank from coworker machine</h4>
+        <code class="cmd">rsync -av --delete "/mnt/c/Users/ymano/Universe/coworker/TET Preparation/question_bank/" /home/yadman/mock-tet/question_bank/</code>
+        <p>Copies question/option PNGs, metadata.json files, questions.json, index.csv from Windows via WSL. <code>--delete</code> removes anything no longer on source. Run on WSL.</p>
+      </div>
+    </div>
+    <div class="pl-step">
+      <div class="pl-left"><div class="pl-dot"></div><div class="pl-line"></div></div>
+      <div class="pl-body">
+        <h4>Step 2 — Regenerate all real-paper exam JSONs</h4>
+        <code class="cmd">python3 scripts/build_real_exams.py</code>
+        <p>Reads <code>question_bank/questions.json</code> (single source of truth for answers) → writes/overwrites all 21 <code>exams/real-*.json</code> → updates <code>exams/manifest.json</code>. Must regenerate ALL every sync, not just new papers — if the coworker corrected an answer, the old exam JSON will silently diverge otherwise. Section order: CDP → Telugu → English → Mathematics → Science. Also calls build_qb_index.py at the end.</p>
+      </div>
+    </div>
+    <div class="pl-step">
+      <div class="pl-left"><div class="pl-dot g"></div><div class="pl-line"></div></div>
+      <div class="pl-body">
+        <h4>Step 3 — Build sprite PNGs (skip existing unless <code>--force</code>)</h4>
+        <code class="cmd">python3 scripts/build_sprites.py</code>
+        <p>For each question folder: stacks question.png + option1–4.png vertically into a single PNG. Converts to 4-colour palette (Pillow ADAPTIVE, same depth as source). Compresses with optipng -o2. Writes sprite.png and patches metadata.json with sprite coords. Skips folders with existing sprite.png. Use <code>--subject CDP</code> or <code>--paper 2026-Jan-03-Shift1</code> to scope. Requires <code>Pillow</code> and <code>optipng</code>.</p>
+      </div>
+    </div>
+    <div class="pl-step">
+      <div class="pl-left"><div class="pl-dot g"></div><div class="pl-line"></div></div>
+      <div class="pl-body">
+        <h4>Step 4 — Upload sprites to R2 <span style="color:#bf8700;">(requires wrangler login)</span></h4>
+        <code class="cmd">python3 scripts/upload_sprites.py</code>
+        <p>Calls <code>wrangler r2 object put tet-questionbank-explanations/images/&lt;Subject&gt;/&lt;folder&gt;/sprite.png</code> for every sprite.png. Runs 12 uploads in parallel via ThreadPoolExecutor. Use <code>--subject CDP</code> to scope; <code>--dry-run</code> to preview without uploading. wrangler binary is at <code>worker/node_modules/.bin/wrangler</code>; run from <code>worker/</code> directory. Re-auth if needed: <code>cd worker &amp;&amp; npx wrangler login</code>.</p>
+      </div>
+    </div>
+    <div class="pl-step">
+      <div class="pl-left"><div class="pl-dot"></div><div class="pl-line"></div></div>
+      <div class="pl-body">
+        <h4>Step 5 — Rebuild the PWA question index</h4>
+        <code class="cmd">python3 scripts/build_qb_index.py</code>
+        <p>Reads all <code>"type": "Real Paper"</code> entries from manifest.json → flattens all questions → dedupes on questionImage → enriches each entry with spriteUrl and sprite coords from metadata.json → writes <code>exams/qb_index.json</code>. Already called automatically by step 2; re-run explicitly after step 3 if sprite coords changed.</p>
+      </div>
+    </div>
+    <div class="pl-step">
+      <div class="pl-left"><div class="pl-dot y"></div><div class="pl-line"></div></div>
+      <div class="pl-body">
+        <h4>Step 6 — Deploy Worker (only if worker/src/index.js changed)</h4>
+        <code class="cmd">cd worker &amp;&amp; npx wrangler deploy</code>
+        <p>Pushes Worker code to Cloudflare. Required only on Worker code changes. Git push does NOT deploy the Worker. Currently pending: <code>GET /images/</code> endpoint for sprite serving (added in last session, not yet live).</p>
+      </div>
+    </div>
+    <div class="pl-step">
+      <div class="pl-left"><div class="pl-dot"></div></div>
+      <div class="pl-body">
+        <h4>Step 7 — Commit &amp; push to GitHub</h4>
+        <code class="cmd">git add exams/ question_bank/ qb_pwa.html scripts/ worker/ &amp;&amp; git commit -m "..." &amp;&amp; git push</code>
+        <p>GitHub Actions auto-deploys to Pages. Include: updated exam JSONs, qb_index.json, metadata.json files (with sprite coords), any HTML/JS changes. Do NOT include sprite.png files (they're gitignored and live in R2 only). Always update <code>change_history.md</code> and bump APP_VERSION in qb_pwa.html before committing.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="section-head" style="margin-top:28px;">Pipeline B — New text-based mock test</h2>
+  <div class="note success">This pipeline does not touch question_bank/ or sprites.</div>
+  <div class="pipeline" style="margin-top:14px;">
+    <div class="pl-step">
+      <div class="pl-left"><div class="pl-dot"></div><div class="pl-line"></div></div>
+      <div class="pl-body">
+        <h4>Option A — Use Claude Code skill (automatic)</h4>
+        <code class="cmd">/create-mock-test</code>
+        <p>Auto-invoked when asked to "create a test" / "new mock test". The skill contains the complete syllabus, JSON schema, and generation steps. Generates the raw text files and assembles the final exam JSON end-to-end.</p>
+      </div>
+    </div>
+    <div class="pl-step">
+      <div class="pl-left"><div class="pl-dot"></div></div>
+      <div class="pl-body">
+        <h4>Option B — Manual</h4>
+        <code class="cmd">python3 scripts/build_exam.py &lt;exam-id&gt;</code>
+        <p>Create <code>exams/_raw/&lt;exam-id&gt;/meta.txt</code> and one .txt per section. Script reads raw files → writes <code>exams/&lt;exam-id&gt;.json</code> → updates manifest.json → calls build_qb_index.py (but only Real Paper entries appear in the index).</p>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="section-head" style="margin-top:28px;">Mandatory rules on every commit</h2>
+  <div class="two-col">
+    <div class="card">
+      <h3>1. Bump APP_VERSION in qb_pwa.html</h3>
+      <p>Defined as a JS constant at the top of the <code>&lt;script&gt;</code> block. Current: <code>v0.1.2</code>.<br><br>Patch bump (0.0.x → 0.0.x+1): minor changes.<br>Minor bump (0.x.0 → 0.x+1.0): major features.</p>
+    </div>
+    <div class="card">
+      <h3>2. Prepend entry to change_history.md</h3>
+      <p>Format (newest first at top):<br><code>- YYYY-MM-DD HH:MM | vX.X.X | major|minor | one-line summary</code><br><br>Every commit must include this update.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!-- TAB: Tests                                                              -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<div id="tab-tests" class="tab-content">
+<div class="page-body">
+  <h2 class="section-head">E2E Tests — Playwright</h2>
+
+  <div class="note success">
+    <strong>15 / 15 tests passing.</strong> Run: <code>npm test</code> (from repo root).
+  </div>
+  <div class="note">
+    <strong>Infrastructure:</strong> <code>@playwright/test v1.61.0-alpha-2026-06-02</code> (alpha required for Ubuntu 26.04 support).
+    Chromium only. The <code>pretest</code> hook auto-extracts <code>libnspr4</code> + <code>libnss3</code> into <code>/tmp/pw-libs</code> on first run after a reboot (no root needed — uses <code>apt-get download</code> + <code>dpkg -x</code>). Tests run at port 8085 with an auto-started HTTP server (<code>python3 -m http.server 8085</code>). Service Workers are blocked (<code>serviceWorkers: 'block'</code>).
+    <br><strong>Never run <code>npx playwright test</code> directly</strong> — the <code>LD_LIBRARY_PATH</code> is only set through npm scripts.
+  </div>
+
+  <div class="sub-head">How tests mock the app</div>
+  <div class="card" style="margin-bottom:16px;">
+    <ul>
+      <li><strong>qb_index.json</strong> — intercepted; returns 8 fake questions (3 CDP, 3 Mathematics, 2 Science), each with <code>spriteUrl</code> + <code>sprite</code> coords.</li>
+      <li><strong>manifest.json</strong> — intercepted; returns empty papers array.</li>
+      <li><strong>Cloudflare Worker (<code>**tet-qb-worker**</code>)</strong> — intercepted by URL pattern. <code>/images/</code> requests return a 1×1 blank PNG (so sprite canvas path is exercised, not just the error fallback). All other Worker requests return empty JSON.</li>
+      <li><strong>question_bank/**</strong> — intercepted; returns a 1×1 blank PNG (fallback image path).</li>
+      <li><strong>localStorage seeding</strong> — done via <code>page.addInitScript()</code> before page scripts run, so the app boots with pre-populated understood/revision data.</li>
+    </ul>
+  </div>
+
+  <div class="test-suite">
+    <div class="test-suite-name">Suite 1 — Subject filter: progress count (4 tests)</div>
+    <div class="test-item"><span class="test-pass">✓</span><span class="test-desc">All subjects: shows 0 / 8 on clean load</span></div>
+    <div class="test-item"><span class="test-pass">✓</span><span class="test-desc">CDP filter: scopes total to 3</span><span class="test-note">— 3 CDP questions in mock data</span></div>
+    <div class="test-item"><span class="test-pass">✓</span><span class="test-desc">Mathematics filter: scopes total to 3</span></div>
+    <div class="test-item"><span class="test-pass">✓</span><span class="test-desc">Science filter: scopes total to 2</span></div>
+  </div>
+
+  <div class="test-suite">
+    <div class="test-suite-name">Suite 2 — Flipping subjects (1 test)</div>
+    <div class="test-item"><span class="test-pass">✓</span><span class="test-desc">CDP → Science → Mathematics → All: progress count updates correctly every time</span></div>
+  </div>
+
+  <div class="test-suite">
+    <div class="test-suite-name">Suite 3 — Mark for review (4 tests)</div>
+    <div class="test-item"><span class="test-pass">✓</span><span class="test-desc">Marks Q1 and shows count badge on chip</span></div>
+    <div class="test-item"><span class="test-pass">✓</span><span class="test-desc">Toggling off (second tap) removes the badge</span></div>
+    <div class="test-item"><span class="test-pass">✓</span><span class="test-desc">Review counts toward scopedDone in progress counter</span></div>
+    <div class="test-item"><span class="test-pass">✓</span><span class="test-desc">Chip count is scoped: mark CDP Q1, switch to Mathematics — chip shows 0; switch back to CDP — chip shows 1</span></div>
+  </div>
+
+  <div class="test-suite">
+    <div class="test-suite-name">Suite 4 — Mark as understood (4 tests)</div>
+    <div class="test-item"><span class="test-pass">✓</span><span class="test-desc">Marks Q1 and shows count badge on chip</span></div>
+    <div class="test-item"><span class="test-pass">✓</span><span class="test-desc">Toggling off removes the badge</span></div>
+    <div class="test-item"><span class="test-pass">✓</span><span class="test-desc">Understood counts toward scopedDone</span></div>
+    <div class="test-item"><span class="test-pass">✓</span><span class="test-desc">Chip count scoped: mark CDP Q1, switch to Science — 0; switch back — 1</span></div>
+  </div>
+
+  <div class="test-suite">
+    <div class="test-suite-name">Suite 5 — Pre-seeded localStorage (2 tests)</div>
+    <div class="test-item"><span class="test-pass">✓</span><span class="test-desc">Seed CDP Q1 + Math Q1 as understood → All=2/8, CDP=1/3, Math=1/3, Science=0/2</span></div>
+    <div class="test-item"><span class="test-pass">✓</span><span class="test-desc">Seed CDP Q2 + Science Q1 as in-review → All=2/8, CDP=1/3, Math=0/3, Science=1/2</span></div>
+  </div>
+
+  <h2 class="section-head">What is NOT tested</h2>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Area</th><th>Why not covered</th></tr></thead>
+      <tbody>
+        <tr><td class="muted">Explanation modal / AI generation</td><td class="muted">Requires Firebase credentials + real Worker — fully mocked away</td></tr>
+        <tr><td class="muted">Service Worker caching behaviour</td><td class="muted">SW is blocked in Playwright config (<code>serviceWorkers: 'block'</code>)</td></tr>
+        <tr><td class="muted">Answer selection &amp; option reveal</td><td class="muted">Not yet written</td></tr>
+        <tr><td class="muted">PWA install / background sync</td><td class="muted">Not supported in headless Chromium</td></tr>
+        <tr><td class="muted">exam.html CBT interface</td><td class="muted">No tests written for that page</td></tr>
+        <tr><td class="muted">Sprite canvas pixel output</td><td class="muted">Canvas rendering verified to work but pixel content not asserted</td></tr>
+        <tr><td class="muted">localStorage overflow / eviction</td><td class="muted">Not tested; known risk on iOS 5 MB limit</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!-- TAB: Tasks                                                              -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<div id="tab-tasks" class="tab-content">
+<div class="page-body">
+  <h2 class="section-head">Task Backlog</h2>
+  <div class="note">Tasks are not started without explicit instruction. Each task has a list of blockers/decisions that must be resolved before implementation begins.</div>
+
+  <div class="task-item" style="border-left: 3px solid #1f883d;">
+    <div class="task-header">
+      <h4>Task 4 — PWA Background Auto-Update</h4>
+      <span class="badge b-green p-done">Complete</span>
+    </div>
+    <p>SW stale-while-revalidate for qb_index.json, Background Sync on reconnect, Periodic Background Sync (Android), "App update available" banner, app-updated toast. Completed 2026-05-27 (commit f68a0bb6).</p>
+  </div>
+
+  <div class="task-item" style="border-left: 3px solid #cf222e;">
+    <div class="task-header">
+      <h4>Task 7 — Multi-TET Data Ingestion Pipeline</h4>
+      <span class="badge b-red">High priority</span>
+      <span class="badge b-grey">Pending</span>
+    </div>
+    <p>Generalised pipeline for ~120+ new papers spanning CTET, TGTET, APTET, KTET. Each TET has different section structure and question counts. Requires: <code>tet_type</code> field throughout schema, section config file per TET type, language slot generalisation (currently hardcoded as Telugu), R2 key namespace update, frontend TET selector. Blockers: PDF-to-PNG crop strategy, section spec per TET type.</p>
+  </div>
+
+  <div class="task-item" style="border-left: 3px solid #bf8700;">
+    <div class="task-header">
+      <h4>Task 5 — Frontend, Network &amp; Performance Simplification</h4>
+      <span class="badge b-yellow">Medium priority</span>
+      <span class="badge b-grey">Pending</span>
+    </div>
+    <p>Holistic audit pass: Brotli compression for qb_index.json, localStorage eviction policy (AI cache entries &gt;30 days), cookie audit, Lighthouse baseline, Worker Cache-Control headers. Code cleanup: remove legacy questionbank.html/revision.html if unused. Blocked on Task 6 resolution — if DeepSeek fully replaces Gemini, Firebase can be dropped entirely (significant simplification).</p>
+  </div>
+
+  <div class="task-item" style="border-left: 3px solid #bf8700;">
+    <div class="task-header">
+      <h4>Task 6 — Bulk Explanation Generation (Multi-Model)</h4>
+      <span class="badge b-yellow">Medium priority</span>
+      <span class="badge b-grey">Pending</span>
+    </div>
+    <p>Pre-generate AI explanations for all 3,150 questions. Integrate DeepSeek as primary model (cheaper, better at STEM than Gemini). Write <code>scripts/generate_explanations.py</code> with resumability, rate limiting, <code>--model gemini|deepseek</code> flag. Add DeepSeek in-app call path. Blockers: DeepSeek API key, model choice (v3 chat vs v4 reasoning), prompt tuning for bilingual image questions.</p>
+  </div>
+
+  <div class="task-item">
+    <div class="task-header">
+      <h4>Task 1 — Multiplayer Quiz Game</h4>
+      <span class="badge b-grey">Pending</span>
+    </div>
+    <p>2-player Firebase Realtime Database quiz. Host creates room (room key), guest joins by entering key, both ready up, questions appear in sync. Mode A: 5-minute countdown; Mode B: N questions. Requires: Firebase room schema, host/guest flow, ready-up screen, synced question display, end screen with scores.</p>
+  </div>
+
+  <div class="task-item">
+    <div class="task-header">
+      <h4>Task 2 — AI Topic Tagging</h4>
+      <span class="badge b-grey">Pending</span>
+    </div>
+    <p>Classify all 3,150 questions into syllabus topics using Gemini Flash Lite. Script skeleton at <code>scripts/classify_topics.py</code> already exists. Write topic to each metadata.json, flow through build pipeline into qb_index.json, expose as a filter chip in the PWA.</p>
+  </div>
+
+  <div class="task-item">
+    <div class="task-header">
+      <h4>Task 3 — Native App (Capacitor)</h4>
+      <span class="badge b-grey">Pending</span>
+    </div>
+    <p>Package the PWA as iOS + Android native app via Capacitor (no HTML/JS rewrite). App Store + Play Console listing, GitHub Actions CI with Fastlane or EAS for build + submit. Requires handling the gitignored <code>firebase-config.js</code> in native builds.</p>
+  </div>
+
+  <div class="task-item">
+    <div class="task-header">
+      <h4>Task 8 — IE Irodov Sub-App</h4>
+      <span class="badge b-grey">Low priority</span>
+      <span class="badge b-grey">Pending</span>
+    </div>
+    <p>Crop Irodov physics problems from PDF into <code>question_bank/Irodov/</code>, build <code>irodov_index.json</code>, design open-ended problem card UI (not MCQ), bulk-generate AI step-by-step explanations. Fits as a non-TET entry in the app selector (Task 7 frontend). Blockers: PDF path/location, cropping strategy (Irodov problems span paragraphs with inline figures), no answer key in book.</p>
+  </div>
+
+</div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!-- TAB: PDF → Question Bank                                               -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<div id="tab-pdfqb" class="tab-content">
+<div class="page-body">
+  <h2 class="section-head">PDF → PWA — Ingestion Pipeline</h2>
+  <p style="font-size:13.5px;color:var(--ink-2);margin-bottom:24px;">Exact files going in and out at every step. Click any script to expand details.</p>
+
+  <div class="pf-pipeline">
+
+    <!-- ① SOURCE: PDF -->
+    <div class="pf-node pf-source">
+      <div class="pf-source-icon">📄</div>
+      <div>
+        <div class="pf-source-label">papers/2026-Jun-15-Shift1.pdf</div>
+        <div class="pf-source-sub">Answer-key PDF from NTA · naming: YYYY-Mon-DD-ShiftN.pdf · gitignored, never committed</div>
+      </div>
+    </div>
+
+    <div class="pf-arrow"><div class="pf-arrow-shaft"></div><div class="pf-arrow-head"></div></div>
+
+    <!-- ② SCRIPT: extract_questions.py -->
+    <div class="pf-node pf-script" onclick="this.classList.toggle('open')">
+      <div class="pf-script-head">
+        <span class="pf-script-badge">SCRIPT</span>
+        <div style="flex:1;min-width:0;">
+          <div class="pf-script-name">extract_questions.py</div>
+          <div class="pf-script-cmd">python3 scripts/extract_questions.py --pdf 2026-Jun-15-Shift1.pdf</div>
+          <div class="pf-script-desc">4-pass PDF parser · green-label answer detection · inline pngquant 4 + optipng compression · writes questions.json</div>
+        </div>
+        <span class="pf-script-chevron">▶</span>
+      </div>
+      <div class="pf-script-detail">
+        <div class="pf-detail-cols">
+          <div>
+            <div class="pf-detail-label">Reads</div>
+            <div class="pf-chips"><span class="pf-chip pf-chip-no">📄 papers/…pdf</span></div>
+            <div class="pf-detail-label" style="margin-top:12px;">Requires</div>
+            <p>pip install pymupdf pillow<br>sudo apt install pngquant optipng<br><em>(compression skipped silently if absent)</em></p>
+          </div>
+          <div>
+            <div class="pf-detail-label">4 passes</div>
+            <p><strong>Pre-scans:</strong> xref frequency map — filters watermarks, ad-page images, passage images.</p>
+            <p><strong>Pass 1:</strong> emits question-header / options-anchor / content-image / icon events, sorted page+y.</p>
+            <p><strong>Pass 2:</strong> assigns events to questions.</p>
+            <p><strong>Pass 3:</strong> correct answer — primary: green-coloured "1"/"2"/"3"/"4" label; fallback: green tick icon matched by Y.</p>
+            <p><strong>Pass 4:</strong> next-question boundary → prevents page-render fallback from bleeding.</p>
+            <p><strong>Save:</strong> write PNGs → compress inline → write metadata.json → merge into questions.json.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- fork shaft -->
+    <div class="pf-fork">
+      <div class="pf-fork-shaft"></div>
+      <div class="pf-fork-bar"></div>
+      <div class="pf-fork-heads">
+        <div class="pf-fork-drop"></div>
+        <div class="pf-fork-drop"></div>
+      </div>
+      <!-- two branches -->
+      <div class="pf-fork-branches">
+
+        <!-- Branch A: question_bank folders -->
+        <div class="pf-branch">
+          <div class="pf-artifact">
+            <div class="pf-artifact-head">
+              <span class="pf-artifact-icon">📁</span>
+              <div>
+                <div class="pf-artifact-title">question_bank/</div>
+                <div class="pf-artifact-sub">150 folders per PDF · 5 subjects × 30 questions</div>
+              </div>
+            </div>
+            <div style="font-size:12px;color:var(--ink-3);font-family:'JetBrains Mono',monospace;margin-bottom:8px;">
+              CDP/2026-Jun-15-Shift1_Q001_&lt;id&gt;/
+            </div>
+            <div class="pf-chips">
+              <span class="pf-chip pf-chip-png">🖼 question.png</span>
+              <span class="pf-chip pf-chip-png">🖼 option1.png</span>
+              <span class="pf-chip pf-chip-png">🖼 option2.png</span>
+              <span class="pf-chip pf-chip-png">🖼 option3.png</span>
+              <span class="pf-chip pf-chip-png">🖼 option4.png</span>
+              <span class="pf-chip pf-chip-json">📋 metadata.json</span>
+            </div>
+            <div class="pf-stats" style="margin-top:10px;">
+              <span class="pf-stat">pngquant 4 + optipng</span>
+              <span class="pf-stat">~1–3 kB / question.png</span>
+              <span class="pf-stat">~36 MB total (21 papers)</span>
+            </div>
+            <div style="margin-top:10px;">
+              <div style="font-size:11px;color:var(--ink-3);margin-bottom:4px;">metadata.json</div>
+              <div class="pf-code">{ "q_num":1, "q_id":"8657994132",
+  "subject":"CDP", "correct_answer":2,
+  "paper_id":"2026-Jun-15-Shift1",
+  "year":"2026","month":"Jun","shift":"1",
+  "is_comprehension":false,
+  "options_in_question_image":false }</div>
+            </div>
+          </div>
+          <div class="pf-branch-arrow"></div>
+          <!-- feeds git push -->
+          <div style="text-align:center;font-size:11px;color:var(--ink-3);padding:4px 0;">served by GitHub Pages</div>
+        </div>
+
+        <!-- Branch B: questions.json -->
+        <div class="pf-branch">
+          <div class="pf-artifact" style="border-color:#f0c040;background:#fffbea;">
+            <div class="pf-artifact-head">
+              <span class="pf-artifact-icon">📑</span>
+              <div>
+                <div class="pf-artifact-title">question_bank/questions.json</div>
+                <div class="pf-artifact-sub">master index · sole source of truth</div>
+              </div>
+            </div>
+            <div class="pf-chips">
+              <span class="pf-chip pf-chip-json-master">merged (--pdf) or rebuilt (all)</span>
+            </div>
+            <div class="pf-stats" style="margin-top:10px;">
+              <span class="pf-stat">keyed by subject</span>
+              <span class="pf-stat">3,150 entries (21 papers)</span>
+            </div>
+            <div style="margin-top:10px;">
+              <div style="font-size:11px;color:var(--ink-3);margin-bottom:4px;">per-entry schema</div>
+              <div class="pf-code">{ "q_num":1, "q_id":"715053766",
+  "subject":"CDP",
+  "paper":"2024-May-20-Shift1",
+  "correct_answer":3,
+  "is_comprehension":false,
+  "options_in_question_image":false,
+  "question":"question_bank/CDP/…/question.png",
+  "options":["…/option1.png",…] }</div>
+            </div>
+          </div>
+          <div class="pf-branch-arrow"></div>
+          <!-- feeds next script -->
+          <div style="text-align:center;font-size:11px;color:var(--ink-3);padding:4px 0;">feeds next step ↓</div>
+        </div>
+
+      </div><!-- end branches -->
+      <!-- join -->
+      <div class="pf-join-bar" style="margin-top:4px;"></div>
+      <div class="pf-join-shaft"></div>
+    </div>
+
+    <!-- ③ SCRIPT: build_qb_index.py -->
+    <div class="pf-node pf-script" onclick="this.classList.toggle('open')">
+      <div class="pf-script-head">
+        <span class="pf-script-badge">SCRIPT</span>
+        <div style="flex:1;min-width:0;">
+          <div class="pf-script-name">build_qb_index.py</div>
+          <div class="pf-script-cmd">python3 scripts/build_qb_index.py</div>
+          <div class="pf-script-desc">questions.json → flat PWA delivery array · derive sectionId / globalIndex / examTitle · deduplicate</div>
+        </div>
+        <span class="pf-script-chevron">▶</span>
+      </div>
+      <div class="pf-script-detail">
+        <div class="pf-detail-cols">
+          <div>
+            <div class="pf-detail-label">Reads</div>
+            <div class="pf-chips"><span class="pf-chip pf-chip-json-master">📑 question_bank/questions.json</span></div>
+            <div class="pf-detail-label" style="margin-top:12px;">Writes</div>
+            <div class="pf-chips"><span class="pf-chip pf-chip-json">⭐ exams/qb_index.json</span></div>
+            <p style="margin-top:8px;font-size:12px;">~1 second · self-contained · no manifest.json or real-*.json needed.</p>
+          </div>
+          <div>
+            <div class="pf-detail-label">Derived fields</div>
+            <p><code>sectionId</code> — lowercase subject key<br>
+               <code>globalIndex</code> — q_num − 1 (0-indexed)<br>
+               <code>examId</code> — "real-{paper}"<br>
+               <code>examTitle</code> — "20 May 2024 — Shift 1"<br>
+               <code>questionType</code> — "image" (always)<br>
+               <code>correctAnswer</code> — string "1"–"4" or null</p>
+            <div class="pf-detail-label" style="margin-top:10px;">Optional branch</div>
+            <p><code>build_real_exams.py</code> — generates <code>exams/real-*.json</code> for the CBT <code>exam.html</code> interface. Not needed for the PWA.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pf-arrow"><div class="pf-arrow-shaft"></div><div class="pf-arrow-head"></div></div>
+
+    <!-- ④ ARTIFACT: qb_index.json -->
+    <div class="pf-node pf-artifact-star">
+      <div class="pf-artifact-head">
+        <span class="pf-artifact-icon">⭐</span>
+        <div>
+          <div class="pf-artifact-title">exams/qb_index.json</div>
+          <div class="pf-artifact-sub">the only file the PWA fetches on cold start</div>
+        </div>
+      </div>
+      <div class="pf-stats">
+        <span class="pf-stat">3,150 entries</span>
+        <span class="pf-stat">1.75 MB</span>
+        <span class="pf-stat">flat array</span>
+        <span class="pf-stat">21 papers</span>
+      </div>
+      <div style="margin-top:12px;">
+        <div style="font-size:11px;color:var(--ink-3);margin-bottom:4px;">per-entry schema</div>
+        <div class="pf-code">{ "questionImage":  "question_bank/CDP/…/question.png",
+  "optionImages":   ["…/option1.png", … "…/option4.png"],
+  "optionsInQuestion": false,
+  "questionType":   "image",
+  "correctAnswer":  "3",         // string "1"–"4" or null
+  "sectionId":      "cdp",       // cdp|telugu|english|mathematics|science
+  "globalIndex":    0,           // 0–149, per-paper position
+  "examId":         "real-2024-May-20-Shift1",
+  "examTitle":      "20 May 2024 — Shift 1" }</div>
+      </div>
+    </div>
+
+    <div class="pf-arrow"><div class="pf-arrow-shaft"></div><div class="pf-arrow-head"></div></div>
+
+    <!-- ⑤ DEPLOY: git push -->
+    <div class="pf-node pf-deploy" onclick="this.classList.toggle('open')">
+      <div class="pf-script-head">
+        <span class="pf-script-badge">DEPLOY</span>
+        <div style="flex:1;min-width:0;">
+          <div class="pf-script-name">git commit + push → GitHub Pages</div>
+          <div class="pf-script-cmd">git add exams/qb_index.json question_bank/ &amp;&amp; git push origin main</div>
+          <div class="pf-script-desc">static files live within ~30 s · no build step</div>
+        </div>
+        <span class="pf-script-chevron">▶</span>
+      </div>
+      <div class="pf-script-detail">
+        <div class="pf-detail-cols">
+          <div>
+            <div class="pf-detail-label">Committed</div>
+            <div class="pf-chips" style="flex-direction:column;align-items:flex-start;">
+              <span class="pf-chip pf-chip-json">⭐ exams/qb_index.json</span>
+              <span class="pf-chip pf-chip-png">🖼 question_bank/**/*.png</span>
+              <span class="pf-chip pf-chip-json">📋 question_bank/**/metadata.json</span>
+              <span class="pf-chip pf-chip-json">📑 question_bank/questions.json</span>
+            </div>
+          </div>
+          <div>
+            <div class="pf-detail-label">Gitignored — never committed</div>
+            <div class="pf-chips" style="flex-direction:column;align-items:flex-start;">
+              <span class="pf-chip pf-chip-no">papers/*.pdf</span>
+              <span class="pf-chip pf-chip-no">js/firebase-config.js</span>
+            </div>
+            <div class="pf-detail-label" style="margin-top:12px;">Before pushing</div>
+            <p>Bump APP_VERSION in qb_pwa.html · prepend entry to change_history.md</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pf-arrow"><div class="pf-arrow-shaft"></div><div class="pf-arrow-head"></div></div>
+
+    <!-- ⑥ LIVE: PWA -->
+    <div class="pf-node pf-live">
+      <div style="display:flex;align-items:flex-start;gap:14px;">
+        <span style="font-size:26px;">📱</span>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:#5e2acf;margin-bottom:6px;">PWA — questions live</div>
+          <div style="font-size:12.5px;color:var(--ink-2);line-height:1.65;">
+            <strong>Cold start:</strong> fetch qb_index.json (1 request, 1.75 MB) → 3,150 questions in memory → render Q1 → cache in localStorage + SW.<br>
+            <strong>Returning user:</strong> qb_index.json from SW cache instantly → SW revalidates in background → if updated: <em>"App update available"</em> banner.<br>
+            <strong>Images:</strong> question + option PNGs fetched from GitHub Pages on demand; adjacent questions prefetched after render.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end pf-pipeline -->
+</div>
+</div>
+
+<!-- Tab switching script -->
+<script>
+function showTab(id) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function toggleStage(id) {
+  const body    = document.getElementById(id);
+  const detail  = document.getElementById(id + '-detail');
+  const isOpen  = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  if (detail) detail.classList.toggle('open', !isOpen);
+}
+</script>
+</body>
+</html>

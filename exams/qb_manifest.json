@@ -1,0 +1,678 @@
+{
+  "version": 1,
+  "generatedAt": "2026-06-04T06:51:44+00:00",
+  "tets": [
+    {
+      "tet_type": "TGTET",
+      "label": "TG TET",
+      "papers": [
+        {
+          "paper": "1",
+          "label": "Paper 1",
+          "streams": [
+            {
+              "tet_bank": "tgtet_paper1_bengali",
+              "stream": "Paper_1_Bengali",
+              "label": "Paper 1 · Bengali",
+              "language": "Bengali",
+              "sections": [
+                {
+                  "id": "cdp",
+                  "name": "CDP"
+                },
+                {
+                  "id": "bengali",
+                  "name": "Bengali"
+                },
+                {
+                  "id": "english",
+                  "name": "English"
+                },
+                {
+                  "id": "mathematics",
+                  "name": "Mathematics"
+                },
+                {
+                  "id": "evs",
+                  "name": "Environmental Studies"
+                }
+              ],
+              "paper_count": 4,
+              "question_count": 600,
+              "index": "exams/qb_index_tgtet_paper1_bengali.json"
+            },
+            {
+              "tet_bank": "tgtet_paper1_gujarati",
+              "stream": "Paper_1_Gujarati",
+              "label": "Paper 1 · Gujarati",
+              "language": "Gujarati",
+              "sections": [
+                {
+                  "id": "cdp",
+                  "name": "CDP"
+                },
+                {
+                  "id": "gujarati",
+                  "name": "Gujarati"
+                },
+                {
+                  "id": "english",
+                  "name": "English"
+                },
+                {
+                  "id": "mathematics",
+                  "name": "Mathematics"
+                },
+                {
+                  "id": "evs",
+                  "name": "Environmental Studies"
+                }
+              ],
+              "paper_count": 1,
+              "question_count": 150,
+              "index": "exams/qb_index_tgtet_paper1_gujarati.json"
+            },
+            {
+              "tet_bank": "tgtet_paper1_hindi",
+              "stream": "Paper_1_Hindi",
+              "label": "Paper 1 · Hindi",
+              "language": "Hindi",
+              "sections": [
+                {
+                  "id": "cdp",
+                  "name": "CDP"
+                },
+                {
+                  "id": "hindi",
+                  "name": "Hindi"
+                },
+                {
+                  "id": "english",
+                  "name": "English"
+                },
+                {
+                  "id": "mathematics",
+                  "name": "Mathematics"
+                },
+                {
+                  "id": "evs",
+                  "name": "Environmental Studies"
+                }
+              ],
+              "paper_count": 4,
+              "question_count": 600,
+              "index": "exams/qb_index_tgtet_paper1_hindi.json"
+            },
+            {
+              "tet_bank": "tgtet_paper1_kannada",
+              "stream": "Paper_1_Kannada",
+              "label": "Paper 1 · Kannada",
+              "language": "Kannada",
+              "sections": [
+                {
+                  "id": "cdp",
+                  "name": "CDP"
+                },
+                {
+                  "id": "kannada",
+                  "name": "Kannada"
+                },
+                {
+                  "id": "english",
+                  "name": "English"
+                },
+                {
+                  "id": "mathematics",
+                  "name": "Mathematics"
+                },
+                {
+                  "id": "evs",
+                  "name": "Environmental Studies"
+                }
+              ],
+              "paper_count": 3,
+              "question_count": 450,
+              "index": "exams/qb_index_tgtet_paper1_kannada.json"
+            },
+            {
+              "tet_bank": "tgtet_paper1_marathi",
+              "stream": "Paper_1_Marathi",
+              "label": "Paper 1 · Marathi",
+              "language": "Marathi",
+              "sections": [
+                {
+                  "id": "cdp",
+                  "name": "CDP"
+                },
+                {
+                  "id": "marathi",
+                  "name": "Marathi"
+                },
+                {
+                  "id": "english",
+                  "name": "English"
+                },
+                {
+                  "id": "mathematics",
+                  "name": "Mathematics"
+                },
+                {
+                  "id": "evs",
+                  "name": "Environmental Studies"
+                }
+              ],
+              "paper_count": 4,
+              "question_count": 599,
+              "index": "exams/qb_index_tgtet_paper1_marathi.json"
+            },
+            {
+              "tet_bank": "tgtet_paper1_tamil",
+              "stream": "Paper_1_Tamil",
+              "label": "Paper 1 · Tamil",
+              "language": "Tamil",
+              "sections": [
+                {
+                  "id": "cdp",
+                  "name": "CDP"
+                },
+                {
+                  "id": "tamil",
+                  "name": "Tamil"
+                },
+                {
+                  "id": "english",
+                  "name": "English"
+                },
+                {
+                  "id": "mathematics",
+                  "name": "Mathematics"
+                },
+                {
+                  "id": "evs",
+                  "name": "Environmental Studies"
+                }
+              ],
+              "paper_count": 4,
+              "question_count": 600,
+              "index": "exams/qb_index_tgtet_paper1_tamil.json"
+            },
+            {
+              "tet_bank": "tgtet_paper1_telugu",
+              "stream": "Paper_1_Telugu",
+              "label": "Paper 1 · Telugu",
+              "language": "Telugu",
+              "sections": [
+                {
+                  "id": "cdp",
+                  "name": "CDP"
+                },
+                {
+                  "id": "telugu",
+                  "name": "Telugu"
+                },
+                {
+                  "id": "english",
+                  "name": "English"
+                },
+                {
+                  "id": "mathematics",
+                  "name": "Mathematics"
+                },
+                {
+                  "id": "evs",
+                  "name": "Environmental Studies"
+                }
+              ],
+              "paper_count": 23,
+              "question_count": 3450,
+              "index": "exams/qb_index_tgtet_paper1_telugu.json"
+            },
+            {
+              "tet_bank": "tgtet_paper1_urdu",
+              "stream": "Paper_1_Urdu",
+              "label": "Paper 1 · Urdu",
+              "language": "Urdu",
+              "sections": [
+                {
+                  "id": "cdp",
+                  "name": "CDP"
+                },
+                {
+                  "id": "urdu",
+                  "name": "Urdu"
+                },
+                {
+                  "id": "english",
+                  "name": "English"
+                },
+                {
+                  "id": "mathematics",
+                  "name": "Mathematics"
+                },
+                {
+                  "id": "evs",
+                  "name": "Environmental Studies"
+                }
+              ],
+              "paper_count": 4,
+              "question_count": 600,
+              "index": "exams/qb_index_tgtet_paper1_urdu.json"
+            }
+          ]
+        },
+        {
+          "paper": "2A",
+          "label": "Paper 2A",
+          "streams": [
+            {
+              "tet_bank": "tgtet_maths_science_hindi",
+              "stream": "Maths_Science_Hindi",
+              "label": "Maths/Science · Hindi",
+              "language": "Hindi",
+              "sections": [
+                {
+                  "id": "cdp",
+                  "name": "CDP"
+                },
+                {
+                  "id": "hindi",
+                  "name": "Hindi"
+                },
+                {
+                  "id": "english",
+                  "name": "English"
+                },
+                {
+                  "id": "mathematics",
+                  "name": "Mathematics"
+                },
+                {
+                  "id": "science",
+                  "name": "Science"
+                }
+              ],
+              "paper_count": 4,
+              "question_count": 600,
+              "index": "exams/qb_index_tgtet_maths_science_hindi.json"
+            },
+            {
+              "tet_bank": "tgtet_maths_science_kannada",
+              "stream": "Maths_Science_Kannada",
+              "label": "Maths/Science · Kannada",
+              "language": "Kannada",
+              "sections": [
+                {
+                  "id": "cdp",
+                  "name": "CDP"
+                },
+                {
+                  "id": "kannada",
+                  "name": "Kannada"
+                },
+                {
+                  "id": "english",
+                  "name": "English"
+                },
+                {
+                  "id": "mathematics",
+                  "name": "Mathematics"
+                },
+                {
+                  "id": "science",
+                  "name": "Science"
+                }
+              ],
+              "paper_count": 3,
+              "question_count": 450,
+              "index": "exams/qb_index_tgtet_maths_science_kannada.json"
+            },
+            {
+              "tet_bank": "tgtet_maths_science_marathi",
+              "stream": "Maths_Science_Marathi",
+              "label": "Maths/Science · Marathi",
+              "language": "Marathi",
+              "sections": [
+                {
+                  "id": "cdp",
+                  "name": "CDP"
+                },
+                {
+                  "id": "marathi",
+                  "name": "Marathi"
+                },
+                {
+                  "id": "english",
+                  "name": "English"
+                },
+                {
+                  "id": "mathematics",
+                  "name": "Mathematics"
+                },
+                {
+                  "id": "science",
+                  "name": "Science"
+                }
+              ],
+              "paper_count": 4,
+              "question_count": 600,
+              "index": "exams/qb_index_tgtet_maths_science_marathi.json"
+            },
+            {
+              "tet_bank": "tgtet_maths_science_sanskrit",
+              "stream": "Maths_Science_Sanskrit",
+              "label": "Maths/Science · Sanskrit",
+              "language": "Sanskrit",
+              "sections": [
+                {
+                  "id": "cdp",
+                  "name": "CDP"
+                },
+                {
+                  "id": "sanskrit",
+                  "name": "Sanskrit"
+                },
+                {
+                  "id": "english",
+                  "name": "English"
+                },
+                {
+                  "id": "mathematics",
+                  "name": "Mathematics"
+                },
+                {
+                  "id": "science",
+                  "name": "Science"
+                }
+              ],
+              "paper_count": 4,
+              "question_count": 600,
+              "index": "exams/qb_index_tgtet_maths_science_sanskrit.json"
+            },
+            {
+              "tet_bank": "tgtet_maths_science_tamil",
+              "stream": "Maths_Science_Tamil",
+              "label": "Maths/Science · Tamil",
+              "language": "Tamil",
+              "sections": [
+                {
+                  "id": "cdp",
+                  "name": "CDP"
+                },
+                {
+                  "id": "tamil",
+                  "name": "Tamil"
+                },
+                {
+                  "id": "english",
+                  "name": "English"
+                },
+                {
+                  "id": "mathematics",
+                  "name": "Mathematics"
+                },
+                {
+                  "id": "science",
+                  "name": "Science"
+                }
+              ],
+              "paper_count": 4,
+              "question_count": 600,
+              "index": "exams/qb_index_tgtet_maths_science_tamil.json"
+            },
+            {
+              "tet_bank": "tgtet_maths_science_telugu",
+              "stream": "Maths_Science_Telugu",
+              "label": "Maths/Science · Telugu",
+              "language": "Telugu",
+              "sections": [
+                {
+                  "id": "cdp",
+                  "name": "CDP"
+                },
+                {
+                  "id": "telugu",
+                  "name": "Telugu"
+                },
+                {
+                  "id": "english",
+                  "name": "English"
+                },
+                {
+                  "id": "mathematics",
+                  "name": "Mathematics"
+                },
+                {
+                  "id": "science",
+                  "name": "Science"
+                }
+              ],
+              "paper_count": 21,
+              "question_count": 3150,
+              "index": "exams/qb_index_tgtet_maths_science_telugu.json"
+            },
+            {
+              "tet_bank": "tgtet_maths_science_urdu",
+              "stream": "Maths_Science_Urdu",
+              "label": "Maths/Science · Urdu",
+              "language": "Urdu",
+              "sections": [
+                {
+                  "id": "cdp",
+                  "name": "CDP"
+                },
+                {
+                  "id": "urdu",
+                  "name": "Urdu"
+                },
+                {
+                  "id": "english",
+                  "name": "English"
+                },
+                {
+                  "id": "mathematics",
+                  "name": "Mathematics"
+                },
+                {
+                  "id": "science",
+                  "name": "Science"
+                }
+              ],
+              "paper_count": 3,
+              "question_count": 450,
+              "index": "exams/qb_index_tgtet_maths_science_urdu.json"
+            },
+            {
+              "tet_bank": "tgtet_social_studies_hindi",
+              "stream": "Social_Studies_Hindi",
+              "label": "Social Studies · Hindi",
+              "language": "Hindi",
+              "sections": [
+                {
+                  "id": "cdp",
+                  "name": "CDP"
+                },
+                {
+                  "id": "hindi",
+                  "name": "Hindi"
+                },
+                {
+                  "id": "english",
+                  "name": "English"
+                },
+                {
+                  "id": "social",
+                  "name": "Social Studies"
+                }
+              ],
+              "paper_count": 4,
+              "question_count": 600,
+              "index": "exams/qb_index_tgtet_social_studies_hindi.json"
+            },
+            {
+              "tet_bank": "tgtet_social_studies_kannada",
+              "stream": "Social_Studies_Kannada",
+              "label": "Social Studies · Kannada",
+              "language": "Kannada",
+              "sections": [
+                {
+                  "id": "cdp",
+                  "name": "CDP"
+                },
+                {
+                  "id": "kannada",
+                  "name": "Kannada"
+                },
+                {
+                  "id": "english",
+                  "name": "English"
+                },
+                {
+                  "id": "social",
+                  "name": "Social Studies"
+                }
+              ],
+              "paper_count": 4,
+              "question_count": 600,
+              "index": "exams/qb_index_tgtet_social_studies_kannada.json"
+            },
+            {
+              "tet_bank": "tgtet_social_studies_marathi",
+              "stream": "Social_Studies_Marathi",
+              "label": "Social Studies · Marathi",
+              "language": "Marathi",
+              "sections": [
+                {
+                  "id": "cdp",
+                  "name": "CDP"
+                },
+                {
+                  "id": "marathi",
+                  "name": "Marathi"
+                },
+                {
+                  "id": "english",
+                  "name": "English"
+                },
+                {
+                  "id": "social",
+                  "name": "Social Studies"
+                }
+              ],
+              "paper_count": 4,
+              "question_count": 600,
+              "index": "exams/qb_index_tgtet_social_studies_marathi.json"
+            },
+            {
+              "tet_bank": "tgtet_social_studies_sanskrit",
+              "stream": "Social_Studies_Sanskrit",
+              "label": "Social Studies · Sanskrit",
+              "language": "Sanskrit",
+              "sections": [
+                {
+                  "id": "cdp",
+                  "name": "CDP"
+                },
+                {
+                  "id": "sanskrit",
+                  "name": "Sanskrit"
+                },
+                {
+                  "id": "english",
+                  "name": "English"
+                },
+                {
+                  "id": "social",
+                  "name": "Social Studies"
+                }
+              ],
+              "paper_count": 4,
+              "question_count": 600,
+              "index": "exams/qb_index_tgtet_social_studies_sanskrit.json"
+            },
+            {
+              "tet_bank": "tgtet_social_studies_tamil",
+              "stream": "Social_Studies_Tamil",
+              "label": "Social Studies · Tamil",
+              "language": "Tamil",
+              "sections": [
+                {
+                  "id": "cdp",
+                  "name": "CDP"
+                },
+                {
+                  "id": "tamil",
+                  "name": "Tamil"
+                },
+                {
+                  "id": "english",
+                  "name": "English"
+                },
+                {
+                  "id": "social",
+                  "name": "Social Studies"
+                }
+              ],
+              "paper_count": 4,
+              "question_count": 600,
+              "index": "exams/qb_index_tgtet_social_studies_tamil.json"
+            },
+            {
+              "tet_bank": "tgtet_social_studies_telugu",
+              "stream": "Social_Studies_Telugu",
+              "label": "Social Studies · Telugu",
+              "language": "Telugu",
+              "sections": [
+                {
+                  "id": "cdp",
+                  "name": "CDP"
+                },
+                {
+                  "id": "telugu",
+                  "name": "Telugu"
+                },
+                {
+                  "id": "english",
+                  "name": "English"
+                },
+                {
+                  "id": "social",
+                  "name": "Social Studies"
+                }
+              ],
+              "paper_count": 18,
+              "question_count": 2697,
+              "index": "exams/qb_index_tgtet_social_studies_telugu.json"
+            },
+            {
+              "tet_bank": "tgtet_social_studies_urdu",
+              "stream": "Social_Studies_Urdu",
+              "label": "Social Studies · Urdu",
+              "language": "Urdu",
+              "sections": [
+                {
+                  "id": "cdp",
+                  "name": "CDP"
+                },
+                {
+                  "id": "urdu",
+                  "name": "Urdu"
+                },
+                {
+                  "id": "english",
+                  "name": "English"
+                },
+                {
+                  "id": "social",
+                  "name": "Social Studies"
+                }
+              ],
+              "paper_count": 4,
+              "question_count": 600,
+              "index": "exams/qb_index_tgtet_social_studies_urdu.json"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

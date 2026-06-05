@@ -53,17 +53,31 @@ img { display: block; max-width: 100%; height: auto; }
 }
 
 .pwa-hrow1 {
-  display: grid; grid-template-columns: 1fr auto 1fr;
-  align-items: center; gap: 8px; margin-bottom: 10px; min-height: 38px;
+  display: flex; align-items: center; gap: 10px; margin-bottom: 10px; min-height: 40px;
 }
 
-/* Brand */
-#pwa-brand { background: none; border: none; padding: 0; color: #fff; display: flex; flex-direction: column; align-items: flex-start; justify-self: start; cursor: pointer; -webkit-tap-highlight-color: transparent; }
-.pwa-brand-tet { font-size: 22px; font-weight: 900; letter-spacing: 1px; line-height: 1; }
-.pwa-brand-suite { font-size: 10px; font-weight: 600; letter-spacing: 2.5px; color: #f0a500; margin-top: 2px; text-transform: uppercase; }
+/* Stream switcher (opens the TET → Paper → Stream picker) */
+#pwa-stream-btn {
+  flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: flex-start;
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 12px; padding: 5px 11px; color: #fff; cursor: pointer;
+  transition: background 0.14s, border-color 0.14s; -webkit-tap-highlight-color: transparent;
+}
+#pwa-stream-btn:active { background: rgba(255,255,255,0.16); }
+.pwa-stream-tag {
+  font-size: 9px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+  color: #f0a500; line-height: 1.2; max-width: 100%;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.pwa-stream-name-row { display: flex; align-items: center; gap: 5px; max-width: 100%; }
+#pwa-stream-name {
+  font-size: 15px; font-weight: 800; line-height: 1.15; letter-spacing: 0.2px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.pwa-stream-name-row .pwa-chevron { flex-shrink: 0; }
 
 /* Subject dropdown */
-.pwa-subject-wrap { position: relative; justify-self: center; }
+.pwa-subject-wrap { position: relative; flex-shrink: 0; }
 #pwa-subject-btn {
   display: inline-flex; align-items: center; gap: 5px; padding: 5px 4px;
   font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.95);
@@ -78,14 +92,16 @@ img { display: block; max-width: 100%; height: auto; }
 
 /* Dropdown panel — z-index 60 (within header's stacking context, so effectively at 50 + painting order) */
 #pwa-subject-dd {
-  position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%);
-  min-width: 170px; background: #fff; border-radius: 12px;
+  /* Left-aligned to the subject button (it sits at the left edge of the filter row),
+     so the panel opens rightward and never spills off-screen. */
+  position: absolute; top: calc(100% + 8px); left: 0;
+  min-width: 170px; max-width: calc(100vw - 28px); background: #fff; border-radius: 12px;
   box-shadow: 0 10px 28px rgba(0,0,0,0.25); overflow: hidden; z-index: 60;
   animation: ddIn 0.16s ease;
 }
 @keyframes ddIn {
-  from { opacity:0; transform: translateX(-50%) translateY(-6px); }
-  to   { opacity:1; transform: translateX(-50%) translateY(0); }
+  from { opacity:0; transform: translateY(-6px); }
+  to   { opacity:1; transform: translateY(0); }
 }
 #pwa-subject-dd[hidden] { display: none; }
 .pwa-dd-item {
@@ -95,6 +111,21 @@ img { display: block; max-width: 100%; height: auto; }
 .pwa-dd-item:active { background: #eef2f8; }
 .pwa-dd-item.active { background: #1a3a5c; color: #fff; }
 .pwa-dd-item + .pwa-dd-item { border-top: 1px solid #edf0f6; }
+/* "Paper-wise ▸" drill row + its side flyout of papers */
+.pwa-dd-drill { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: #1565c0; }
+.pwa-dd-drill.active { color: #fff; }
+.pwa-dd-arrow {
+  width: 13px; height: 13px; flex-shrink: 0; fill: none; stroke: currentColor;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+.pwa-paper-dd {
+  position: fixed; left: 20%; right: 8%; z-index: 400;
+  background: #fff; border: 2.5px solid #b0c4de; border-radius: 12px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.45), 0 6px 18px rgba(0,0,0,0.25);
+  overflow-y: auto; animation: ddIn 0.16s ease;
+}
+.pwa-paper-dd[hidden] { display: none; }
+.pwa-paper-dd .pwa-dd-item { white-space: normal; }
 
 /* Counter */
 #pwa-progress { justify-self: end; text-align: right; line-height: 1.1; color: #fff; }
@@ -103,10 +134,13 @@ img { display: block; max-width: 100%; height: auto; }
 #pwa-progress-sub { font-size: 9.5px; color: rgba(255,255,255,0.55); display: block; margin-top: 1px; }
 
 /* ── Filter row ─────────────────────────────────────────────────────────── */
-#pwa-status-row { display: flex; align-items: center; }
+#pwa-status-row { display: flex; align-items: center; gap: 8px; }
+#pwa-status-row .pwa-subject-wrap { margin-right: 2px; }
+#pwa-subject-label { max-width: 96px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 #pwa-chips-scroll {
-  flex: 1; display: flex; gap: 6px; overflow-x: auto; overflow-y: hidden;
+  flex: 0 1 auto; margin-left: auto;   /* push status chips to the right edge */
+  display: flex; gap: 6px; overflow-x: auto; overflow-y: hidden;
   scrollbar-width: none; -webkit-overflow-scrolling: touch; padding: 2px 0;
 }
 #pwa-chips-scroll::-webkit-scrollbar { display: none; }
@@ -124,22 +158,6 @@ img { display: block; max-width: 100%; height: auto; }
   font-weight: 700; box-shadow: 0 1px 4px rgba(240,165,0,0.4);
 }
 
-/* Explained — pinned to right, visually distinct */
-#pwa-chip-explained {
-  flex-shrink: 0; margin-left: 8px; padding: 0 10px; height: 26px;
-  display: inline-flex; align-items: center; gap: 4px; border-radius: 14px;
-  font-size: 11px; font-weight: 600; white-space: nowrap;
-  background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.65);
-  border: 1px solid rgba(255,255,255,0.14); transition: background 0.13s, color 0.13s;
-}
-#pwa-chip-explained:active { background: rgba(255,255,255,0.2); }
-#pwa-chip-explained.active { background: #f0a500; color: #1a1a1a; border-color: #f0a500; font-weight: 700; }
-.exp-count {
-  background: rgba(255,255,255,0.22); border-radius: 8px;
-  padding: 0 5px; font-size: 10px; font-weight: 700; min-width: 16px; text-align: center;
-}
-#pwa-chip-explained.active .exp-count { background: rgba(26,58,92,0.2); }
-
 .chip-icon {
   width: 14px; height: 14px; fill: none; stroke: currentColor;
   stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round;
@@ -156,11 +174,21 @@ img { display: block; max-width: 100%; height: auto; }
 
 /* ── Content area — fills screen, padding clears floating nav ───────────── */
 #pwa-content {
-  flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden;
-  overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
-  padding: 12px 14px calc(80px + env(safe-area-inset-bottom));
-  scroll-behavior: smooth; background: #f4f6fb;
+  flex: 1; min-height: 0; overflow: hidden; position: relative;
+  padding: 6px; background: #f4f6fb;
 }
+/* Unified question card — fills the page (thin margins, rounded corners) and is the
+   element that slides on navigation. It is also the vertical scroller for long content. */
+.pwa-qcard {
+  height: 100%; overflow-y: auto; overflow-x: hidden;
+  overscroll-behavior: contain; -webkit-overflow-scrolling: touch; scroll-behavior: smooth;
+  background: #fff; border-radius: 16px;
+  box-shadow: 0 4px 6px rgba(10,30,60,0.06), 0 12px 32px rgba(10,30,60,0.14);
+  border: 1px solid rgba(180,200,230,0.5);
+  padding: 14px 14px calc(88px + env(safe-area-inset-bottom));
+  will-change: transform;
+}
+.pwa-qcard[hidden] { display: none; }
 
 /* Empty state — vertically centred in the content viewport */
 #pwa-empty-state {
@@ -186,16 +214,25 @@ img { display: block; max-width: 100%; height: auto; }
 
 /* Question image card */
 .pwa-qimg-wrap {
-  background: #fff; border-radius: 10px; padding: 10px;
-  box-shadow: 0 1px 3px rgba(10,30,60,0.06); margin-bottom: 12px;
-  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  margin-bottom: 14px; overflow-x: auto; -webkit-overflow-scrolling: touch;
 }
-.pwa-qimg { width: auto; max-width: none; height: auto; border-radius: 4px; display: block; }
+.pwa-qimg { display: block; border-radius: 4px; max-width: none; }
+.pwa-opt-canvas { display: block; border-radius: 3px; max-width: none; }
 
-/* Options */
+/* Skeleton shimmer shown on a canvas while its R2 sprite is still loading.
+   The canvas bitmap is cleared (transparent) so this CSS background shows; the
+   real crop paints over it on load. Sized to the known piece dims → no reflow. */
+@keyframes pwaShimmer { 0% { background-position: 180% 0; } 100% { background-position: -180% 0; } }
+.pwa-loading {
+  background-image: linear-gradient(100deg, #e7ebf2 28%, #f5f8fc 50%, #e7ebf2 72%);
+  background-size: 220% 100%; background-repeat: no-repeat;
+  animation: pwaShimmer 1.15s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) { .pwa-loading { animation: none; } }
+
+/* Options — flat on the unified card (each option has its own border/fill) */
 .pwa-opts-wrap {
-  background: #fff; border-radius: 10px; padding: 8px;
-  box-shadow: 0 1px 3px rgba(10,30,60,0.06); margin-bottom: 14px;
+  background: none; box-shadow: none; padding: 0; margin-bottom: 6px;
 }
 .pwa-opt {
   display: flex; align-items: flex-start; gap: 7px; padding: 7px 9px;
@@ -213,7 +250,7 @@ img { display: block; max-width: 100%; height: auto; }
 .pwa-opts--revealed .pwa-opt { cursor: default; }
 .pwa-opts--inert .pwa-opt { cursor: default; }
 .pwa-opts--inert .pwa-opt:active { background: #fafbff; }
-.pwa-opt img { max-width: none; width: auto; height: auto; display: block; border-radius: 3px; }
+.pwa-opt img, .pwa-opt canvas { max-width: none; width: auto; height: auto; display: block; border-radius: 3px; }
 
 /* Explanation section */
 .pwa-exp-divider {
@@ -243,9 +280,9 @@ img { display: block; max-width: 100%; height: auto; }
   border: 1.5px solid #fff;
 }
 #pwa-explanation {
-  background: #fff; border-radius: 10px; padding: 14px; font-size: 14px;
-  line-height: 1.6; color: #222; min-height: 48px;
-  box-shadow: 0 1px 3px rgba(10,30,60,0.06); overflow-x: auto; word-wrap: break-word;
+  background: #f7f9fc; border: 1px solid #eef1f6; border-radius: 10px; padding: 14px;
+  font-size: 14px; line-height: 1.6; color: #222; min-height: 48px;
+  overflow-x: auto; word-wrap: break-word;
 }
 .pwa-ai-loading { display: flex; align-items: center; gap: 10px; padding: 8px 0; color: #555; font-size: 13px; }
 .pwa-ai-spinner {
@@ -255,6 +292,24 @@ img { display: block; max-width: 100%; height: auto; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .pwa-ai-error { background: #fff8f8; border: 1px solid #ffcdd2; border-radius: 6px; padding: 10px 12px; font-size: 13px; color: #c62828; }
 .pwa-msg { display: block; padding: 20px 0; text-align: center; color: #8a9bbf; font-size: 13px; }
+
+/* ── Update banner ──────────────────────────────────────────────────────── */
+#pwa-update-banner {
+  flex-shrink: 0; display: flex; align-items: center; gap: 8px;
+  background: #e8f5e9; color: #1b5e20;
+  padding: 7px 14px; font-size: 13px; font-weight: 600;
+  border-bottom: 1px solid #a5d6a7; z-index: 45;
+}
+#pwa-update-banner[hidden] { display: none; }
+#pwa-update-reload {
+  margin-left: auto; background: #2e7d32; color: #fff;
+  border-radius: 14px; padding: 4px 12px; font-size: 12px; font-weight: 700;
+  border: none; cursor: pointer;
+}
+#pwa-update-dismiss {
+  color: #388e3c; font-size: 16px; line-height: 1; padding: 2px 4px;
+  background: none; border: none; cursor: pointer; flex-shrink: 0;
+}
 
 /* ── Toast ──────────────────────────────────────────────────────────────── */
 #pwa-toast {
@@ -289,6 +344,17 @@ img { display: block; max-width: 100%; height: auto; }
 #pwa-fab-understood.marked { background: #2e7d32; border-color: #2e7d32; box-shadow: 0 4px 14px rgba(46,125,50,0.4); }
 #pwa-fab-understood.marked svg { stroke: #fff; }
 .pwa-fab-hidden { display: none !important; }
+#pwa-fab-focus svg { stroke: #1a3a5c; }
+#pwa-fab-focus.is-exit { background: #1a3a5c; border-color: #1a3a5c; box-shadow: 0 4px 14px rgba(26,58,92,0.4); }
+#pwa-fab-focus.is-exit svg { stroke: #fff; }
+
+/* ── Focus mode — hide all chrome, keep the question card + a single exit FAB ── */
+.pwa-focus #pwa-header,
+.pwa-focus #pwa-footer,
+.pwa-focus #pwa-fab-like,
+.pwa-focus #pwa-fab-revision,
+.pwa-focus #font-knob { display: none !important; }
+.pwa-focus #pwa-content { padding-top: calc(env(safe-area-inset-top) + 6px); }
 
 /* ── Floating nav pill ──────────────────────────────────────────────────── */
 #pwa-footer {
@@ -329,7 +395,7 @@ img { display: block; max-width: 100%; height: auto; }
 /* ── Font-size knob ─────────────────────────────────────────────────────── */
 #font-knob {
   position: fixed;
-  bottom: calc(80px + env(safe-area-inset-bottom));
+  bottom: calc(72px + env(safe-area-inset-bottom) + 14px);
   left: 14px;
   z-index: 35;
   background: rgba(255,255,255,0.95);
@@ -362,6 +428,101 @@ img { display: block; max-width: 100%; height: auto; }
   width: 16px; height: 16px; border-radius: 50%;
   background: #1565c0; border: 2px solid #fff; cursor: pointer;
 }
+
+/* ── Stream picker overlay ──────────────────────────────────────────────── */
+#pwa-stream-picker {
+  position: fixed; inset: 0; z-index: 300;
+  background: linear-gradient(180deg, #0e2540 0%, #143a63 100%);
+  display: flex; align-items: center; justify-content: center;
+  padding: calc(env(safe-area-inset-top) + 20px) 20px calc(env(safe-area-inset-bottom) + 20px);
+  overflow-y: auto; animation: spFade 0.2s ease;
+  align-content: center;
+}
+#pwa-stream-picker[hidden] { display: none; }
+@keyframes spFade { from { opacity: 0; } to { opacity: 1; } }
+.sp-card {
+  width: 100%; max-width: 380px; background: #fff; border-radius: 20px;
+  padding: 24px 22px 18px; box-shadow: 0 18px 50px rgba(0,0,0,0.4);
+  animation: spRise 0.26s cubic-bezier(0.2,0.8,0.3,1);
+}
+@keyframes spRise { from { transform: translateY(16px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.sp-brand { display: flex; align-items: baseline; gap: 7px; margin-bottom: 14px; }
+.sp-brand-tet { font-size: 24px; font-weight: 900; letter-spacing: 1px; color: #1a3a5c; }
+.sp-brand-suite { font-size: 11px; font-weight: 700; letter-spacing: 3px; color: #f0a500; }
+.sp-title { font-size: 19px; font-weight: 800; color: #16243a; line-height: 1.25; }
+.sp-sub { font-size: 13px; color: #6a7a98; margin: 4px 0 12px; line-height: 1.4; }
+.sp-scale {
+  display: flex; align-items: flex-start; gap: 8px;
+  font-size: 12.5px; color: #6a7a98; line-height: 1.45;
+  margin: 0 0 18px; padding-top: 12px; border-top: 1px solid #eef1f6;
+}
+.sp-scale svg {
+  width: 15px; height: 15px; margin-top: 1px; flex-shrink: 0; fill: none;
+  stroke: #f0a500; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+.sp-scale strong { color: #1565c0; font-weight: 800; }
+.sp-field { margin-bottom: 13px; position: relative; }
+.sp-flabel {
+  display: block; font-size: 10.5px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1px; color: #8a97ad; margin-bottom: 5px; padding-left: 2px;
+}
+.sp-dd-btn {
+  -webkit-appearance: none; appearance: none; width: 100%;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 11px 14px; font-size: 15px; font-weight: 600; color: #16243a; text-align: left;
+  background: #f4f6fb; border: 1.5px solid #dde4f0; border-radius: 11px;
+  cursor: pointer; font-family: inherit; line-height: 1.3;
+}
+.sp-dd-btn:active { background: #eef2f8; }
+.sp-dd-btn[aria-expanded="true"] { border-color: #1565c0; background: #fff; }
+.sp-dd-val { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sp-caret {
+  width: 13px; height: 13px; flex-shrink: 0; fill: none; stroke: #5a6e8e; stroke-width: 2.2;
+  stroke-linecap: round; stroke-linejoin: round; pointer-events: none; transition: transform 0.2s;
+}
+.sp-dd-btn[aria-expanded="true"] .sp-caret { transform: rotate(180deg); }
+.sp-dd-panel {
+  position: fixed; left: 20%; right: 8%; z-index: 400;
+  background: #fff; border: 2.5px solid #b0c4de; border-radius: 12px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.45), 0 6px 18px rgba(0,0,0,0.25);
+  max-height: 75vh; overflow-y: auto; animation: ddIn 0.15s ease;
+}
+.sp-dd-panel--stream {
+  top: 15%; bottom: 15%; max-height: none;
+}
+.sp-dd-panel[hidden] { display: none; }
+.sp-dd-opt {
+  display: block; width: 100%; text-align: left; padding: 12px 14px;
+  font-size: 14px; font-weight: 600; color: #1a3a5c; background: none;
+}
+.sp-dd-opt + .sp-dd-opt { border-top: 1.5px solid #e0e6ef; }
+.sp-dd-opt:active { background: #eef2f8; }
+.sp-dd-opt.active { background: #1a3a5c; color: #fff; }
+/* Stream items: stream name on the left, smaller paper/question count on the right */
+.sp-dd-opt--stream { display: flex; flex-direction: row; align-items: baseline; justify-content: space-between; gap: 10px; }
+.sp-dd-opt-name { font-size: 14px; font-weight: 700; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sp-dd-opt-meta { font-size: 11px; font-weight: 600; color: #8a97ad; flex-shrink: 0; white-space: nowrap; }
+.sp-dd-opt.active .sp-dd-opt-meta { color: rgba(255,255,255,0.72); }
+.sp-summary {
+  margin: 16px 0 14px; padding: 12px 14px; border-radius: 11px;
+  background: #eef4fb; border: 1px solid #d8e6f5; font-size: 13px;
+  color: #334; line-height: 1.5; min-height: 86px;   /* fixed footprint → card never resizes on switch */
+}
+.sp-summary strong { color: #1565c0; font-weight: 800; }
+.sp-summary .sp-empty { color: #97a3b8; }
+.sp-confirm {
+  width: 100%; padding: 14px; background: linear-gradient(180deg, #1a3a5c, #234d7a);
+  color: #fff; font-size: 15.5px; font-weight: 800; border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(26,58,92,0.35); transition: transform 0.1s, opacity 0.15s;
+}
+.sp-confirm:active { transform: scale(0.98); }
+.sp-confirm:disabled { opacity: 0.45; box-shadow: none; }
+.sp-close {
+  width: 100%; padding: 11px; margin-top: 8px; background: none;
+  color: #6a7a98; font-size: 14px; font-weight: 600;
+}
+.sp-close[hidden] { display: none; }
+.sp-version { text-align: center; font-size: 10.5px; color: #aab4c4; margin-top: 12px; letter-spacing: 0.4px; }
 </style>
 </head>
 <body>
@@ -370,25 +531,13 @@ img { display: block; max-width: 100%; height: auto; }
   <!-- Header (z-index 50 — above backdrop so dropdown items are tappable) -->
   <header id="pwa-header">
     <div class="pwa-hrow1">
-      <button id="pwa-brand">
-        <span class="pwa-brand-tet">TET</span>
-        <span class="pwa-brand-suite">Suite</span>
-      </button>
-
-      <div class="pwa-subject-wrap">
-        <button id="pwa-subject-btn" aria-haspopup="listbox" aria-expanded="false">
-          <span id="pwa-subject-label">All Subjects</span>
+      <button id="pwa-stream-btn" aria-haspopup="dialog" aria-label="Change question bank">
+        <span class="pwa-stream-tag" id="pwa-stream-tag">TG TET · Paper 2A</span>
+        <span class="pwa-stream-name-row">
+          <span id="pwa-stream-name">Maths/Science · Telugu</span>
           <svg class="pwa-chevron" viewBox="0 0 14 14" aria-hidden="true"><polyline points="2,4 7,10 12,4"/></svg>
-        </button>
-        <div id="pwa-subject-dd" hidden role="listbox">
-          <button class="pwa-dd-item active" data-subject="all">All Subjects</button>
-          <button class="pwa-dd-item" data-subject="cdp">CDP</button>
-          <button class="pwa-dd-item" data-subject="telugu">Telugu</button>
-          <button class="pwa-dd-item" data-subject="english">English</button>
-          <button class="pwa-dd-item" data-subject="mathematics">Mathematics</button>
-          <button class="pwa-dd-item" data-subject="science">Science</button>
-        </div>
-      </div>
+        </span>
+      </button>
 
       <div id="pwa-progress">
         <span id="pwa-progress-count">—</span>
@@ -396,8 +545,16 @@ img { display: block; max-width: 100%; height: auto; }
       </div>
     </div>
 
-    <!-- Filter chips: To Read | In Review | Understood   ···   ✨ N (right) -->
-    <div id="pwa-status-row" role="group" aria-label="Status filter">
+    <!-- Filter row: subject  ·····  To Read | In Review | Understood (right edge) -->
+    <div id="pwa-status-row" role="group" aria-label="Filters">
+      <div class="pwa-subject-wrap">
+        <button id="pwa-subject-btn" aria-haspopup="listbox" aria-expanded="false">
+          <span id="pwa-subject-label">All Subjects</span>
+          <svg class="pwa-chevron" viewBox="0 0 14 14" aria-hidden="true"><polyline points="2,4 7,10 12,4"/></svg>
+        </button>
+        <div id="pwa-subject-dd" hidden role="listbox"></div>
+        <div id="pwa-paper-dd" class="pwa-paper-dd" hidden role="listbox" aria-label="Filter by paper"></div>
+      </div>
       <div id="pwa-chips-scroll">
         <button class="pwa-chip active" data-status="to-read">To Read</button>
         <button class="pwa-chip" data-status="in-review" aria-label="In Review">
@@ -409,11 +566,15 @@ img { display: block; max-width: 100%; height: auto; }
           <span class="chip-count" id="chip-count-understood"></span>
         </button>
       </div>
-      <button id="pwa-chip-explained" title="Questions with AI explanations in R2">
-        ✨ <span class="exp-count" id="pwa-exp-count">0</span>
-      </button>
     </div>
   </header>
+
+  <!-- New-questions update banner (shown when SW detects qb_index.json changed in background) -->
+  <div id="pwa-update-banner" hidden aria-live="polite">
+    <span>App update available</span>
+    <button id="pwa-update-reload">Reload</button>
+    <button id="pwa-update-dismiss" aria-label="Dismiss">&#10005;</button>
+  </div>
 
   <!-- Backdrop (z-index 40 — below header so taps on dropdown items aren't swallowed) -->
   <div id="pwa-dd-backdrop"></div>
@@ -427,19 +588,21 @@ img { display: block; max-width: 100%; height: auto; }
       <p class="pwa-empty-text" id="pwa-empty-text"></p>
     </div>
 
-    <!-- Question content -->
-    <div id="pwa-qnum"></div>
-    <div class="pwa-qimg-wrap">
-      <img id="pwa-qimg" class="pwa-qimg" alt="Question" loading="lazy">
-    </div>
-    <div class="pwa-opts-wrap" id="pwa-opts-wrap">
-      <div id="pwa-opts"></div>
-    </div>
-    <div id="pwa-exp-section">
-      <div class="pwa-exp-divider">Explanation</div>
-      <div id="pwa-explanation"><span class="pwa-msg">Loading…</span></div>
-      <div id="pwa-ai-actions">
-        <button id="pwa-ai-btn">&#10024; Explain with AI</button>
+    <!-- Question content — one unified card that slides on navigation -->
+    <div class="pwa-qcard" id="pwa-qcard">
+      <div id="pwa-qnum"></div>
+      <div class="pwa-qimg-wrap">
+        <canvas id="pwa-qimg" class="pwa-qimg"></canvas>
+      </div>
+      <div class="pwa-opts-wrap" id="pwa-opts-wrap">
+        <div id="pwa-opts"></div>
+      </div>
+      <div id="pwa-exp-section">
+        <div class="pwa-exp-divider">Explanation</div>
+        <div id="pwa-explanation"><span class="pwa-msg">Loading…</span></div>
+        <div id="pwa-ai-actions">
+          <button id="pwa-ai-btn">&#10024; Explain with AI</button>
+        </div>
       </div>
     </div>
   </div>
@@ -464,6 +627,52 @@ img { display: block; max-width: 100%; height: auto; }
     <button id="pwa-fab-understood" class="pwa-fab-btn" aria-label="Mark as Understood">
       <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
     </button>
+    <button id="pwa-fab-focus" class="pwa-fab-btn" aria-label="Focus mode" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6c0 2-2 2-2 4v10a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2V10c0-2-2-2-2-4V2h12Z"/><line x1="6" y1="6" x2="18" y2="6"/><line x1="12" y1="12" x2="12" y2="12"/></svg>
+    </button>
+  </div>
+
+  <!-- Stream picker overlay (TET → Paper → Stream) -->
+  <div id="pwa-stream-picker" hidden role="dialog" aria-modal="true" aria-label="Choose question bank">
+    <div class="sp-card">
+      <div class="sp-brand"><span class="sp-brand-tet">TET</span><span class="sp-brand-suite">SUITE</span></div>
+      <h2 class="sp-title">Choose your question bank</h2>
+      <p class="sp-sub">Pick a TET, paper and stream to start practising.</p>
+      <p class="sp-scale">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+        <span id="sp-scale-text"></span>
+      </p>
+
+      <div class="sp-field" id="sp-field-tet">
+        <span class="sp-flabel">TET</span>
+        <button class="sp-dd-btn" id="sp-tet-btn" type="button" aria-haspopup="listbox" aria-expanded="false">
+          <span class="sp-dd-val" id="sp-tet-val"></span>
+          <svg class="sp-caret" viewBox="0 0 14 14" aria-hidden="true"><polyline points="2,4 7,10 12,4"/></svg>
+        </button>
+        <div class="sp-dd-panel" id="sp-tet-dd" hidden role="listbox"></div>
+      </div>
+      <div class="sp-field" id="sp-field-paper">
+        <span class="sp-flabel">Paper</span>
+        <button class="sp-dd-btn" id="sp-paper-btn" type="button" aria-haspopup="listbox" aria-expanded="false">
+          <span class="sp-dd-val" id="sp-paper-val"></span>
+          <svg class="sp-caret" viewBox="0 0 14 14" aria-hidden="true"><polyline points="2,4 7,10 12,4"/></svg>
+        </button>
+        <div class="sp-dd-panel" id="sp-paper-dd" hidden role="listbox"></div>
+      </div>
+      <div class="sp-field" id="sp-field-stream">
+        <span class="sp-flabel">Stream</span>
+        <button class="sp-dd-btn" id="sp-stream-btn" type="button" aria-haspopup="listbox" aria-expanded="false">
+          <span class="sp-dd-val" id="sp-stream-val"></span>
+          <svg class="sp-caret" viewBox="0 0 14 14" aria-hidden="true"><polyline points="2,4 7,10 12,4"/></svg>
+        </button>
+        <div class="sp-dd-panel sp-dd-panel--stream" id="sp-stream-dd" hidden role="listbox"></div>
+      </div>
+
+      <div id="sp-summary" class="sp-summary"></div>
+      <button id="sp-confirm" class="sp-confirm">Browse questions</button>
+      <button id="sp-close" class="sp-close" hidden>Cancel</button>
+      <div class="sp-version">TET Suite · v<span id="sp-version"></span></div>
+    </div>
   </div>
 
   <!-- Floating nav pill -->
@@ -488,7 +697,7 @@ img { display: block; max-width: 100%; height: auto; }
 <script src="js/explanation.js"></script>
 <script src="js/firebase-config.js" onerror="console.warn('Firebase config not found.')"></script>
 <script src="js/r2-explanations.js"></script>
-<script type="module" src="js/firebase-ai.js"></script>
+<script src="js/firebase-ai.js"></script>
 <script>
 /* ── Per-paper measured line heights (px) ───────────────────────────────── */
 // Average pixel height of a single text line in question images, measured per paper.
@@ -498,30 +707,60 @@ const PAPER_LINE_HEIGHT_DEFAULT = 47;
 const LS_FONT_SIZE_KEY = 'qb_target_line_height_px';
 
 /* ── Constants ──────────────────────────────────────────────────────────── */
-const SUBJECT_DISPLAY = {
-  all: 'All Subjects', cdp: 'CDP', telugu: 'Telugu',
-  english: 'English', mathematics: 'Math', science: 'Science',
-};
-const APP_VERSION    = '0.0.7';
+const APP_VERSION    = '0.4.6';
+const CACHE_BUST     = '1';   // increment on special pushes to wipe stale localStorage
 const UNDERSTOOD_KEY = 'tet_understood_questions';
 const REVISION_KEY   = 'tet_revision_questions';
 const AI_CACHE_PFX   = 'ai_exp_persist:';
-const QB_INDEX_URL   = 'exams/qb_index.json';
-const QB_CACHE_KEY   = 'qb_index_cache_v1';
+const QB_MANIFEST_URL = 'exams/qb_manifest.json';
+const SELECTED_BANK_KEY = 'qb_selected_bank';
+const DEFAULT_BANK   = 'tgtet_maths_science_telugu';   // legacy stream — preselected
+const posKey     = bank => `qb_pos_v1:${bank}`;
+const filtersKey = bank => `qb_filters_v1:${bank}`;
+// Per-stream index cache key (v2: was a single 'qb_index_cache_v1' before multi-TET)
+const qbCacheKey = bank => `qb_index_cache_v2:${bank}`;
+const streamIndexUrl = bank => `exams/qb_index_${bank}.json`;
 
 // R2 explanation state for the current question (null when no R2 explanation loaded)
 let _r2CurrentExp = null;
-// Count of questions with explanations in R2 (null until fetched)
-let r2ExplainedCount = null;
 
 const SHOW_ANSWER_REVEAL = true;
 
 /* ── State ──────────────────────────────────────────────────────────────── */
+let qbManifest         = null;   // qb_manifest.json — TET → Paper → Stream tree
+let selectedBank       = null;   // active tet_bank
+let selectedStream     = null;   // active stream config object from the manifest
+let streamSections     = [];     // [{id, name}] sections for the active stream
 let qbankCache         = null;
 let qbankFiltered      = [];
 let qbankSubjectFilter = 'all';
+let qbankPaperFilter   = 'all';       // an examId, or 'all' — mutually exclusive with subject
 let qbankStatusFilter  = 'to-read';   // default: unread questions
 let qbankIndex         = 0;
+let _restorePos        = null;   // questionImage to seek after next navReset
+
+// Scope predicate shared by the filter pipeline and the header counts.
+// Paper filter wins when active (mutually exclusive with subject).
+function inActiveScope(q) {
+  if (qbankPaperFilter !== 'all')   return q.examId === qbankPaperFilter;
+  if (qbankSubjectFilter !== 'all') return (q.sectionId || '').toLowerCase() === qbankSubjectFilter;
+  return true;
+}
+// Ordered, de-duplicated list of papers in the active stream.
+function papersForStream() {
+  const out = [], seen = new Set();
+  for (const q of (qbankCache || [])) {
+    if (q.examId && !seen.has(q.examId)) { seen.add(q.examId); out.push({ examId: q.examId, examTitle: q.examTitle }); }
+  }
+  return out;
+}
+
+// Display label for a subject/section id within the active stream
+function subjectDisplay(id) {
+  if (!id || id === 'all') return 'All Subjects';
+  const s = streamSections.find(x => x.id === id);
+  return s ? s.name : id;
+}
 
 // Navigation history — tracks visited qbankFiltered indices so back/forward works
 // across random jumps. Reset on filter changes.
@@ -533,6 +772,10 @@ function navPush(idx) {
   navHistory.push(idx);
   navPos     = navHistory.length - 1;
   qbankIndex = idx;
+  try {
+    const item = qbankFiltered[idx];
+    if (selectedBank && item) localStorage.setItem(posKey(selectedBank), item.questionImage);
+  } catch {}
 }
 
 function navReset() {
@@ -598,87 +841,81 @@ function cleanConflictingStates() {
   if (cleaned.length !== list.length) saveRevisionList(cleaned);
 }
 
-/* ── Data loading ───────────────────────────────────────────────────────── */
-async function loadQuestionBank() {
-  if (qbankCache) return qbankCache;
+/* ── Manifest + per-stream index loading ────────────────────────────────── */
+const MANIFEST_CACHE_KEY = 'qb_manifest_cache_v1';
 
-  // Warm start from localStorage
-  let cached = null;
-  try { const raw = localStorage.getItem(QB_CACHE_KEY); if (raw) cached = JSON.parse(raw); } catch {}
-  if (cached?.data?.length) {
-    qbankCache = cached.data;
-    _revalidateIndex(cached.etag);
-    return qbankCache;
-  }
-
-  // Cold start: pre-built index → fallback manifest walk
-  try { return await _fetchAndCacheIndex(); }
-  catch { return _loadViaManifest(); }
+async function loadManifest() {
+  if (qbManifest) return qbManifest;
+  // Warm from localStorage, revalidate in background
+  try {
+    const raw = localStorage.getItem(MANIFEST_CACHE_KEY);
+    if (raw) { const c = JSON.parse(raw); if (c?.tets?.length) { qbManifest = c; _revalidateManifest(); return qbManifest; } }
+  } catch {}
+  return _fetchManifest();
 }
+async function _fetchManifest() {
+  const resp = await fetch(QB_MANIFEST_URL, { cache: 'no-cache' });
+  if (!resp.ok) throw new Error(`manifest ${resp.status}`);
+  const data = await resp.json();
+  try { localStorage.setItem(MANIFEST_CACHE_KEY, JSON.stringify(data)); } catch {}
+  qbManifest = data;
+  return data;
+}
+async function _revalidateManifest() { try { await _fetchManifest(); } catch {} }
 
-async function _fetchAndCacheIndex(etag) {
+// Every stream config across the manifest, flat
+function allStreams() {
+  const out = [];
+  for (const t of (qbManifest?.tets || []))
+    for (const p of (t.papers || []))
+      for (const s of (p.streams || []))
+        out.push({ ...s, tet_type: t.tet_type, tet_label: t.label, paper: p.paper, paper_label: p.label });
+  return out;
+}
+function findStream(bank) { return allStreams().find(s => s.tet_bank === bank) || null; }
+
+/* Load the active stream's index into qbankCache (warm cache + background revalidate). */
+async function loadQuestionBank() {
+  if (qbankCache && qbankCache._bank === selectedBank) return qbankCache;
+  const bank = selectedBank;
+  try {
+    const raw = localStorage.getItem(qbCacheKey(bank));
+    if (raw) { const c = JSON.parse(raw); if (c?.data?.length) { qbankCache = _tag(c.data, bank); _revalidateStream(bank, c.etag); return qbankCache; } }
+  } catch {}
+  return _fetchStreamIndex(bank);
+}
+function _tag(data, bank) { try { Object.defineProperty(data, '_bank', { value: bank, configurable: true }); } catch {} return data; }
+
+async function _fetchStreamIndex(bank, etag) {
   const headers = {};
   if (etag) headers['If-None-Match'] = etag;
-  const resp = await fetch(QB_INDEX_URL, { headers });
+  const resp = await fetch(streamIndexUrl(bank), { headers });
   if (resp.status === 304) return qbankCache;
   if (!resp.ok) throw new Error(`index ${resp.status}`);
   const data = await resp.json();
+  if (!Array.isArray(data)) throw new Error('invalid index format');
   const newEtag = resp.headers.get('etag') || '';
-  try { localStorage.setItem(QB_CACHE_KEY, JSON.stringify({ v: 1, etag: newEtag, data })); } catch {}
-  qbankCache = data;
+  try { localStorage.setItem(qbCacheKey(bank), JSON.stringify({ v: 2, etag: newEtag, data })); } catch {}
+  if (selectedBank === bank) qbankCache = _tag(data, bank);
   return data;
 }
-async function _revalidateIndex(etag) { try { await _fetchAndCacheIndex(etag); } catch {} }
-
-async function _loadViaManifest() {
-  const r = await fetch('exams/manifest.json');
-  const manifest = await r.json();
-  const realExams = (manifest.exams||[]).filter(e => e.style === 'Real Paper');
-  const results = await Promise.all(realExams.map(async exam => {
-    try {
-      const r2 = await fetch(`exams/${exam.id}.json`);
-      if (!r2.ok) return null;
-      return { exam, data: await r2.json() };
-    } catch { return null; }
-  }));
-  const dedupe = new Map();
-  for (const entry of results) {
-    if (!entry) continue;
-    const { exam, data } = entry;
-    for (const q of data.questions || []) {
-      if (!q.questionImage || dedupe.has(q.questionImage)) continue;
-      dedupe.set(q.questionImage, {
-        questionImage: q.questionImage, optionImages: q.optionImages || [],
-        optionsInQuestion: !!q.optionsInQuestion, questionType: q.questionType,
-        correctAnswer: q.correctAnswer, sectionId: q.sectionId,
-        examId: data.id, examTitle: data.title || exam.title, globalIndex: q.globalIndex,
-      });
-    }
-  }
-  qbankCache = [...dedupe.values()];
-  return qbankCache;
-}
+async function _revalidateStream(bank, etag) { try { await _fetchStreamIndex(bank, etag); } catch {} }
 
 /* ── Filter ─────────────────────────────────────────────────────────────── */
 function buildFiltered(all) {
   const understood = getUnderstoodSet();
   const revSet     = getRevisionSet();
 
-  const subjMatch = q =>
-    qbankSubjectFilter === 'all' ||
-    (q.sectionId || '').toLowerCase() === qbankSubjectFilter;
-
   const statusMatch = q => {
     switch (qbankStatusFilter) {
       case 'to-read':    return !understood.has(q.questionImage);
       case 'in-review':  return revSet.has(q.questionImage);
       case 'understood': return understood.has(q.questionImage);
-      case 'explained':  return !!getAiCache(q.questionImage);
       default:           return true;
     }
   };
 
-  return all.filter(q => subjMatch(q) && statusMatch(q));
+  return all.filter(q => inActiveScope(q) && statusMatch(q));
 }
 
 /* ── Empty state ─────────────────────────────────────────────────────────── */
@@ -695,10 +932,6 @@ const EMPTY_DEFS = {
     icon: '✓',
     text: 'No questions marked as understood yet.<br>Tap the <strong>✓ checkmark icon</strong> on the right to mark a question as understood.',
   },
-  'explained': {
-    icon: '✨',
-    text: 'No AI explanations cached yet.<br>Open a question and tap <strong>✨ Explain with AI</strong> to generate one.',
-  },
 };
 
 function showEmptyState() {
@@ -707,14 +940,11 @@ function showEmptyState() {
   document.getElementById('pwa-empty-text').innerHTML   = def.text;
   document.getElementById('pwa-empty-state').classList.add('visible');
 
-  // Hide question elements
-  document.getElementById('pwa-qnum').hidden         = true;
-  document.querySelector('.pwa-qimg-wrap').hidden     = true;
-  document.getElementById('pwa-opts-wrap').hidden     = true;
-  document.getElementById('pwa-exp-section').hidden   = true;
-  document.getElementById('pwa-prev').disabled        = true;
-  document.getElementById('pwa-next').disabled        = true;
-  document.getElementById('pwa-fab').hidden           = true;
+  setFocusMode(false);   // never strand the user in focus mode on an empty list
+  document.getElementById('pwa-qcard').hidden  = true;
+  document.getElementById('pwa-prev').disabled = true;
+  document.getElementById('pwa-next').disabled = true;
+  document.getElementById('pwa-fab').hidden     = true;
 }
 
 /* ── Image scaling ──────────────────────────────────────────────────────── */
@@ -731,35 +961,37 @@ function getScale(paperId) {
   return targetLineHeightPx / lineH;
 }
 
-function applyImgScale(img, scale) {
-  const apply = () => {
-    img.style.width  = (img.naturalWidth * scale) + 'px';
-    img.style.height = 'auto';
-  };
-  if (img.complete && img.naturalWidth > 0) apply();
-  else img.addEventListener('load', apply, { once: true });
-}
-
 function applyScaleToCurrentQuestion() {
   const item = qbankFiltered[qbankIndex];
   if (!item) return;
-  const scale = getScale(paperIdFromPath(item.questionImage));
-  applyImgScale(document.getElementById('pwa-qimg'), scale);
-  document.querySelectorAll('#pwa-opts img').forEach(img => applyImgScale(img, scale));
+  const scale  = getScale(paperIdFromPath(item.questionImage));
+  const sprite = item.sprite || {};
+
+  const qCanvas = document.getElementById('pwa-qimg');
+  if (qCanvas && sprite.question) {
+    qCanvas.style.width  = Math.round(sprite.question.w * scale) + 'px';
+    qCanvas.style.height = Math.round(sprite.question.h * scale) + 'px';
+  }
+  document.querySelectorAll('#pwa-opts .pwa-opt').forEach(div => {
+    const k      = Number(div.dataset.opt);
+    const coords = sprite[`option${k}`];
+    const cnv    = div.querySelector('canvas');
+    if (coords && cnv) {
+      cnv.style.width  = Math.round(coords.w * scale) + 'px';
+      cnv.style.height = Math.round(coords.h * scale) + 'px';
+    }
+  });
 }
 
 function hideEmptyState() {
   document.getElementById('pwa-empty-state').classList.remove('visible');
-  document.getElementById('pwa-qnum').hidden       = false;
-  document.querySelector('.pwa-qimg-wrap').hidden   = false;
-  document.getElementById('pwa-opts-wrap').hidden   = false;
-  document.getElementById('pwa-exp-section').hidden = false;
-  document.getElementById('pwa-fab').hidden         = false;
+  document.getElementById('pwa-qcard').hidden = false;
+  document.getElementById('pwa-fab').hidden    = false;
 }
 
 /* ── Filter pipeline ──────────────────────────────────────────────────────
    applyFilters() rebuilds qbankFiltered + resets index, then renders.
-   Called ONLY on filter changes (subject, status, explained) and initial load.
+   Called ONLY on filter changes (subject, status) and initial load.
    Navigation buttons call renderCurrent() so the filtered set stays frozen
    while the user works through it — otherwise marking Q1 understood would
    silently drop it from the list and Next would skip Q2 (jumps to Q3).
@@ -768,14 +1000,30 @@ async function applyFilters() {
   let all;
   try { all = await loadQuestionBank(); }
   catch (err) {
-    hideEmptyState();
-    document.getElementById('pwa-explanation').innerHTML =
-      `<p class="pwa-msg">Could not load question bank: ${esc(err.message)}</p>`;
+    showEmptyState();
+    document.getElementById('pwa-empty-icon').textContent = '⚠️';
+    document.getElementById('pwa-empty-text').innerHTML =
+      `Could not load question bank.<br><small>${esc(err.message)}</small><br><br>Check your connection and refresh.`;
     return;
   }
   qbankFiltered = buildFiltered(all);
   navReset();
+  if (_restorePos) {
+    const idx = qbankFiltered.findIndex(q => q.questionImage === _restorePos);
+    if (idx >= 0) { qbankIndex = idx; navHistory = [idx]; navPos = 0; }
+    _restorePos = null;
+  }
   renderCurrent();
+}
+
+/* ── Sprite rendering helpers ─────────────────────────────────────────── */
+function _drawCrop(cnv, spriteImg, coords, scale) {
+  const { y, h, w } = coords;
+  cnv.width  = w;
+  cnv.height = h;
+  cnv.style.width  = Math.round(w * scale) + 'px';
+  cnv.style.height = Math.round(h * scale) + 'px';
+  cnv.getContext('2d').drawImage(spriteImg, 0, y, w, h, 0, 0, w, h);
 }
 
 function renderCurrent() {
@@ -790,34 +1038,83 @@ function renderCurrent() {
   if (qbankIndex >= qbankFiltered.length) qbankIndex = qbankFiltered.length - 1;
   if (qbankIndex < 0) qbankIndex = 0;
 
-  const item  = qbankFiltered[qbankIndex];
-  const qimg  = item.questionImage;
-  const qNum  = item.globalIndex != null ? item.globalIndex + 1 : '?';
-  const subj  = (item.sectionId || '').toUpperCase();
+  const item      = qbankFiltered[qbankIndex];
+  const qimg      = item.questionImage;
+  const sprite    = item.sprite || {};
+  const spriteUrl = item.spriteUrl;
+  const scale     = getScale(paperIdFromPath(qimg));
+  const qNum      = item.globalIndex != null ? item.globalIndex + 1 : '?';
+  const subj      = (item.sectionId || '').toUpperCase();
 
   document.getElementById('pwa-qnum').textContent =
     `${item.examTitle || item.examId || ''} · ${subj} · Q${qNum}`;
 
-  const imgEl = document.getElementById('pwa-qimg');
-  imgEl.src = qimg; imgEl.hidden = false;
-
+  const qCanvas  = document.getElementById('pwa-qimg');
   const optsEl   = document.getElementById('pwa-opts');
   const optsWrap = document.getElementById('pwa-opts-wrap');
-  if (item.optionsInQuestion || !item.optionImages.length) {
-    optsEl.innerHTML = ''; optsWrap.style.display = 'none';
-  } else {
+
+  // Build options HTML (canvas placeholders filled once sprite loads)
+  const optKeys = [1, 2, 3, 4].filter(k => sprite[`option${k}`]);
+  if (!item.optionsInQuestion && spriteUrl && optKeys.length) {
     optsWrap.style.display = '';
     const prior = optionChoices.get(qimg);
     optsEl.className = 'pwa-opts' + (prior ? ' pwa-opts--revealed' : ' pwa-opts--inert');
-    optsEl.innerHTML = item.optionImages.map((src, i) => {
-      const k = i + 1;
+    optsEl.innerHTML = optKeys.map(k => {
       let cls = 'pwa-opt';
       if (prior) {
         if (k === Number(item.correctAnswer)) cls += ' pwa-opt--correct';
         else if (k === prior.picked)          cls += ' pwa-opt--wrong';
       }
-      return `<div class="${cls}" data-opt="${k}"><span class="pwa-opt-num">${k}</span><img src="${esc(src)}" alt="Option ${k}" loading="lazy"></div>`;
+      // Pre-size the canvas to its known piece dims + shimmer while the sprite loads.
+      const c = sprite[`option${k}`];
+      const w = Math.round(c.w * scale), h = Math.round(c.h * scale);
+      return `<div class="${cls}" data-opt="${k}"><span class="pwa-opt-num">${k}</span><canvas class="pwa-opt-canvas pwa-loading" style="width:${w}px;height:${h}px"></canvas></div>`;
     }).join('');
+  } else {
+    optsEl.innerHTML = ''; optsWrap.style.display = 'none';
+  }
+
+  // Load sprite and draw crops into canvases
+  if (spriteUrl && sprite.question) {
+    // Skeleton: clear the stale bitmap (so the shimmer CSS bg shows) and pre-size
+    // the question canvas to its known dims, so there's no reflow when it paints.
+    qCanvas.width  = sprite.question.w;
+    qCanvas.height = sprite.question.h;
+    qCanvas.style.width  = Math.round(sprite.question.w * scale) + 'px';
+    qCanvas.style.height = Math.round(sprite.question.h * scale) + 'px';
+    qCanvas.classList.add('pwa-loading');
+
+    const guardImg = qimg;
+    const clearSkeletons = () => {
+      qCanvas.classList.remove('pwa-loading');
+      optsEl.querySelectorAll('canvas.pwa-loading').forEach(c => c.classList.remove('pwa-loading'));
+    };
+    const spriteImg = new Image();
+    spriteImg.crossOrigin = 'anonymous';
+    spriteImg.onload = () => {
+      const stillItem = qbankFiltered[qbankIndex];
+      if (!stillItem || stillItem.questionImage !== guardImg) return;
+      _drawCrop(qCanvas, spriteImg, sprite.question, scale);
+      qCanvas.classList.remove('pwa-loading');
+      if (!item.optionsInQuestion) {
+        optKeys.forEach(k => {
+          const div = optsEl.querySelector(`[data-opt="${k}"]`);
+          const cnv = div?.querySelector('canvas');
+          if (cnv) { _drawCrop(cnv, spriteImg, sprite[`option${k}`], scale); cnv.classList.remove('pwa-loading'); }
+        });
+      }
+    };
+    // On failure, stop the shimmer rather than spin forever.
+    spriteImg.onerror = () => {
+      const stillItem = qbankFiltered[qbankIndex];
+      if (stillItem && stillItem.questionImage === guardImg) clearSkeletons();
+    };
+    spriteImg.src = spriteUrl;
+  } else {
+    // Clear canvas if no sprite available
+    qCanvas.classList.remove('pwa-loading');
+    qCanvas.width = 1; qCanvas.height = 1;
+    qCanvas.style.width = ''; qCanvas.style.height = '';
   }
 
   document.getElementById('pwa-prev').disabled = qbankIndex <= 0;
@@ -829,9 +1126,7 @@ function renderCurrent() {
     aiBtn.innerHTML = getAiCache(qimg) ? '&#10024; Regenerate' : '&#10024; Explain with AI';
   }
 
-  applyScaleToCurrentQuestion();
-
-  document.getElementById('pwa-content').scrollTo({ top: 0, behavior: 'auto' });
+  document.getElementById('pwa-qcard').scrollTo({ top: 0, behavior: 'auto' });
   _prefetch(qbankFiltered[qbankIndex + 1]);
   _prefetch(qbankFiltered[qbankIndex - 1]);
 
@@ -856,7 +1151,100 @@ function revealOption(pickedIdx) {
   });
 }
 
-function _prefetch(item) { if (item?.questionImage) new Image().src = item.questionImage; }
+function _prefetch(item) { if (item?.spriteUrl) new Image().src = item.spriteUrl; }
+
+/* ── Navigation, focus mode & swipe ─────────────────────────────────────── */
+// History-aware prev/next. Return true when the position actually moved.
+function navPrev() {
+  if (navPos > 0)        { navPos--; qbankIndex = navHistory[navPos]; renderCurrent(); return true; }
+  if (qbankIndex > 0)    { navPush(qbankIndex - 1); renderCurrent(); return true; }
+  return false;
+}
+function navNext() {
+  if (navPos < navHistory.length - 1) { navPos++; qbankIndex = navHistory[navPos]; renderCurrent(); return true; }
+  if (qbankIndex < qbankFiltered.length - 1) { navPush(qbankIndex + 1); renderCurrent(); return true; }
+  return false;
+}
+
+// Slide the card out in the gesture direction, swap content, slide the new one in.
+let _sliding = false;
+function navAnimated(dir) {            // dir: 'next' | 'prev'
+  const card = document.getElementById('pwa-qcard');
+  const go   = dir === 'next' ? navNext : navPrev;
+  if (_sliding) return;
+  if (!card || card.hidden) { go(); return; }
+  const out  = dir === 'next' ? -1 : 1;                 // 'next' exits to the left
+  const dist = Math.min(window.innerWidth * 0.45, 200);
+  _sliding = true;
+  card.style.transition = 'transform 0.17s ease-in, opacity 0.17s ease-in';
+  card.style.transform  = `translateX(${out * dist}px)`;
+  card.style.opacity    = '0';
+  setTimeout(() => {
+    const moved = go();                                 // renders next/prev (no-op at the ends)
+    card.style.transition = 'none';
+    card.style.transform  = `translateX(${(moved ? -out : out) * (moved ? 48 : 40)}px)`;
+    void card.offsetWidth;                              // force reflow before the entry transition
+    card.style.transition = 'transform 0.24s cubic-bezier(0.2,0.7,0.2,1), opacity 0.24s';
+    card.style.transform  = 'translateX(0)';
+    card.style.opacity    = '1';
+    setTimeout(() => { card.style.transition = ''; card.style.transform = ''; _sliding = false; }, 260);
+  }, 170);
+}
+
+// Focus mode — hide all chrome, keep the question card + a single exit FAB.
+let _focusHintTid = null;
+function setFocusMode(on) {
+  on = !!on;
+  const app = document.getElementById('pwa-app');
+  if (!app) return;
+  const was = app.classList.contains('pwa-focus');
+  app.classList.toggle('pwa-focus', on);
+  const btn = document.getElementById('pwa-fab-focus');
+  if (btn) {
+    btn.classList.toggle('is-exit', on);
+    btn.setAttribute('aria-label', on ? 'Exit focus mode' : 'Focus mode');
+    btn.setAttribute('aria-pressed', String(on));
+  }
+  if (_focusHintTid) { clearTimeout(_focusHintTid); _focusHintTid = null; }
+  if (on === was) return;                       // no real state change → no toast
+  if (on) {
+    document.getElementById('pwa-qcard')?.scrollTo({ top: 0 });
+    showToast('Focus mode on');
+    _focusHintTid = setTimeout(() => {          // a beat later: how to navigate now that buttons are gone
+      if (isFocusMode()) showToast('Swipe left/right to change questions');
+      _focusHintTid = null;
+    }, 1600);
+  } else {
+    showToast('Focus mode off');
+  }
+}
+function isFocusMode() { return document.getElementById('pwa-app').classList.contains('pwa-focus'); }
+
+// Horizontal swipe → prev/next. Vertical scroll and wide-image panning are preserved.
+function attachSwipe(el) {
+  let x0 = 0, y0 = 0, t0 = 0, imgWrap = null;
+  el.addEventListener('touchstart', e => {
+    if (e.touches.length !== 1) { t0 = 0; return; }
+    const t = e.touches[0]; x0 = t.clientX; y0 = t.clientY; t0 = Date.now();
+    const w = e.target.closest('.pwa-qimg-wrap');
+    imgWrap = (w && w.scrollWidth > w.clientWidth + 2) ? w : null;   // a pannable wide image
+  }, { passive: true });
+  el.addEventListener('touchend', e => {
+    if (!t0) return;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - x0, dy = t.clientY - y0, dt = Date.now() - t0;
+    t0 = 0;
+    if (dt > 700) return;                                                 // too slow to be a flick
+    if (Math.abs(dx) < 55 || Math.abs(dx) < Math.abs(dy) * 1.4) return;   // not horizontal-dominant
+    if (imgWrap) {                                                        // defer to image panning
+      const atStart = imgWrap.scrollLeft <= 0;
+      const atEnd   = imgWrap.scrollLeft + imgWrap.clientWidth >= imgWrap.scrollWidth - 2;
+      if (dx < 0 && !atEnd)   return;
+      if (dx > 0 && !atStart) return;
+    }
+    navAnimated(dx < 0 ? 'next' : 'prev');
+  }, { passive: true });
+}
 
 /* ── R2 rating bar ──────────────────────────────────────────────────────── */
 function showRatingBar(exp, questionImage) {
@@ -926,15 +1314,7 @@ async function loadExplanation(questionImage) {
     } catch {}
   }
 
-  // 3. metadata.json fallback (legacy)
-  const i = questionImage.lastIndexOf('/');
-  if (i < 0) { expEl.innerHTML = noExplanationMsg(); return; }
-  try {
-    const resp = await fetch(questionImage.substring(0, i) + '/metadata.json');
-    if (!resp.ok) throw new Error();
-    const data = await resp.json();
-    expEl.innerHTML = data?.explanation?.html_text || noExplanationMsg();
-  } catch { expEl.innerHTML = noExplanationMsg(); }
+  expEl.innerHTML = noExplanationMsg();
 }
 function noExplanationMsg() {
   return '<em style="color:#888;font-size:13px">No explanation yet. Tap ✨ Explain with AI to generate one.</em>';
@@ -945,16 +1325,14 @@ function updateHeaderProgress() {
   const understood = getUnderstoodSet();
   const revSet     = getRevisionSet();
 
-  // Scope to the active subject filter
+  // Scope to the active subject OR paper filter (mutually exclusive)
   const all = qbankCache || [];
-  const scoped = qbankSubjectFilter === 'all'
-    ? all
-    : all.filter(q => (q.sectionId || '').toLowerCase() === qbankSubjectFilter);
+  const scoped = all.filter(inActiveScope);
 
   const scopedTotal = scoped.length;
   const scopedDone  = scoped.filter(q => understood.has(q.questionImage) || revSet.has(q.questionImage)).length;
   document.getElementById('pwa-progress-count').innerHTML =
-    `${scopedDone}<span class="pwa-progress-total"> / ${scopedTotal || 3150}</span>`;
+    `${scopedDone}<span class="pwa-progress-total"> / ${scopedTotal}</span>`;
 
   // Sub-line hidden (counts shown on chips instead)
   document.getElementById('pwa-progress-sub').textContent = '';
@@ -966,17 +1344,13 @@ function updateHeaderProgress() {
   const scopedUnd = scoped.filter(q => understood.has(q.questionImage)).length;
   if (revEl) revEl.textContent = scopedRev || '';
   if (undEl) undEl.textContent = scopedUnd || '';
-
-  // Explained badge — R2 global count when fetched, else local cache count
-  const totalExp = r2ExplainedCount ?? all.filter(q => !!getAiCache(q.questionImage)).length;
-  document.getElementById('pwa-exp-count').textContent = totalExp;
 }
 
 /* ── FAB visibility ─────────────────────────────────────────────────────── */
 function updateFabVisibility() {
   const revFab = document.getElementById('pwa-fab-revision');
-  // Revision FAB only shown in To Read and Explained filters
-  const showRev = qbankStatusFilter === 'to-read' || qbankStatusFilter === 'explained';
+  // Revision (bookmark) FAB only shown in the To Read filter
+  const showRev = qbankStatusFilter === 'to-read';
   revFab.classList.toggle('pwa-fab-hidden', !showRev);
   document.getElementById('pwa-fab-understood').classList.remove('pwa-fab-hidden');
 }
@@ -1029,73 +1403,347 @@ async function handleAiExplain() {
   expEl.innerHTML = '<div class="pwa-ai-loading"><span class="pwa-ai-spinner"></span>Generating AI explanation…</div>';
   document.getElementById('pwa-content').scrollTo({ top: expSection.offsetTop - 8, behavior: 'smooth' });
 
+  // iOS suspends in-flight fetches when the PWA is backgrounded — track whether
+  // the page lost visibility during this request so we can give a clearer error
+  // and auto-retry once on resume.
+  let backgroundedDuringFetch = false;
+  const onVis = () => { if (document.visibilityState === 'hidden') backgroundedDuringFetch = true; };
+  document.addEventListener('visibilitychange', onVis);
+
   try {
     const html = await window.AiExplainer.explain({
       questionImage: item.questionImage, optionImages: item.optionImages || [],
       optionsInQuestion: !!item.optionsInQuestion, correctAnswer: item.correctAnswer,
       sectionId: item.sectionId, forceRegenerate: isRegen, mobile: true,
+      spriteUrl: item.spriteUrl || null,
+      sprite:    item.sprite    || null,
     });
     expEl.innerHTML = html;
     aiBtn.innerHTML = '&#10024; Regenerate';
     document.getElementById('pwa-content').scrollTo({ top: expSection.offsetTop - 8, behavior: 'smooth' });
     updateHeaderProgress();
-    // Save to R2 async — non-blocking, best-effort
+    // Save to R2 async — non-blocking, best-effort. addToIndex keeps the R2
+    // explanation index current (used by bulk generation); no UI badge anymore.
     if (window.R2Explanations?.isConfigured()) {
       window.R2Explanations.save(item.questionImage, html).then(exp => {
         if (exp) {
           showRatingBar(exp, item.questionImage);
-          window.R2Explanations.addToIndex(item.questionImage).then(count => {
-            if (count !== null) { r2ExplainedCount = count; updateHeaderProgress(); }
-          });
+          window.R2Explanations.addToIndex(item.questionImage);
         }
       });
     }
   } catch (err) {
-    expEl.innerHTML = `<div class="pwa-ai-error"><strong>AI error:</strong> ${esc(err.message || 'Generation failed.')}</div>`;
-    aiBtn.innerHTML = '&#10024; Explain with AI';
-  } finally { aiBtn.disabled = false; }
+    const msg = err.message || 'Generation failed.';
+    const looksLikeNetwork = /network error|load failed|failed to fetch/i.test(msg);
+    if (backgroundedDuringFetch && looksLikeNetwork) {
+      expEl.innerHTML = `<div class="pwa-ai-error"><strong>AI paused:</strong> iOS cancelled the request when you switched away from the app. Tap <strong>Explain with AI</strong> again and keep the app in foreground until the explanation loads (usually 10–20 seconds).</div>`;
+      aiBtn.innerHTML = '&#10024; Explain with AI';
+      // Auto-retry once on resume (only if the user is still viewing the same question)
+      const currentQimg = item.questionImage;
+      const onResume = () => {
+        if (document.visibilityState !== 'visible') return;
+        document.removeEventListener('visibilitychange', onResume);
+        const stillItem = qbankFiltered[qbankIndex];
+        if (stillItem && stillItem.questionImage === currentQimg && !getAiCache(currentQimg)) {
+          handleAiExplain();
+        }
+      };
+      document.addEventListener('visibilitychange', onResume);
+    } else {
+      expEl.innerHTML = `<div class="pwa-ai-error"><strong>AI error:</strong> ${esc(msg)}</div>`;
+      aiBtn.innerHTML = '&#10024; Explain with AI';
+    }
+  } finally {
+    document.removeEventListener('visibilitychange', onVis);
+    aiBtn.disabled = false;
+  }
 }
 
 /* ── Subject dropdown ───────────────────────────────────────────────────── */
 function openSubjectDropdown() {
   document.getElementById('pwa-subject-dd').hidden = false;
-  document.querySelector('.pwa-chevron').classList.add('pwa-chevron--open');
+  document.querySelector('#pwa-subject-btn .pwa-chevron').classList.add('pwa-chevron--open');
   document.getElementById('pwa-dd-backdrop').classList.add('visible');
   document.getElementById('pwa-subject-btn').setAttribute('aria-expanded', 'true');
 }
 function closeSubjectDropdown() {
   document.getElementById('pwa-subject-dd').hidden = true;
-  document.querySelector('.pwa-chevron').classList.remove('pwa-chevron--open');
+  document.getElementById('pwa-paper-dd').hidden = true;
+  document.querySelector('#pwa-subject-btn .pwa-chevron').classList.remove('pwa-chevron--open');
   document.getElementById('pwa-dd-backdrop').classList.remove('visible');
   document.getElementById('pwa-subject-btn').setAttribute('aria-expanded', 'false');
+}
+
+/* Rebuild the subject dropdown items for the active stream's sections. */
+function buildSubjectDropdown(sections) {
+  const dd = document.getElementById('pwa-subject-dd');
+  dd.innerHTML = [
+    `<button class="pwa-dd-item active" data-subject="all">All Subjects</button>`,
+    ...sections.map(s => `<button class="pwa-dd-item" data-subject="${esc(s.id)}">${esc(s.name)}</button>`),
+    `<button class="pwa-dd-item pwa-dd-drill" data-role="paperwise">Paper-wise`
+      + `<svg class="pwa-dd-arrow" viewBox="0 0 14 14" aria-hidden="true"><polyline points="5,3 10,7 5,11"/></svg></button>`,
+  ].join('');
+  qbankSubjectFilter = 'all';
+  qbankPaperFilter   = 'all';
+  document.getElementById('pwa-paper-dd').hidden = true;
+  document.getElementById('pwa-subject-label').textContent = 'All Subjects';
+}
+
+/* Build the side flyout listing the active stream's papers (+ "All Papers"). */
+function buildPaperFlyout() {
+  const cur = qbankPaperFilter;
+  const items = [
+    `<button class="pwa-dd-item${cur === 'all' ? ' active' : ''}" data-exam-id="all">All Papers</button>`,
+    ...papersForStream().map(p =>
+      `<button class="pwa-dd-item${cur === p.examId ? ' active' : ''}" data-exam-id="${esc(p.examId)}">${esc(p.examTitle || p.examId)}</button>`),
+  ];
+  document.getElementById('pwa-paper-dd').innerHTML = items.join('');
+}
+
+/* Anchor the paper flyout beside the open subject panel: start it level with the
+   "Paper-wise" row and extend down to ~90% of the viewport (10% gap at the bottom). */
+function positionPaperFlyout() {
+  const fly   = document.getElementById('pwa-paper-dd');
+  const drill = document.querySelector('#pwa-subject-dd .pwa-dd-drill');
+  const drillTop = drill ? drill.getBoundingClientRect().top : window.innerHeight * 0.4;
+  const ABOVE = 24;   // start slightly above the drill row
+  fly.style.top       = Math.max(8, drillTop - ABOVE) + 'px';
+  fly.style.maxHeight = (window.innerHeight * 0.85 - (drillTop - ABOVE)) + 'px';
+}
+
+/* ── Stream selection ───────────────────────────────────────────────────── */
+function updateStreamButton(cfg) {
+  document.getElementById('pwa-stream-tag').textContent  = `${cfg.tet_label} · ${cfg.paper_label}`;
+  document.getElementById('pwa-stream-name').textContent = cfg.label;
+}
+
+function saveFilters() {
+  try {
+    if (selectedBank)
+      localStorage.setItem(filtersKey(selectedBank),
+        JSON.stringify({ subject: qbankSubjectFilter, status: qbankStatusFilter, paper: qbankPaperFilter }));
+  } catch {}
+}
+
+/* Switch the active stream: rebuild subjects, load that stream's index, render. */
+async function selectStream(bank, { persist = true } = {}) {
+  const cfg = findStream(bank) || findStream(DEFAULT_BANK) || allStreams()[0];
+  if (!cfg) return;
+  const prevBank = selectedBank;
+  selectedBank   = cfg.tet_bank;
+  selectedStream = cfg;
+  streamSections = cfg.sections || [];
+  if (persist) { try { localStorage.setItem(SELECTED_BANK_KEY, selectedBank); } catch {} }
+  updateStreamButton(cfg);
+  buildSubjectDropdown(streamSections);
+
+  if (prevBank !== null && selectedBank !== prevBank) {
+    // Explicit switch to a different stream: reset filters and position
+    qbankSubjectFilter = 'all';
+    qbankPaperFilter   = 'all';
+    qbankStatusFilter  = 'to-read';
+    _restorePos        = null;
+  } else {
+    // Initial load or same stream: restore saved filters + position
+    try {
+      const f = JSON.parse(localStorage.getItem(filtersKey(selectedBank)) || 'null');
+      if (f) { qbankSubjectFilter = f.subject || 'all'; qbankStatusFilter = f.status || 'to-read'; qbankPaperFilter = f.paper || 'all'; }
+    } catch {}
+    try { _restorePos = localStorage.getItem(posKey(selectedBank)) || null; } catch {}
+  }
+  syncChipHighlight();
+  qbankCache = null;
+  await applyFilters();
+}
+
+/* ── Stream picker (TET → Paper → Stream) ───────────────────────────────── */
+function openPicker() {
+  populatePicker();
+  document.getElementById('sp-close').hidden = !selectedBank;  // can't cancel before first pick
+  document.getElementById('pwa-stream-picker').hidden = false;
+}
+function closePicker() { document.getElementById('pwa-stream-picker').hidden = true; }
+
+/* Picker selection state (drives the custom dropdowns). */
+let pickTet = null, pickPaper = null, pickBank = null;
+function _spTet()   { const t = (qbManifest?.tets || []); return t.find(x => x.tet_type === pickTet) || t[0] || null; }
+function _spPaper() { const p = _spTet()?.papers || []; return p.find(x => x.paper === pickPaper) || p[0] || null; }
+
+function populatePicker() {
+  const cur = selectedStream || findStream(DEFAULT_BANK) || allStreams()[0] || null;
+  pickTet   = cur?.tet_type ?? qbManifest?.tets?.[0]?.tet_type ?? null;
+  pickPaper = cur?.paper    ?? null;
+  pickBank  = cur?.tet_bank ?? null;
+  spRender();
+  spCloseDD();
+  document.getElementById('sp-version').textContent = APP_VERSION;
+
+  // Overall scale across every stream — emphasised numbers, theme middot separators.
+  const all    = allStreams();
+  const papers = all.reduce((n, s) => n + (s.paper_count || 0), 0);
+  const qs     = all.reduce((n, s) => n + (s.question_count || 0), 0);
+  document.getElementById('sp-scale-text').innerHTML =
+    `<strong>${papers.toLocaleString()}</strong> papers · ` +
+    `<strong>${qs.toLocaleString()}</strong> questions across ` +
+    `<strong>${all.length}</strong> streams`;
+}
+
+/* Render the three dropdown buttons + panels from the current picks, cascading
+   TET → Paper → Stream and falling back to the first available at each level. */
+function spRender() {
+  const tets = qbManifest?.tets || [];
+  if (!tets.some(t => t.tet_type === pickTet)) pickTet = tets[0]?.tet_type ?? null;
+  const tet = _spTet();
+  const papers = tet?.papers || [];
+  if (!papers.some(p => p.paper === pickPaper)) pickPaper = papers[0]?.paper ?? null;
+  const pap = _spPaper();
+  const streams = pap?.streams || [];
+  if (!streams.some(s => s.tet_bank === pickBank)) pickBank = streams[0]?.tet_bank ?? null;
+
+  document.getElementById('sp-tet-val').textContent = tet?.label || '—';
+  document.getElementById('sp-tet-dd').innerHTML = tets.map(t =>
+    `<button class="sp-dd-opt${t.tet_type === pickTet ? ' active' : ''}" data-tet="${esc(t.tet_type)}">${esc(t.label)}</button>`).join('');
+
+  document.getElementById('sp-paper-val').textContent = pap?.label || '—';
+  document.getElementById('sp-paper-dd').innerHTML = papers.map(p =>
+    `<button class="sp-dd-opt${p.paper === pickPaper ? ' active' : ''}" data-paper="${esc(p.paper)}">${esc(p.label)}</button>`).join('');
+
+  const curStream = streams.find(s => s.tet_bank === pickBank);
+  document.getElementById('sp-stream-val').textContent = curStream?.label || '—';
+  document.getElementById('sp-stream-dd').innerHTML = streams.map(s => {
+    const meta = `${s.paper_count} paper${s.paper_count === 1 ? '' : 's'}`;
+    return `<button class="sp-dd-opt sp-dd-opt--stream${s.tet_bank === pickBank ? ' active' : ''}" data-bank="${esc(s.tet_bank)}">`
+      + `<span class="sp-dd-opt-name">${esc(s.label)}</span><span class="sp-dd-opt-meta">${esc(meta)}</span></button>`;
+  }).join('');
+
+  updatePickerSummary();
+}
+
+function updatePickerSummary() {
+  const s = findStream(pickBank);
+  const el = document.getElementById('sp-summary');
+  const confirm = document.getElementById('sp-confirm');
+  if (!s) { el.innerHTML = '<span class="sp-empty">No question banks available.</span>'; confirm.disabled = true; return; }
+  confirm.disabled = false;
+  el.innerHTML = `<strong>${s.paper_count}</strong> paper${s.paper_count === 1 ? '' : 's'} · ` +
+                 `<strong>${s.question_count.toLocaleString()}</strong> questions` +
+                 `<br>${esc(s.sections.map(x => x.name).join(' · '))}`;
+}
+
+/* Picker dropdown open/close — only one panel open at a time. */
+function spCloseDD(except) {
+  ['sp-tet', 'sp-paper', 'sp-stream'].forEach(id => {
+    if (id === except) return;
+    document.getElementById(id + '-dd').hidden = true;
+    document.getElementById(id + '-btn').setAttribute('aria-expanded', 'false');
+  });
+}
+function positionDD(id) {
+  if (id === 'sp-stream') return;   // stream uses fixed CSS insets, not button-anchored
+  const dd = document.getElementById(id + '-dd');
+  const br = document.getElementById(id + '-btn').getBoundingClientRect();
+  dd.style.top = ''; dd.style.bottom = '';
+  dd.style.top = (br.bottom + 6) + 'px';
+}
+function spToggleDD(id) {
+  const dd = document.getElementById(id + '-dd');
+  const open = dd.hidden;            // hidden now → about to open
+  spCloseDD(open ? id : null);
+  dd.hidden = !open;
+  document.getElementById(id + '-btn').setAttribute('aria-expanded', String(open));
+  if (open) positionDD(id);
+}
+
+/* Initial load: manifest → pre-fill picker from last selection → always open picker.
+   QB index is deferred until the user confirms. */
+async function initStreams() {
+  try { await loadManifest(); }
+  catch (e) {
+    document.getElementById('pwa-explanation').innerHTML =
+      `<p class="pwa-msg">Could not load question banks: ${esc(e.message)}</p>`;
+    return;
+  }
+  let saved = null;
+  try { saved = localStorage.getItem(SELECTED_BANK_KEY); } catch {}
+  const target = (saved && findStream(saved)) ? saved : DEFAULT_BANK;
+  // If the user has a saved position, resume directly — skip the picker.
+  let savedPos = null;
+  try { if (saved) savedPos = localStorage.getItem(posKey(target)); } catch {}
+  if (saved && savedPos) {
+    await selectStream(target, { persist: false });
+  } else {
+    // No saved position: always show picker (pre-filled with last selection).
+    const cfg = findStream(target);
+    if (cfg) {
+      selectedBank   = cfg.tet_bank;
+      selectedStream = cfg;
+      streamSections = cfg.sections || [];
+      updateStreamButton(cfg);
+    }
+    openPicker();
+    document.getElementById('sp-close').hidden = !saved;
+  }
 }
 
 /* ── Chip highlight sync ────────────────────────────────────────────────── */
 function syncChipHighlight() {
   document.querySelectorAll('#pwa-chips-scroll .pwa-chip').forEach(b =>
     b.classList.toggle('active', b.dataset.status === qbankStatusFilter));
-  document.getElementById('pwa-chip-explained').classList.toggle('active', qbankStatusFilter === 'explained');
 }
 
 /* ── Bootstrap ──────────────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
 
+  // On special pushes, increment CACHE_BUST to wipe stale localStorage keys.
+  // User progress (understood / revision) is intentionally preserved.
+  const BUST_LS_KEY = 'cache_bust_v';
+  if (localStorage.getItem(BUST_LS_KEY) !== CACHE_BUST) {
+    Object.keys(localStorage)
+      .filter(k => k.startsWith('qb_index_cache_') || k === MANIFEST_CACHE_KEY ||
+                   k.startsWith(AI_CACHE_PFX) || k.startsWith('r2_exp:'))
+      .forEach(k => localStorage.removeItem(k));
+    localStorage.setItem(BUST_LS_KEY, CACHE_BUST);
+  }
+
   cleanConflictingStates();
 
   document.getElementById('pwa-explanation').innerHTML =
     '<span class="pwa-msg">Loading question bank…</span>';
-  applyFilters();
+  initStreams();
 
-  /* Fetch R2 explanation index to populate the ✨ counter — public endpoint, no auth needed */
-  if (window.R2Explanations) {
-    window.R2Explanations.fetchIndex().then(({ count }) => {
-      r2ExplainedCount = count;
-      document.getElementById('pwa-exp-count').textContent = count;
-    });
-  }
+  /* Stream switcher → open picker */
+  document.getElementById('pwa-stream-btn').addEventListener('click', openPicker);
 
-  /* Brand tap — show version */
-  document.getElementById('pwa-brand').addEventListener('click', () => showToast(`TET Suite v${APP_VERSION}`));
+  /* Picker custom dropdowns + actions */
+  document.getElementById('sp-tet-btn').addEventListener('click', e => { e.stopPropagation(); spToggleDD('sp-tet'); });
+  document.getElementById('sp-paper-btn').addEventListener('click', e => { e.stopPropagation(); spToggleDD('sp-paper'); });
+  document.getElementById('sp-stream-btn').addEventListener('click', e => { e.stopPropagation(); spToggleDD('sp-stream'); });
+  document.getElementById('sp-tet-dd').addEventListener('click', e => {
+    const b = e.target.closest('.sp-dd-opt'); if (!b) return;
+    pickTet = b.dataset.tet; pickPaper = null; pickBank = null; spRender(); spCloseDD();
+  });
+  document.getElementById('sp-paper-dd').addEventListener('click', e => {
+    const b = e.target.closest('.sp-dd-opt'); if (!b) return;
+    pickPaper = b.dataset.paper; pickBank = null; spRender(); spCloseDD();
+  });
+  document.getElementById('sp-stream-dd').addEventListener('click', e => {
+    const b = e.target.closest('.sp-dd-opt'); if (!b) return;
+    pickBank = b.dataset.bank; spRender(); spCloseDD();
+  });
+  // Tapping anywhere in the picker card outside a field closes any open dropdown.
+  document.getElementById('pwa-stream-picker').addEventListener('click', e => {
+    if (!e.target.closest('.sp-field')) spCloseDD();
+  });
+  document.getElementById('sp-confirm').addEventListener('click', () => {
+    const bank = pickBank || selectedBank;
+    closePicker();
+    selectStream(bank);   // always load — may be first open or a new selection
+  });
+  document.getElementById('sp-close').addEventListener('click', () => {
+    closePicker();
+    // If QB index wasn't loaded yet (returning user dismissed without changing), load now
+    if (!qbankCache) selectStream(selectedBank);
+  });
 
   /* Subject dropdown toggle */
   document.getElementById('pwa-subject-btn').addEventListener('click', e => {
@@ -1104,18 +1752,45 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   document.getElementById('pwa-dd-backdrop').addEventListener('click', closeSubjectDropdown);
 
-  /* Subject selection */
+  /* Subject selection + "Paper-wise" drill */
   document.getElementById('pwa-subject-dd').addEventListener('click', e => {
+    const drill = e.target.closest('.pwa-dd-drill');
+    if (drill) {
+      const fly = document.getElementById('pwa-paper-dd');
+      if (fly.hidden) { buildPaperFlyout(); fly.hidden = false; positionPaperFlyout(); }
+      else fly.hidden = true;
+      return;
+    }
     const btn = e.target.closest('.pwa-dd-item');
-    if (!btn) return;
+    if (!btn || btn.dataset.subject == null) return;
     const newSubject = btn.dataset.subject;
     qbankSubjectFilter = newSubject;
-    document.getElementById('pwa-subject-label').textContent =
-      SUBJECT_DISPLAY[newSubject] || 'All Subjects';
-    document.querySelectorAll('.pwa-dd-item').forEach(b =>
+    qbankPaperFilter   = 'all';
+    document.getElementById('pwa-subject-label').textContent = subjectDisplay(newSubject);
+    document.querySelectorAll('#pwa-subject-dd .pwa-dd-item').forEach(b =>
       b.classList.toggle('active', b.dataset.subject === newSubject));
     closeSubjectDropdown();
-    applyFilters();
+    saveFilters(); applyFilters();
+  });
+
+  /* Paper-wise selection (mutually exclusive with subject) */
+  document.getElementById('pwa-paper-dd').addEventListener('click', e => {
+    const btn = e.target.closest('.pwa-dd-item');
+    if (!btn) return;
+    const id = btn.dataset.examId;
+    qbankPaperFilter   = id;          // 'all' or an examId
+    qbankSubjectFilter = 'all';
+    let label = 'All Subjects';
+    if (id !== 'all') { const p = papersForStream().find(x => x.examId === id); label = p ? (p.examTitle || id) : 'Paper'; }
+    document.getElementById('pwa-subject-label').textContent = label;
+    // Active marker: drill row when a paper is active, else "All Subjects".
+    document.querySelectorAll('#pwa-subject-dd .pwa-dd-item').forEach(b => {
+      const onAll   = id === 'all' && b.dataset.subject === 'all';
+      const onDrill = id !== 'all' && b.classList.contains('pwa-dd-drill');
+      b.classList.toggle('active', onAll || onDrill);
+    });
+    closeSubjectDropdown();
+    saveFilters(); applyFilters();
   });
 
   /* Status chips */
@@ -1124,47 +1799,22 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!chip) return;
     qbankStatusFilter = chip.dataset.status;
     syncChipHighlight();
-    applyFilters();
+    saveFilters(); applyFilters();
   });
 
-  /* Explained badge toggle */
-  document.getElementById('pwa-chip-explained').addEventListener('click', () => {
-    qbankStatusFilter = qbankStatusFilter === 'explained' ? 'to-read' : 'explained';
-    syncChipHighlight();
-    applyFilters();
-  });
-
-  /* Nav buttons — history-aware back / forward / random */
-  document.getElementById('pwa-prev').addEventListener('click', () => {
-    if (navPos > 0) {
-      // Walk back through history
-      navPos--;
-      qbankIndex = navHistory[navPos];
-      renderCurrent();
-    } else if (qbankIndex > 0) {
-      // Prepend sequential prev to history
-      navPush(qbankIndex - 1);
-      renderCurrent();
-    }
-  });
-  document.getElementById('pwa-next').addEventListener('click', () => {
-    if (navPos < navHistory.length - 1) {
-      // Walk forward through history
-      navPos++;
-      qbankIndex = navHistory[navPos];
-      renderCurrent();
-    } else if (qbankIndex < qbankFiltered.length - 1) {
-      // Past end of history — go to sequential next and push it
-      navPush(qbankIndex + 1);
-      renderCurrent();
-    }
-  });
+  /* Nav buttons — history-aware back / forward / random (logic in navPrev/navNext) */
+  document.getElementById('pwa-prev').addEventListener('click', () => navAnimated('prev'));
+  document.getElementById('pwa-next').addEventListener('click', () => navAnimated('next'));
   document.getElementById('pwa-random').addEventListener('click', () => {
     if (qbankFiltered.length > 0) {
       navPush(Math.floor(Math.random() * qbankFiltered.length));
       renderCurrent();
     }
   });
+
+  /* Focus mode toggle + swipe-to-navigate (active everywhere; sole nav in focus mode) */
+  document.getElementById('pwa-fab-focus').addEventListener('click', () => setFocusMode(!isFocusMode()));
+  attachSwipe(document.getElementById('pwa-qcard'));
 
   /* Option click — reveal correct/wrong on first tap */
   document.getElementById('pwa-opts').addEventListener('click', e => {
@@ -1179,7 +1829,12 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('pwa-fab-revision').addEventListener('click', () => {
     const item = qbankFiltered[qbankIndex];
     if (!item) return;
-    toggleRevision(item.questionImage);
+    try {
+      toggleRevision(item.questionImage);
+    } catch (e) {
+      showToast('Could not save — storage full?');
+      return;
+    }
     updateFabState();
     updateHeaderProgress();
     const inReview = getRevisionSet().has(item.questionImage);
@@ -1247,10 +1902,64 @@ document.addEventListener('DOMContentLoaded', () => {
     _lastTap = now;
   }, { passive: false });
 
+  // Update banner handlers
+  document.getElementById('pwa-update-reload').addEventListener('click', () => window.location.reload());
+  document.getElementById('pwa-update-dismiss').addEventListener('click', () => {
+    document.getElementById('pwa-update-banner').setAttribute('hidden', '');
+  });
+
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./qb_pwa_sw.js', { scope: './' })
+      .then(async reg => {
+        // Auto-reload when a new SW takes control — position + filters are persisted so resume is seamless
+        let prevController = navigator.serviceWorker.controller;
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+          if (prevController !== null) window.location.reload();
+          prevController = navigator.serviceWorker.controller;
+        });
+
+        // Listen for SW postMessage: new qb_index.json content detected during background revalidation
+        navigator.serviceWorker.addEventListener('message', e => {
+          if (e.data?.type === 'QB_INDEX_UPDATED') {
+            document.getElementById('pwa-update-banner').removeAttribute('hidden');
+          }
+        });
+
+        // Background Sync: re-validate qb_index.json whenever connectivity resumes
+        if ('sync' in reg) {
+          window.addEventListener('online', () => {
+            reg.sync.register('qb-index-sync').catch(() => {});
+          });
+        }
+
+        // Periodic Background Sync: daily refresh on Android Chrome.
+        // iOS PWA does not support periodicSync; the online-event sync above covers that gap.
+        if ('periodicSync' in reg) {
+          try {
+            const perm = await navigator.permissions.query({ name: 'periodic-background-sync' });
+            if (perm.state === 'granted') {
+              await reg.periodicSync.register('qb-index-daily', { minInterval: 24 * 60 * 60 * 1000 });
+            }
+          } catch {}
+        }
+      })
       .catch(err => console.warn('[QB PWA] SW registration failed:', err));
   }
+
+  // Recover from broken state after iOS bfcache restore or PWA resume.
+  // If the page was frozen mid-initialization (applyFilters still in-flight when
+  // iOS backgrounded it), the DOM shows the initial shell with no data. Detect
+  // this on any visible-transition and re-run initialization.
+  function _resumeCheck() {
+    if (!qbManifest || !selectedBank) { initStreams(); }
+    else if (!qbankCache || !qbankFiltered.length) applyFilters();
+  }
+  // pageshow with persisted=true: bfcache restore (typical iOS minimize+reopen)
+  window.addEventListener('pageshow', e => { if (e.persisted) _resumeCheck(); });
+  // visibilitychange: covers lock-screen unlock, app-switcher resume, and edge cases
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') _resumeCheck();
+  });
 });
 </script>
 </body>

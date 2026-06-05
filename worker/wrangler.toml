@@ -5,3 +5,7 @@ compatibility_date = "2025-01-01"
 [[r2_buckets]]
 binding     = "EXPLANATIONS"
 bucket_name = "tet-questionbank-explanations"
+
+[[r2_buckets]]
+binding     = "QB_SPRITES"
+bucket_name = "tet-questionbank"

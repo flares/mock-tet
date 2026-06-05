@@ -25,25 +25,39 @@
   // In-memory set of questionIds known to be in the R2 index (populated by fetchIndex).
   let _indexSet = null;
 
-  // ── Path helpers ────────────────────────────────────────────────────────────
+  // Warm _indexSet from localStorage synchronously so hasInIndex works before
+  // fetchIndex() resolves on cold start.
+  try {
+    const cached = JSON.parse(localStorage.getItem(INDEX_CACHE_KEY) || 'null');
+    if (Array.isArray(cached)) _indexSet = new Set(cached);
+  } catch {}
 
-  function parseImage(questionImage) {
-    // "question_bank/CDP/2026-Jan-03-Shift1_Q001_8657994132/question.png"
-    const parts = questionImage.split('/');
-    return { subject: parts[1], folder: parts[2] };
+  // ── Path helpers ────────────────────────────────────────────────────────────
+  // Explanations are keyed by the globally-unique q_id (not paper/subject), so the
+  // same scheme works across every TET stream and avoids spaces in R2 paths (some
+  // subjects are "Social Studies" / "Environmental Studies"). R2 key shape:
+  //   explanations/q/Q<q_id>.json
+  // q_id is the trailing underscore-segment of the questionImage folder, e.g.
+  //   question_bank/CDP/2026-Jan-03-Shift1_Q001_8657994132/question.png  → 8657994132
+  //   question_bank/CDP/<tet_bank>__2025-Jan-11-Shift1_Q001_7150532296/…  → 7150532296
+
+  function qIdOf(questionImage) {
+    const folder = (questionImage || '').split('/')[2] || '';
+    return folder.split('_').pop() || folder;
   }
 
   function folderKey(questionImage) {
-    return parseImage(questionImage).folder;
+    // Stable per-question id used for the R2 object, the index, and local caches.
+    return 'Q' + qIdOf(questionImage);
   }
 
   function apiUrl(questionImage, expId) {
     const cfg  = getConfig();
     const base = cfg.workerUrl.replace(/\/+$/, '');
-    const { subject, folder } = parseImage(questionImage);
+    const key  = folderKey(questionImage);   // "Q<q_id>"
     return expId
-      ? `${base}/explanations/${subject}/${folder}/${expId}`
-      : `${base}/explanations/${subject}/${folder}`;
+      ? `${base}/explanations/q/${key}/${expId}`
+      : `${base}/explanations/q/${key}`;
   }
 
   function authHeader() {
@@ -213,5 +227,5 @@
     } catch { return false; }
   }
 
-  window.R2Explanations = { isConfigured: () => !!getConfig(), fetch: fetch_, save, rate, remove, bestExplanation, getUserVote, setUserVote, fetchIndex, addToIndex };
+  window.R2Explanations = { isConfigured: () => !!getConfig(), fetch: fetch_, save, rate, remove, bestExplanation, getUserVote, setUserVote, fetchIndex, addToIndex, hasInIndex: q => !!_indexSet?.has(folderKey(q)) };
 })();

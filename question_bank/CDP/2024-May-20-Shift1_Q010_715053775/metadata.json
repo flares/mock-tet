@@ -3,13 +3,38 @@
   "q_id": "715053775",
   "subject": "CDP",
   "correct_answer": 3,
-  "header_pg": 9,
-  "header_y": 21.27402687072754,
   "paper_id": "2024-May-20-Shift1",
   "year": "2024",
   "month": "May",
   "day": "20",
   "shift": "1",
   "date": "20 May 2024",
-  "is_comprehension": false
+  "is_comprehension": false,
+  "sprite": {
+    "question": {
+      "y": 0,
+      "h": 108,
+      "w": 665
+    },
+    "option1": {
+      "y": 108,
+      "h": 138,
+      "w": 615
+    },
+    "option2": {
+      "y": 246,
+      "h": 133,
+      "w": 583
+    },
+    "option3": {
+      "y": 379,
+      "h": 95,
+      "w": 610
+    },
+    "option4": {
+      "y": 474,
+      "h": 124,
+      "w": 609
+    }
+  }
 }
