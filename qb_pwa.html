@@ -707,7 +707,7 @@ const PAPER_LINE_HEIGHT_DEFAULT = 47;
 const LS_FONT_SIZE_KEY = 'qb_target_line_height_px';
 
 /* ── Constants ──────────────────────────────────────────────────────────── */
-const APP_VERSION    = '0.4.5';
+const APP_VERSION    = '0.4.6';
 const CACHE_BUST     = '1';   // increment on special pushes to wipe stale localStorage
 const UNDERSTOOD_KEY = 'tet_understood_questions';
 const REVISION_KEY   = 'tet_revision_questions';
@@ -893,6 +893,7 @@ async function _fetchStreamIndex(bank, etag) {
   if (resp.status === 304) return qbankCache;
   if (!resp.ok) throw new Error(`index ${resp.status}`);
   const data = await resp.json();
+  if (!Array.isArray(data)) throw new Error('invalid index format');
   const newEtag = resp.headers.get('etag') || '';
   try { localStorage.setItem(qbCacheKey(bank), JSON.stringify({ v: 2, etag: newEtag, data })); } catch {}
   if (selectedBank === bank) qbankCache = _tag(data, bank);
@@ -999,9 +1000,10 @@ async function applyFilters() {
   let all;
   try { all = await loadQuestionBank(); }
   catch (err) {
-    hideEmptyState();
-    document.getElementById('pwa-explanation').innerHTML =
-      `<p class="pwa-msg">Could not load question bank: ${esc(err.message)}</p>`;
+    showEmptyState();
+    document.getElementById('pwa-empty-icon').textContent = '⚠️';
+    document.getElementById('pwa-empty-text').innerHTML =
+      `Could not load question bank.<br><small>${esc(err.message)}</small><br><br>Check your connection and refresh.`;
     return;
   }
   qbankFiltered = buildFiltered(all);
@@ -1827,7 +1829,12 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('pwa-fab-revision').addEventListener('click', () => {
     const item = qbankFiltered[qbankIndex];
     if (!item) return;
-    toggleRevision(item.questionImage);
+    try {
+      toggleRevision(item.questionImage);
+    } catch (e) {
+      showToast('Could not save — storage full?');
+      return;
+    }
     updateFabState();
     updateHeaderProgress();
     const inReview = getRevisionSet().has(item.questionImage);

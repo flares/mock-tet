@@ -1,5 +1,7 @@
 # Change History
 
+- 2026-06-05 | v0.4.6 | minor | Fix silent FAB failures: SW offline fallback now returns 503 (not empty {}), _fetchStreamIndex validates array, applyFilters shows empty-state on load error (FAB hidden), revision FAB handler catches saveRevisionList throws with user-facing toast
+
 - 2026-06-05 | v0.4.5 | minor | Fix Playwright tests: seed qb_pos_v1:<bank> in loadApp so the v0.4.3 picker-on-fresh-open logic is bypassed in tests; fix stream-panel close in picker test (panel intercepts button clicks, use option click instead)
 
 - 2026-06-04 | v0.4.5 | minor | Auto-reload on SW update (controllerchange): safe now that position+filters are persisted; user seamlessly resumes same question on new version

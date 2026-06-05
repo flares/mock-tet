@@ -1,4 +1,4 @@
-const CACHE = 'qb-pwa-v13';
+const CACHE = 'qb-pwa-v14';
 
 const SHELL = [
   './qb_pwa.html',
@@ -126,9 +126,7 @@ self.addEventListener('fetch', e => {
           caches.open(CACHE).then(c => c.put(request, resp.clone()));
         }
         return resp;
-      }).catch(() => caches.match(request).then(c => c || new Response('{}', {
-        headers: { 'Content-Type': 'application/json' }
-      })))
+      }).catch(() => caches.match(request).then(c => c || new Response('', { status: 503, statusText: 'Offline' })))
     );
     return;
   }
