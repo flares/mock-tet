@@ -1,5 +1,7 @@
 # Change History
 
+- 2026-06-05 | v0.4.5 | minor | Fix Playwright tests: seed qb_pos_v1:<bank> in loadApp so the v0.4.3 picker-on-fresh-open logic is bypassed in tests; fix stream-panel close in picker test (panel intercepts button clicks, use option click instead)
+
 - 2026-06-04 | v0.4.5 | minor | Auto-reload on SW update (controllerchange): safe now that position+filters are persisted; user seamlessly resumes same question on new version
 
 - 2026-06-04 | v0.4.4 | minor | Fix update banner not showing on iOS PWA: controllerchange now shows persistent "New version available" banner with Reload button instead of transient toast; SW cache bumped v12→v13

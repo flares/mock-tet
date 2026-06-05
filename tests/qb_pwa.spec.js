@@ -164,25 +164,43 @@ async function mockRoutes(page) {
  * and goes straight to browsing. Pass `selectBank: null` to leave it unselected
  * (so the picker auto-opens on first load).
  *
+ * v0.4.3 added "picker-on-fresh-open": the picker is skipped only when BOTH
+ * `qb_selected_bank` AND `qb_pos_v1:<bank>` are set in localStorage. Tests that
+ * want to land directly in browse mode must seed both keys.
+ *
  * @param {import('@playwright/test').Page} page
  * @param {{ understood?: string[], revision?: object[], selectBank?: string|null }} opts
  */
 async function loadApp(page, { understood = [], revision = [], selectBank = MS_BANK } = {}) {
-  await page.addInitScript(({ u, r, bank }) => {
+  // Seed a saved position so initStreams bypasses the picker for the chosen bank.
+  const posVal = selectBank === MS_BANK ? MS_INDEX[0].questionImage
+               : selectBank === P1_BANK ? P1_INDEX[0].questionImage
+               : null;
+
+  await page.addInitScript(({ u, r, bank, pos }) => {
     // Wipe per-stream / manifest caches so the mocked routes are always hit fresh
     Object.keys(localStorage)
       .filter(k => k.startsWith('qb_index_cache_') || k === 'qb_manifest_cache_v1')
       .forEach(k => localStorage.removeItem(k));
     localStorage.setItem('tet_understood_questions', JSON.stringify(u));
     localStorage.setItem('tet_revision_questions',  JSON.stringify(r));
-    if (bank) localStorage.setItem('qb_selected_bank', bank);
-    else localStorage.removeItem('qb_selected_bank');
-  }, { u: understood, r: revision, bank: selectBank });
+    if (bank) {
+      localStorage.setItem('qb_selected_bank', bank);
+      if (pos) localStorage.setItem(`qb_pos_v1:${bank}`, pos);
+    } else {
+      localStorage.removeItem('qb_selected_bank');
+    }
+  }, { u: understood, r: revision, bank: selectBank, pos: posVal });
 
   await page.goto('/qb_pwa.html');
 
-  // Wait until the progress counter has live data (changes from '—' to 'N / M')
-  await expect(page.locator('#pwa-progress-count')).not.toHaveText('—', { timeout: 8000 });
+  if (selectBank !== null) {
+    // Wait until the progress counter has live data (changes from '—' to 'N / M')
+    await expect(page.locator('#pwa-progress-count')).not.toHaveText('—', { timeout: 8000 });
+  } else {
+    // No bank: the picker opens instead — wait for it to appear
+    await expect(page.locator('#pwa-stream-picker')).toBeVisible({ timeout: 8000 });
+  }
 }
 
 /** Open the subject dropdown and select a subject (items are built dynamically per stream). */
@@ -208,7 +226,10 @@ test.describe('stream picker (first load)', () => {
     await page.click('#sp-stream-btn');
     const msOption = page.locator('.sp-dd-opt', { hasText: 'Maths/Science · Telugu' });
     await expect(msOption).toContainText('21 papers');
-    await page.click('#sp-stream-btn');   // close the panel
+    // The stream panel uses position:fixed and covers the button, so clicking the button
+    // again to close fails (panel intercepts the hit). Instead click the active option —
+    // any sp-dd-opt click calls spCloseDD() and closes the panel.
+    await msOption.click();
 
     // Switch to Paper 1 — the stream cascades to the (only) Paper 1 stream.
     await page.click('#sp-paper-btn');
@@ -218,7 +239,7 @@ test.describe('stream picker (first load)', () => {
     await page.click('#sp-stream-btn');
     const p1Option = page.locator('.sp-dd-opt', { hasText: 'Classes I–V' });
     await expect(p1Option).toContainText('7 papers');
-    await page.click('#sp-stream-btn');   // close the panel
+    await p1Option.click();   // close the panel (same reason as above)
 
     // Summary reflects the selected (Paper 1) stream.
     await expect(page.locator('#sp-summary')).toContainText('1,050');
